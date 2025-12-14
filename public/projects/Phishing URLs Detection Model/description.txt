@@ -1,0 +1,2 @@
+A machine learning model developed as part of a data mining project to detect and classify phishing URLs. The model analyzes URL features and patterns to identify potentially malicious links.
+

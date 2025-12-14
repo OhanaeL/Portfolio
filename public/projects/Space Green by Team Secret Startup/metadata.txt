@@ -1,0 +1,6 @@
+description: A creative project exploring sustainable solutions and green technology initiatives
+date: 2024
+status: Work in Progress
+tags:
+team:
+- Team Secret Startup

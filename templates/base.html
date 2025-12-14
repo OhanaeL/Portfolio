@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Portfolio{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon.svg') }}">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{% block meta_description %}A beautiful portfolio website showcasing creative projects and professional work{% endblock %}">
+    <meta name="keywords" content="portfolio, web development, projects, creative work">
+    <meta name="author" content="Your Name">
+    
+    <!-- Open Graph Meta Tags (for social media sharing) -->
+    <meta property="og:title" content="{% block og_title %}Portfolio{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}A beautiful portfolio website showcasing creative projects and professional work{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:image" content="{{ url_for('static', filename='favicon.svg', _external=True) }}">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{% block twitter_title %}Portfolio{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}A beautiful portfolio website showcasing creative projects{% endblock %}">
+    <meta name="twitter:image" content="{{ url_for('static', filename='favicon.svg', _external=True) }}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <script>window.scrollTo(0, 0);</script>
+    
+    <!-- Desktop Navbar -->
+    <nav class="navbar desktop-navbar">
+        <div class="container">
+            <a href="/" class="logo">My Portfolio</a>
+            
+            <!-- Desktop nav links -->
+            <div class="nav-links">
+                <a href="/" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Home</a>
+                <a href="/timeline" class="nav-link {% if request.endpoint == 'timeline' %}active{% endif %}">My Journey</a>
+                <a href="/work-experience" class="nav-link {% if request.endpoint == 'work_experience' %}active{% endif %}">Work Experience</a>
+                <a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About Me</a>
+                <div class="dropdown {% if request.endpoint == 'projects' or request.endpoint == 'project' %}active{% endif %}">
+                    <button class="nav-link dropdown-btn">Projects <i class="fas fa-chevron-down"></i></button>
+                    <div class="dropdown-content">
+                        <a href="/projects">All Projects</a>
+                        {% if all_projects %}
+                        <div class="dropdown-divider"></div>
+                        {% for proj in all_projects[:5] %}
+                        <a href="/project/{{ proj.name }}">{{ proj.name }}</a>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Navbar -->
+    <nav class="mobile-navbar">
+        <div class="mobile-navbar-container">
+            <a href="/" class="mobile-logo">My Portfolio</a>
+            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+    
+    <div class="sparkles-container"></div>
+    
+    <!-- Mobile sidebar (outside navbar) -->
+    <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+    <div class="mobile-nav-sidebar" id="mobile-nav-sidebar">
+        <a href="/" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Home</a>
+        <a href="/timeline" class="nav-link {% if request.endpoint == 'timeline' %}active{% endif %}">My Journey</a>
+        <a href="/work-experience" class="nav-link {% if request.endpoint == 'work_experience' %}active{% endif %}">Work Experience</a>
+        <a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About Me</a>
+        <div class="dropdown {% if request.endpoint == 'projects' or request.endpoint == 'project' %}active{% endif %}">
+            <button class="nav-link dropdown-btn">Projects <i class="fas fa-chevron-down"></i></button>
+            <div class="dropdown-content">
+                <a href="/projects">All Projects</a>
+                {% if all_projects %}
+                <div class="dropdown-divider"></div>
+                {% for proj in all_projects[:5] %}
+                <a href="/project/{{ proj.name }}">{{ proj.name }}</a>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 My Portfolio. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;"><a href="/credits" class="footer-link">Credits & Attributions</a></p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/init.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+
+

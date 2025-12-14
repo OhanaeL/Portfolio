@@ -1,0 +1,2 @@
+A research project comparing various metaheuristic optimization algorithms. This project analyzes and evaluates the performance of different algorithms on various optimization problems.
+

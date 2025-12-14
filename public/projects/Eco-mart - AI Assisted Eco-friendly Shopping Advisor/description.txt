@@ -1,0 +1,31 @@
+# Eco-mart - AI Assisted Eco-friendly Shopping Advisor
+
+Eco-mart is an innovative shopping advisor application that won **2nd Runner-Up** at the Hack the Zodiac Hackathon 2024. The system helps users make environmentally conscious purchasing decisions by searching across multiple e-commerce platforms and calculating eco-friendliness ratings.
+
+## Project Overview
+
+Eco-mart addresses the growing need for sustainable shopping by providing users with an AI-powered advisor that evaluates products based on their environmental impact. The system searches across major e-commerce platforms and recommends the most eco-friendly options.
+
+## Key Features
+
+- **Multi-Platform Product Search**: Searches Amazon, Lazada, and other e-commerce platforms simultaneously
+- **Eco-Friendliness Rating System**: Calculates environmental impact ratings for products
+- **Intelligent Recommendations**: Recommends top 5 products based on user preferences and eco-friendliness filters
+- **User Preference Filtering**: Allows users to customize search criteria and priorities
+
+## Hackathon Achievement
+
+This project was awarded **2nd Runner-Up** at the Hack the Zodiac Hackathon 2024, recognizing its innovation in combining AI technology with environmental consciousness.
+
+## Technologies & Skills
+
+- Web Scraping & Crawling
+- AI/ML Algorithms
+- E-commerce API Integration
+- Environmental Impact Analysis
+- Recommendation Systems
+
+## Impact
+
+Eco-mart demonstrates how technology can empower consumers to make more sustainable choices, contributing to environmental conservation through informed purchasing decisions.
+

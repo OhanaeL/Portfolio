@@ -1,0 +1,24 @@
+In May 2025, I started my full-time position as a Python Developer at Brillar Company, a Python-based AI company. As the sole Python developer on the team, I took on significant responsibilities in developing and maintaining Python-based AI solutions.
+
+## Role Overview
+
+This role has been instrumental in my professional growth, allowing me to work on real-world AI projects, collaborate with a talented team, and contribute to innovative solutions in the artificial intelligence space. The experience has deepened my expertise in Python development and AI technologies.
+
+## Key Responsibilities
+
+- Develop and maintain Python-based AI applications and services
+- Design and implement machine learning models and algorithms
+- Collaborate with cross-functional teams on AI solutions
+- Optimize and improve existing AI systems
+- Contribute to the company's AI product development
+
+## Technologies & Skills
+
+- Python programming and development
+- Machine Learning and AI frameworks
+- Software architecture and design
+- Problem-solving and debugging
+- Team collaboration and communication
+
+Working at Brillar Company has provided me with hands-on experience in the AI industry and the opportunity to work on cutting-edge technologies that solve real-world problems.
+

@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.name }} - Portfolio{% endblock %}
+
+{% block contact_link %}{% endblock %}
+{% block mobile_contact_link %}{% endblock %}
+
+{% block content %}
+<div class="project-header">
+    <div class="container">
+        <div class="project-nav-top">
+            <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+            <div class="project-nav-buttons">
+                {% if prev_project %}
+                <a href="/project/{{ prev_project.name }}" class="nav-project-btn prev-project" title="Previous: {{ prev_project.name }}">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                {% endif %}
+                {% if next_project %}
+                <a href="/project/{{ next_project.name }}" class="nav-project-btn next-project" title="Next: {{ next_project.name }}">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <h1>{{ project.name }}
+                {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
+                <span class="status-badge work-in-progress">WIP</span>
+                {% endif %}
+            </h1>
+        </div>
+        <div class="project-meta-info">
+            {% if project.metadata.date %}
+            <div class="meta-item">
+                <i class="fas fa-calendar"></i>
+                <span>{{ project.metadata.date }}</span>
+            </div>
+            {% endif %}
+            {% if project.metadata.team %}
+            <div class="meta-item team-meta">
+                {% if project.metadata.team|length == 1 %}
+                <i class="fas fa-user"></i>
+                <span>Solo</span>
+                {% else %}
+                <i class="fas fa-users"></i>
+                <span>Team: </span>
+                <div class="team-list-inline">
+                    {% for member in project.metadata.team %}
+                    <span class="team-member-inline">{{ member }}</span>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <section class="project-content">
+        {% if project.images %}
+        <div class="image-gallery scroll-reveal">
+            <div class="gallery-grid">
+                {% for image in project.images %}
+                <div class="gallery-item" data-index="{{ loop.index0 }}">
+                    <img src="/project-image/{{ project.name }}/images/{{ image.filename }}" alt="{{ image.title }}">
+                    <div class="gallery-title">{{ image.title }}</div>
+                    {% if image.description %}
+                    <div class="gallery-description">{{ image.description }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="project-description scroll-reveal">
+            {{ project.description|safe }}
+        </div>
+        
+        {% if project.embeds.videos or project.embeds.pdfs %}
+        <div class="embeds-section scroll-reveal">
+            <h2 class="section-title" style="font-size: 2rem; margin-bottom: 2rem;">Media & Resources</h2>
+            
+            {% if project.embeds.videos %}
+            <div class="videos-container">
+                <h3 class="embed-category">Videos</h3>
+                
+                <!-- Desktop: Show video embeds -->
+                <div class="videos-grid desktop-videos">
+                    {% for video in project.embeds.videos %}
+                    <div class="video-embed">
+                        <div class="video-wrapper">
+                            <iframe 
+                                src="https://www.youtube.com/embed/{{ video.id }}" 
+                                title="{{ video.title }}"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-title">{{ video.title }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Mobile: Show text links -->
+                <div class="mobile-videos">
+                    {% for video in project.embeds.videos %}
+                    <a href="https://www.youtube.com/watch?v={{ video.id }}" target="_blank" rel="noopener noreferrer" class="mobile-embed-link">
+                        {{ video.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if project.embeds.pdfs %}
+            <div class="pdfs-container">
+                <h3 class="embed-category">Documents</h3>
+                
+                <!-- Desktop: Regular PDF grid -->
+                <div class="pdfs-grid desktop-pdfs">
+                    {% for pdf in project.embeds.pdfs %}
+                    <a href="/project-embed/{{ project.name }}/{{ pdf.filename }}" target="_blank" rel="noopener noreferrer" class="pdf-embed">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>{{ pdf.title }}</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    {% endfor %}
+                </div>
+                
+                <!-- Mobile: Show text links -->
+                <div class="mobile-pdfs">
+                    {% for pdf in project.embeds.pdfs %}
+                    <a href="/project-embed/{{ project.name }}/{{ pdf.filename }}" target="_blank" rel="noopener noreferrer" class="mobile-embed-link">
+                        {{ pdf.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </section>
+</div>
+
+{% endblock %}
+

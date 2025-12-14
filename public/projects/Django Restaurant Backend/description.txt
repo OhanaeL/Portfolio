@@ -1,0 +1,2 @@
+A RESTful backend API for a restaurant management system built with Django. Provides endpoints for managing menu items, orders, reservations, and other restaurant operations.
+

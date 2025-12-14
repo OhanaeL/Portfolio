@@ -1,0 +1,12 @@
+This is my personal portfolio website built with Flask. I wanted a simple way to showcase my projects without dealing with a database, so I built a file-based system where I just add folders and text files to add new content.
+
+The website has a few main pages: a home page showing featured projects, a projects page with all my work, a timeline of my accomplishments, and an about page with my skills and certificates. I can add new projects by creating a folder with a description file and some images, and the site automatically picks them up. There's also an order.txt file where I can control which projects show up first, so I can highlight my most recent or important work.
+
+It features some useful features like search and tag filtering so visitors can find projects they're interested in. The search works in real-time as you type, and the tag filters are automatically generated from the tags I add to each project's metadata. The descriptions support Markdown so I can format text nicely with headers, bold text, lists, and code blocks. I also created a special syntax for embedding images that show up when you hover over text - this is useful for showing screenshots or diagrams inline with the description. There's also an image carousel for projects with multiple screenshots, and a lightbox view for looking at images in detail.
+
+For the technical side, I used Flask for the backend and vanilla JavaScript with ES6 modules for the frontend. The content is all file-based - projects, accomplishments, and about sections are just folders with text files, which makes it easy to update without touching any code. I also added SEO features like meta tags, Open Graph tags for social sharing, and a dynamic sitemap that automatically includes all my project pages.
+
+[image:homepage.png:Portfolio Homepage]
+[image:projects_page.png:Projects Page with Search and Filters]
+[image:timeline_page.png:Timeline Page]
+[image:about_page.png:About Page with Skills and Certificates]

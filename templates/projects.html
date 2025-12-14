@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}All Projects - Portfolio{% endblock %}
+
+{% block content %}
+<div class="projects-page">
+    <div class="container">
+        <h1 class="section-title" style="margin-top: 2rem; margin-bottom: 2rem;">All Projects</h1>
+        
+        <!-- Search Bar -->
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="project-search" class="search-input" placeholder="Search projects by name or description...">
+            <button class="search-clear" id="search-clear" style="display: none;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Tags Filter -->
+        <div class="tags-filter" id="tags-filter">
+            <!-- Tags will be dynamically inserted here by JavaScript -->
+        </div>
+        
+        <div class="projects-grid" id="projects-grid">
+            {% for project in all_projects %}
+            <a href="/project/{{ project.name }}" class="project-card" data-tags="{{ project.metadata.tags|join(',') }}">
+                <div class="project-card-inner">
+                    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                        <h3>{{ project.name }}
+                            {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
+                            <span class="status-badge work-in-progress">WIP</span>
+                            {% endif %}
+                        </h3>
+                    </div>
+                    {% if project.metadata.date %}
+                    <div class="project-date">
+                        <i class="fas fa-calendar"></i> {{ project.metadata.date }}
+                    </div>
+                    {% endif %}
+                    {% if project.metadata.tags %}
+                    <div class="project-tags">
+                        {% for tag in project.metadata.tags %}
+                        <span class="project-tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p class="project-short-desc">{{ project.metadata.short_description }}</p>
+                    <div class="project-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        
+        {% if not all_projects %}
+        <div class="empty-state">
+            <i class="fas fa-folder-open"></i>
+            <h3>No Projects Yet</h3>
+            <p>Create a folder in the "projects" directory to add your first project!</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

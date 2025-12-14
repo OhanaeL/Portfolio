@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - Home{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="container">
+        <div class="hero-title-wrapper">
+            <h1 class="hero-title" id="mainTitle">Welcome to My Portfolio</h1>
+        </div>
+        <p class="hero-subtitle fade-in-content">Explore my creative projects and work</p>
+        <div class="scroll-arrow fade-in-content">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+</div>
+
+<div class="divider-section fade-in-content">
+    <div class="divider-line"></div>
+</div>
+
+<div class="container">
+    <section class="projects-section scroll-reveal">
+        <a href="/projects" class="section-title-link">
+            <h2 class="section-title">
+                My Projects
+                <i class="fas fa-arrow-right section-title-arrow"></i>
+            </h2>
+        </a>
+        {% if projects %}
+        <div class="projects-grid">
+            {% for project in projects %}
+            <a href="/project/{{ project.name }}" class="project-card" data-tags="{{ project.metadata.tags|join(',') }}">
+                <div class="project-card-inner">
+                    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                        <h3>{{ project.name }}
+                            {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
+                            <span class="status-badge work-in-progress">WIP</span>
+                            {% endif %}
+                        </h3>
+                    </div>
+                    {% if project.metadata.date %}
+                    <div class="project-date">
+                        <i class="fas fa-calendar"></i> {{ project.metadata.date }}
+                    </div>
+                    {% endif %}
+                    {% if project.metadata.tags %}
+                    <div class="project-tags">
+                        {% for tag in project.metadata.tags %}
+                        <span class="project-tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p class="project-short-desc">{{ project.metadata.short_description }}</p>
+                    <div class="project-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        
+        {% if all_projects|length > 3 %}
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="/projects" class="view-all-projects-btn">
+                View All Projects <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-folder-open"></i>
+            <h3>No Projects Yet</h3>
+            <p>Create a folder in the "projects" directory to add your first project!</p>
+        </div>
+        {% endif %}
+    </section>
+</div>
+
+<div class="divider-section fade-in-content">
+    <div class="divider-line"></div>
+</div>
+
+<section class="contact-section scroll-reveal" id="contact">
+    <div class="container">
+        <h2 class="section-title pixel-title">Get In Touch</h2>
+        <div class="contact-content">
+            <p class="contact-text">Want to work together or just say hi? Drop me a message!</p>
+            
+            <!-- Contact Methods -->
+            <div class="contact-methods">
+                <a href="mailto:htinlinn.116900@gmail.com" class="contact-card">
+                    <div class="pixel-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>htinlinn.116900 at gmail.com</p>
+                </a>
+                <a href="https://github.com/OhanaeL" target="_blank" class="contact-card">
+                    <div class="pixel-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub</h3>
+                    <p>@OhanaeL</p>
+                </a>
+                <a href="https://www.linkedin.com/in/htin-linn-b599711a1/" target="_blank" class="contact-card">
+                    <div class="pixel-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3>LinkedIn</h3>
+                    <p>/in/htin-linn</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    footer.fade-in-content {
+        opacity: 0;
+        animation: fadeInContent 1.5s ease-out forwards;
+        animation-delay: 3s;
+    }
+</style>
+{% endblock %}
+

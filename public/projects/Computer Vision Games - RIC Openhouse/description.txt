@@ -1,0 +1,39 @@
+# Computer Vision Games - RIC Openhouse
+
+Computer Vision Games is an interactive gaming project developed for the RIC Openhouse in August 2025. The project features multiple camera-based games that use hand gesture detection, creating an engaging and innovative demonstration of computer vision technology.
+
+## Project Overview
+
+This project showcases the practical application of computer vision in creating interactive entertainment. Three different games were developed, all controlled through hand gestures detected by a camera, providing an immersive and intuitive gaming experience.
+
+## Games Included
+
+### Fruit Ninja
+A gesture-controlled version of the popular Fruit Ninja game where players slice fruits using hand movements detected by the camera.
+
+### Drawing Application
+An interactive drawing tool that allows users to create artwork using hand gestures, demonstrating precision tracking and real-time interaction.
+
+### Rock-Paper-Scissors
+A classic game reimagined with computer vision, where players play against the computer using hand gestures instead of physical hand signs.
+
+## Key Features
+
+- **Real-Time Hand Gesture Detection**: Accurate tracking of hand movements and gestures
+- **Multiple Game Modes**: Three distinct interactive experiences
+- **Camera-Based Control**: No physical controllers needed
+- **Interactive Demonstration**: Showcased at RIC Openhouse for public engagement
+
+## Technologies & Skills
+
+- Python
+- OpenCV (Computer Vision)
+- MediaPipe (Hand Tracking)
+- Pygame (Game Development)
+- Real-Time Image Processing
+- Gesture Recognition
+
+## Impact
+
+This project successfully demonstrated computer vision technology to visitors at the RIC Openhouse, showcasing how modern AI and computer vision can create engaging, interactive experiences. The project highlights practical applications of machine learning and computer vision in entertainment and education.
+

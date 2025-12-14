@@ -1,0 +1,5 @@
+I received [image:teaching_assistant.png:recognition] for my outstanding contribution as a teaching assistant and software enginner at RSU under Professor Billel Arboui.
+
+Afterwards I worked for an addition 4 more months there as part of my Co-Op Education process for RIC.
+
+I helped develop [image:jobfair_homepage.png:the RSU Jobfair System], [image:attendence_system.png:RIC Attendence System], and [image:ICT_courseplanner.png:the ICT Course Planner], as well as aiding my fellow classmates.

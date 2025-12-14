@@ -1,0 +1,7 @@
+description: Machine learning model for detecting phishing URLs using data mining techniques
+date: December 2024
+status: Work in Progress
+tags: Python, Machine Learning, Data Mining, Security
+team:
+- HTIN LINN
+

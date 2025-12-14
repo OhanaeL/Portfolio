@@ -1,0 +1,34 @@
+
+filename: Python.pdf
+title: Python for Everybody
+from: University of Michigan
+description: Specialization introducing fundamental programming concepts including data structures, networked application program interfaces, and databases using Python. Completed Capstone Project designing and creating applications for data retrieval, processing, and visualization.
+year: 2020
+verification: https://coursera.org/verify/specialization/3TM4F6LSYBHQ
+
+filename: Machine Learning.pdf
+title: Machine Learning
+from: University of Washington
+description: Comprehensive specialization demonstrating proficiency in Machine Learning through rigorous coursework from leading researchers. Gained applied experience in Prediction, Classification, Clustering, and Information Retrieval. Learned to analyze large datasets, create adaptive systems, and build intelligent applications that make predictions from data.
+year: 2020
+verification: https://coursera.org/verify/specialization/2CNEB8EHATYM
+
+filename: MathematicsForML.pdf
+title: Mathematics for Machine Learning
+from: Imperial College London
+description: 3-course specialization on prerequisite mathematics for data science and machine learning. Learned to represent data in linear algebra context and manipulate mathematical objects. Gained skills in summarizing data set properties, mapping data onto lower dimensional spaces with principal component analysis, and solving optimization problems to train models including simple neural networks.
+year: 2020
+verification: https://coursera.org/verify/specialization/C8E4X57LWGJF
+
+filename: Deep Learning.pdf
+title: Deep Learning
+from: DeepLearning.AI
+description: Completed 5-course specialization building neural network architectures including Convolutional Neural Networks, Recurrent Neural Networks, LSTMs, and Transformers. Mastered optimization strategies such as Dropout, BatchNorm, and Xavier/He initialization. Applied theoretical concepts using Python and TensorFlow to real-world cases including speech recognition, music synthesis, chatbots, machine translation, and natural language processing.
+year: 2020
+verification: https://coursera.org/verify/specialization/7F4LC8X4784V
+
+filename: teachingAssistant.png
+title: Teaching Assistant Certificate
+from: Rangsit University, RIC
+description: Recognition for outstanding contribution as a teaching assistant in computer science courses
+year: 2025

@@ -1,0 +1,6 @@
+description: Comprehensive golf club ERP system with AI chatbot, winner of 1st Place at CIMSO Hospitality ERP Hackathon 2025
+date: March 2025
+tags: ERP, React, AI, Hackathon
+team:
+- HTIN LINN
+

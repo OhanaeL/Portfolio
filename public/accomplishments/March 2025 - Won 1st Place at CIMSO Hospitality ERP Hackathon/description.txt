@@ -1,0 +1,4 @@
+In March 2025, I participated in the CIMSO Hospitality ERP Hackathon and won 1st place. This achievement was a significant milestone in my hackathon journey, demonstrating my ability to develop comprehensive enterprise solutions under competitive conditions.
+
+The project involved creating a hospitality ERP system, which challenged me to think about real-world business requirements and develop practical solutions for the hospitality industry. This victory validated my technical skills and problem-solving abilities.
+

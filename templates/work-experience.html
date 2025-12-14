@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Work Experience - Portfolio{% endblock %}
+
+{% block contact_link %}{% endblock %}
+{% block mobile_contact_link %}{% endblock %}
+
+{% block content %}
+<div class="work-experience-page">
+    <div class="container">
+        <h1 class="section-title" style="margin-top: 2rem; margin-bottom: 2rem;">Work Experience</h1>
+        
+        {% if experiences %}
+        <div class="work-experience-grid">
+            {% for experience in experiences %}
+            <a href="/work-experience/{{ experience.name }}" class="work-experience-card">
+                <div class="work-experience-card-inner">
+                    <h3>{{ experience.display_name }}</h3>
+                    {% if experience.date %}
+                    <div class="work-experience-date">
+                        <i class="fas fa-calendar"></i> {{ experience.date }}
+                    </div>
+                    {% endif %}
+                    {% if experience.metadata.company %}
+                    <div class="work-experience-company">
+                        <i class="fas fa-building"></i> {{ experience.metadata.company }}
+                    </div>
+                    {% endif %}
+                    <p class="work-experience-short-desc">{{ experience.metadata.short_description }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-briefcase"></i>
+            <h3>No Work Experience Yet</h3>
+            <p>Create a folder in the "work-experience" directory to add your first entry!</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

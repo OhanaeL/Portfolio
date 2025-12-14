@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}My Journey - Portfolio{% endblock %}
+
+{% block contact_link %}{% endblock %}
+{% block mobile_contact_link %}{% endblock %}
+
+{% block content %}
+<div class="timeline-page">
+    <div class="container">
+        <h1 class="section-title" style="margin-top: 2rem; margin-bottom: 3rem;">My Journey</h1>
+        
+        {% if accomplishments %}
+        <div class="timeline">
+            <div class="timeline-top">
+                <span class="coming-soon">Coming soon...</span>
+            </div>
+            {% for accomplishment in accomplishments %}
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-marker">
+                    <div class="timeline-dot"></div>
+                    {% if accomplishment.year %}
+                    <div class="timeline-year">{{ accomplishment.year }}</div>
+                    {% endif %}
+                </div>
+                <div class="timeline-content">
+                    <h2 class="timeline-title">{{ accomplishment.name }}</h2>
+                    <div class="timeline-description">
+                        {{ accomplishment.description|safe }}
+                    </div>
+                    
+                    
+                    {% if accomplishment.embeds.videos or accomplishment.embeds.pdfs %}
+                    <div class="embeds-section">
+                        {% if accomplishment.embeds.videos %}
+                        <div class="embed-category">
+                            <div class="videos-container">
+                                <!-- Desktop: Show video embeds -->
+                                <div class="videos-grid desktop-videos">
+                                    {% for video in accomplishment.embeds.videos %}
+                                    <div class="video-embed">
+                                        <div class="video-wrapper">
+                                            <iframe 
+                                                src="https://www.youtube.com/embed/{{ video.id }}" 
+                                                title="{{ video.title }}"
+                                                frameborder="0" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                allowfullscreen>
+                                            </iframe>
+                                        </div>
+                                        <div class="video-title">{{ video.title }}</div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                
+                                <!-- Mobile: Show text links -->
+                                <div class="mobile-videos">
+                                    {% for video in accomplishment.embeds.videos %}
+                                    <a href="https://www.youtube.com/watch?v={{ video.id }}" target="_blank" rel="noopener noreferrer" class="mobile-embed-link">
+                                        {{ video.title }}
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if accomplishment.embeds.pdfs %}
+                        <div class="embed-category">
+                            <div class="pdfs-container">
+                                <!-- Desktop: Regular PDF grid -->
+                                <div class="pdfs-grid desktop-pdfs">
+                                    {% for pdf in accomplishment.embeds.pdfs %}
+                                    <a href="/accomplishment-embed/{{ accomplishment.name }}/{{ pdf.filename }}" 
+                                       target="_blank"
+                                       rel="noopener noreferrer" 
+                                       class="pdf-embed">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>{{ pdf.title }}</span>
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                                
+                                <!-- Mobile: Show text links -->
+                                <div class="mobile-pdfs">
+                                    {% for pdf in accomplishment.embeds.pdfs %}
+                                    <a href="/accomplishment-embed/{{ accomplishment.name }}/{{ pdf.filename }}" 
+                                       target="_blank"
+                                       rel="noopener noreferrer" 
+                                       class="mobile-embed-link">
+                                        {{ pdf.title }}
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-trophy"></i>
+            <h3>No Journey Entries Yet</h3>
+            <p>Create a folder in the "accomplishments" directory to add your first entry!</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">Folder naming format: "YYYY - Journey Entry" (e.g., "2025 - Won Hackathon")</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">You can have multiple entries from the same year!</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Lightbox for images -->
+<div class="lightbox-overlay" id="lightbox">
+    <div class="lightbox-content">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <button class="lightbox-prev" onclick="prevImage()">&lt;</button>
+        <button class="lightbox-next" onclick="nextImage()">&gt;</button>
+        <img class="lightbox-image" id="lightbox-image" alt="">
+        <div class="lightbox-title" id="lightbox-title"></div>
+    </div>
+</div>
+
+<script>
+let currentImages = [];
+let currentImageIndex = 0;
+let currentAccomplishment = '';
+
+function openLightbox(filename, accomplishmentName) {
+    currentAccomplishment = accomplishmentName;
+    currentImages = Array.from(document.querySelectorAll(`[onclick*="${accomplishmentName}"]`)).map(img => img.src);
+    currentImageIndex = currentImages.findIndex(src => src.includes(filename));
+    
+    if (currentImageIndex === -1) return;
+    
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    
+    lightboxImage.src = currentImages[currentImageIndex];
+    lightboxTitle.textContent = filename;
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function nextImage() {
+    if (currentImages.length === 0) return;
+    currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+    updateLightboxImage();
+}
+
+function prevImage() {
+    if (currentImages.length === 0) return;
+    currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+    updateLightboxImage();
+}
+
+function updateLightboxImage() {
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    
+    lightboxImage.src = currentImages[currentImageIndex];
+    const filename = currentImages[currentImageIndex].split('/').pop();
+    lightboxTitle.textContent = filename;
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox.style.display === 'flex') {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+    }
+});
+
+// Close lightbox when clicking overlay
+document.getElementById('lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+});
+</script>
+{% endblock %}
+
