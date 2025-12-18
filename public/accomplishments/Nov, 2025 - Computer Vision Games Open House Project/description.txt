@@ -1,0 +1,4 @@
+In November 2025, I joined [image:me.png:an open house project] an open house project at Rangsit University where I created a Computer Vision Games project. Visitors could play [image:camera.jpg:camera-based games] using hand gestures, making computer vision fun and interactive.
+
+The project was showcased at the RIC Openhouse, and it was exciting to see people try it out while I gained hands-on experience with Python, OpenCV, and computer vision.
+Check out the project here: [website_link:Computer Vision Games - RIC Openhouse]

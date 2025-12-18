@@ -12,7 +12,7 @@ export function setupScrollReveal() {
     // Check if we're on the home page
     const isHomePage = window.location.pathname === '/';
     
-    const elementInView = (el, offset = 200) => {
+    const elementInView = (el, offset = 100) => {
         const elementTop = el.getBoundingClientRect().top;
         return (
             elementTop <= (window.innerHeight || document.documentElement.clientHeight) - offset
@@ -78,7 +78,7 @@ export function setupScrollReveal() {
                 return;
             }
             
-            if (elementInView(el, 200)) {
+            if (elementInView(el, 100)) {
                 displayScrollElement(el);
                 // If this is the projects section, reveal cards one by one
                 if (el.classList.contains('projects-section')) {

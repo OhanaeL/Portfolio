@@ -1,7 +1,0 @@
-description: RESTful backend API for restaurant management system built with Django
-date: December 2024
-status: Work in Progress
-tags: JavaScript, Django, Backend, API, REST
-team:
-- HTIN LINN
-

@@ -45,6 +45,11 @@
 
 <div class="container">
     <section class="project-content">
+
+        <div class="project-description scroll-reveal">
+            {{ experience.description|safe }}
+        </div>
+
         {% if experience.images %}
         <div class="image-gallery scroll-reveal">
             <div class="gallery-grid">
@@ -60,10 +65,6 @@
             </div>
         </div>
         {% endif %}
-
-        <div class="project-description scroll-reveal">
-            {{ experience.description|safe }}
-        </div>
         
         {% if experience.embeds.videos or experience.embeds.pdfs %}
         <div class="embeds-section scroll-reveal">

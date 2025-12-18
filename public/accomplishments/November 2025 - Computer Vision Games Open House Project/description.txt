@@ -1,4 +1,0 @@
-In November 2025, I participated in an open house project for Rangsit University, where I developed the Computer Vision Games project. This interactive project showcased camera-based games using hand gesture detection, demonstrating practical applications of computer vision technology.
-
-The project was featured at the RIC Openhouse event, where visitors could interact with the games and experience computer vision technology firsthand. It was a great opportunity to showcase my skills in computer vision, Python, and OpenCV while contributing to the university's open house activities.
-

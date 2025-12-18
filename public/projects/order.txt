@@ -1,13 +1,3 @@
 Portfolio Website
 SPLASH Golf Club - Hospitality ERP System
-Computer Vision Games - RIC Openhouse
 RIC Attendence System
-Django Restaurant Backend
-Phishing URLs Detection Model
-Comparison of Metaheuristic Algorithms
-Next Thai - AI Assisted Travel Planner
-Eco-mart - AI Assisted Eco-friendly Shopping Advisor
-Watch with Me
-CSR Project Did you know by Team Green Pie
-HandsOff by Team TECH4U
-Space Green by Team Secret Startup

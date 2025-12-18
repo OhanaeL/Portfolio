@@ -1,7 +1,0 @@
-description: Collaborative video watching application built with Vue.js
-date: January 2025
-status: Work in Progress
-tags: Vue, Frontend, Web Application
-team:
-- HTIN LINN
-

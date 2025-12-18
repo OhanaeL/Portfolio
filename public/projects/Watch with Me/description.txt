@@ -1,2 +1,0 @@
-A collaborative video watching application built with Vue.js. Allows users to watch videos together in real-time with synchronized playback and chat functionality.
-

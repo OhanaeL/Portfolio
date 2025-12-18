@@ -24,11 +24,16 @@
             </div>
         </div>
         <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
-            <h1>{{ project.name }}
-                {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
-                <span class="status-badge work-in-progress">WIP</span>
+            <div>
+                <h1>{{ project.title }}
+                    {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
+                    <span class="status-badge work-in-progress">WIP</span>
+                    {% endif %}
+                </h1>
+                {% if project.tagline %}
+                <p class="project-tagline">{{ project.tagline }}</p>
                 {% endif %}
-            </h1>
+            </div>
         </div>
         <div class="project-meta-info">
             {% if project.metadata.date %}
@@ -53,27 +58,26 @@
                 {% endif %}
             </div>
             {% endif %}
+            {% if project.metadata.links %}
+            {% for label, url in project.metadata.links.items() %}
+            <a href="{{ url }}" target="_blank" rel="noopener noreferrer" class="meta-item project-external-link">
+                {% if label.lower() == 'github' or label.lower() == 'repository' or label.lower() == 'repo' %}
+                <i class="fab fa-github"></i>
+                {% elif label.lower() == 'demo' or label.lower() == 'live' or label.lower() == 'website' %}
+                <i class="fas fa-external-link-alt"></i>
+                {% else %}
+                <i class="fas fa-link"></i>
+                {% endif %}
+                <span>{{ label }}</span>
+            </a>
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 </div>
 
 <div class="container">
     <section class="project-content">
-        {% if project.images %}
-        <div class="image-gallery scroll-reveal">
-            <div class="gallery-grid">
-                {% for image in project.images %}
-                <div class="gallery-item" data-index="{{ loop.index0 }}">
-                    <img src="/project-image/{{ project.name }}/images/{{ image.filename }}" alt="{{ image.title }}">
-                    <div class="gallery-title">{{ image.title }}</div>
-                    {% if image.description %}
-                    <div class="gallery-description">{{ image.description }}</div>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
 
         <div class="project-description scroll-reveal">
             {{ project.description|safe }}
@@ -141,6 +145,21 @@
                 </div>
             </div>
             {% endif %}
+        </div>
+        {% endif %}
+        {% if project.images %}
+        <div class="image-gallery scroll-reveal">
+            <div class="gallery-grid">
+                {% for image in project.images %}
+                <div class="gallery-item" data-index="{{ loop.index0 }}">
+                    <img src="/project-image/{{ project.name }}/images/{{ image.filename }}" alt="{{ image.title }}">
+                    <div class="gallery-title">{{ image.title }}</div>
+                    {% if image.description %}
+                    <div class="gallery-description">{{ image.description }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
         </div>
         {% endif %}
     </section>

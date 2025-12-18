@@ -25,12 +25,17 @@
             {% for project in all_projects %}
             <a href="/project/{{ project.name }}" class="project-card" data-tags="{{ project.metadata.tags|join(',') }}">
                 <div class="project-card-inner">
-                    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
-                        <h3>{{ project.name }}
-                            {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
-                            <span class="status-badge work-in-progress">WIP</span>
-                            {% endif %}
-                        </h3>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                            <h3>{{ project.title }}
+                                {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
+                                <span class="status-badge work-in-progress">WIP</span>
+                                {% endif %}
+                            </h3>
+                        </div>
+                        {% if project.tagline %}
+                        <p class="project-card-tagline">{{ project.tagline }}</p>
+                        {% endif %}
                     </div>
                     {% if project.metadata.date %}
                     <div class="project-date">

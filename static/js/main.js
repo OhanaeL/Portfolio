@@ -5,6 +5,7 @@ import { setupScrollReveal, setupTitleEcho, setupScrollArrow } from './animation
 import { setupSmoothScroll } from './navigation.js';
 import { setupImageHover, setupImagePreview } from './gallery.js';
 import { setupTagFilters, setupProjectSearch } from './filters.js';
+import { setupCertificateTooltips } from './certificates.js';
 // import { setupContactForm } from './contact.js'; // Removed - no contact form
 
 // Initialize everything when DOM is ready
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupSmoothScroll();
     setupImageHover();
     setupImagePreview();
+    setupCertificateTooltips();
     // setupContactForm(); // Removed - no contact form
 });
 

@@ -1,6 +1,0 @@
-description: A corporate social responsibility project aimed at raising awareness and making a positive community impact
-date: 2024
-status: Work in Progress
-tags: CSR, Education
-team:
-- Team Green Pie

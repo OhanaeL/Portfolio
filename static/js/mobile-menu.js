@@ -58,13 +58,25 @@ export function setupMobileMenu() {
     }
     
     // Desktop dropdown (hover-based only for desktop)
-    const desktopDropdowns = document.querySelectorAll('.desktop-nav .dropdown');
+    const desktopDropdowns = document.querySelectorAll('.navbar.desktop-navbar .dropdown');
     desktopDropdowns.forEach(dropdown => {
+        let closeTimeout;
+        
         dropdown.addEventListener('mouseenter', () => {
+            // Clear any pending close timeout
+            if (closeTimeout) {
+                clearTimeout(closeTimeout);
+                closeTimeout = null;
+            }
             dropdown.classList.add('active');
         });
+        
         dropdown.addEventListener('mouseleave', () => {
-            dropdown.classList.remove('active');
+            // Delay closing by 1 second
+            closeTimeout = setTimeout(() => {
+                dropdown.classList.remove('active');
+                closeTimeout = null;
+            }, 1000);
         });
     });
 }

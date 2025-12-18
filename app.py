@@ -24,7 +24,8 @@ def get_project_metadata(project_name):
         'date': '',
         'team': [],
         'tags': [],
-        'status': ''
+        'status': '',
+        'links': {}
     }
     
     if metadata_file.exists():
@@ -42,7 +43,6 @@ def get_project_metadata(project_name):
                     metadata['date'] = line.split(':', 1)[1].strip()
                     current_key = None
                 elif line.startswith('tags:'):
-                    # Tags can be comma-separated on the same line
                     tags_part = line.split(':', 1)[1].strip()
                     if tags_part:
                         metadata['tags'] = [t.strip() for t in tags_part.split(',')]
@@ -56,70 +56,84 @@ def get_project_metadata(project_name):
                     metadata['team'].append(line[2:].strip())
                 elif current_key == 'tags' and line.startswith('- '):
                     metadata['tags'].append(line[2:].strip())
+                elif ':' in line and not line.startswith('- '):
+                    parts = line.split(':', 1)
+                    key = parts[0].strip().lower()
+                    value = parts[1].strip()
+                    if key in ['github', 'demo', 'website', 'live', 'link', 'repo', 'repository']:
+                        link_label = key.title() if key != 'repo' else 'Repository'
+                        metadata['links'][link_label] = value
     
     return metadata
 
 def get_all_projects():
-    """Get all project folders and their metadata, ordered by order.txt."""
+    """Get all project folders and their metadata, with featured projects first, then alphabetical."""
     projects = []
     projects_path = Path(app.config['PROJECTS_FOLDER'])
     
     if not projects_path.exists():
         return projects
     
-    # Check for order.txt
     order_file = projects_path / 'order.txt'
-    project_order = []
+    featured_order = []
     
     if order_file.exists():
         with open(order_file, 'r', encoding='utf-8') as f:
-            project_order = [line.strip() for line in f.readlines() if line.strip()]
+            featured_order = [line.strip() for line in f.readlines() if line.strip()]
     
-    # Get all available projects
     available_projects = {}
     for folder in projects_path.iterdir():
         if folder.is_dir():
             metadata = get_project_metadata(folder.name)
+            
+            if ' - ' in folder.name:
+                parts = folder.name.split(' - ', 1)
+                title = parts[0].strip()
+                tagline = parts[1].strip()
+            else:
+                title = folder.name
+                tagline = None
+            
             available_projects[folder.name] = {
                 'name': folder.name,
+                'title': title,
+                'tagline': tagline,
                 'slug': folder.name.lower().replace(' ', '-'),
                 'metadata': metadata
             }
     
-    # If order.txt exists, only include projects listed there in that order
-    if project_order:
-        for project_name in project_order:
+    added_projects = set()
+    
+    if featured_order:
+        for project_name in featured_order:
             if project_name in available_projects:
                 projects.append(available_projects[project_name])
-    else:
-        # No order.txt, use alphabetical order
-        for folder_name in sorted(available_projects.keys()):
-            projects.append(available_projects[folder_name])
+                added_projects.add(project_name)
+    
+    remaining_projects = [name for name in sorted(available_projects.keys()) if name not in added_projects]
+    for project_name in remaining_projects:
+        projects.append(available_projects[project_name])
     
     return projects
 
 def process_markdown(text):
     """Process Markdown syntax while protecting custom HTML tags."""
-    # Protect our custom HTML tags from Markdown processing
     placeholders = {}
     placeholder_counter = 0
     
     def create_placeholder(html):
         nonlocal placeholder_counter
-        # Wrap in backticks so Markdown treats it as inline code and preserves it exactly
         key = f"`PROTECTEDHTML{placeholder_counter}`"
         placeholder_counter += 1
         placeholders[key] = html
         return key
     
-    # Protect image hover triggers and project links
     protected_patterns = [
         (r'<span class="image-hover-trigger"[^>]*>.*?</span>', create_placeholder),
         (r'<a href="/project/[^"]*"[^>]*>.*?</a>', create_placeholder),
         (r'<a href="/accomplishment-image/[^"]*"[^>]*>.*?</a>', create_placeholder),
     ]
     
-    # Replace protected HTML with placeholders
     for pattern, replacer in protected_patterns:
         def make_replacer(placeholder_func):
             def repl(match):
@@ -127,27 +141,20 @@ def process_markdown(text):
             return repl
         text = re.sub(pattern, make_replacer(replacer), text, flags=re.DOTALL)
     
-    # Now process Markdown
     text = markdown.markdown(
         text,
         extensions=['extra', 'nl2br'],
         output_format='html5'
     )
     
-    # Restore protected HTML tags
-    # Markdown converts backticks to <code> tags, so we need to find those
     import html
     import re as re_module
     for placeholder, original_html in placeholders.items():
-        # The placeholder was wrapped in backticks, so Markdown converted it to <code>PROTECTEDHTML0</code>
-        # Extract the number from the placeholder
         match = re_module.search(r'PROTECTEDHTML(\d+)', placeholder)
         if match:
             num = match.group(1)
-            # Look for <code>PROTECTEDHTML{num}</code> in the output
             code_pattern = f'<code>PROTECTEDHTML{num}</code>'
             text = text.replace(code_pattern, original_html)
-            # Also try with escaped HTML
             escaped_code = html.escape(code_pattern)
             if escaped_code in text:
                 text = text.replace(escaped_code, original_html)
@@ -161,7 +168,6 @@ def parse_project(project_name):
     if not project_path.exists():
         return None
     
-    # Find the description .txt file
     txt_files = list(project_path.glob('*.txt'))
     description = ""
     
@@ -169,7 +175,6 @@ def parse_project(project_name):
         with open(txt_files[0], 'r', encoding='utf-8') as f:
             description = f.read()
     
-    # Get all images from the images folder
     images_path = project_path / 'images'
     all_images = []
     used_images = set()
@@ -179,7 +184,6 @@ def parse_project(project_name):
             if img.suffix.lower() in ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg']:
                 all_images.append(img.name)
     
-    # Parse [image:filename:text] tags and replace them with hoverable text
     def replace_image_tag(match):
         parts = match.group(1).split(':', 1)
         image_name = parts[0].strip()
@@ -189,20 +193,16 @@ def parse_project(project_name):
     
     description_html = re.sub(r'\[image:([^\]]+)\]', replace_image_tag, description)
     
-    # Parse [website_link:Project Name] tags for cross-linking
     def replace_project_link(match):
         linked_project = match.group(1)
         return f'<a href="/project/{linked_project}" class="project-link">{linked_project}</a>'
     
     description_html = re.sub(r'\[website_link:([^\]]+)\]', replace_project_link, description_html)
     
-    # Parse Markdown (headers, bold, italic, lists, etc.)
     description_html = process_markdown(description_html)
     
-    # Get ALL images for carousel
     carousel_images = []
     
-    # Check for image_titles.txt for custom titles and descriptions
     image_data = {}
     titles_file = project_path / 'images' / 'image_titles.txt'
     if titles_file.exists():
@@ -213,7 +213,6 @@ def parse_project(project_name):
                     img_name = parts[0].strip()
                     rest = parts[1].strip()
                     
-                    # Check if there's a description separated by |
                     if '|' in rest:
                         title, description = rest.split('|', 1)
                         image_data[img_name] = {
@@ -227,7 +226,6 @@ def parse_project(project_name):
                         }
     
     for img in all_images:
-        # Use custom data if available, otherwise use filename without extension
         if img in image_data:
             title = image_data[img]['title']
             description = image_data[img]['description']
@@ -241,19 +239,16 @@ def parse_project(project_name):
             'description': description
         })
     
-    # Get embeds (PDFs and YouTube videos)
     embeds = {'pdfs': [], 'videos': []}
     embeds_path = project_path / 'embeds'
     
     if embeds_path.exists():
-        # Get all PDF files
         for pdf in embeds_path.glob('*.pdf'):
             embeds['pdfs'].append({
                 'filename': pdf.name,
                 'title': pdf.stem.replace('_', ' ').replace('-', ' ').title()
             })
         
-        # Check for videos.txt with YouTube URLs
         videos_file = embeds_path / 'videos.txt'
         if videos_file.exists():
             with open(videos_file, 'r', encoding='utf-8') as f:
@@ -262,7 +257,6 @@ def parse_project(project_name):
                     if not line or line.startswith('#'):
                         continue
                     
-                    # Parse format: URL | Title
                     if '|' in line:
                         url, title = line.split('|', 1)
                         url = url.strip()
@@ -271,7 +265,6 @@ def parse_project(project_name):
                         url = line
                         title = 'Video'
                     
-                    # Extract YouTube video ID
                     video_id = None
                     if 'youtube.com/watch?v=' in url:
                         video_id = url.split('watch?v=')[1].split('&')[0]
@@ -284,11 +277,20 @@ def parse_project(project_name):
                             'title': title
                         })
     
-    # Get project metadata for display on project page
     metadata = get_project_metadata(project_name)
+    
+    if ' - ' in project_name:
+        parts = project_name.split(' - ', 1)
+        title = parts[0].strip()
+        tagline = parts[1].strip()
+    else:
+        title = project_name
+        tagline = None
     
     return {
         'name': project_name,
+        'title': title,
+        'tagline': tagline,
         'description': description_html,
         'images': carousel_images,
         'embeds': embeds,
@@ -299,7 +301,6 @@ def parse_project(project_name):
 def index():
     """Homepage with top 3 projects."""
     all_projects = get_all_projects()
-    # Show only top 3 projects on home page
     top_projects = all_projects[:3] if len(all_projects) > 3 else all_projects
     return render_template('index.html', projects=top_projects, all_projects=all_projects)
 
@@ -319,7 +320,6 @@ def project_detail(project_name):
     
     all_projects = get_all_projects()
     
-    # Find current project index and calculate next/prev
     project_names = [p['name'] for p in all_projects]
     current_index = -1
     
@@ -328,7 +328,6 @@ def project_detail(project_name):
     except ValueError:
         pass
     
-    # Calculate next and previous projects (with looping)
     next_project = None
     prev_project = None
     
@@ -372,18 +371,14 @@ def get_all_accomplishments():
     if not accomplishments_path.exists():
         return accomplishments
     
-    # Check for order.txt file
     order_file = accomplishments_path / 'order.txt'
     if order_file.exists():
         with open(order_file, 'r', encoding='utf-8') as f:
             ordered_names = [line.strip() for line in f.readlines() if line.strip()]
         
-        # Only include accomplishments that are in the order file
         for folder_name in ordered_names:
             folder_path = accomplishments_path / folder_name
             if folder_path.is_dir():
-                # Extract year/date by splitting on '-'
-                # Everything before the first '-' is considered the date/year
                 year_display = None
                 if ' - ' in folder_name:
                     year_display = folder_name.split(' - ')[0].strip()
@@ -394,11 +389,9 @@ def get_all_accomplishments():
                     'slug': folder_name.lower().replace(' ', '-')
                 })
     else:
-        # Fallback to scanning all folders
         for folder in accomplishments_path.iterdir():
             if folder.is_dir():
                 folder_name = folder.name
-                # Extract year/date by splitting on '-'
                 year_display = None
                 if ' - ' in folder_name:
                     year_display = folder_name.split(' - ')[0].strip()
@@ -409,11 +402,8 @@ def get_all_accomplishments():
                     'slug': folder_name.lower().replace(' ', '-')
                 })
         
-        # Sort by year/date (newest first), then by name
-        # Try to extract numeric year for sorting, fallback to string comparison
         def sort_key(acc):
             if acc['year']:
-                # Try to extract a 4-digit year for proper sorting
                 year_match = re.search(r'(\d{4})', acc['year'])
                 if year_match:
                     return (int(year_match.group(1)), acc['name'])
@@ -431,7 +421,6 @@ def parse_accomplishment(accomplishment_name):
     if not accomplishment_path.exists():
         return None
     
-    # Find the description .txt file
     txt_files = list(accomplishment_path.glob('*.txt'))
     description = ""
     
@@ -439,7 +428,6 @@ def parse_accomplishment(accomplishment_name):
         with open(txt_files[0], 'r', encoding='utf-8') as f:
             description = f.read()
     
-    # Get all images from the images folder
     images_path = accomplishment_path / 'images'
     all_images = []
     used_images = set()
@@ -449,7 +437,6 @@ def parse_accomplishment(accomplishment_name):
             if img.suffix.lower() in ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg']:
                 all_images.append(img.name)
     
-    # Parse [image:filename:text] tags and replace them with hoverable text
     def replace_image_tag(match):
         parts = match.group(1).split(':', 1)
         image_name = parts[0].strip()
@@ -459,20 +446,16 @@ def parse_accomplishment(accomplishment_name):
     
     description_html = re.sub(r'\[image:([^\]]+)\]', replace_image_tag, description)
     
-    # Parse [website_link:Project Name] tags and replace them
     def replace_project_link(match):
         project_name = match.group(1)
         return f'<a href="/project/{project_name}" class="project-link">{project_name}</a>'
     
     description_html = re.sub(r'\[website_link:([^\]]+)\]', replace_project_link, description_html)
     
-    # Parse Markdown (headers, bold, italic, lists, etc.)
     description_html = process_markdown(description_html)
     
-    # Get ALL images for carousel
     carousel_images = []
     
-    # Check for image_titles.txt for custom titles and descriptions
     image_data = {}
     titles_file = accomplishment_path / 'images' / 'image_titles.txt'
     if titles_file.exists():
@@ -483,7 +466,6 @@ def parse_accomplishment(accomplishment_name):
                     img_name = parts[0].strip()
                     rest = parts[1].strip()
                     
-                    # Check if there's a description separated by |
                     if '|' in rest:
                         title, description = rest.split('|', 1)
                         image_data[img_name] = {
@@ -497,7 +479,6 @@ def parse_accomplishment(accomplishment_name):
                         }
     
     for img in all_images:
-        # Use custom data if available, otherwise use filename without extension
         if img in image_data:
             title = image_data[img]['title']
             description = image_data[img]['description']
@@ -509,16 +490,14 @@ def parse_accomplishment(accomplishment_name):
             'filename': img,
             'title': title,
             'description': description,
-            'alt': title  # Add alt for template compatibility
+            'alt': title
         })
     
-    # Parse embeds (videos and PDFs)
     embeds = {
         'videos': [],
         'pdfs': []
     }
     
-    # Check for videos.txt
     embeds_path = accomplishment_path / 'embeds'
     videos_file = embeds_path / 'videos.txt'
     if videos_file.exists():
@@ -530,7 +509,6 @@ def parse_accomplishment(accomplishment_name):
                     url = url.strip()
                     title = title.strip()
                     
-                    # Extract YouTube video ID
                     if 'youtube.com/watch?v=' in url:
                         video_id = url.split('v=')[1].split('&')[0]
                     elif 'youtu.be/' in url:
@@ -543,7 +521,6 @@ def parse_accomplishment(accomplishment_name):
                         'title': title
                     })
     
-    # Check for PDF files in embeds folder
     if embeds_path.exists():
         for file in embeds_path.glob('*.pdf'):
             embeds['pdfs'].append({
@@ -551,7 +528,6 @@ def parse_accomplishment(accomplishment_name):
                 'title': file.stem.replace('_', ' ').replace('-', ' ').title()
             })
     
-    # Extract just the text after " - " from the accomplishment name
     display_name = accomplishment_name.split(' - ', 1)[1] if ' - ' in accomplishment_name else accomplishment_name
     
     return {
@@ -569,7 +545,6 @@ def get_all_work_experiences():
     if not work_experience_path.exists():
         return work_experiences
     
-    # Check for order.txt
     order_file = work_experience_path / 'order.txt'
     ordered_names = []
     
@@ -577,11 +552,9 @@ def get_all_work_experiences():
         with open(order_file, 'r', encoding='utf-8') as f:
             ordered_names = [line.strip() for line in f.readlines() if line.strip()]
         
-        # Only include work experiences that are in the order file
         for folder_name in ordered_names:
             folder_path = work_experience_path / folder_name
             if folder_path.is_dir():
-                # Extract date by splitting on '-'
                 date_display = None
                 if ' - ' in folder_name:
                     date_display = folder_name.split(' - ')[0].strip()
@@ -592,11 +565,9 @@ def get_all_work_experiences():
                     'slug': folder_name.lower().replace(' ', '-')
                 })
     else:
-        # Fallback to scanning all folders
         for folder in work_experience_path.iterdir():
             if folder.is_dir():
                 folder_name = folder.name
-                # Extract date by splitting on '-'
                 date_display = None
                 if ' - ' in folder_name:
                     date_display = folder_name.split(' - ')[0].strip()
@@ -607,10 +578,8 @@ def get_all_work_experiences():
                     'slug': folder_name.lower().replace(' ', '-')
                 })
         
-        # Sort by date (newest first), then by name
         def sort_key(exp):
             if exp['date']:
-                # Try to extract a 4-digit year for proper sorting
                 year_match = re.search(r'(\d{4})', exp['date'])
                 if year_match:
                     return (int(year_match.group(1)), exp['name'])
@@ -655,21 +624,17 @@ def parse_work_experience(experience_name):
     if not experience_path.exists():
         return None
     
-    # Get metadata
     metadata = get_work_experience_metadata(experience_name)
     
-    # Find the description .txt file
     txt_files = list(experience_path.glob('*.txt'))
     description = ""
     
-    # Skip metadata.txt when looking for description
     description_files = [f for f in txt_files if f.name != 'metadata.txt']
     
     if description_files:
         with open(description_files[0], 'r', encoding='utf-8') as f:
             description = f.read()
     
-    # Get all images from the images folder
     images_path = experience_path / 'images'
     all_images = []
     used_images = set()
@@ -679,7 +644,6 @@ def parse_work_experience(experience_name):
             if img.suffix.lower() in ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg']:
                 all_images.append(img.name)
     
-    # Parse [image:filename:text] tags and replace them with hoverable text
     def replace_image_tag(match):
         parts = match.group(1).split(':', 1)
         image_name = parts[0].strip()
@@ -689,20 +653,16 @@ def parse_work_experience(experience_name):
     
     description_html = re.sub(r'\[image:([^\]]+)\]', replace_image_tag, description)
     
-    # Parse [website_link:Project Name] tags and replace them
     def replace_project_link(match):
         project_name = match.group(1)
         return f'<a href="/project/{project_name}" class="project-link">{project_name}</a>'
     
     description_html = re.sub(r'\[website_link:([^\]]+)\]', replace_project_link, description_html)
     
-    # Parse Markdown (headers, bold, italic, lists, etc.)
     description_html = process_markdown(description_html)
     
-    # Get ALL images for carousel
     carousel_images = []
     
-    # Check for image_titles.txt for custom titles and descriptions
     image_data = {}
     titles_file = experience_path / 'images' / 'image_titles.txt'
     if titles_file.exists():
@@ -713,7 +673,6 @@ def parse_work_experience(experience_name):
                     img_name = parts[0].strip()
                     rest = parts[1].strip()
                     
-                    # Check if there's a description separated by |
                     if '|' in rest:
                         title, description = rest.split('|', 1)
                         image_data[img_name] = {
@@ -727,7 +686,6 @@ def parse_work_experience(experience_name):
                         }
     
     for img in all_images:
-        # Use custom data if available, otherwise use filename without extension
         if img in image_data:
             title = image_data[img]['title']
             description = image_data[img]['description']
@@ -741,11 +699,9 @@ def parse_work_experience(experience_name):
             'description': description
         })
     
-    # Get embeds (PDFs and YouTube videos)
     embeds = {'pdfs': [], 'videos': []}
     embeds_path = experience_path / 'embeds'
     
-    # Check for videos.txt
     videos_file = embeds_path / 'videos.txt'
     if videos_file.exists():
         with open(videos_file, 'r', encoding='utf-8') as f:
@@ -756,7 +712,6 @@ def parse_work_experience(experience_name):
                     url = url.strip()
                     title = title.strip()
                     
-                    # Extract YouTube video ID
                     if 'youtube.com/watch?v=' in url:
                         video_id = url.split('v=')[1].split('&')[0]
                     elif 'youtu.be/' in url:
@@ -769,7 +724,6 @@ def parse_work_experience(experience_name):
                         'title': title
                     })
     
-    # Check for PDF files in embeds folder
     if embeds_path.exists():
         for file in embeds_path.glob('*.pdf'):
             embeds['pdfs'].append({
@@ -777,12 +731,11 @@ def parse_work_experience(experience_name):
                 'title': file.stem.replace('_', ' ').replace('-', ' ').title()
             })
     
-    # Extract just the text after " - " from the experience name
     display_name = experience_name.split(' - ', 1)[1] if ' - ' in experience_name else experience_name
     
     return {
         'name': display_name,
-        'folder_name': experience_name,  # Full folder name for image paths
+        'folder_name': experience_name,
         'description': description_html,
         'images': carousel_images,
         'embeds': embeds,
@@ -795,7 +748,6 @@ def timeline():
     accomplishments = get_all_accomplishments()
     all_projects = get_all_projects()
     
-    # Parse all journey entries for the timeline view
     parsed_accomplishments = []
     for acc in accomplishments:
         parsed = parse_accomplishment(acc['name'])
@@ -811,19 +763,15 @@ def work_experience():
     experiences = get_all_work_experiences()
     all_projects = get_all_projects()
     
-    # Get metadata for list view (don't parse full descriptions)
     experience_list = []
-    seen_roles = set()  # Track unique roles to ensure only one entry per role
+    seen_roles = set()
     
     for exp in experiences:
         metadata = get_work_experience_metadata(exp['name'])
         display_name = exp['name'].split(' - ', 1)[1] if ' - ' in exp['name'] else exp['name']
         
-        # Extract role title (the part after "at" or just use display_name)
-        # Normalize to lowercase for comparison
         role_key = display_name.lower().strip()
         
-        # Only add if we haven't seen this role before
         if role_key and role_key not in seen_roles:
             seen_roles.add(role_key)
             experience_list.append({
@@ -846,7 +794,6 @@ def work_experience_detail(experience_name):
     all_projects = get_all_projects()
     all_experiences = get_all_work_experiences()
     
-    # Find current experience index and calculate next/prev
     experience_names = [exp['name'] for exp in all_experiences]
     current_index = -1
     
@@ -855,7 +802,6 @@ def work_experience_detail(experience_name):
     except ValueError:
         pass
     
-    # Calculate next and previous experiences (with looping)
     next_experience = None
     prev_experience = None
     
@@ -911,7 +857,6 @@ def parse_about():
     section_order = []
     info = {}
     
-    # Parse info.txt for name and birthdate
     info_file = about_path / 'info.txt'
     if info_file.exists():
         from datetime import datetime
@@ -924,7 +869,6 @@ def parse_about():
                     value = value.strip()
                     info[key] = value
         
-        # Calculate age from birthdate if provided
         if 'birthdate' in info:
             try:
                 birthdate = datetime.strptime(info['birthdate'], '%Y-%m-%d')
@@ -934,7 +878,6 @@ def parse_about():
             except:
                 pass
     
-    # Check for profile picture
     profile_pic = None
     pic_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.webp']
     for ext in pic_extensions:
@@ -945,26 +888,21 @@ def parse_about():
     
     info['profile_pic'] = profile_pic
     
-    # Check for order.txt to determine section order
     order_file = about_path / 'order.txt'
     if order_file.exists():
         with open(order_file, 'r', encoding='utf-8') as f:
             section_order = [line.strip() for line in f.readlines() if line.strip()]
     
-    # Get all .txt files except order.txt and info.txt
     txt_files = [f for f in about_path.glob('*.txt') if f.stem not in ['order', 'info']]
     
-    # Create a dict of sections by filename
     sections_dict = {}
     for txt_file in txt_files:
         filename = txt_file.stem
-        # Format: remove underscores, convert to uppercase
         title = filename.replace('_', ' ').upper()
         
         with open(txt_file, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Convert newlines to paragraphs
         content_html = content.replace('\n\n', '</p><p>')
         content_html = f'<p>{content_html}</p>'
         
@@ -973,7 +911,6 @@ def parse_about():
             'content': content_html
         }
     
-    # Parse skills.csv if it exists
     skills_file = about_path / 'skills.csv'
     has_skills = False
     if skills_file.exists():
@@ -990,44 +927,35 @@ def parse_about():
                     'label': row.get('label', ''),
                     'year': row.get('year', '')
                 }
-                # Calculate percentage
                 skill['percentage'] = ((skill['score'] - skill['min']) / (skill['max'] - skill['min'])) * 100
                 skills.append(skill)
     
-    # Order sections based on order.txt if it exists
     ordered_sections = []
     if section_order:
         for section_name in section_order:
             if section_name == 'skills' and has_skills:
-                # Add skills placeholder
                 ordered_sections.append({'type': 'skills'})
             elif section_name == 'certificates':
-                # Add certificates placeholder
                 ordered_sections.append({'type': 'certificates'})
             elif section_name in sections_dict:
                 ordered_sections.append({'type': 'section', 'data': sections_dict[section_name]})
         
-        # Add any remaining sections not in order.txt
         for filename, section_data in sorted(sections_dict.items()):
             if filename not in section_order:
                 ordered_sections.append({'type': 'section', 'data': section_data})
         
-        # If skills not in order and exists, add at end
         if has_skills and 'skills' not in section_order:
             ordered_sections.append({'type': 'skills'})
         
-        # If certificates not in order, add at end
         if 'certificates' not in section_order:
             ordered_sections.append({'type': 'certificates'})
     else:
-        # No order file, use alphabetical order + skills at end + certificates at end
         for filename in sorted(sections_dict.keys()):
             ordered_sections.append({'type': 'section', 'data': sections_dict[filename]})
         if has_skills:
             ordered_sections.append({'type': 'skills'})
         ordered_sections.append({'type': 'certificates'})
     
-    # Check for resume file
     resume_file = None
     resume_extensions = ['.pdf', '.doc', '.docx']
     for ext in resume_extensions:
@@ -1036,15 +964,13 @@ def parse_about():
             resume_file = f'resume{ext}'
             break
     
-    # Get certificates from certificates folder
     certificates = []
     certificates_path = about_path / 'certificates'
     certificates_info_file = certificates_path / 'certificates.txt'
     
     if certificates_path.exists() and certificates_path.is_dir():
-        # Parse certificates.txt for metadata and order
         certificates_metadata = {}
-        certificate_order = []  # Store order from certificates.txt
+        certificate_order = []
         
         if certificates_info_file.exists():
             with open(certificates_info_file, 'r', encoding='utf-8') as f:
@@ -1052,33 +978,28 @@ def parse_about():
                 for line in f:
                     line = line.strip()
                     if not line:
-                        # Empty line indicates end of a certificate entry
                         if current_cert.get('filename'):
                             filename = current_cert['filename']
                             certificates_metadata[filename] = current_cert
-                            certificate_order.append(filename)  # Preserve order
+                            certificate_order.append(filename)
                         current_cert = {}
                     elif ':' in line:
                         key, value = line.split(':', 1)
                         current_cert[key.strip().lower()] = value.strip()
                 
-                # Don't forget the last certificate
                 if current_cert.get('filename'):
                     filename = current_cert['filename']
                     certificates_metadata[filename] = current_cert
-                    certificate_order.append(filename)  # Preserve order
+                    certificate_order.append(filename)
         
-        # Get all certificate files
         cert_extensions = ['.pdf', '.jpg', '.jpeg', '.png']
         all_cert_files = {}
         
-        # First, collect all certificate files
         for cert_file in certificates_path.iterdir():
             if cert_file.is_file() and cert_file.suffix.lower() in cert_extensions:
                 filename = cert_file.name
                 all_cert_files[filename] = cert_file
         
-        # Add certificates in the order from certificates.txt
         for filename in certificate_order:
             if filename in all_cert_files:
                 cert_file = all_cert_files[filename]
@@ -1092,7 +1013,6 @@ def parse_about():
                     'verification': meta.get('verification', '')
                 })
         
-        # Add any remaining certificate files not in certificates.txt (alphabetically)
         remaining_files = [f for f in all_cert_files.keys() if f not in certificate_order]
         for filename in sorted(remaining_files):
             cert_file = all_cert_files[filename]
@@ -1148,7 +1068,6 @@ def sitemap():
     pages = []
     base_url = request.url_root.rstrip('/')
     
-    # Add static pages
     pages.append({'loc': f'{base_url}/', 'changefreq': 'weekly', 'priority': '1.0'})
     pages.append({'loc': f'{base_url}/projects', 'changefreq': 'weekly', 'priority': '0.9'})
     pages.append({'loc': f'{base_url}/timeline', 'changefreq': 'weekly', 'priority': '0.8'})
@@ -1156,7 +1075,6 @@ def sitemap():
     pages.append({'loc': f'{base_url}/about', 'changefreq': 'monthly', 'priority': '0.8'})
     pages.append({'loc': f'{base_url}/credits', 'changefreq': 'yearly', 'priority': '0.3'})
     
-    # Add project pages
     projects = get_all_projects()
     for project in projects:
         pages.append({
@@ -1165,7 +1083,6 @@ def sitemap():
             'priority': '0.9'
         })
     
-    # Generate XML
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     for page in pages:
@@ -1184,13 +1101,11 @@ def contact_form():
     try:
         data = request.get_json()
         
-        # Validate required fields
         required_fields = ['name', 'email', 'subject', 'message']
         for field in required_fields:
             if not data.get(field):
                 return jsonify({'success': False, 'message': f'Missing required field: {field}'}), 400
         
-        # Create submission record
         submission = {
             'timestamp': datetime.now().isoformat(),
             'name': data['name'],
@@ -1199,7 +1114,6 @@ def contact_form():
             'message': data['message']
         }
         
-        # Save to JSON file (simple storage)
         log_file = app.config['CONTACT_LOG']
         submissions = []
         
@@ -1211,9 +1125,6 @@ def contact_form():
         
         with open(log_file, 'w', encoding='utf-8') as f:
             json.dump(submissions, f, indent=2, ensure_ascii=False)
-        
-        # In a real application, you would send an email here
-        # For now, we just log it to a file
         
         return jsonify({
             'success': True,
@@ -1227,10 +1138,8 @@ def contact_form():
         }), 500
 
 if __name__ == '__main__':
-    # Create folders if they don't exist
     os.makedirs(app.config['PUBLIC_FOLDER'], exist_ok=True)
     os.makedirs(app.config['PROJECTS_FOLDER'], exist_ok=True)
     os.makedirs(app.config['ACCOMPLISHMENTS_FOLDER'], exist_ok=True)
     os.makedirs(app.config['ABOUT_FOLDER'], exist_ok=True)
     app.run(debug=True, host='0.0.0.0', port=5000)
-

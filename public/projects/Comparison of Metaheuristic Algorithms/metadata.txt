@@ -1,7 +1,0 @@
-description: Research project comparing different metaheuristic optimization algorithms
-date: December 2024
-status: Work in Progress
-tags: Python, Machine Learning, Algorithms, Research
-team:
-- HTIN LINN
-

@@ -1,6 +1,0 @@
-description: An innovative solution emphasizing user-friendly interfaces and efficient workflows
-date: 2024
-status: Work in Progress
-tags:
-team:
-- Team TECH4U

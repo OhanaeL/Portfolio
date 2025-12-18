@@ -1,0 +1,5 @@
+Participated in the CIMSO Hospitality ERP Hackathon and won [image:first.jpg:1st place].
+
+I built a golf course booking and management system with a companion mobile app using CIMSO’s APIs, gaining hands-on experience in enterprise API integration, team collaboration, and rapid prototyping.
+
+Check out the project here: [website_link:SPLASH Golf Club - Hospitality ERP System]

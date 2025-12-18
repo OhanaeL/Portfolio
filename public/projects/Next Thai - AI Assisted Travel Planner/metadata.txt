@@ -1,6 +1,0 @@
-description: AI-powered travel planning application for Thailand, selected as Hack the Zodiac Hackathon finalist
-date: April 2024
-tags: AI, Travel, Hackathon, Python
-team:
-- HTIN LINN
-
