@@ -1010,8 +1010,8 @@ def parse_about():
                     'description': meta.get('description', ''),
                     'year': meta.get('year', ''),
                     'from': meta.get('from', ''),
-                    'verification': meta.get('verification', '')
-                })
+                        'verification': meta.get('verification', '')
+                    })
         
         remaining_files = [f for f in all_cert_files.keys() if f not in certificate_order]
         for filename in sorted(remaining_files):
@@ -1024,7 +1024,7 @@ def parse_about():
                 'year': meta.get('year', ''),
                 'from': meta.get('from', ''),
                 'verification': meta.get('verification', '')
-            })
+                    })
     
     return {
         'ordered_sections': ordered_sections,

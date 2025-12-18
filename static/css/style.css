@@ -690,6 +690,8 @@ code, pre {
 .hero-title-wrapper {
     display: inline-block;
     text-align: center;
+    height: calc(4.5rem * 1.1 + 1.5rem + (4.5rem * 1.1 + 15px) * 3);
+    min-height: calc(4.5rem * 1.1 + 1.5rem + (4.5rem * 1.1 + 15px) * 3);
 }
 
 .title-echo {
@@ -701,7 +703,8 @@ code, pre {
     color: var(--purple-primary);
     pointer-events: none;
     margin: 0;
-    max-height: 0;
+    margin-bottom: 15px;
+    max-height: 200px;
     overflow: visible;
     text-transform: uppercase;
 }
@@ -726,39 +729,27 @@ code, pre {
 @keyframes echoFall1 {
     0% {
         opacity: 0;
-        max-height: 0;
-        margin-bottom: 0;
     }
     100% {
         opacity: 0.8;
-        max-height: 200px;
-        margin-bottom: 15px;
     }
 }
 
 @keyframes echoFall2 {
     0% {
         opacity: 0;
-        max-height: 0;
-        margin-bottom: 0;
     }
     100% {
         opacity: 0.55;
-        max-height: 200px;
-        margin-bottom: 15px;
     }
 }
 
 @keyframes echoFall3 {
     0% {
         opacity: 0;
-        max-height: 0;
-        margin-bottom: 0;
     }
     100% {
         opacity: 0.3;
-        max-height: 200px;
-        margin-bottom: 15px;
     }
 }
 
@@ -895,7 +886,6 @@ code, pre {
     color: var(--purple-primary);
     transform: translate(-3px, -3px);
     text-shadow: 
-        5px 5px 0 var(--purple-intense),
         8px 8px 0 var(--purple-heavy);
 }
 

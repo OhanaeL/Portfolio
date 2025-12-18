@@ -139,7 +139,7 @@ export function setupScrollArrow() {
         // Add bounce animation after fade in completes
         setTimeout(() => {
             scrollArrow.style.animation = 'fadeInContent 1.5s ease-out forwards, bounce 2s ease-in-out infinite';
-            scrollArrow.style.animationDelay = '1.5s, 4.5s';
+            scrollArrow.style.animationDelay = '2.5s, 5.5s';
         }, 100);
         
         scrollArrow.addEventListener('click', function() {
