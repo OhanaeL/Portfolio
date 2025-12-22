@@ -207,18 +207,30 @@ export function setupImageHover() {
                     preview.style.minWidth = displayWidth + 'px';
                     preview.style.minHeight = displayHeight + 'px';
                     
+                    // Final check before showing
+                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc || loadingPromise !== loadId) {
+                        return;
+                    }
+                    
+                    // Final check before showing
+                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc || loadingPromise !== loadId) {
+                        return;
+                    }
+                    
+                    isImageLoaded = true;
+                    
                     // Fade in image
                     requestAnimationFrame(() => {
-                        if (activeTrigger === trigger && currentImageSrc === imageSrc && loadingPromise === loadId) {
+                        if (activeTrigger === trigger && currentImageSrc === imageSrc) {
                             previewImg.style.opacity = '1';
                         }
                     });
                     
-                    isImageLoaded = true;
-                    loadingPromise = null;
-                    
                     // Update position with new dimensions
                     updatePreviewPosition(currentMouseX, currentMouseY);
+                    
+                    // Clear loading promise after everything is set up
+                    loadingPromise = null;
                 } catch (error) {
                     console.error('Failed to load image:', imageSrc, error);
                     if (activeTrigger === trigger && currentImageSrc === imageSrc) {
