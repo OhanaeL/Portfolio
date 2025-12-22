@@ -11,6 +11,7 @@
         <h1 class="section-title" style="margin-top: 2rem; margin-bottom: 2rem;">Experience</h1>
         
         {% if experiences %}
+        <div class="experience-section scroll-reveal">
         <div class="experience-grid">
             {% for experience in experiences %}
             <a href="/experience/{{ experience.name }}" class="experience-card">
@@ -30,6 +31,7 @@
                 </div>
             </a>
             {% endfor %}
+        </div>
         </div>
         {% else %}
         <div class="empty-state">

@@ -1,9 +1,16 @@
 // Tag filtering functionality
 export function setupTagFilters() {
     const tagsContainer = document.getElementById('tags-filter');
+    const loadingElement = document.getElementById('tags-filter-loading');
     const projectCards = document.querySelectorAll('.project-card');
     
-    if (!tagsContainer || projectCards.length === 0) return;
+    if (!tagsContainer || projectCards.length === 0) {
+        // Hide loading if no projects
+        if (loadingElement) {
+            loadingElement.style.display = 'none';
+        }
+        return;
+    }
     
     // Collect all unique tags from project cards
     const allTags = new Set();
@@ -15,6 +22,11 @@ export function setupTagFilters() {
             }
         });
     });
+    
+    // Hide loading state
+    if (loadingElement) {
+        loadingElement.style.display = 'none';
+    }
     
     // Create "All" button
     const allButton = document.createElement('button');

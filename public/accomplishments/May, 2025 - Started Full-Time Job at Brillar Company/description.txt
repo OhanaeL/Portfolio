@@ -1,4 +1,3 @@
-In May 2025, I started my full-time position at Brillar Company, a Python-based AI company. As the sole Python developer on the team, I took on significant responsibilities in developing and maintaining Python-based AI solutions.
+Started full-time position as Python Developer at Brillar Company, a Python-based AI company. As the sole Python developer on the team, I develop and maintain Python-based AI solutions.
 
-This role has been instrumental in my professional growth, allowing me to work on real-world AI projects, collaborate with a talented team, and contribute to innovative solutions in the artificial intelligence space. The experience has deepened my expertise in Python development and AI technologies.
-
+Working on real-world AI projects, collaborating with the team, and contributing to innovative solutions in the artificial intelligence space.

@@ -1,4 +1,4 @@
 introduction
-certificates
 skills
+certificates
 my_background

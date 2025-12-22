@@ -742,7 +742,7 @@ def parse_experience(experience_name):
 
 @app.route('/timeline')
 def timeline():
-    """My Journey page with all journey entries."""
+    """Timeline page with all journey entries."""
     accomplishments = get_all_accomplishments()
     all_projects = get_all_projects()
     
@@ -923,7 +923,8 @@ def parse_about():
                     'min': int(row.get('min', 0)),
                     'score': int(row.get('score', 0)),
                     'label': row.get('label', ''),
-                    'year': row.get('year', '')
+                    'year': row.get('year', ''),
+                    'usage': row.get('usage', '')
                 }
                 skill['percentage'] = ((skill['score'] - skill['min']) / (skill['max'] - skill['min'])) * 100
                 skills.append(skill)

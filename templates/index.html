@@ -6,9 +6,9 @@
 <div class="hero">
     <div class="container">
         <div class="hero-title-wrapper">
-            <h1 class="hero-title" id="mainTitle">Welcome to My Portfolio</h1>
+            <h1 class="hero-title" id="mainTitle">FROM IDEAS TO WORKING CODE</h1>
         </div>
-        <p class="hero-subtitle fade-in-content">Explore my creative projects and work</p>
+        <p class="hero-subtitle fade-in-content">React, TypeScript, Python • Hackathon finalist • Real-world projects</p>
         <div class="scroll-arrow fade-in-content">
             <i class="fas fa-chevron-down"></i>
         </div>
@@ -30,7 +30,22 @@
         {% if projects %}
         <div class="projects-grid">
             {% for project in projects %}
-            <a href="/project/{{ project.name }}" class="project-card" data-tags="{{ project.metadata.tags|join(',') }}">
+            <div class="project-card" data-tags="{{ project.metadata.tags|join(',') }}">
+                {% if project.metadata.links %}
+                <div class="project-card-links">
+                    {% if project.metadata.links.get('Github') or project.metadata.links.get('Repository') %}
+                    <a href="{{ project.metadata.links.get('Github') or project.metadata.links.get('Repository') }}" target="_blank" rel="noopener noreferrer" class="project-link-icon">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    {% endif %}
+                    {% if project.metadata.links.get('Demo') or project.metadata.links.get('Live') or project.metadata.links.get('Website') %}
+                    <a href="{{ project.metadata.links.get('Demo') or project.metadata.links.get('Live') or project.metadata.links.get('Website') }}" target="_blank" rel="noopener noreferrer" class="project-link-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <a href="/project/{{ project.name }}" class="project-card-link">
                 <div class="project-card-inner">
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                         <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
@@ -61,7 +76,8 @@
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
-            </a>
+                </a>
+            </div>
             {% endfor %}
         </div>
         

@@ -1,5 +1,7 @@
-I received [image:teaching_assistant.png:recognition] for my outstanding contribution as a teaching assistant and software engineer at RSU under Professor Billel Arboui for a year and 4 months.
+Served as Teaching Assistant and Software Engineer at RSU under Professor Billel Arboui for a year and 4 months, receiving [image:teaching_assistant.png:recognition] for outstanding contribution.
 
-I helped develop [image:jobfair_homepage.png:the RSU Jobfair System], [image:attendence_system.png:RIC Attendence System], and [image:ICT_courseplanner.png:the ICT Course Planner], as well as aiding my fellow classmates.
+**Teaching Assistant**: Mentored students, provided technical guidance, and supported coursework completion.
+
+**Software Engineer**: Developed [image:jobfair_homepage.png:the RSU Jobfair System], [image:attendence_system.png:RIC Attendance System], and [image:ICT_courseplanner.png:the ICT Course Planner] for university operations.
 
 Check out the projects here: [website_link:RSU Jobfair System], [website_link:RIC Attendance System], [website_link:ICT Automated Course Planner] and [website_link:RIC Alumni Website]

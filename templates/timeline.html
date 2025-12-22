@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}My Journey - Portfolio{% endblock %}
+{% block title %}Timeline - Portfolio{% endblock %}
 
 {% block contact_link %}{% endblock %}
 {% block mobile_contact_link %}{% endblock %}
@@ -8,12 +8,12 @@
 {% block content %}
 <div class="timeline-page">
     <div class="container">
-        <h1 class="section-title" style="margin-top: 2rem; margin-bottom: 3rem;">My Journey</h1>
+        <h1 class="section-title" style="margin-top: 2rem; margin-bottom: 3rem;">Timeline</h1>
         
         {% if accomplishments %}
         <div class="timeline">
             <div class="timeline-top">
-                <span class="coming-soon">Coming soon...</span>
+                <span class="coming-soon">Ongoing</span>
             </div>
             {% for accomplishment in accomplishments %}
             <div class="timeline-item scroll-reveal">

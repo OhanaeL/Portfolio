@@ -1,6 +1,6 @@
 description: Personal portfolio website showcasing projects, accomplishments, and skills
 date: 2025
-tags: Flask, Python, HTML, CSS, JavaScript
+tags: Flask, Python, Web Dev
 team:
 - HTIN LINN
 

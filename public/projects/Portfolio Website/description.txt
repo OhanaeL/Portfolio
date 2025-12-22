@@ -4,6 +4,6 @@ I spent a lot of time on the details that make browsing smooth. There's real-tim
 
 The whole thing runs on Flask with vanilla JavaScript. Everything's file-based, which means I can update my projects, accomplishments, or about page just by editing text files. No database migrations, no admin panels, just simple files.
 
-[image:projects_page.png:The projects page] includes all the search and filtering functionality. The timeline page shows my journey over the years, and the about page has my skills visualized with animated progress bars.
+[image:projects_page.png:The projects page] includes all the search and filtering functionality. The timeline page shows accomplishments over the years, and the about page has my skills visualized with animated progress bars.
 
 Building this was as much about learning as it was about having a portfolio. I got to experiment with CSS variables (all the colors are defined at the top, which makes theming easy), work on responsive design, and figure out how to make file-based content management work smoothly.

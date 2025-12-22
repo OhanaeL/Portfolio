@@ -1,5 +1,3 @@
-Hi, I'm Htin Linn.
+Hi, I’m Htin Linn.
 
-And I love to try out new things.
-
-I'm currently an ICT Student studying under Rangsit International College, RSU. I'm passionate about technology, development, and exploring innovative solutions to real-world problems.
+I’m an ICT student at Rangsit International College with a focus on software and web development. I build practical applications using technologies like React, TypeScript, and Python, and I’ve worked on real-world systems through academic projects, hackathons, and team-based development.

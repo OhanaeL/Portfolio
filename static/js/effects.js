@@ -67,3 +67,151 @@ export function startShootingStars() {
     }, 3000 + Math.random() * 5000);
 }
 
+// Create constellation background with twinkling stars
+export function createConstellation() {
+    const container = document.querySelector('.sparkles-container');
+    if (!container) return;
+    
+    const constellationContainer = document.createElement('div');
+    constellationContainer.className = 'constellation-background';
+    container.appendChild(constellationContainer);
+    
+    const starCount = 80;
+    const stars = [];
+    
+    // Create stars
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'constellation-star';
+        
+        const size = Math.random() * 2 + 1;
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const brightness = Math.random() * 0.4 + 0.2;
+        
+        star.style.left = x + '%';
+        star.style.top = y + '%';
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.opacity = brightness;
+        star.style.setProperty('--twinkle-delay', Math.random() * 3 + 's');
+        star.style.setProperty('--twinkle-duration', (2 + Math.random() * 2) + 's');
+        
+        constellationContainer.appendChild(star);
+        stars.push({ element: star, x, y });
+    }
+    
+    // Create constellation lines (connect nearby stars)
+    const maxDistance = 15;
+    const lines = [];
+    
+    for (let i = 0; i < stars.length; i++) {
+        for (let j = i + 1; j < stars.length; j++) {
+            const dx = stars[i].x - stars[j].x;
+            const dy = stars[i].y - stars[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < maxDistance && Math.random() > 0.7) {
+                const line = document.createElement('div');
+                line.className = 'constellation-line';
+                
+                const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                const length = distance;
+                
+                line.style.left = stars[i].x + '%';
+                line.style.top = stars[i].y + '%';
+                line.style.width = length + '%';
+                line.style.transform = `rotate(${angle}deg)`;
+                line.style.opacity = Math.random() * 0.15 + 0.05;
+                
+                constellationContainer.appendChild(line);
+                lines.push(line);
+            }
+        }
+    }
+}
+
+// Create light mode background elements (white circles)
+export function createLightModeBackground() {
+    const container = document.querySelector('.sparkles-container');
+    if (!container) return;
+    
+    // Check if light mode background already exists
+    const existingBg = container.querySelector('.light-mode-background');
+    if (existingBg) {
+        existingBg.remove();
+    }
+    
+    const lightBgContainer = document.createElement('div');
+    lightBgContainer.className = 'light-mode-background';
+    container.appendChild(lightBgContainer);
+    
+    const shapeCount = 8;
+    const minSize = 200;
+    const maxSize = 350;
+    const minGap = 50;
+    const circles = [];
+    const maxAttempts = 200;
+    
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    for (let i = 0; i < shapeCount; i++) {
+        let attempts = 0;
+        let validPosition = false;
+        let x, y, size;
+        
+        while (!validPosition && attempts < maxAttempts) {
+            size = Math.random() * (maxSize - minSize) + minSize;
+            x = Math.random() * 100;
+            y = Math.random() * 100;
+            
+            const radius = size / 2;
+            const xPx = (x / 100) * viewportWidth;
+            const yPx = (y / 100) * viewportHeight;
+            
+            validPosition = true;
+            
+            for (const circle of circles) {
+                const circleXPx = (circle.x / 100) * viewportWidth;
+                const circleYPx = (circle.y / 100) * viewportHeight;
+                const circleRadius = circle.size / 2;
+                
+                const dx = xPx - circleXPx;
+                const dy = yPx - circleYPx;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const minRequiredDistance = radius + circleRadius + minGap;
+                
+                if (distance < minRequiredDistance) {
+                    validPosition = false;
+                    break;
+                }
+            }
+            
+            if (validPosition) {
+                const edgeBuffer = radius;
+                if (xPx - edgeBuffer < 0 || xPx + edgeBuffer > viewportWidth ||
+                    yPx - edgeBuffer < 0 || yPx + edgeBuffer > viewportHeight) {
+                    validPosition = false;
+                }
+            }
+            
+            attempts++;
+        }
+        
+        if (validPosition) {
+            const shape = document.createElement('div');
+            shape.className = 'light-mode-shape';
+            
+            shape.style.width = size + 'px';
+            shape.style.height = size + 'px';
+            shape.style.left = x + '%';
+            shape.style.top = y + '%';
+            shape.style.transform = 'translate(-50%, -50%)';
+            
+            lightBgContainer.appendChild(shape);
+            circles.push({ x, y, size });
+        }
+    }
+}
+

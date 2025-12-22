@@ -36,6 +36,14 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Prevent theme flash - set theme immediately before page renders -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body>
     <script>window.scrollTo(0, 0);</script>
@@ -48,7 +56,7 @@
             <!-- Desktop nav links -->
             <div class="nav-links">
                 <a href="/" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Home</a>
-                <a href="/timeline" class="nav-link {% if request.endpoint == 'timeline' %}active{% endif %}">My Journey</a>
+                <a href="/timeline" class="nav-link {% if request.endpoint == 'timeline' %}active{% endif %}">Timeline</a>
                 <a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About Me</a>
                 <a href="/experience" class="nav-link {% if request.endpoint == 'experience' %}active{% endif %}">Experience</a>
                 <div class="dropdown {% if request.endpoint == 'projects' or request.endpoint == 'project' %}active{% endif %}">
@@ -63,6 +71,9 @@
                         {% endif %}
                     </div>
                 </div>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -71,11 +82,16 @@
     <nav class="mobile-navbar">
         <div class="mobile-navbar-container">
             <a href="/" class="mobile-logo">My Portfolio</a>
-            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="theme-toggle mobile-theme-toggle" id="mobile-theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
         </div>
     </nav>
     

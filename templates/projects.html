@@ -8,7 +8,7 @@
         <h1 class="section-title" style="margin-top: 2rem; margin-bottom: 2rem;">All Projects</h1>
         
         <!-- Search Bar -->
-        <div class="search-container">
+        <div class="search-container scroll-reveal">
             <i class="fas fa-search search-icon"></i>
             <input type="text" id="project-search" class="search-input" placeholder="Search projects by name or description...">
             <button class="search-clear" id="search-clear" style="display: none;">
@@ -17,13 +17,36 @@
         </div>
         
         <!-- Tags Filter -->
-        <div class="tags-filter" id="tags-filter">
+        <div class="tags-filter scroll-reveal" id="tags-filter">
+            <div class="tags-filter-loading" id="tags-filter-loading">
+                <div class="loading-skeleton"></div>
+                <div class="loading-skeleton"></div>
+                <div class="loading-skeleton"></div>
+                <div class="loading-skeleton"></div>
+                <div class="loading-skeleton"></div>
+            </div>
             <!-- Tags will be dynamically inserted here by JavaScript -->
         </div>
         
+        <div class="projects-section scroll-reveal">
         <div class="projects-grid" id="projects-grid">
             {% for project in all_projects %}
-            <a href="/project/{{ project.name }}" class="project-card" data-tags="{{ project.metadata.tags|join(',') }}">
+            <div class="project-card" data-tags="{{ project.metadata.tags|join(',') }}">
+                {% if project.metadata.links %}
+                <div class="project-card-links">
+                    {% if project.metadata.links.get('Github') or project.metadata.links.get('Repository') %}
+                    <a href="{{ project.metadata.links.get('Github') or project.metadata.links.get('Repository') }}" target="_blank" rel="noopener noreferrer" class="project-link-icon">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    {% endif %}
+                    {% if project.metadata.links.get('Demo') or project.metadata.links.get('Live') or project.metadata.links.get('Website') %}
+                    <a href="{{ project.metadata.links.get('Demo') or project.metadata.links.get('Live') or project.metadata.links.get('Website') }}" target="_blank" rel="noopener noreferrer" class="project-link-icon">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <a href="/project/{{ project.name }}" class="project-card-link">
                 <div class="project-card-inner">
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                         <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
@@ -54,8 +77,10 @@
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
-            </a>
+                </a>
+            </div>
             {% endfor %}
+        </div>
         </div>
         
         {% if not all_projects %}
