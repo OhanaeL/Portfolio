@@ -1,0 +1,4 @@
+description: Competed in multiple hackathons, winning 3rd place at Hack the Zodiac Hackathon 2024 and 1st place at CIMSO Hospitality ERP Hackathon 2025. Developed innovative solutions including AI-powered travel and shopping advisors, and a comprehensive golf club management system.
+date: Apr 2024 - Mar 2025
+company: Various Hackathons
+

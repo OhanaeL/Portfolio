@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['PUBLIC_FOLDER'] = 'public'
 app.config['PROJECTS_FOLDER'] = 'public/projects'
 app.config['ACCOMPLISHMENTS_FOLDER'] = 'public/accomplishments'
-app.config['WORK_EXPERIENCE_FOLDER'] = 'public/work-experience'
+app.config['EXPERIENCE_FOLDER'] = 'public/experience'
 app.config['ABOUT_FOLDER'] = 'public/about'
 app.config['CONTACT_LOG'] = 'contact_submissions.json'
 
@@ -537,15 +537,15 @@ def parse_accomplishment(accomplishment_name):
         'embeds': embeds
     }
 
-def get_all_work_experiences():
-    """Get all work experience folders, ordered by order.txt."""
-    work_experiences = []
-    work_experience_path = Path(app.config['WORK_EXPERIENCE_FOLDER'])
+def get_all_experiences():
+    """Get all experience folders, ordered by order.txt."""
+    experiences = []
+    experience_path = Path(app.config['EXPERIENCE_FOLDER'])
     
-    if not work_experience_path.exists():
-        return work_experiences
+    if not experience_path.exists():
+        return experiences
     
-    order_file = work_experience_path / 'order.txt'
+    order_file = experience_path / 'order.txt'
     ordered_names = []
     
     if order_file.exists():
@@ -553,26 +553,26 @@ def get_all_work_experiences():
             ordered_names = [line.strip() for line in f.readlines() if line.strip()]
         
         for folder_name in ordered_names:
-            folder_path = work_experience_path / folder_name
+            folder_path = experience_path / folder_name
             if folder_path.is_dir():
                 date_display = None
                 if ' - ' in folder_name:
                     date_display = folder_name.split(' - ')[0].strip()
                 
-                work_experiences.append({
+                experiences.append({
                     'name': folder_name,
                     'date': date_display,
                     'slug': folder_name.lower().replace(' ', '-')
                 })
     else:
-        for folder in work_experience_path.iterdir():
+        for folder in experience_path.iterdir():
             if folder.is_dir():
                 folder_name = folder.name
                 date_display = None
                 if ' - ' in folder_name:
                     date_display = folder_name.split(' - ')[0].strip()
                 
-                work_experiences.append({
+                experiences.append({
                     'name': folder_name,
                     'date': date_display,
                     'slug': folder_name.lower().replace(' ', '-')
@@ -586,13 +586,13 @@ def get_all_work_experiences():
                 return (0, exp['date'], exp['name'])
             return (0, '', exp['name'])
         
-        work_experiences.sort(key=sort_key, reverse=True)
+        experiences.sort(key=sort_key, reverse=True)
     
-    return work_experiences
+    return experiences
 
-def get_work_experience_metadata(experience_name):
-    """Get metadata for a work experience from metadata.txt."""
-    experience_path = Path(app.config['WORK_EXPERIENCE_FOLDER']) / experience_name
+def get_experience_metadata(experience_name):
+    """Get metadata for an experience from metadata.txt."""
+    experience_path = Path(app.config['EXPERIENCE_FOLDER']) / experience_name
     metadata_file = experience_path / 'metadata.txt'
     
     metadata = {
@@ -617,14 +617,14 @@ def get_work_experience_metadata(experience_name):
     
     return metadata
 
-def parse_work_experience(experience_name):
-    """Parse a work experience folder and return its content."""
-    experience_path = Path(app.config['WORK_EXPERIENCE_FOLDER']) / experience_name
+def parse_experience(experience_name):
+    """Parse an experience folder and return its content."""
+    experience_path = Path(app.config['EXPERIENCE_FOLDER']) / experience_name
     
     if not experience_path.exists():
         return None
     
-    metadata = get_work_experience_metadata(experience_name)
+    metadata = get_experience_metadata(experience_name)
     
     txt_files = list(experience_path.glob('*.txt'))
     description = ""
@@ -649,7 +649,7 @@ def parse_work_experience(experience_name):
         image_name = parts[0].strip()
         hover_text = parts[1].strip() if len(parts) > 1 else image_name
         used_images.add(image_name)
-        return f'<span class="image-hover-trigger" data-image="/work-experience-image/{experience_name}/images/{image_name}">{hover_text}</span>'
+        return f'<span class="image-hover-trigger" data-image="/experience-image/{experience_name}/images/{image_name}">{hover_text}</span>'
     
     description_html = re.sub(r'\[image:([^\]]+)\]', replace_image_tag, description)
     
@@ -757,17 +757,17 @@ def timeline():
     
     return render_template('timeline.html', accomplishments=parsed_accomplishments, all_projects=all_projects)
 
-@app.route('/work-experience')
-def work_experience():
-    """Work Experience page with all work experience entries."""
-    experiences = get_all_work_experiences()
+@app.route('/experience')
+def experience():
+    """Experience page with all experience entries."""
+    experiences = get_all_experiences()
     all_projects = get_all_projects()
     
     experience_list = []
     seen_roles = set()
     
     for exp in experiences:
-        metadata = get_work_experience_metadata(exp['name'])
+        metadata = get_experience_metadata(exp['name'])
         display_name = exp['name'].split(' - ', 1)[1] if ' - ' in exp['name'] else exp['name']
         
         role_key = display_name.lower().strip()
@@ -781,18 +781,18 @@ def work_experience():
                 'metadata': metadata
             })
     
-    return render_template('work-experience.html', experiences=experience_list, all_projects=all_projects)
+    return render_template('experience.html', experiences=experience_list, all_projects=all_projects)
 
-@app.route('/work-experience/<experience_name>')
-def work_experience_detail(experience_name):
-    """Individual work experience detail page."""
-    experience = parse_work_experience(experience_name)
+@app.route('/experience/<experience_name>')
+def experience_detail(experience_name):
+    """Individual experience detail page."""
+    experience = parse_experience(experience_name)
     
     if not experience:
         abort(404)
     
     all_projects = get_all_projects()
-    all_experiences = get_all_work_experiences()
+    all_experiences = get_all_experiences()
     
     experience_names = [exp['name'] for exp in all_experiences]
     current_index = -1
@@ -811,24 +811,24 @@ def work_experience_detail(experience_name):
         next_experience = all_experiences[next_index]
         prev_experience = all_experiences[prev_index]
     
-    return render_template('work-experience-detail.html', 
+    return render_template('experience-detail.html', 
                          experience=experience, 
                          all_projects=all_projects,
                          next_experience=next_experience,
                          prev_experience=prev_experience)
 
-@app.route('/work-experience-image/<path:filepath>')
-def work_experience_image(filepath):
-    """Serve work experience images."""
-    full_path = os.path.join(app.config['WORK_EXPERIENCE_FOLDER'], filepath)
+@app.route('/experience-image/<path:filepath>')
+def experience_image(filepath):
+    """Serve experience images."""
+    full_path = os.path.join(app.config['EXPERIENCE_FOLDER'], filepath)
     directory = os.path.dirname(full_path)
     filename = os.path.basename(full_path)
     return send_from_directory(directory, filename)
 
-@app.route('/work-experience-embed/<experience_name>/<filename>')
-def work_experience_embed(experience_name, filename):
-    """Serve embed files (PDFs) for work experience entries."""
-    embeds_folder = os.path.join(app.config['WORK_EXPERIENCE_FOLDER'], experience_name, 'embeds')
+@app.route('/experience-embed/<experience_name>/<filename>')
+def experience_embed(experience_name, filename):
+    """Serve embed files (PDFs) for experience entries."""
+    embeds_folder = os.path.join(app.config['EXPERIENCE_FOLDER'], experience_name, 'embeds')
     return send_from_directory(embeds_folder, filename)
 
 @app.route('/accomplishment-image/<path:filepath>')
@@ -1071,7 +1071,7 @@ def sitemap():
     pages.append({'loc': f'{base_url}/', 'changefreq': 'weekly', 'priority': '1.0'})
     pages.append({'loc': f'{base_url}/projects', 'changefreq': 'weekly', 'priority': '0.9'})
     pages.append({'loc': f'{base_url}/timeline', 'changefreq': 'weekly', 'priority': '0.8'})
-    pages.append({'loc': f'{base_url}/work-experience', 'changefreq': 'monthly', 'priority': '0.8'})
+    pages.append({'loc': f'{base_url}/experience', 'changefreq': 'monthly', 'priority': '0.8'})
     pages.append({'loc': f'{base_url}/about', 'changefreq': 'monthly', 'priority': '0.8'})
     pages.append({'loc': f'{base_url}/credits', 'changefreq': 'yearly', 'priority': '0.3'})
     

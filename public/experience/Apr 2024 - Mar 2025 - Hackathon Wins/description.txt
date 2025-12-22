@@ -1,0 +1,33 @@
+I've participated in several hackathons throughout my journey, achieving notable success and gaining valuable experience in rapid development, teamwork, and innovative problem-solving.
+
+## Hack the Zodiac Hackathon 2024 - 3rd Place (2nd Runner-Up)
+
+In April 2024, I participated in the Hack the Zodiac Hackathon at Rangsit University and achieved [image:third.jpg:3rd Place (2nd Runner Up)]. This was an exciting experience that provided valuable insights into rapid development, teamwork, and problem-solving under time constraints.
+
+During this hackathon, I developed two projects:
+- [website_link:NextThai - AI Assisted Travel Planner] - An AI-powered travel planning application for Thailand
+- [website_link:EcoMart - AI Assisted Eco-friendly Shopping Advisor] - An AI-powered eco-friendly shopping advisor
+
+Both projects were selected as finalists, showcasing my ability to create innovative solutions that combine AI technology with practical applications.
+
+## CIMSO Hospitality ERP Hackathon 2025 - 1st Place
+
+In March 2025, I participated in the CIMSO Hospitality ERP Hackathon and won [image:first.jpg:1st place]. This was a significant achievement that demonstrated my skills in enterprise-level development and API integration.
+
+I built [website_link:SPLASH Golf Club - Hospitality ERP System], a comprehensive golf course booking and management system with a companion mobile app using CIMSO's APIs. This project showcased my ability to:
+- Integrate complex enterprise APIs
+- Design scalable systems for hospitality management
+- Work effectively in team environments under tight deadlines
+- Create both web and mobile solutions
+
+## Key Learnings
+
+These hackathon experiences have been instrumental in my growth as a developer. They've taught me:
+- How to rapidly prototype and iterate on ideas
+- The importance of effective team collaboration
+- How to work under pressure and tight deadlines
+- Enterprise API integration and system design
+- Building end-to-end solutions from concept to deployment
+
+These achievements reflect my passion for innovation and my ability to deliver high-quality solutions in competitive environments.
+

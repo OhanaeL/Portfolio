@@ -1,30 +1,28 @@
-# Next Thai - AI Assisted Travel Planner
-
-Next Thai is an innovative AI-powered travel planning application developed for the Hack the Zodiac Hackathon 2024, where it was selected as a finalist. The project helps users design personalized trips across Thailand with the assistance of artificial intelligence.
-
-## Project Overview
-
-This travel planning system leverages AI to create customized itineraries for travelers visiting Thailand. The application analyzes user preferences, travel dates, and interests to generate comprehensive travel plans that can be downloaded as PDF documents.
+NextThai is an AI-powered travel planning application I developed for the Hack the Zodiac Hackathon in April 2024, where it was selected as a finalist. The application uses Google's Gemini AI to generate personalized travel itineraries for Thailand based on user preferences, budget constraints, and time limitations. Built with Streamlit, [image:TravelPlanner.png:the application] transforms the complex process of trip planning into a simple, automated experience.
 
 ## Key Features
 
-- **AI Travel Assistant**: Intelligent system that helps users design personalized trips across Thailand
-- **PDF Itinerary Generation**: Automatically generates downloadable PDF itineraries for users
-- **Personalized Recommendations**: Tailors travel suggestions based on user preferences and interests
-- **Comprehensive Planning**: Covers accommodations, activities, dining, and transportation
+### Customizable Planning
+Users can select from 33 major Thai cities as starting points and destinations, choose from 32 different trip types including adventure, cultural, beach, and luxury experiences. The application supports flexible budgets ranging from 1,000 to 15,000+ Thai Baht per person and can plan trips for 1-30 travelers with custom date ranges.
 
-## Hackathon Achievement
+### AI-Powered Itinerary Generation
+Powered by Google Gemini AI, the application generates comprehensive travel plans in seconds. It intelligently allocates budgets across transportation, accommodation, and activities while respecting time constraints and ensuring realistic itineraries. The system automatically plans return trips to the starting destination and provides [image:TravelPlanner.png:detailed daily schedules] with recommendations.
 
-This project was developed as an entry for the Hack the Zodiac Hackathon 2024 and was accepted to compete in the hackathon finals, showcasing innovative use of AI in travel technology.
+### Budget Management
+The application includes dynamic budget calculation based on trip duration, per-person cost tracking, and automatic budget validation to prevent overruns. Transportation costs are included from the start to the first destination, and the system provides suggestions when trips aren't feasible within the specified constraints.
+
+### PDF Export
+Users can [image:Download.png:download their complete itineraries] as PDF documents with professional formatting. The [image:PDF.png:exported PDF] includes structured content with headings and detailed information, allowing for offline access and easy sharing with travel companions.
 
 ## Technologies & Skills
 
-- AI/ML Integration
-- PDF Generation
-- Travel Planning Algorithms
-- User Experience Design
+- Python: Core programming language
+- Streamlit: Web application framework
+- Google Gemini AI: AI-powered itinerary generation
+- Markdown2: Converting AI responses to formatted content
+- ReportLab: PDF generation
+- DateTime: Date calculations and trip duration management
 
-## Impact
+## Hackathon Achievement
 
-Next Thai demonstrates the potential of AI in transforming how people plan their travels, making trip planning more accessible, personalized, and efficient.
-
+This project was developed as part of a competitive hackathon and successfully advanced to the finalist stage, demonstrating effective use of AI technology for practical problem-solving and creating an intuitive interface that simplifies complex travel planning.

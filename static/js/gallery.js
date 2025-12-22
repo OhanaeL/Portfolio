@@ -16,42 +16,160 @@ export function setupImageHover() {
         preview.className = 'image-preview';
         portal.appendChild(preview);
         
+        // Image cache to preload images
+        const imageCache = new Map();
+        
+        // Preload function
+        function preloadImage(src) {
+            return new Promise((resolve, reject) => {
+                // Check cache first
+                if (imageCache.has(src)) {
+                    const cached = imageCache.get(src);
+                    if (cached.complete) {
+                        resolve(cached);
+                        return;
+                    }
+                }
+                
+                const img = new Image();
+                img.onload = () => {
+                    imageCache.set(src, img);
+                    resolve(img);
+                };
+                img.onerror = reject;
+                img.src = src;
+            });
+        }
+        
+        // Track current active trigger and image
+        let activeTrigger = null;
+        let currentImageSrc = null;
+        let isImageLoaded = false;
+        let currentMouseX = 0;
+        let currentMouseY = 0;
+        
+        // Update mouse position
+        function updateMousePosition(e) {
+            currentMouseX = e.clientX;
+            currentMouseY = e.clientY;
+        }
+        
+        // Mouse move handler to follow cursor
+        function handleMouseMove(e) {
+            updateMousePosition(e);
+            if (!activeTrigger || !isImageLoaded) return;
+            
+            updatePreviewPosition(currentMouseX, currentMouseY);
+        }
+        
+        // Update preview position based on mouse coordinates
+        function updatePreviewPosition(mouseX, mouseY) {
+            const offsetY = 20; // 20 pixels above cursor
+            const previewImg = preview.querySelector('img');
+            if (!previewImg) return;
+            
+            const imgWidth = previewImg.offsetWidth || 300;
+            const imgHeight = previewImg.offsetHeight || 250;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            // Calculate position - center horizontally on cursor
+            let left = mouseX - (imgWidth / 2);
+            let top = mouseY - imgHeight - offsetY;
+            
+            // Keep preview within viewport bounds
+            if (left < 10) {
+                left = 10;
+            } else if (left + imgWidth > viewportWidth - 10) {
+                left = viewportWidth - imgWidth - 10;
+            }
+            
+            if (top < 10) {
+                // If not enough space above, show below cursor
+                top = mouseY + offsetY;
+            }
+            
+            preview.style.left = left + 'px';
+            preview.style.top = top + 'px';
+        }
+        
+        // Add global mousemove listener
+        document.addEventListener('mousemove', handleMouseMove);
+        
         imageHoverTriggers.forEach(trigger => {
             const imageSrc = trigger.getAttribute('data-image');
             
-            trigger.addEventListener('mouseenter', function() {
-                // Create image element
-                const img = document.createElement('img');
-                img.src = imageSrc;
-                img.alt = 'Preview';
+            trigger.addEventListener('mouseenter', async function(e) {
+                activeTrigger = trigger;
+                currentImageSrc = imageSrc;
+                isImageLoaded = false;
                 
-                // Clear previous content
+                // Update mouse position from the enter event
+                if (e) {
+                    updateMousePosition(e);
+                }
+                
+                // Hide preview while loading
+                preview.classList.remove('active');
                 preview.innerHTML = '';
-                preview.appendChild(img);
                 
-                // Position preview above the trigger element
-                const rect = trigger.getBoundingClientRect();
-                preview.style.position = 'fixed';
-                preview.style.zIndex = '10000';
-                preview.style.bottom = 'auto';
-                
-                img.onload = function() {
-                    const imageHeight = img.offsetHeight;
-                    const imageWidth = img.offsetWidth;
-                    // Position below navbar (navbar is ~80px tall) and below the trigger
-                    const navbarHeight = 80;
-                    const spacing = 20;
-                    preview.style.top = Math.max(rect.bottom + spacing, navbarHeight + spacing) + 'px';
-                    preview.style.left = (rect.left + imageWidth / 4) + 'px';
-                };
-                
-                // Show preview
-                preview.classList.add('active');
+                try {
+                    // Preload image before showing
+                    const img = await preloadImage(imageSrc);
+                    
+                    // Check if still hovering over the same trigger
+                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc) {
+                        return;
+                    }
+                    
+                    // Create image element from preloaded image
+                    const previewImg = document.createElement('img');
+                    previewImg.src = img.src;
+                    previewImg.alt = 'Preview';
+                    
+                    // Clear and add image
+                    preview.innerHTML = '';
+                    preview.appendChild(previewImg);
+                    
+                    // Wait for image to render to get dimensions
+                    await new Promise(resolve => {
+                        if (previewImg.complete) {
+                            resolve();
+                        } else {
+                            previewImg.onload = resolve;
+                        }
+                    });
+                    
+                    // Check again if still active
+                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc) {
+                        return;
+                    }
+                    
+                    isImageLoaded = true;
+                    
+                    // Set initial position based on current mouse position
+                    preview.style.position = 'fixed';
+                    preview.style.zIndex = '10000';
+                    
+                    // Update position to follow cursor
+                    updatePreviewPosition(currentMouseX, currentMouseY);
+                    
+                    // Show preview
+                    preview.classList.add('active');
+                } catch (error) {
+                    console.error('Failed to load image:', imageSrc, error);
+                    activeTrigger = null;
+                    currentImageSrc = null;
+                }
             });
             
             trigger.addEventListener('mouseleave', function() {
-                // Hide preview
-                preview.classList.remove('active');
+                if (activeTrigger === trigger) {
+                    activeTrigger = null;
+                    currentImageSrc = null;
+                    isImageLoaded = false;
+                    preview.classList.remove('active');
+                }
             });
         });
     }

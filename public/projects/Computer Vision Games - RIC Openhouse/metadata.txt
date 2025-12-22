@@ -1,6 +1,5 @@
 description: Interactive camera-based games using hand gesture detection, showcased at RIC Openhouse
-date: August 2025
-tags: Computer Vision, Python, Games, OpenCV
-team:
-- HTIN LINN
+date: November 2025
+tags: Computer Vision, Python, RIC
 
+github: https://github.com/OhanaeL/RIC-Openhouse

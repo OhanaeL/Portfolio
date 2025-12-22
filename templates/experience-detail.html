@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ experience.name }} - Work Experience{% endblock %}
+{% block title %}{{ experience.name }} - Experience{% endblock %}
 
 {% block contact_link %}{% endblock %}
 {% block mobile_contact_link %}{% endblock %}
@@ -9,15 +9,15 @@
 <div class="project-header">
     <div class="container">
         <div class="project-nav-top">
-            <a href="/work-experience" class="back-link"><i class="fas fa-arrow-left"></i> Back to Work Experience</a>
+            <a href="/experience" class="back-link"><i class="fas fa-arrow-left"></i> Back to Experience</a>
             <div class="project-nav-buttons">
                 {% if prev_experience %}
-                <a href="/work-experience/{{ prev_experience.name }}" class="nav-project-btn prev-project" title="Previous: {{ prev_experience.name }}">
+                <a href="/experience/{{ prev_experience.name }}" class="nav-project-btn prev-project" title="Previous: {{ prev_experience.name }}">
                     <i class="fas fa-chevron-left"></i>
                 </a>
                 {% endif %}
                 {% if next_experience %}
-                <a href="/work-experience/{{ next_experience.name }}" class="nav-project-btn next-project" title="Next: {{ next_experience.name }}">
+                <a href="/experience/{{ next_experience.name }}" class="nav-project-btn next-project" title="Next: {{ next_experience.name }}">
                     <i class="fas fa-chevron-right"></i>
                 </a>
                 {% endif %}
@@ -55,7 +55,7 @@
             <div class="gallery-grid">
                 {% for image in experience.images %}
                 <div class="gallery-item" data-index="{{ loop.index0 }}">
-                    <img src="/work-experience-image/{{ experience.folder_name }}/images/{{ image.filename }}" alt="{{ image.title }}">
+                    <img src="/experience-image/{{ experience.folder_name }}/images/{{ image.filename }}" alt="{{ image.title }}">
                     <div class="gallery-title">{{ image.title }}</div>
                     {% if image.description %}
                     <div class="gallery-description">{{ image.description }}</div>
@@ -110,7 +110,7 @@
                 <!-- Desktop: Regular PDF grid -->
                 <div class="pdfs-grid desktop-pdfs">
                     {% for pdf in experience.embeds.pdfs %}
-                    <a href="/work-experience-embed/{{ experience.folder_name }}/{{ pdf.filename }}" target="_blank" rel="noopener noreferrer" class="pdf-embed">
+                    <a href="/experience-embed/{{ experience.folder_name }}/{{ pdf.filename }}" target="_blank" rel="noopener noreferrer" class="pdf-embed">
                         <i class="fas fa-file-pdf"></i>
                         <span>{{ pdf.title }}</span>
                         <i class="fas fa-external-link-alt"></i>
@@ -121,7 +121,7 @@
                 <!-- Mobile: Show text links -->
                 <div class="mobile-pdfs">
                     {% for pdf in experience.embeds.pdfs %}
-                    <a href="/work-experience-embed/{{ experience.folder_name }}/{{ pdf.filename }}" target="_blank" rel="noopener noreferrer" class="mobile-embed-link">
+                    <a href="/experience-embed/{{ experience.folder_name }}/{{ pdf.filename }}" target="_blank" rel="noopener noreferrer" class="mobile-embed-link">
                         {{ pdf.title }}
                     </a>
                     {% endfor %}
@@ -134,4 +134,5 @@
 </div>
 
 {% endblock %}
+
 
