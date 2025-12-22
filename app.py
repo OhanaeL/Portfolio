@@ -168,11 +168,11 @@ def parse_project(project_name):
     if not project_path.exists():
         return None
     
-    txt_files = list(project_path.glob('*.txt'))
     description = ""
+    description_file = project_path / 'description.txt'
     
-    if txt_files:
-        with open(txt_files[0], 'r', encoding='utf-8') as f:
+    if description_file.exists():
+        with open(description_file, 'r', encoding='utf-8') as f:
             description = f.read()
     
     images_path = project_path / 'images'
@@ -421,11 +421,11 @@ def parse_accomplishment(accomplishment_name):
     if not accomplishment_path.exists():
         return None
     
-    txt_files = list(accomplishment_path.glob('*.txt'))
     description = ""
+    description_file = accomplishment_path / 'description.txt'
     
-    if txt_files:
-        with open(txt_files[0], 'r', encoding='utf-8') as f:
+    if description_file.exists():
+        with open(description_file, 'r', encoding='utf-8') as f:
             description = f.read()
     
     images_path = accomplishment_path / 'images'
@@ -626,13 +626,11 @@ def parse_experience(experience_name):
     
     metadata = get_experience_metadata(experience_name)
     
-    txt_files = list(experience_path.glob('*.txt'))
     description = ""
+    description_file = experience_path / 'description.txt'
     
-    description_files = [f for f in txt_files if f.name != 'metadata.txt']
-    
-    if description_files:
-        with open(description_files[0], 'r', encoding='utf-8') as f:
+    if description_file.exists():
+        with open(description_file, 'r', encoding='utf-8') as f:
             description = f.read()
     
     images_path = experience_path / 'images'
