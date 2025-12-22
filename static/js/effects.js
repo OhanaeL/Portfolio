@@ -48,23 +48,39 @@ function createShootingStar() {
     }, duration * 1000);
 }
 
+// Track shooting star timeouts for cleanup
+let shootingStarTimeouts = [];
+
 // Trigger shooting stars at random intervals
 export function startShootingStars() {
+    // Clear any existing shooting star timeouts
+    stopShootingStars();
+    
     function scheduleNextStar() {
         // Random interval between 8-15 seconds
         const interval = 8000 + Math.random() * 7000;
         
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
             createShootingStar();
             scheduleNextStar();
         }, interval);
+        
+        shootingStarTimeouts.push(timeoutId);
     }
     
     // Start the first shooting star after a random delay
-    setTimeout(() => {
+    const initialTimeout = setTimeout(() => {
         createShootingStar();
         scheduleNextStar();
     }, 3000 + Math.random() * 5000);
+    
+    shootingStarTimeouts.push(initialTimeout);
+}
+
+// Stop shooting stars and clean up
+export function stopShootingStars() {
+    shootingStarTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+    shootingStarTimeouts = [];
 }
 
 // Create constellation background with twinkling stars

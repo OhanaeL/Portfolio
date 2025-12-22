@@ -10,7 +10,22 @@ export function setupThemeToggle() {
         return savedTheme || 'dark';
     };
     
+    let themeChangeTimeout = null;
+    let isChangingTheme = false;
+    
     const setTheme = (theme) => {
+        // Prevent rapid theme changes
+        if (isChangingTheme) {
+            return;
+        }
+        
+        isChangingTheme = true;
+        
+        // Clear any pending theme changes
+        if (themeChangeTimeout) {
+            clearTimeout(themeChangeTimeout);
+        }
+        
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         
@@ -20,9 +35,13 @@ export function setupThemeToggle() {
             if (sparklesContainer) {
                 sparklesContainer.style.display = '';
                 sparklesContainer.innerHTML = '';
-                import('./effects.js').then(({ createLightModeBackground }) => {
+                import('./effects.js').then(({ createLightModeBackground, stopShootingStars }) => {
+                    stopShootingStars();
                     createLightModeBackground();
+                    isChangingTheme = false;
                 });
+            } else {
+                isChangingTheme = false;
             }
         } else {
             if (themeIcon) themeIcon.className = 'fas fa-moon';
@@ -30,19 +49,31 @@ export function setupThemeToggle() {
             if (sparklesContainer) {
                 sparklesContainer.style.display = '';
                 sparklesContainer.innerHTML = '';
-                import('./effects.js').then(({ createSparkles, startShootingStars, createConstellation }) => {
+                import('./effects.js').then(({ createSparkles, startShootingStars, createConstellation, stopShootingStars }) => {
+                    stopShootingStars();
                     createSparkles();
                     startShootingStars();
                     createConstellation();
+                    isChangingTheme = false;
                 });
+            } else {
+                isChangingTheme = false;
             }
         }
     };
     
     const toggleTheme = () => {
-        const currentTheme = getTheme();
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        setTheme(newTheme);
+        // Debounce rapid clicks
+        if (themeChangeTimeout) {
+            clearTimeout(themeChangeTimeout);
+        }
+        
+        themeChangeTimeout = setTimeout(() => {
+            const currentTheme = getTheme();
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+            themeChangeTimeout = null;
+        }, 100);
     };
     
     if (themeToggle) {
