@@ -47,6 +47,7 @@ export function setupImageHover() {
         let isImageLoaded = false;
         let currentMouseX = 0;
         let currentMouseY = 0;
+        let loadingPromise = null;
         
         // Update mouse position
         function updateMousePosition(e) {
@@ -106,13 +107,18 @@ export function setupImageHover() {
                 currentImageSrc = imageSrc;
                 isImageLoaded = false;
                 
+                // Cancel any previous loading
+                if (loadingPromise) {
+                    loadingPromise = null;
+                }
+                
                 // Update mouse position from the enter event
                 if (e) {
                     updateMousePosition(e);
                 }
                 
                 // Show loading state immediately
-                preview.classList.remove('active');
+                preview.classList.remove('active', 'loading');
                 preview.innerHTML = '';
                 preview.classList.add('loading');
                 
@@ -136,12 +142,16 @@ export function setupImageHover() {
                 updatePreviewPosition(currentMouseX, currentMouseY);
                 preview.classList.add('active');
                 
+                // Create a promise for this specific load
+                const loadId = Date.now();
+                loadingPromise = loadId;
+                
                 try {
                     // Preload image
                     const img = await preloadImage(imageSrc);
                     
-                    // Check if still hovering over the same trigger
-                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc) {
+                    // Check if this load is still valid
+                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc || loadingPromise !== loadId) {
                         return;
                     }
                     
@@ -162,7 +172,7 @@ export function setupImageHover() {
                     });
                     
                     // Check again if still active
-                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc) {
+                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc || loadingPromise !== loadId) {
                         return;
                     }
                     
@@ -186,14 +196,12 @@ export function setupImageHover() {
                         displayWidth = maxHeight * aspectRatio;
                     }
                     
-                    // Remove loading spinner
+                    // Clear preview and add image
+                    preview.innerHTML = '';
                     preview.classList.remove('loading');
-                    loadingSpinner.remove();
-                    
-                    // Add image
                     preview.appendChild(previewImg);
                     
-                    // Transition to actual dimensions
+                    // Set actual dimensions
                     preview.style.width = displayWidth + 'px';
                     preview.style.height = displayHeight + 'px';
                     preview.style.minWidth = displayWidth + 'px';
@@ -201,18 +209,24 @@ export function setupImageHover() {
                     
                     // Fade in image
                     requestAnimationFrame(() => {
-                        previewImg.style.opacity = '1';
+                        if (activeTrigger === trigger && currentImageSrc === imageSrc && loadingPromise === loadId) {
+                            previewImg.style.opacity = '1';
+                        }
                     });
                     
                     isImageLoaded = true;
+                    loadingPromise = null;
                     
                     // Update position with new dimensions
                     updatePreviewPosition(currentMouseX, currentMouseY);
                 } catch (error) {
                     console.error('Failed to load image:', imageSrc, error);
-                    preview.classList.remove('active', 'loading');
-                    activeTrigger = null;
-                    currentImageSrc = null;
+                    if (activeTrigger === trigger && currentImageSrc === imageSrc) {
+                        preview.classList.remove('active', 'loading');
+                        activeTrigger = null;
+                        currentImageSrc = null;
+                    }
+                    loadingPromise = null;
                 }
             });
             
@@ -221,7 +235,9 @@ export function setupImageHover() {
                     activeTrigger = null;
                     currentImageSrc = null;
                     isImageLoaded = false;
-                    preview.classList.remove('active');
+                    loadingPromise = null;
+                    preview.classList.remove('active', 'loading');
+                    preview.innerHTML = '';
                 }
             });
         });
