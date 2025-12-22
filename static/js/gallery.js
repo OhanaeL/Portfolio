@@ -57,31 +57,33 @@ export function setupImageHover() {
         // Mouse move handler to follow cursor
         function handleMouseMove(e) {
             updateMousePosition(e);
-            if (!activeTrigger || !isImageLoaded) return;
+            if (!activeTrigger) return;
             
-            updatePreviewPosition(currentMouseX, currentMouseY);
+            // Update position whether loading or loaded
+            if (preview.classList.contains('active')) {
+                updatePreviewPosition(currentMouseX, currentMouseY);
+            }
         }
         
         // Update preview position based on mouse coordinates
         function updatePreviewPosition(mouseX, mouseY) {
             const offsetY = 20; // 20 pixels above cursor
-            const previewImg = preview.querySelector('img');
-            if (!previewImg) return;
             
-            const imgWidth = previewImg.offsetWidth || 300;
-            const imgHeight = previewImg.offsetHeight || 250;
+            // Get dimensions from preview container itself (works for both loading and loaded states)
+            const previewWidth = preview.offsetWidth || 200;
+            const previewHeight = preview.offsetHeight || 200;
             const viewportWidth = window.innerWidth;
             const viewportHeight = window.innerHeight;
             
             // Calculate position - center horizontally on cursor
-            let left = mouseX - (imgWidth / 2);
-            let top = mouseY - imgHeight - offsetY;
+            let left = mouseX - (previewWidth / 2);
+            let top = mouseY - previewHeight - offsetY;
             
             // Keep preview within viewport bounds
             if (left < 10) {
                 left = 10;
-            } else if (left + imgWidth > viewportWidth - 10) {
-                left = viewportWidth - imgWidth - 10;
+            } else if (left + previewWidth > viewportWidth - 10) {
+                left = viewportWidth - previewWidth - 10;
             }
             
             if (top < 10) {
@@ -109,12 +111,33 @@ export function setupImageHover() {
                     updateMousePosition(e);
                 }
                 
-                // Hide preview while loading
+                // Show loading state immediately
                 preview.classList.remove('active');
                 preview.innerHTML = '';
+                preview.classList.add('loading');
+                
+                // Set loading dimensions
+                const loadingWidth = 200;
+                const loadingHeight = 200;
+                preview.style.width = loadingWidth + 'px';
+                preview.style.height = loadingHeight + 'px';
+                preview.style.minWidth = loadingWidth + 'px';
+                preview.style.minHeight = loadingHeight + 'px';
+                
+                // Create loading spinner
+                const loadingSpinner = document.createElement('div');
+                loadingSpinner.className = 'image-loading-spinner';
+                loadingSpinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                preview.appendChild(loadingSpinner);
+                
+                // Set initial position
+                preview.style.position = 'fixed';
+                preview.style.zIndex = '10000';
+                updatePreviewPosition(currentMouseX, currentMouseY);
+                preview.classList.add('active');
                 
                 try {
-                    // Preload image before showing
+                    // Preload image
                     const img = await preloadImage(imageSrc);
                     
                     // Check if still hovering over the same trigger
@@ -122,14 +145,12 @@ export function setupImageHover() {
                         return;
                     }
                     
-                    // Create image element from preloaded image
+                    // Create image element
                     const previewImg = document.createElement('img');
                     previewImg.src = img.src;
                     previewImg.alt = 'Preview';
-                    
-                    // Clear and add image
-                    preview.innerHTML = '';
-                    preview.appendChild(previewImg);
+                    previewImg.style.opacity = '0';
+                    previewImg.style.transition = 'opacity 0.3s ease';
                     
                     // Wait for image to render to get dimensions
                     await new Promise(resolve => {
@@ -145,19 +166,51 @@ export function setupImageHover() {
                         return;
                     }
                     
+                    // Get actual image dimensions
+                    const actualWidth = img.width;
+                    const actualHeight = img.height;
+                    const maxWidth = window.innerWidth < 768 ? 300 : 400;
+                    const maxHeight = window.innerWidth < 768 ? 250 : 350;
+                    
+                    // Calculate display dimensions maintaining aspect ratio
+                    let displayWidth = actualWidth;
+                    let displayHeight = actualHeight;
+                    const aspectRatio = actualWidth / actualHeight;
+                    
+                    if (displayWidth > maxWidth) {
+                        displayWidth = maxWidth;
+                        displayHeight = maxWidth / aspectRatio;
+                    }
+                    if (displayHeight > maxHeight) {
+                        displayHeight = maxHeight;
+                        displayWidth = maxHeight * aspectRatio;
+                    }
+                    
+                    // Remove loading spinner
+                    preview.classList.remove('loading');
+                    loadingSpinner.remove();
+                    
+                    // Add image
+                    preview.appendChild(previewImg);
+                    
+                    // Transition to actual dimensions
+                    preview.style.width = displayWidth + 'px';
+                    preview.style.height = displayHeight + 'px';
+                    preview.style.minWidth = displayWidth + 'px';
+                    preview.style.minHeight = displayHeight + 'px';
+                    
+                    // Fade in image
+                    requestAnimationFrame(() => {
+                        previewImg.style.opacity = '1';
+                    });
+                    
                     isImageLoaded = true;
                     
-                    // Set initial position based on current mouse position
-                    preview.style.position = 'fixed';
-                    preview.style.zIndex = '10000';
-                    
-                    // Update position to follow cursor
+                    // Update position with new dimensions
                     updatePreviewPosition(currentMouseX, currentMouseY);
-                    
-                    // Show preview
-                    preview.classList.add('active');
                 } catch (error) {
                     console.error('Failed to load image:', imageSrc, error);
+                    preview.classList.remove('active', 'loading');
                     activeTrigger = null;
                     currentImageSrc = null;
                 }
