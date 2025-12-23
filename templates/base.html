@@ -59,7 +59,7 @@
                 <a href="/timeline" class="nav-link {% if request.endpoint == 'timeline' %}active{% endif %}">Timeline</a>
                 <a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About Me</a>
                 <a href="/experience" class="nav-link {% if request.endpoint == 'experience' %}active{% endif %}">Experience</a>
-                <div class="dropdown {% if request.endpoint == 'projects' or request.endpoint == 'project' %}active{% endif %}">
+                <div class="dropdown" {% if request.endpoint == 'projects' or request.endpoint == 'project' %}data-current-page="true"{% endif %}>
                     <button class="nav-link dropdown-btn">Projects <i class="fas fa-chevron-down"></i></button>
                     <div class="dropdown-content">
                         <a href="/projects">All Projects</a>
@@ -86,11 +86,11 @@
                 <button class="theme-toggle mobile-theme-toggle" id="mobile-theme-toggle" aria-label="Toggle theme">
                     <i class="fas fa-moon" id="mobile-theme-icon"></i>
                 </button>
-                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                </button>
+            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
             </div>
         </div>
     </nav>
@@ -103,19 +103,8 @@
         <a href="/" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Home</a>
         <a href="/timeline" class="nav-link {% if request.endpoint == 'timeline' %}active{% endif %}">My Journey</a>
         <a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About Me</a>
-        <a href="/work-experience" class="nav-link {% if request.endpoint == 'work_experience' %}active{% endif %}">Work Experience</a>
-        <div class="dropdown {% if request.endpoint == 'projects' or request.endpoint == 'project' %}active{% endif %}">
-            <button class="nav-link dropdown-btn">Projects <i class="fas fa-chevron-down"></i></button>
-            <div class="dropdown-content">
-                <a href="/projects">All Projects</a>
-                {% if all_projects %}
-                <div class="dropdown-divider"></div>
-                {% for proj in all_projects[:5] %}
-                <a href="/project/{{ proj.name }}">{{ proj.name }}</a>
-                {% endfor %}
-                {% endif %}
-            </div>
-        </div>
+        <a href="/experience" class="nav-link {% if request.endpoint == 'experience' %}active{% endif %}">Experience</a>
+        <a href="/projects" class="nav-link {% if request.endpoint == 'projects' or request.endpoint == 'project' %}active{% endif %}">Projects</a>
     </div>
 
     <main>
@@ -128,6 +117,10 @@
             <p style="margin-top: 0.5rem;"><a href="/credits" class="footer-link">Credits & Attributions</a></p>
         </div>
     </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script src="{{ url_for('static', filename='js/init.js') }}"></script>
     <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>

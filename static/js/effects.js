@@ -163,8 +163,8 @@ export function createLightModeBackground() {
     container.appendChild(lightBgContainer);
     
     const shapeCount = 8;
-    const minSize = 200;
-    const maxSize = 350;
+    const minSize = 120;
+    const maxSize = 450;
     const minGap = 50;
     const circles = [];
     const maxAttempts = 200;

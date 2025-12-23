@@ -147,42 +147,27 @@ export function setupImageHover() {
                 loadingPromise = loadId;
                 
                 try {
-                    // Preload image
                     const img = await preloadImage(imageSrc);
                     
-                    // Check if this load is still valid
                     if (activeTrigger !== trigger || currentImageSrc !== imageSrc || loadingPromise !== loadId) {
                         return;
                     }
                     
-                    // Create image element
+                    const actualWidth = img.naturalWidth || img.width;
+                    const actualHeight = img.naturalHeight || img.height;
+                    
+                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc || loadingPromise !== loadId) {
+                        return;
+                    }
+                    
                     const previewImg = document.createElement('img');
-                    previewImg.src = img.src;
+                    previewImg.src = imageSrc;
                     previewImg.alt = 'Preview';
                     previewImg.style.opacity = '0';
                     previewImg.style.transition = 'opacity 0.3s ease';
-                    
-                    // Wait for image to render to get dimensions
-                    await new Promise(resolve => {
-                        if (previewImg.complete) {
-                            resolve();
-                        } else {
-                            previewImg.onload = resolve;
-                        }
-                    });
-                    
-                    // Check again if still active
-                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc || loadingPromise !== loadId) {
-                        return;
-                    }
-                    
-                    // Get actual image dimensions
-                    const actualWidth = img.width;
-                    const actualHeight = img.height;
                     const maxWidth = window.innerWidth < 768 ? 300 : 400;
                     const maxHeight = window.innerWidth < 768 ? 250 : 350;
                     
-                    // Calculate display dimensions maintaining aspect ratio
                     let displayWidth = actualWidth;
                     let displayHeight = actualHeight;
                     const aspectRatio = actualWidth / actualHeight;
@@ -196,40 +181,28 @@ export function setupImageHover() {
                         displayWidth = maxHeight * aspectRatio;
                     }
                     
-                    // Clear preview and add image
                     preview.innerHTML = '';
                     preview.classList.remove('loading');
                     preview.appendChild(previewImg);
                     
-                    // Set actual dimensions
                     preview.style.width = displayWidth + 'px';
                     preview.style.height = displayHeight + 'px';
                     preview.style.minWidth = displayWidth + 'px';
                     preview.style.minHeight = displayHeight + 'px';
                     
-                    // Final check before showing
-                    if (activeTrigger !== trigger || currentImageSrc !== imageSrc || loadingPromise !== loadId) {
-                        return;
-                    }
-                    
-                    // Final check before showing
                     if (activeTrigger !== trigger || currentImageSrc !== imageSrc || loadingPromise !== loadId) {
                         return;
                     }
                     
                     isImageLoaded = true;
                     
-                    // Fade in image
                     requestAnimationFrame(() => {
                         if (activeTrigger === trigger && currentImageSrc === imageSrc) {
                             previewImg.style.opacity = '1';
                         }
                     });
-                    
-                    // Update position with new dimensions
+                
                     updatePreviewPosition(currentMouseX, currentMouseY);
-                    
-                    // Clear loading promise after everything is set up
                     loadingPromise = null;
                 } catch (error) {
                     console.error('Failed to load image:', imageSrc, error);
@@ -261,7 +234,30 @@ export function setupImagePreview() {
     const galleryItems = document.querySelectorAll('.gallery-item');
     
     if (galleryItems.length === 0) {
-        return; // No gallery items, nothing to do
+        return;
+    }
+    
+    // Image cache for modal
+    const modalImageCache = new Map();
+    
+    function preloadModalImage(src) {
+        return new Promise((resolve, reject) => {
+            if (modalImageCache.has(src)) {
+                const cached = modalImageCache.get(src);
+                if (cached.complete) {
+                    resolve(cached);
+                    return;
+                }
+            }
+            
+            const img = new Image();
+            img.onload = () => {
+                modalImageCache.set(src, img);
+                resolve(img);
+            };
+            img.onerror = reject;
+            img.src = src;
+        });
     }
     
     // Remove any existing modal first
@@ -277,7 +273,10 @@ export function setupImagePreview() {
     modal.innerHTML = `
         <button class="image-preview-close" aria-label="Close"><i class="fas fa-times"></i></button>
         <div class="image-preview-content">
-            <img src="" alt="" id="image-preview-img">
+            <div class="image-preview-loading">
+                <div class="image-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+            <img src="" alt="" id="image-preview-img" style="display: none;">
             <div class="image-preview-title" id="image-preview-title"></div>
         </div>
     `;
@@ -287,17 +286,45 @@ export function setupImagePreview() {
     
     const modalImg = document.getElementById('image-preview-img');
     const modalTitle = document.getElementById('image-preview-title');
+    const modalLoading = modal.querySelector('.image-preview-loading');
     const closeBtn = modal.querySelector('.image-preview-close');
     
-    function openPreview(imgSrc, title) {
-        if (modalImg) {
-            modalImg.src = imgSrc;
-        }
+    async function openPreview(imgSrc, title) {
         if (modalTitle) {
             modalTitle.textContent = title || '';
         }
+        
+        // Show loading state
+        if (modalLoading) {
+            modalLoading.style.display = 'flex';
+        }
+        if (modalImg) {
+            modalImg.style.display = 'none';
+        }
+        
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        try {
+            const img = await preloadModalImage(imgSrc);
+            
+            if (modalImg) {
+                const currentSrc = modalImg.src || '';
+                if (currentSrc !== imgSrc) {
+                    modalImg.src = imgSrc;
+                }
+                modalImg.style.display = 'block';
+            }
+            
+            if (modalLoading) {
+                modalLoading.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Failed to load modal image:', imgSrc, error);
+            if (modalLoading) {
+                modalLoading.style.display = 'none';
+            }
+        }
     }
     
     function closePreview(e) {
@@ -308,12 +335,33 @@ export function setupImagePreview() {
         document.body.style.overflow = '';
     }
     
-    // Add click handlers to gallery items
+    // Add click handlers and loading states to gallery items
     galleryItems.forEach(item => {
         const img = item.querySelector('img');
         const titleEl = item.querySelector('.gallery-title');
         
         if (img) {
+            // Create loading overlay
+            const loadingOverlay = document.createElement('div');
+            loadingOverlay.className = 'gallery-item-loading';
+            loadingOverlay.innerHTML = '<div class="image-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>';
+            item.appendChild(loadingOverlay);
+            
+            // Handle image load
+            if (img.complete) {
+                img.classList.add('loaded');
+                loadingOverlay.remove();
+            } else {
+                img.addEventListener('load', function() {
+                    img.classList.add('loaded');
+                    loadingOverlay.remove();
+                });
+                
+                img.addEventListener('error', function() {
+                    loadingOverlay.remove();
+                });
+            }
+            
             item.style.cursor = 'pointer';
             item.addEventListener('click', function(e) {
                 e.preventDefault();

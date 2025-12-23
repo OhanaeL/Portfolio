@@ -6,6 +6,7 @@ import { setupImageHover, setupImagePreview } from './gallery.js';
 import { setupTagFilters, setupProjectSearch } from './filters.js';
 import { setupCertificateTooltips } from './certificates.js';
 import { setupThemeToggle } from './theme.js';
+import { setupBackToTop } from './back-to-top.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     setupThemeToggle();
@@ -20,4 +21,5 @@ document.addEventListener('DOMContentLoaded', function() {
     setupImageHover();
     setupImagePreview();
     setupCertificateTooltips();
+    setupBackToTop();
 });

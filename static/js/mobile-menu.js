@@ -3,6 +3,7 @@ export function setupMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileSidebar = document.getElementById('mobile-nav-sidebar');
     const mobileOverlay = document.getElementById('mobile-sidebar-overlay');
+    let scrollPosition = 0;
     
     if (mobileMenuBtn && mobileSidebar) {
         mobileMenuBtn.addEventListener('click', () => {
@@ -12,13 +13,17 @@ export function setupMobileMenu() {
             
             // Prevent body scrolling when sidebar is open
             if (mobileSidebar.classList.contains('active')) {
+                scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
                 document.body.style.overflow = 'hidden';
                 document.body.style.position = 'fixed';
+                document.body.style.top = `-${scrollPosition}px`;
                 document.body.style.width = '100%';
             } else {
                 document.body.style.overflow = '';
                 document.body.style.position = '';
+                document.body.style.top = '';
                 document.body.style.width = '';
+                window.scrollTo(0, scrollPosition);
             }
         });
         
@@ -29,7 +34,9 @@ export function setupMobileMenu() {
             mobileOverlay.classList.remove('active');
             document.body.style.overflow = '';
             document.body.style.position = '';
+            document.body.style.top = '';
             document.body.style.width = '';
+            window.scrollTo(0, scrollPosition);
         });
         
         // Close menu when clicking a nav link in mobile sidebar
@@ -40,12 +47,18 @@ export function setupMobileMenu() {
                 mobileOverlay.classList.remove('active');
                 document.body.style.overflow = '';
                 document.body.style.position = '';
+                document.body.style.top = '';
                 document.body.style.width = '';
+                window.scrollTo(0, scrollPosition);
             });
         });
         
         // Dropdown functionality for mobile sidebar
         const mobileDropdownBtns = mobileSidebar.querySelectorAll('.dropdown-btn');
+        mobileSidebar.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+        });
+        
         mobileDropdownBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -62,8 +75,9 @@ export function setupMobileMenu() {
     desktopDropdowns.forEach(dropdown => {
         let closeTimeout;
         
+        dropdown.classList.remove('active');
+        
         dropdown.addEventListener('mouseenter', () => {
-            // Clear any pending close timeout
             if (closeTimeout) {
                 clearTimeout(closeTimeout);
                 closeTimeout = null;
@@ -72,11 +86,10 @@ export function setupMobileMenu() {
         });
         
         dropdown.addEventListener('mouseleave', () => {
-            // Delay closing by 1 second
             closeTimeout = setTimeout(() => {
                 dropdown.classList.remove('active');
                 closeTimeout = null;
-            }, 1000);
+            }, 100);
         });
     });
 }

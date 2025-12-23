@@ -16,7 +16,7 @@
             </button>
         </div>
         
-        <!-- Tags Filter -->
+        <!-- Tags Filter (Desktop) -->
         <div class="tags-filter scroll-reveal" id="tags-filter">
             <div class="tags-filter-loading" id="tags-filter-loading">
                 <div class="loading-skeleton"></div>
@@ -28,10 +28,25 @@
             <!-- Tags will be dynamically inserted here by JavaScript -->
         </div>
         
+        <!-- Mobile Tags Filter Dropdown -->
+        <div class="tags-filter-mobile scroll-reveal" id="tags-filter-mobile">
+            <div class="tags-filter-mobile-loading" id="tags-filter-mobile-loading">
+                <div class="loading-skeleton"></div>
+            </div>
+            <select class="tags-filter-dropdown" id="tags-filter-dropdown" style="display: none;">
+                <!-- Options will be dynamically inserted here by JavaScript -->
+            </select>
+        </div>
+        
         <div class="projects-section scroll-reveal">
         <div class="projects-grid" id="projects-grid">
             {% for project in all_projects %}
             <div class="project-card" data-tags="{{ project.metadata.tags|join(',') }}">
+                {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
+                <div class="project-card-wip-badge">
+                    <span class="status-badge work-in-progress">WIP</span>
+                </div>
+                {% endif %}
                 {% if project.metadata.links %}
                 <div class="project-card-links">
                     {% if project.metadata.links.get('Github') or project.metadata.links.get('Repository') %}
@@ -50,11 +65,7 @@
                 <div class="project-card-inner">
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                         <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
-                            <h3>{{ project.title }}
-                                {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
-                                <span class="status-badge work-in-progress">WIP</span>
-                                {% endif %}
-                            </h3>
+                            <h3>{{ project.title }}</h3>
                         </div>
                         {% if project.tagline %}
                         <p class="project-card-tagline">{{ project.tagline }}</p>
@@ -77,7 +88,7 @@
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
-                </a>
+            </a>
             </div>
             {% endfor %}
         </div>

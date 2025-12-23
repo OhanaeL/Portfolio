@@ -71,18 +71,18 @@ export function setupCertificateTooltips() {
             tooltip.style.display = 'block';
             tooltip.offsetHeight;
             updateTooltipPosition(currentMouseX, currentMouseY);
-            tooltip.classList.add('active');
+                tooltip.classList.add('active');
         });
         
         wrapper.addEventListener('mouseleave', function() {
             if (activeWrapper === wrapper) {
                 activeWrapper = null;
-                tooltip.classList.remove('active');
-                setTimeout(() => {
-                    if (!tooltip.classList.contains('active')) {
-                        tooltip.style.display = 'none';
-                    }
-                }, 200);
+            tooltip.classList.remove('active');
+            setTimeout(() => {
+                if (!tooltip.classList.contains('active')) {
+                    tooltip.style.display = 'none';
+                }
+            }, 200);
             }
         });
     });

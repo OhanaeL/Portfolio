@@ -9,8 +9,11 @@
             <h1 class="hero-title" id="mainTitle">FROM IDEAS TO WORKING CODE</h1>
         </div>
         <p class="hero-subtitle fade-in-content">React, TypeScript, Python • Hackathon finalist • Real-world projects</p>
-        <div class="scroll-arrow fade-in-content">
-            <i class="fas fa-chevron-down"></i>
+        <div class="scroll-cta fade-in-content">
+            <span class="scroll-cta-text">Explore My Work</span>
+            <div class="scroll-cta-icon">
+                <i class="fas fa-arrow-down"></i>
+            </div>
         </div>
     </div>
 </div>
@@ -30,7 +33,17 @@
         {% if projects %}
         <div class="projects-grid">
             {% for project in projects %}
-            <div class="project-card" data-tags="{{ project.metadata.tags|join(',') }}">
+            <div class="project-card{% if loop.first %} pinned-project{% endif %}" data-tags="{{ project.metadata.tags|join(',') }}">
+                {% if loop.first %}
+                <div class="pinned-project-crown">
+                    <i class="fas fa-crown"></i>
+                </div>
+                {% endif %}
+                {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
+                <div class="project-card-wip-badge">
+                    <span class="status-badge work-in-progress">WIP</span>
+                </div>
+                {% endif %}
                 {% if project.metadata.links %}
                 <div class="project-card-links">
                     {% if project.metadata.links.get('Github') or project.metadata.links.get('Repository') %}
@@ -49,11 +62,7 @@
                 <div class="project-card-inner">
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                         <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
-                            <h3>{{ project.title }}
-                                {% if project.metadata.status and project.metadata.status.lower() == 'work in progress' %}
-                                <span class="status-badge work-in-progress">WIP</span>
-                                {% endif %}
-                            </h3>
+                            <h3>{{ project.title }}</h3>
                         </div>
                         {% if project.tagline %}
                         <p class="project-card-tagline">{{ project.tagline }}</p>
@@ -76,7 +85,7 @@
                         <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
-                </a>
+            </a>
             </div>
             {% endfor %}
         </div>

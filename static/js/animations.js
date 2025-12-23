@@ -155,14 +155,9 @@ export function setupTitleEcho() {
 }
 
 export function setupScrollArrow() {
-    const scrollArrow = document.querySelector('.scroll-arrow');
-    if (scrollArrow) {
-        setTimeout(() => {
-            scrollArrow.style.animation = 'fadeInContent 1.5s ease-out forwards, bounce 2s ease-in-out infinite';
-            scrollArrow.style.animationDelay = '2.5s, 5.5s';
-        }, 100);
-        
-        scrollArrow.addEventListener('click', function() {
+    const scrollCta = document.querySelector('.scroll-cta');
+    if (scrollCta) {
+        scrollCta.addEventListener('click', function() {
             const projectsSection = document.querySelector('.projects-section');
             if (projectsSection) {
                 const yOffset = -100;

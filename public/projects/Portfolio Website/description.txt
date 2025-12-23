@@ -1,9 +1,28 @@
-The main idea was to make it easy to add content. Adding a new project is just creating a folder, dropping in a description file and some images, and it's live. No code changes needed. I can control which projects show up first using a simple order.txt file, so I can highlight my best work without messing around in templates.
+Portfolio Website is a file-based content management system I developed to showcase my projects, accomplishments, and professional journey. Built with Flask and vanilla JavaScript, [image:homepage.png:the application] provides a streamlined way to manage portfolio content without database dependencies or admin panels. The entire site is driven by organized folders and text files, making content updates as simple as editing files.
 
-I spent a lot of time on the details that make browsing smooth. There's real-time search that filters as you type, and tag filters that automatically appear based on what I tag each project with. When writing descriptions, I can use Markdown for formatting, which is much nicer than plain text. I also built a hover feature where you can hover over text and see an image preview - [image:homepage.png:like this] - useful for showing screenshots without cluttering up the page.
+## Key Features
 
-The whole thing runs on Flask with vanilla JavaScript. Everything's file-based, which means I can update my projects, accomplishments, or about page just by editing text files. No database migrations, no admin panels, just simple files.
+### File-Based Content Management
+Projects, experiences, and accomplishments are managed through simple folder structures. Adding new content requires creating a folder, dropping in description files and images, and updating an order.txt file to control display priority. All content supports Markdown formatting for rich text descriptions.
 
-[image:projects_page.png:The projects page] includes all the search and filtering functionality. The timeline page shows accomplishments over the years, and the about page has my skills visualized with animated progress bars.
+### Dynamic Search and Filtering
+The projects page includes [image:projects_page.png:real-time search functionality] that filters results as users type, along with automatic tag-based filtering. Tags are extracted from project metadata, creating dynamic filter options without manual configuration.
 
-Building this was as much about learning as it was about having a portfolio. I got to experiment with CSS variables (all the colors are defined at the top, which makes theming easy), work on responsive design, and figure out how to make file-based content management work smoothly.
+### Interactive Image Previews
+Built-in hover functionality allows inline image previews within descriptions. Users can hover over text links to see [image:homepage.png:image previews] without cluttering the page layout, providing context without disrupting the reading flow.
+
+### Responsive Design and Theming
+The site features a dark purple theme with pixel art-inspired design elements, fully responsive across devices. CSS variables enable easy theme customization, and the site includes light and dark mode support with smooth transitions.
+
+## Technologies & Skills
+
+- Python: Core backend logic with Flask
+- Flask: Web framework for routing and templating
+- JavaScript: Vanilla JS for interactivity, search, and filtering
+- CSS: Custom styling with CSS variables for theming
+- Jinja2: Template engine for dynamic content generation
+- File System: Content management through organized folder structures
+
+## Development Approach
+
+This project emphasizes simplicity and maintainability. By avoiding databases and admin panels, the portfolio remains lightweight and easy to update. The file-based approach allows version control of all content, making it straightforward to track changes and deploy updates.
