@@ -11,22 +11,50 @@
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon.svg') }}">
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="{% block meta_description %}A beautiful portfolio website showcasing creative projects and professional work{% endblock %}">
-    <meta name="keywords" content="portfolio, web development, projects, creative work">
-    <meta name="author" content="Your Name">
+    <meta name="description" content="{% block meta_description %}Portfolio of Htin Linn - Full-stack developer specializing in React, TypeScript, and Python. Showcasing hackathon projects, real-world applications, and professional work.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}Htin Linn, portfolio, web development, React, TypeScript, Python, full-stack developer, software engineer, hackathon, projects, web developer, programmer{% endblock %}">
+    <meta name="author" content="Htin Linn">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="{{ request.url }}">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     
     <!-- Open Graph Meta Tags (for social media sharing) -->
-    <meta property="og:title" content="{% block og_title %}Portfolio{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}A beautiful portfolio website showcasing creative projects and professional work{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Htin Linn - Portfolio{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Full-stack developer specializing in React, TypeScript, and Python. Showcasing hackathon projects, real-world applications, and professional work.{% endblock %}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.url }}">
     <meta property="og:image" content="{{ url_for('static', filename='favicon.svg', _external=True) }}">
+    <meta property="og:site_name" content="Htin Linn Portfolio">
+    <meta property="og:locale" content="en_US">
     
     <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{% block twitter_title %}Portfolio{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}A beautiful portfolio website showcasing creative projects{% endblock %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Htin Linn - Portfolio{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Full-stack developer specializing in React, TypeScript, and Python. Showcasing hackathon projects and real-world applications.{% endblock %}">
     <meta name="twitter:image" content="{{ url_for('static', filename='favicon.svg', _external=True) }}">
+    <meta name="twitter:creator" content="@OhanaeL">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Htin Linn",
+        "url": "{{ request.url_root.rstrip('/') }}",
+        "sameAs": [
+            "https://github.com/OhanaeL",
+            "https://www.linkedin.com/in/htin-linn-b599711a1/"
+        ],
+        "jobTitle": "Full-stack Developer",
+        "knowsAbout": ["React", "TypeScript", "Python", "Web Development", "Software Engineering"],
+        "email": "htinlinn.116900@gmail.com"
+    }
+    </script>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +75,9 @@
 </head>
 <body>
     <script>window.scrollTo(0, 0);</script>
+    
+    <!-- Top Loading Bar -->
+    <div id="top-loading-bar" class="top-loading-bar"></div>
     
     <!-- Desktop Navbar -->
     <nav class="navbar desktop-navbar">

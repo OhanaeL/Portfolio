@@ -2,6 +2,18 @@
 
 {% block title %}Portfolio - Home{% endblock %}
 
+{% block meta_description %}Homepage of Htin Linn's portfolio - Full-stack developer showcasing React, TypeScript, and Python projects. Explore hackathon wins, real-world applications, and professional work.{% endblock %}
+
+{% block meta_keywords %}Htin Linn, portfolio homepage, web developer, React developer, TypeScript developer, Python developer, full-stack developer, software engineer, hackathon projects{% endblock %}
+
+{% block og_title %}Htin Linn - Portfolio Home{% endblock %}
+
+{% block og_description %}Full-stack developer specializing in React, TypeScript, and Python. Explore hackathon projects, real-world applications, and professional work.{% endblock %}
+
+{% block twitter_title %}Htin Linn - Portfolio Home{% endblock %}
+
+{% block twitter_description %}Full-stack developer specializing in React, TypeScript, and Python. Explore hackathon projects and real-world applications.{% endblock %}
+
 {% block content %}
 <div class="hero">
     <div class="container">
@@ -9,11 +21,21 @@
             <h1 class="hero-title" id="mainTitle">FROM IDEAS TO WORKING CODE</h1>
         </div>
         <p class="hero-subtitle fade-in-content">React, TypeScript, Python • Hackathon finalist • Real-world projects</p>
-        <div class="scroll-cta fade-in-content">
-            <span class="scroll-cta-text">Explore My Work</span>
-            <div class="scroll-cta-icon">
-                <i class="fas fa-arrow-down"></i>
+        <div class="hero-cta-container fade-in-content">
+            <div class="scroll-cta">
+                <span class="scroll-cta-text">Explore My Work</span>
+                <div class="scroll-cta-icon">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
             </div>
+            {% if resume %}
+            <a href="/resume/{{ resume }}" target="_blank" class="resume-cta">
+                <span class="resume-cta-text">View My Resume</span>
+                <div class="resume-cta-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+            </a>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -97,6 +119,7 @@
             <p>Create a folder in the "projects" directory to add your first project!</p>
         </div>
         {% endif %}
+        </div>
     </section>
 </div>
 

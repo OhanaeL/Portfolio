@@ -2,6 +2,18 @@
 
 {% block title %}About Me - Portfolio{% endblock %}
 
+{% block meta_description %}Learn about Htin Linn - Full-stack developer specializing in React, TypeScript, and Python. View skills, experience, background, and professional certifications.{% endblock %}
+
+{% block meta_keywords %}Htin Linn, about me, developer bio, software engineer profile, full-stack developer skills, React developer, TypeScript developer, Python developer, developer background, professional certifications{% endblock %}
+
+{% block og_title %}About Me - Htin Linn Portfolio{% endblock %}
+
+{% block og_description %}Learn about Htin Linn - Full-stack developer specializing in React, TypeScript, and Python. View skills, experience, and professional background.{% endblock %}
+
+{% block twitter_title %}About Me - Htin Linn Portfolio{% endblock %}
+
+{% block twitter_description %}Learn about Htin Linn - Full-stack developer specializing in React, TypeScript, and Python.{% endblock %}
+
 {% block contact_link %}{% endblock %}
 
 {% block content %}
@@ -13,7 +25,8 @@
         <div class="about-info-bar scroll-reveal">
             {% if about.info.profile_pic %}
             <div class="profile-pic-container">
-                <img src="/profile-pic/{{ about.info.profile_pic }}" alt="Profile" class="profile-pic">
+                <div class="profile-pic-skeleton" id="profile-pic-skeleton"></div>
+                <img src="/profile-pic/{{ about.info.profile_pic }}" alt="Profile" class="profile-pic" id="profile-pic" style="display: none;" onload="this.style.display='block'; document.getElementById('profile-pic-skeleton').style.display='none';">
             </div>
             {% endif %}
             <div class="info-items">

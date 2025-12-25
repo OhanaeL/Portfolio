@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}{{ project.name }} - Portfolio{% endblock %}
+{% block title %}{{ project.title }}{% if project.tagline %} - {{ project.tagline }}{% endif %} - Portfolio{% endblock %}
+
+{% block meta_description %}{% if project.metadata.short_description %}{{ project.metadata.short_description }}{% else %}View details about {{ project.title }} project by Htin Linn - Full-stack developer.{% endif %}{% if project.metadata.date %} Completed in {{ project.metadata.date }}.{% endif %}{% endblock %}
+
+{% block meta_keywords %}{{ project.title }}, {% if project.metadata.tags %}{{ project.metadata.tags|join(', ') }}, {% endif %}Htin Linn project, portfolio project, web development{% endblock %}
+
+{% block og_title %}{{ project.title }}{% if project.tagline %} - {{ project.tagline }}{% endif %} - Htin Linn Portfolio{% endblock %}
+
+{% block og_description %}{% if project.metadata.short_description %}{{ project.metadata.short_description }}{% else %}View details about {{ project.title }} project by Htin Linn - Full-stack developer.{% endif %}{% endblock %}
+
+{% block twitter_title %}{{ project.title }} - Htin Linn Portfolio{% endblock %}
+
+{% block twitter_description %}{% if project.metadata.short_description %}{{ project.metadata.short_description }}{% else %}View details about {{ project.title }} project by Htin Linn - Full-stack developer.{% endif %}{% endblock %}
 
 {% block contact_link %}{% endblock %}
 {% block mobile_contact_link %}{% endblock %}

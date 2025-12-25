@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}{{ experience.name }} - Experience{% endblock %}
+{% block title %}{{ experience.name }}{% if experience.metadata.company %} at {{ experience.metadata.company }}{% endif %} - Experience{% endblock %}
+
+{% block meta_description %}{% if experience.metadata.short_description %}{{ experience.metadata.short_description }}{% else %}View details about {{ experience.name }} experience by Htin Linn - Full-stack developer.{% endif %}{% if experience.metadata.company %} at {{ experience.metadata.company }}.{% endif %}{% if experience.metadata.date %} {{ experience.metadata.date }}.{% endif %}{% endblock %}
+
+{% block meta_keywords %}{{ experience.name }}, {% if experience.metadata.company %}{{ experience.metadata.company }}, {% endif %}Htin Linn experience, work experience, professional experience, software engineer{% endblock %}
+
+{% block og_title %}{{ experience.name }}{% if experience.metadata.company %} at {{ experience.metadata.company }}{% endif %} - Htin Linn Portfolio{% endblock %}
+
+{% block og_description %}{% if experience.metadata.short_description %}{{ experience.metadata.short_description }}{% else %}View details about {{ experience.name }} experience by Htin Linn - Full-stack developer.{% endif %}{% endblock %}
+
+{% block twitter_title %}{{ experience.name }} - Htin Linn Portfolio{% endblock %}
+
+{% block twitter_description %}{% if experience.metadata.short_description %}{{ experience.metadata.short_description }}{% else %}View details about {{ experience.name }} experience by Htin Linn - Full-stack developer.{% endif %}{% endblock %}
 
 {% block contact_link %}{% endblock %}
 {% block mobile_contact_link %}{% endblock %}

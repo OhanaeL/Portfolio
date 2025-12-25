@@ -302,7 +302,11 @@ def index():
     """Homepage with top 3 projects."""
     all_projects = get_all_projects()
     top_projects = all_projects[:3] if len(all_projects) > 3 else all_projects
-    return render_template('index.html', projects=top_projects, all_projects=all_projects)
+    
+    about_data = parse_about()
+    resume_filename = about_data.get('resume')
+    
+    return render_template('index.html', projects=top_projects, all_projects=all_projects, resume=resume_filename)
 
 @app.route('/projects')
 def projects():

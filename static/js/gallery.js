@@ -266,17 +266,40 @@ export function setupImagePreview() {
         existingModal.remove();
     }
     
+    // Collect all gallery images and their titles
+    const galleryImages = [];
+    galleryItems.forEach(item => {
+        const img = item.querySelector('img');
+        const titleEl = item.querySelector('.gallery-title');
+        if (img) {
+            galleryImages.push({
+                src: img.src,
+                title: titleEl ? titleEl.textContent : ''
+            });
+        }
+    });
+    
+    let currentImageIndex = -1;
+    
     // Create modal portal directly in body
     const modal = document.createElement('div');
     modal.id = 'image-preview-modal-portal';
     modal.className = 'image-preview-modal';
     modal.innerHTML = `
         <button class="image-preview-close" aria-label="Close"><i class="fas fa-times"></i></button>
+        <button class="image-preview-nav image-preview-prev" aria-label="Previous image" style="display: none;">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="image-preview-nav image-preview-next" aria-label="Next image" style="display: none;">
+            <i class="fas fa-chevron-right"></i>
+        </button>
         <div class="image-preview-content">
             <div class="image-preview-loading">
                 <div class="image-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
             </div>
-            <img src="" alt="" id="image-preview-img" style="display: none;">
+            <div class="image-preview-wrapper">
+                <img src="" alt="" id="image-preview-img" style="display: none;">
+            </div>
             <div class="image-preview-title" id="image-preview-title"></div>
         </div>
     `;
@@ -288,11 +311,44 @@ export function setupImagePreview() {
     const modalTitle = document.getElementById('image-preview-title');
     const modalLoading = modal.querySelector('.image-preview-loading');
     const closeBtn = modal.querySelector('.image-preview-close');
+    const prevBtn = modal.querySelector('.image-preview-prev');
+    const nextBtn = modal.querySelector('.image-preview-next');
+    
+    function updateNavigationButtons() {
+        if (galleryImages.length <= 1) {
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+            return;
+        }
+        
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+        
+        prevBtn.disabled = currentImageIndex === 0;
+        nextBtn.disabled = currentImageIndex === galleryImages.length - 1;
+    }
     
     async function openPreview(imgSrc, title) {
-        if (modalTitle) {
-            modalTitle.textContent = title || '';
+        // Find the index of the clicked image
+        currentImageIndex = galleryImages.findIndex(img => img.src === imgSrc);
+        if (currentImageIndex === -1) {
+            currentImageIndex = 0;
         }
+        
+        await showImage(currentImageIndex);
+    }
+    
+    async function showImage(index) {
+        if (index < 0 || index >= galleryImages.length) return;
+        
+        currentImageIndex = index;
+        const imageData = galleryImages[index];
+        
+        if (modalTitle) {
+            modalTitle.textContent = imageData.title || '';
+        }
+        
+        updateNavigationButtons();
         
         // Show loading state
         if (modalLoading) {
@@ -306,12 +362,12 @@ export function setupImagePreview() {
         document.body.style.overflow = 'hidden';
         
         try {
-            const img = await preloadModalImage(imgSrc);
+            const img = await preloadModalImage(imageData.src);
             
             if (modalImg) {
                 const currentSrc = modalImg.src || '';
-                if (currentSrc !== imgSrc) {
-                    modalImg.src = imgSrc;
+                if (currentSrc !== imageData.src) {
+                    modalImg.src = imageData.src;
                 }
                 modalImg.style.display = 'block';
             }
@@ -320,10 +376,22 @@ export function setupImagePreview() {
                 modalLoading.style.display = 'none';
             }
         } catch (error) {
-            console.error('Failed to load modal image:', imgSrc, error);
+            console.error('Failed to load modal image:', imageData.src, error);
             if (modalLoading) {
                 modalLoading.style.display = 'none';
             }
+        }
+    }
+    
+    function showNextImage() {
+        if (currentImageIndex < galleryImages.length - 1) {
+            showImage(currentImageIndex + 1);
+        }
+    }
+    
+    function showPrevImage() {
+        if (currentImageIndex > 0) {
+            showImage(currentImageIndex - 1);
         }
     }
     
@@ -374,7 +442,25 @@ export function setupImagePreview() {
     
     // Close button
     if (closeBtn) {
-        closeBtn.addEventListener('click', closePreview);
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closePreview(e);
+        });
+    }
+    
+    // Navigation buttons
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            showPrevImage();
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            showNextImage();
+        });
     }
     
     // Close on overlay click (but not on the content)
@@ -393,10 +479,16 @@ export function setupImagePreview() {
         });
     }
     
-    // Close on Escape key
+    // Keyboard navigation
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
+        if (!modal.classList.contains('active')) return;
+        
+        if (e.key === 'Escape') {
             closePreview();
+        } else if (e.key === 'ArrowLeft') {
+            showPrevImage();
+        } else if (e.key === 'ArrowRight') {
+            showNextImage();
         }
     });
 }
