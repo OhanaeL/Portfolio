@@ -1,37 +1,24 @@
-# SPLASH Golf Club - Hospitality ERP System
-
-SPLASH Golf Club is a comprehensive hospitality management system developed for golf clubs, which won **1st Place** at the CIMSO Hospitality ERP Hackathon 2025. The system modernizes golf club operations with an integrated ERP solution featuring AI-powered assistance.
-
-## Project Overview
-
-This full-stack application provides a complete solution for golf club management, from course bookings to customer interactions. The system features an AI-powered chatbot that enhances user experience through natural language interaction and multilingual support.
+SPLASH Golf Club is a Next.js web application I developed for golf club management and booking, which won **1st Place** at the CIMSO ERP Hackathon. Built with Next.js 15 and TypeScript, [image:homepage.png:the application] provides real-time tee time bookings, member management, and integrates with CIMSO ERP systems for hotel and restaurant services. A companion Flutter mobile app extends the functionality to mobile devices.
 
 ## Key Features
 
-- **React Frontend**: Modern, responsive user interface built with React
-- **JavaScript Backend**: Robust server-side implementation
-- **MongoDB Database**: Efficient data management and storage
-- **AI-Powered Chatbot**: Intelligent assistant for booking golf courses
-- **Multilingual Support**: Chatbot supports multiple languages
-- **Voice Interaction**: Voice-enabled chatbot for hands-free operation
-- **Comprehensive ERP Features**: Complete golf club management system
+### Golf Course Booking System
+Multi-step booking flow supporting 9-hole and 18-hole bookings with real-time availability. Dynamic pricing adjusts based on the day of the week, and each course includes detailed hole information.
 
-## Hackathon Achievement
+### AI-Powered Chat Widget
+[image:chatpanel.png:Google Gemini-powered chatbot] provides intelligent assistance for booking inquiries and course information through natural language interaction.
 
-This project secured **1st Place** at the CIMSO Hospitality ERP Hackathon 2025, recognized for its innovative design, comprehensive functionality, and excellent user experience.
+### Admin Dashboard
+Comprehensive dashboard with analytics, revenue charts, booking statistics, and user management tools for complete platform control.
 
 ## Technologies & Skills
 
-- React.js
-- JavaScript (Node.js)
-- MongoDB
-- AI/ML Integration
-- Natural Language Processing
-- Voice Recognition
-- Full-Stack Development
-- ERP System Design
+- Next.js 15: React framework with App Router for server-side rendering
+- TypeScript: Type-safe development
+- React Query: Data fetching and caching
+- Google Generative AI: AI-powered chat functionality
+- Tailwind CSS: Utility-first CSS framework
 
-## Impact
+## Development Approach
 
-SPLASH Golf Club demonstrates how modern web technologies and AI can transform traditional hospitality operations, providing golf clubs with a comprehensive, user-friendly management solution.
-
+Developed as a hackathon entry focusing on production-ready features. The modular architecture integrates with external CIMSO ERP systems while maintaining clean separation of concerns. Multi-language support and AI integration enhance accessibility and user interaction.

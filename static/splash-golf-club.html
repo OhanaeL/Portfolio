@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPLASH Golf Club - Hospitality ERP System - Portfolio</title>
+    
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="Comprehensive golf club ERP system with AI chatbot, winner of 1st Place at CIMSO Hospitality ERP Hackathon 2025. Completed in March 2025.">
+    <meta name="keywords" content="SPLASH Golf Club, Web Dev, Hackathon, React, Htin Linn project, portfolio project, web development">
+    
+    <meta property="og:title" content="SPLASH Golf Club - Hospitality ERP System - Htin Linn Portfolio">
+    <meta property="og:description" content="Comprehensive golf club ERP system with AI chatbot, winner of 1st Place at CIMSO Hospitality ERP Hackathon 2025">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+    <script>window.scrollTo(0, 0);</script>
+    
+    <div id="top-loading-bar" class="top-loading-bar"></div>
+    
+    <nav class="navbar desktop-navbar">
+        <div class="container">
+            <a href="index.html" class="logo">HTIN LINN</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="https://portfolio-website-sedh.onrender.com" target="_blank" class="nav-link" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <span>View Full Portfolio</span>
+                    <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i>
+                </a>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <nav class="mobile-navbar">
+        <div class="mobile-navbar-container">
+            <a href="index.html" class="mobile-logo">HTIN LINN</a>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="theme-toggle mobile-theme-toggle" id="mobile-theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="sparkles-container"></div>
+    
+    <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+    <div class="mobile-nav-sidebar" id="mobile-nav-sidebar">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="https://portfolio-website-sedh.onrender.com" target="_blank" class="nav-link" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+            <span>View Full Portfolio</span>
+            <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i>
+        </a>
+    </div>
+
+    <main>
+        <div class="project-header">
+            <div class="container">
+                <div class="project-nav-top">
+                    <a href="index.html#projects-section" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                    <div>
+                        <h1>SPLASH Golf Club</h1>
+                        <p class="project-tagline">Hospitality ERP System</p>
+                    </div>
+                </div>
+                <div class="project-meta-info">
+                    <a href="#media-gallery-section" class="scroll-media-cta">
+                        <span class="scroll-media-cta-text">View Media & Gallery</span>
+                        <span class="scroll-media-cta-icon"><i class="fas fa-arrow-down"></i></span>
+                    </a>
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>March 2025</span>
+                    </div>
+                    <div class="meta-item team-meta">
+                        <i class="fas fa-users"></i>
+                        <span>Team: </span>
+                        <div class="team-list-inline">
+                            <span class="team-member-inline">Htin Linn</span>, <span class="team-others-toggle" data-others="Pyaw Kyaw, Nyan Lin Aung, Suzin Win, Saw Dar Eh">and 4 others</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/OhanaeL/golf-website" target="_blank" rel="noopener noreferrer" class="meta-item project-external-link">
+                        <i class="fab fa-github"></i>
+                        <span>Github</span>
+                    </a>
+                    <a href="https://splashgolfclub.site/" target="_blank" rel="noopener noreferrer" class="meta-item project-external-link">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span>Demo</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <section class="project-content">
+                <p style="text-align: center; color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 2rem;" class="scroll-reveal">
+                    <a href="https://portfolio-website-sedh.onrender.com/project/SPLASH%20Golf%20Club%20-%20Hospitality%20ERP%20System" target="_blank" style="color: var(--purple-accent); text-decoration: underline;">View full interactive project page</a> for complete gallery, images, and demo video
+                    <br><span style="font-size: 0.75rem; opacity: 0.8;">Note: The full portfolio may take a moment to wake up if it's been idle</span>
+                </p>
+                
+                <div class="project-disclaimer scroll-reveal">
+                    <div class="disclaimer-content">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="disclaimer-text">
+                            <strong>Note:</strong> While a demo exists, the API was from CIMSO's backend which was only available during the hackathon event. Only a demo video of the project exists to showcase full functionality.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-description scroll-reveal">
+                    <p>SPLASH Golf Club is a Next.js web application I developed for golf club management and booking, which won <strong>1st Place</strong> at the CIMSO ERP Hackathon. Built with Next.js 15 and TypeScript, <span class="image-hover-trigger" data-image="../public/projects/SPLASH%20Golf%20Club%20-%20Hospitality%20ERP%20System/images/homepage.png">the application</span> provides real-time tee time bookings, member management, and integrates with CIMSO ERP systems for hotel and restaurant services. A companion Flutter mobile app extends the functionality to mobile devices.</p>
+
+                    <h2>Key Features</h2>
+
+                    <h3>Golf Course Booking System</h3>
+                    <p>Multi-step booking flow supporting 9-hole and 18-hole bookings with real-time availability. Dynamic pricing adjusts based on the day of the week, and each course includes detailed hole information.</p>
+
+                    <h3>AI-Powered Chat Widget</h3>
+                    <p><span class="image-hover-trigger" data-image="../public/projects/SPLASH%20Golf%20Club%20-%20Hospitality%20ERP%20System/images/chatpanel.png">Google Gemini-powered chatbot</span> provides intelligent assistance for booking inquiries and course information through natural language interaction.</p>
+
+                    <h3>Admin Dashboard</h3>
+                    <p>Comprehensive dashboard with analytics, revenue charts, booking statistics, and user management tools for complete platform control.</p>
+
+                    <h2>Technologies & Skills</h2>
+                    <ul>
+                        <li><strong>Next.js 15:</strong> React framework with App Router for server-side rendering</li>
+                        <li><strong>TypeScript:</strong> Type-safe development</li>
+                        <li><strong>React Query:</strong> Data fetching and caching</li>
+                        <li><strong>Google Generative AI:</strong> AI-powered chat functionality</li>
+                        <li><strong>Tailwind CSS:</strong> Utility-first CSS framework</li>
+                    </ul>
+
+                    <h2>Development Approach</h2>
+                    <p>Developed as a hackathon entry focusing on production-ready features. The modular architecture integrates with external CIMSO ERP systems while maintaining clean separation of concerns. Multi-language support and AI integration enhance accessibility and user interaction.</p>
+                </div>
+
+                <div id="media-gallery-section" class="image-gallery scroll-reveal">
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-type="image" data-index="0">
+                            <img src="../public/projects/SPLASH%20Golf%20Club%20-%20Hospitality%20ERP%20System/images/homepage.png" alt="Homepage">
+                            <div class="gallery-title">Homepage</div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-index="1">
+                            <img src="../public/projects/SPLASH%20Golf%20Club%20-%20Hospitality%20ERP%20System/images/chatpanel.png" alt="Chat Panel">
+                            <div class="gallery-title">Chat Panel</div>
+                        </div>
+                        <div class="gallery-item video-item" data-type="video" data-video-type="local" data-video-src="../public/projects/SPLASH%20Golf%20Club%20-%20Hospitality%20ERP%20System/embeds/SplasGolfClub.mp4">
+                            <div class="gallery-video-thumbnail">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <div class="gallery-title">Demo Video</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 My Portfolio. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;"><a href="https://portfolio-website-sedh.onrender.com/credits" class="footer-link">Credits & Attributions</a></p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        function initLoadingBar() {
+            const loadingBar = document.getElementById('top-loading-bar');
+            if (!loadingBar) return;
+            
+            let progress = 0;
+            let loadingInterval = null;
+            
+            function startLoading() {
+                loadingBar.classList.add('loading');
+                loadingBar.style.width = '0%';
+                progress = 0;
+                
+                loadingInterval = setInterval(() => {
+                    if (progress < 90) {
+                        progress += Math.random() * 15;
+                        if (progress > 90) progress = 90;
+                        loadingBar.style.width = progress + '%';
+                    }
+                }, 100);
+            }
+            
+            function completeLoading() {
+                if (loadingInterval) {
+                    clearInterval(loadingInterval);
+                }
+                loadingBar.style.width = '100%';
+                setTimeout(() => {
+                    loadingBar.classList.add('complete');
+                    setTimeout(() => {
+                        loadingBar.classList.remove('loading', 'complete');
+                        loadingBar.style.width = '0%';
+                    }, 500);
+                }, 200);
+            }
+            
+            startLoading();
+            
+            if (document.readyState === 'complete') {
+                completeLoading();
+            } else {
+                window.addEventListener('load', function() {
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                    completeLoading();
+                });
+            }
+        }
+
+        initLoadingBar();
+    </script>
+    <script>
+        (function() {
+            function setupThemeToggle() {
+                const themeToggle = document.getElementById('theme-toggle');
+                const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+                const themeIcon = document.getElementById('theme-icon');
+                const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+                
+                const getTheme = () => localStorage.getItem('theme') || 'dark';
+                const setTheme = (theme) => {
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                    if (theme === 'light') {
+                        if (themeIcon) themeIcon.className = 'fas fa-sun';
+                        if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-sun';
+                    } else {
+                        if (themeIcon) themeIcon.className = 'fas fa-moon';
+                        if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-moon';
+                    }
+                };
+                
+                const toggleTheme = () => {
+                    const currentTheme = getTheme();
+                    setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+                };
+                
+                if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+                if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+            }
+            
+            function setupMobileMenu() {
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                const mobileSidebar = document.getElementById('mobile-nav-sidebar');
+                const mobileOverlay = document.getElementById('mobile-sidebar-overlay');
+                let scrollPosition = 0;
+                
+                if (mobileMenuBtn && mobileSidebar) {
+                    mobileMenuBtn.addEventListener('click', () => {
+                        mobileMenuBtn.classList.toggle('active');
+                        mobileSidebar.classList.toggle('active');
+                        mobileOverlay.classList.toggle('active');
+                        
+                        if (mobileSidebar.classList.contains('active')) {
+                            scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                            document.body.style.overflow = 'hidden';
+                            document.body.style.position = 'fixed';
+                            document.body.style.top = `-${scrollPosition}px`;
+                            document.body.style.width = '100%';
+                        } else {
+                            document.body.style.overflow = '';
+                            document.body.style.position = '';
+                            document.body.style.top = '';
+                            document.body.style.width = '';
+                            window.scrollTo(0, scrollPosition);
+                        }
+                    });
+                    
+                    if (mobileOverlay) {
+                        mobileOverlay.addEventListener('click', () => {
+                            mobileMenuBtn.classList.remove('active');
+                            mobileSidebar.classList.remove('active');
+                            mobileOverlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                            document.body.style.position = '';
+                            document.body.style.top = '';
+                            document.body.style.width = '';
+                            window.scrollTo(0, scrollPosition);
+                        });
+                    }
+                }
+            }
+            
+            function setupBackToTop() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+                
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        backToTopButton.classList.add('visible');
+                    } else {
+                        backToTopButton.classList.remove('visible');
+                    }
+                });
+                
+                backToTopButton.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+            
+            function createSparkles() {
+                const container = document.querySelector('.sparkles-container');
+                if (!container) return;
+                
+                const sparkleCount = 50;
+                for (let i = 0; i < sparkleCount; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = Math.random() > 0.7 ? 'sparkle purple' : 'sparkle';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.top = Math.random() * 100 + '%';
+                    sparkle.style.setProperty('--duration', (2 + Math.random() * 3) + 's');
+                    sparkle.style.setProperty('--delay', Math.random() * 5 + 's');
+                    container.appendChild(sparkle);
+                }
+            }
+            
+            function createConstellation() {
+                const container = document.querySelector('.sparkles-container');
+                if (!container) return;
+                
+                const constellationContainer = document.createElement('div');
+                constellationContainer.className = 'constellation-background';
+                container.appendChild(constellationContainer);
+                
+                const starCount = 80;
+                for (let i = 0; i < starCount; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'constellation-star';
+                    const size = Math.random() * 2 + 1;
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.width = size + 'px';
+                    star.style.height = size + 'px';
+                    star.style.setProperty('--twinkle-delay', Math.random() * 3 + 's');
+                    star.style.setProperty('--twinkle-duration', (2 + Math.random() * 2) + 's');
+                    constellationContainer.appendChild(star);
+                }
+            }
+            
+            function setupScrollReveal() {
+                const scrollElements = document.querySelectorAll('.scroll-reveal');
+                
+                const elementInView = (el, offset = 100) => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    return elementTop <= (window.innerHeight || document.documentElement.clientHeight) - offset;
+                };
+                
+                const displayScrollElement = (element) => {
+                    element.classList.add('visible');
+                };
+                
+                const handleScrollAnimation = () => {
+                    scrollElements.forEach((el) => {
+                        if (elementInView(el, 100)) {
+                            displayScrollElement(el);
+                        }
+                    });
+                };
+                
+                window.addEventListener('scroll', handleScrollAnimation);
+                handleScrollAnimation();
+                setTimeout(() => handleScrollAnimation(), 100);
+            }
+            
+            function setupImageHover() {
+                const triggers = document.querySelectorAll('.image-hover-trigger');
+                if (triggers.length === 0) return;
+                
+                let portal = document.getElementById('image-preview-portal');
+                if (!portal) {
+                    portal = document.createElement('div');
+                    portal.id = 'image-preview-portal';
+                    portal.style.cssText = 'position: fixed; top: 0; left: 0; width: 0; height: 0; z-index: 99999; pointer-events: none;';
+                    document.body.appendChild(portal);
+                }
+                
+                const preview = document.createElement('div');
+                preview.className = 'image-preview';
+                portal.appendChild(preview);
+                
+                const imageCache = new Map();
+                
+                function preloadImage(src) {
+                    return new Promise((resolve, reject) => {
+                        if (imageCache.has(src)) {
+                            const cached = imageCache.get(src);
+                            if (cached.complete) {
+                                resolve(cached);
+                                return;
+                            }
+                        }
+                        
+                        const img = new Image();
+                        img.onload = () => {
+                            imageCache.set(src, img);
+                            resolve(img);
+                        };
+                        img.onerror = reject;
+                        img.src = src;
+                    });
+                }
+                
+                let activeTrigger = null;
+                let currentImageSrc = null;
+                let currentMouseX = 0;
+                let currentMouseY = 0;
+                
+                function updateMousePosition(e) {
+                    currentMouseX = e.clientX;
+                    currentMouseY = e.clientY;
+                }
+                
+                function updatePreviewPosition(mouseX, mouseY) {
+                    const offsetY = 20;
+                    const previewWidth = preview.offsetWidth || 200;
+                    const previewHeight = preview.offsetHeight || 200;
+                    const viewportWidth = window.innerWidth;
+                    const viewportHeight = window.innerHeight;
+                    
+                    let left = mouseX - (previewWidth / 2);
+                    let top = mouseY - previewHeight - offsetY;
+                    
+                    if (left < 10) {
+                        left = 10;
+                    } else if (left + previewWidth > viewportWidth - 10) {
+                        left = viewportWidth - previewWidth - 10;
+                    }
+                    
+                    if (top < 10) {
+                        top = mouseY + offsetY;
+                    }
+                    
+                    preview.style.left = left + 'px';
+                    preview.style.top = top + 'px';
+                }
+                
+                function handleMouseMove(e) {
+                    updateMousePosition(e);
+                    if (activeTrigger && preview.classList.contains('active')) {
+                        updatePreviewPosition(currentMouseX, currentMouseY);
+                    }
+                }
+                
+                document.addEventListener('mousemove', handleMouseMove);
+                
+                triggers.forEach(trigger => {
+                    const imageSrc = trigger.getAttribute('data-image');
+                    
+                    trigger.addEventListener('mouseenter', async function(e) {
+                        activeTrigger = trigger;
+                        currentImageSrc = imageSrc;
+                        
+                        if (e) {
+                            updateMousePosition(e);
+                        }
+                        
+                        preview.classList.remove('active', 'loading');
+                        preview.innerHTML = '';
+                        preview.classList.add('loading');
+                        
+                        preview.style.width = '200px';
+                        preview.style.height = '200px';
+                        preview.style.minWidth = '200px';
+                        preview.style.minHeight = '200px';
+                        preview.style.position = 'fixed';
+                        preview.style.zIndex = '10000';
+                        
+                        const loadingSpinner = document.createElement('div');
+                        loadingSpinner.className = 'image-loading-spinner';
+                        loadingSpinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                        preview.appendChild(loadingSpinner);
+                        
+                        updatePreviewPosition(currentMouseX, currentMouseY);
+                        preview.classList.add('active');
+                        
+                        try {
+                            const img = await preloadImage(imageSrc);
+                            
+                            if (activeTrigger !== trigger || currentImageSrc !== imageSrc) {
+                                return;
+                            }
+                            
+                            const actualWidth = img.naturalWidth || img.width;
+                            const actualHeight = img.naturalHeight || img.height;
+                            const maxWidth = window.innerWidth < 768 ? 300 : 400;
+                            const maxHeight = window.innerWidth < 768 ? 250 : 350;
+                            
+                            let displayWidth = actualWidth;
+                            let displayHeight = actualHeight;
+                            const aspectRatio = actualWidth / actualHeight;
+                            
+                            if (displayWidth > maxWidth) {
+                                displayWidth = maxWidth;
+                                displayHeight = displayWidth / aspectRatio;
+                            }
+                            if (displayHeight > maxHeight) {
+                                displayHeight = maxHeight;
+                                displayWidth = displayHeight * aspectRatio;
+                            }
+                            
+                            preview.style.width = displayWidth + 'px';
+                            preview.style.height = displayHeight + 'px';
+                            preview.style.minWidth = displayWidth + 'px';
+                            preview.style.minHeight = displayHeight + 'px';
+                            
+                            const previewImg = document.createElement('img');
+                            previewImg.src = imageSrc;
+                            previewImg.alt = 'Preview';
+                            previewImg.style.opacity = '0';
+                            previewImg.style.transition = 'opacity 0.3s ease';
+                            previewImg.style.width = '100%';
+                            previewImg.style.height = '100%';
+                            previewImg.style.objectFit = 'contain';
+                            
+                            preview.innerHTML = '';
+                            preview.appendChild(previewImg);
+                            preview.classList.remove('loading');
+                            
+                            setTimeout(() => {
+                                previewImg.style.opacity = '1';
+                            }, 10);
+                            
+                            updatePreviewPosition(currentMouseX, currentMouseY);
+                        } catch (error) {
+                            if (activeTrigger === trigger) {
+                                preview.classList.remove('active', 'loading');
+                                preview.innerHTML = '';
+                            }
+                        }
+                    });
+                    
+                    trigger.addEventListener('mouseleave', function() {
+                        if (activeTrigger === trigger) {
+                            activeTrigger = null;
+                            currentImageSrc = null;
+                            preview.classList.remove('active', 'loading');
+                            preview.innerHTML = '';
+                        }
+                    });
+                });
+            }
+            
+            function setupGalleryModal() {
+                const galleryItems = document.querySelectorAll('.gallery-item');
+                if (galleryItems.length === 0) return;
+                
+                const galleryItemsArray = [];
+                galleryItems.forEach(item => {
+                    const type = item.getAttribute('data-type') || 'image';
+                    const titleEl = item.querySelector('.gallery-title');
+                    const title = titleEl ? titleEl.textContent : '';
+                    
+                    if (type === 'image') {
+                        const img = item.querySelector('img');
+                        if (img) {
+                            galleryItemsArray.push({
+                                type: 'image',
+                                src: img.src,
+                                title: title,
+                                element: item
+                            });
+                        }
+                    } else if (type === 'video') {
+                        const videoType = item.getAttribute('data-video-type');
+                        if (videoType === 'local') {
+                            const videoSrc = item.getAttribute('data-video-src');
+                            galleryItemsArray.push({
+                                type: 'video',
+                                videoType: 'local',
+                                src: videoSrc,
+                                title: title,
+                                element: item
+                            });
+                        }
+                    }
+                });
+                
+                if (galleryItemsArray.length === 0) return;
+                
+                let currentIndex = -1;
+                
+                const modal = document.createElement('div');
+                modal.className = 'image-preview-modal';
+                modal.innerHTML = `
+                    <button class="image-preview-close" aria-label="Close"><i class="fas fa-times"></i></button>
+                    <button class="image-preview-nav image-preview-prev" aria-label="Previous" style="display: ${galleryItemsArray.length > 1 ? 'flex' : 'none'};">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="image-preview-nav image-preview-next" aria-label="Next" style="display: ${galleryItemsArray.length > 1 ? 'flex' : 'none'};">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="image-preview-content">
+                        <div class="image-preview-loading">
+                            <div class="image-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+                        </div>
+                        <div class="image-preview-wrapper">
+                            <img src="" alt="" id="modal-preview-img" style="display: none;">
+                            <div id="modal-preview-video" style="display: none;"></div>
+                        </div>
+                        <div class="image-preview-title" id="modal-preview-title"></div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                
+                const modalImg = document.getElementById('modal-preview-img');
+                const modalVideo = document.getElementById('modal-preview-video');
+                const modalTitle = document.getElementById('modal-preview-title');
+                const modalLoading = modal.querySelector('.image-preview-loading');
+                const closeBtn = modal.querySelector('.image-preview-close');
+                const prevBtn = modal.querySelector('.image-preview-prev');
+                const nextBtn = modal.querySelector('.image-preview-next');
+                
+                function showItem(index) {
+                    if (index < 0 || index >= galleryItemsArray.length) return;
+                    currentIndex = index;
+                    const item = galleryItemsArray[index];
+                    
+                    modalTitle.textContent = item.title || '';
+                    modalLoading.style.display = 'flex';
+                    modalImg.style.display = 'none';
+                    modalVideo.style.display = 'none';
+                    modalVideo.innerHTML = '';
+                    
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    
+                    if (item.type === 'image') {
+                        modalImg.src = item.src;
+                        modalImg.onload = () => {
+                            modalLoading.style.display = 'none';
+                            modalImg.style.display = 'block';
+                        };
+                        modalImg.onerror = () => {
+                            modalLoading.style.display = 'none';
+                        };
+                    } else if (item.type === 'video' && item.videoType === 'local') {
+                        modalVideo.innerHTML = `<video controls style="width: 100%; max-width: 900px;"><source src="${item.src}" type="video/mp4">Your browser does not support the video tag.</video>`;
+                        modalLoading.style.display = 'none';
+                        modalVideo.style.display = 'block';
+                    }
+                    
+                    prevBtn.style.display = galleryItemsArray.length > 1 ? 'flex' : 'none';
+                    nextBtn.style.display = galleryItemsArray.length > 1 ? 'flex' : 'none';
+                    prevBtn.disabled = index === 0;
+                    nextBtn.disabled = index === galleryItemsArray.length - 1;
+                }
+                
+                function closeModal() {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    if (modalVideo) {
+                        const video = modalVideo.querySelector('video');
+                        if (video) video.pause();
+                    }
+                }
+                
+                galleryItems.forEach((item, index) => {
+                    const type = item.getAttribute('data-type') || 'image';
+                    
+                    if (type === 'image') {
+                        const img = item.querySelector('img');
+                        if (img) {
+                            if (img.complete && img.naturalHeight !== 0) {
+                                img.classList.add('loaded');
+                            } else {
+                                img.addEventListener('load', function() {
+                                    img.classList.add('loaded');
+                                });
+                                img.addEventListener('error', function() {
+                                    console.error('Failed to load image:', img.src);
+                                });
+                            }
+                        }
+                    }
+                    
+                    item.style.cursor = 'pointer';
+                    item.addEventListener('click', () => showItem(index));
+                });
+                
+                closeBtn.addEventListener('click', closeModal);
+                prevBtn.addEventListener('click', () => {
+                    if (currentIndex > 0) showItem(currentIndex - 1);
+                });
+                nextBtn.addEventListener('click', () => {
+                    if (currentIndex < galleryItemsArray.length - 1) showItem(currentIndex + 1);
+                });
+                
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+                
+                document.addEventListener('keydown', (e) => {
+                    if (!modal.classList.contains('active')) return;
+                    if (e.key === 'Escape') closeModal();
+                    if (e.key === 'ArrowLeft' && currentIndex > 0) showItem(currentIndex - 1);
+                    if (e.key === 'ArrowRight' && currentIndex < galleryItemsArray.length - 1) showItem(currentIndex + 1);
+                });
+            }
+            
+            function setupTeamToggle() {
+                const teamToggle = document.querySelector('.team-others-toggle');
+                if (teamToggle) {
+                    const othersText = teamToggle.getAttribute('data-others');
+                    const originalText = teamToggle.textContent;
+                    let isExpanded = false;
+                    
+                    teamToggle.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        if (isExpanded) {
+                            this.textContent = originalText;
+                            isExpanded = false;
+                        } else {
+                            this.textContent = othersText;
+                            isExpanded = true;
+                        }
+                    });
+                }
+            }
+            
+            document.addEventListener('DOMContentLoaded', function() {
+                try {
+                    setupThemeToggle();
+                    setupMobileMenu();
+                    setupBackToTop();
+                    setupScrollReveal();
+                    setupImageHover();
+                    setupGalleryModal();
+                    setupTeamToggle();
+                    
+                    const theme = localStorage.getItem('theme') || 'dark';
+                    if (theme === 'dark') {
+                        createSparkles();
+                        createConstellation();
+                    }
+                } catch (e) {
+                    console.error('Error initializing page:', e);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
+

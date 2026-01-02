@@ -2,6 +2,6 @@ description: Backend system for RSU attendance tracking and management
 date: December 2024
 tags: JavaScript, Backend, Node.js
 team:
-- HTIN LINN
+- Htin Linn
 
 status: Work In Progress

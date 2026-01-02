@@ -48,6 +48,12 @@
             </div>
         </div>
         <div class="project-meta-info">
+            {% if project.embeds.videos or project.embeds.pdfs or project.images %}
+            <a href="#media-gallery-section" class="scroll-media-cta">
+                <span class="scroll-media-cta-text">View Media & Gallery</span>
+                <span class="scroll-media-cta-icon"><i class="fas fa-arrow-down"></i></span>
+            </a>
+            {% endif %}
             {% if project.metadata.date %}
             <div class="meta-item">
                 <i class="fas fa-calendar"></i>
@@ -63,9 +69,13 @@
                 <i class="fas fa-users"></i>
                 <span>Team: </span>
                 <div class="team-list-inline">
-                    {% for member in project.metadata.team %}
-                    <span class="team-member-inline">{{ member }}</span>{% if not loop.last %}, {% endif %}
-                    {% endfor %}
+                    {% if project.team_display.has_htin_linn %}
+                        <span class="team-member-inline">Htin Linn</span>{% if project.team_display.other_members|length > 0 %}, <span class="team-others-toggle" data-others="{{ project.team_display.other_members|join(', ') }}">and {{ project.team_display.other_members|length }} other{{ 's' if project.team_display.other_members|length != 1 else '' }}</span>{% endif %}
+                    {% else %}
+                        {% for member in project.metadata.team %}
+                        <span class="team-member-inline">{{ member }}</span>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 {% endif %}
             </div>
@@ -91,85 +101,50 @@
 <div class="container">
     <section class="project-content">
 
+        {% if project.metadata.disclaimer %}
+        <div class="project-disclaimer scroll-reveal">
+            <div class="disclaimer-content">
+                <i class="fas fa-info-circle"></i>
+                <div class="disclaimer-text">
+                    <strong>Note:</strong> {{ project.metadata.disclaimer }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
         <div class="project-description scroll-reveal">
             {{ project.description|safe }}
         </div>
-        
-        {% if project.embeds.videos or project.embeds.pdfs %}
-        <div class="embeds-section scroll-reveal">
-            <h2 class="section-title" style="font-size: 2rem; margin-bottom: 2rem;">Media & Resources</h2>
-            
-            {% if project.embeds.videos %}
-            <div class="videos-container">
-                <h3 class="embed-category">Videos</h3>
-                
-                <!-- Desktop: Show video embeds -->
-                <div class="videos-grid desktop-videos">
-                    {% for video in project.embeds.videos %}
-                    <div class="video-embed">
-                        <div class="video-wrapper">
-                            <iframe 
-                                src="https://www.youtube.com/embed/{{ video.id }}" 
-                                title="{{ video.title }}"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-title">{{ video.title }}</div>
-                    </div>
-                    {% endfor %}
-                </div>
-                
-                <!-- Mobile: Show text links -->
-                <div class="mobile-videos">
-                    {% for video in project.embeds.videos %}
-                    <a href="https://www.youtube.com/watch?v={{ video.id }}" target="_blank" rel="noopener noreferrer" class="mobile-embed-link">
-                        {{ video.title }}
-                    </a>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-            
-            {% if project.embeds.pdfs %}
-            <div class="pdfs-container">
-                <h3 class="embed-category">Documents</h3>
-                
-                <!-- Desktop: Regular PDF grid -->
-                <div class="pdfs-grid desktop-pdfs">
-                    {% for pdf in project.embeds.pdfs %}
-                    <a href="/project-embed/{{ project.name }}/{{ pdf.filename }}" target="_blank" rel="noopener noreferrer" class="pdf-embed">
-                        <i class="fas fa-file-pdf"></i>
-                        <span>{{ pdf.title }}</span>
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                    {% endfor %}
-                </div>
-                
-                <!-- Mobile: Show text links -->
-                <div class="mobile-pdfs">
-                    {% for pdf in project.embeds.pdfs %}
-                    <a href="/project-embed/{{ project.name }}/{{ pdf.filename }}" target="_blank" rel="noopener noreferrer" class="mobile-embed-link">
-                        {{ pdf.title }}
-                    </a>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-        </div>
-        {% endif %}
-        {% if project.images %}
-        <div class="image-gallery scroll-reveal">
+
+        {% if project.images or project.embeds.videos or project.embeds.pdfs %}
+        <div id="media-gallery-section" class="image-gallery scroll-reveal">
             <div class="gallery-grid">
                 {% for image in project.images %}
-                <div class="gallery-item" data-index="{{ loop.index0 }}">
+                <div class="gallery-item" data-type="image" data-index="{{ loop.index0 }}">
                     <img src="/project-image/{{ project.name }}/images/{{ image.filename }}" alt="{{ image.title }}">
                     <div class="gallery-title">{{ image.title }}</div>
                     {% if image.description %}
                     <div class="gallery-description">{{ image.description }}</div>
                     {% endif %}
                 </div>
+                {% endfor %}
+                
+                {% for video in project.embeds.videos %}
+                <div class="gallery-item" data-type="video" data-video-type="{{ video.type }}" {% if video.type == 'youtube' %}data-video-id="{{ video.id }}"{% elif video.type == 'local' %}data-video-src="/project-embed/{{ project.name }}/{{ video.filename }}"{% endif %}>
+                    <div class="gallery-video-thumbnail">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="gallery-title">{{ video.title }}</div>
+                </div>
+                {% endfor %}
+                
+                {% for pdf in project.embeds.pdfs %}
+                <a href="/project-embed/{{ project.name }}/{{ pdf.filename }}" target="_blank" rel="noopener noreferrer" class="gallery-item" data-type="pdf">
+                    <div class="gallery-pdf-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="gallery-title">{{ pdf.title }}</div>
+                </a>
                 {% endfor %}
             </div>
         </div>

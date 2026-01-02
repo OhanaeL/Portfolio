@@ -14,6 +14,25 @@ app.config['EXPERIENCE_FOLDER'] = 'public/experience'
 app.config['ABOUT_FOLDER'] = 'public/about'
 app.config['CONTACT_LOG'] = 'contact_submissions.json'
 
+def format_team_for_display(team_list):
+    """Format team list to show 'Htin Linn, and X others' format."""
+    if not team_list:
+        return {'has_htin_linn': False, 'other_members': []}
+    
+    htin_linn_found = False
+    other_members = []
+    
+    for member in team_list:
+        if member.upper() == 'HTIN LINN':
+            htin_linn_found = True
+        else:
+            other_members.append(member)
+    
+    return {
+        'has_htin_linn': htin_linn_found,
+        'other_members': other_members
+    }
+
 def get_project_metadata(project_name):
     """Get metadata for a project from metadata.txt."""
     project_path = Path(app.config['PROJECTS_FOLDER']) / project_name
@@ -25,7 +44,8 @@ def get_project_metadata(project_name):
         'team': [],
         'tags': [],
         'status': '',
-        'links': {}
+        'links': {},
+        'disclaimer': ''
     }
     
     if metadata_file.exists():
@@ -50,12 +70,21 @@ def get_project_metadata(project_name):
                 elif line.startswith('status:'):
                     metadata['status'] = line.split(':', 1)[1].strip()
                     current_key = None
+                elif line.startswith('disclaimer:'):
+                    disclaimer_text = line.split(':', 1)[1].strip()
+                    metadata['disclaimer'] = disclaimer_text
+                    current_key = 'disclaimer'
                 elif line.startswith('team:'):
                     current_key = 'team'
                 elif current_key == 'team' and line.startswith('- '):
                     metadata['team'].append(line[2:].strip())
                 elif current_key == 'tags' and line.startswith('- '):
                     metadata['tags'].append(line[2:].strip())
+                elif current_key == 'disclaimer':
+                    if line.startswith('- '):
+                        metadata['disclaimer'] += ' ' + line[2:].strip()
+                    elif not line.startswith(':'):
+                        metadata['disclaimer'] += ' ' + line.strip()
                 elif ':' in line and not line.startswith('- '):
                     parts = line.split(':', 1)
                     key = parts[0].strip().lower()
@@ -63,6 +92,7 @@ def get_project_metadata(project_name):
                     if key in ['github', 'demo', 'website', 'live', 'link', 'repo', 'repository']:
                         link_label = key.title() if key != 'repo' else 'Repository'
                         metadata['links'][link_label] = value
+                    current_key = None
     
     return metadata
 
@@ -249,6 +279,20 @@ def parse_project(project_name):
                 'title': pdf.stem.replace('_', ' ').replace('-', ' ').title()
             })
         
+        for video_file in embeds_path.glob('*.mp4'):
+            embeds['videos'].append({
+                'type': 'local',
+                'filename': video_file.name,
+                'title': video_file.stem.replace('_', ' ').replace('-', ' ').title()
+            })
+        
+        for video_file in embeds_path.glob('*.webm'):
+            embeds['videos'].append({
+                'type': 'local',
+                'filename': video_file.name,
+                'title': video_file.stem.replace('_', ' ').replace('-', ' ').title()
+            })
+        
         videos_file = embeds_path / 'videos.txt'
         if videos_file.exists():
             with open(videos_file, 'r', encoding='utf-8') as f:
@@ -273,11 +317,13 @@ def parse_project(project_name):
                     
                     if video_id:
                         embeds['videos'].append({
+                            'type': 'youtube',
                             'id': video_id,
                             'title': title
                         })
     
     metadata = get_project_metadata(project_name)
+    team_display = format_team_for_display(metadata.get('team', []))
     
     if ' - ' in project_name:
         parts = project_name.split(' - ', 1)
@@ -340,6 +386,10 @@ def project_detail(project_name):
         prev_index = (current_index - 1) % len(all_projects)
         next_project = all_projects[next_index]
         prev_project = all_projects[prev_index]
+    
+    metadata = get_project_metadata(project_name)
+    team_display = format_team_for_display(metadata.get('team', []))
+    project['team_display'] = team_display
     
     return render_template('project.html', 
                          project=project, 
@@ -1145,4 +1195,6 @@ if __name__ == '__main__':
     os.makedirs(app.config['PROJECTS_FOLDER'], exist_ok=True)
     os.makedirs(app.config['ACCOMPLISHMENTS_FOLDER'], exist_ok=True)
     os.makedirs(app.config['ABOUT_FOLDER'], exist_ok=True)
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=debug_mode, host='0.0.0.0', port=port)

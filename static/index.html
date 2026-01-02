@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Home</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Homepage of Htin Linn's portfolio - Full-stack developer showcasing React, TypeScript, and Python projects. Explore hackathon wins, real-world applications, and professional work.">
+    <meta name="keywords" content="Htin Linn, portfolio homepage, web developer, React developer, TypeScript developer, Python developer, full-stack developer, software engineer, hackathon projects">
+    <meta name="author" content="Htin Linn">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Htin Linn - Portfolio Home">
+    <meta property="og:description" content="Full-stack developer specializing in React, TypeScript, and Python. Explore hackathon projects, real-world applications, and professional work.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Htin Linn Portfolio">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Htin Linn - Portfolio Home">
+    <meta name="twitter:description" content="Full-stack developer specializing in React, TypeScript, and Python. Explore hackathon projects and real-world applications.">
+    <meta name="twitter:creator" content="@OhanaeL">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Htin Linn",
+        "sameAs": [
+            "https://github.com/OhanaeL",
+            "https://www.linkedin.com/in/htin-linn-b599711a1/"
+        ],
+        "jobTitle": "Full-stack Developer",
+        "knowsAbout": ["React", "TypeScript", "Python", "Web Development", "Software Engineering"],
+        "email": "htinlinn.116900@gmail.com"
+    }
+    </script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Prevent theme flash -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+    <script>window.scrollTo(0, 0);</script>
+    
+    <!-- Top Loading Bar -->
+    <div id="top-loading-bar" class="top-loading-bar"></div>
+    
+    <!-- Desktop Navbar -->
+    <nav class="navbar desktop-navbar">
+        <div class="container">
+            <a href="index.html" class="logo">HTIN LINN</a>
+            
+            <!-- Desktop nav links -->
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="https://portfolio-website-sedh.onrender.com" target="_blank" class="nav-link" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <span>View Full Portfolio</span>
+                    <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i>
+                </a>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Navbar -->
+    <nav class="mobile-navbar">
+        <div class="mobile-navbar-container">
+            <a href="index.html" class="mobile-logo">HTIN LINN</a>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="theme-toggle mobile-theme-toggle" id="mobile-theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="mobile-theme-icon"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="sparkles-container"></div>
+    
+    <!-- Mobile sidebar -->
+    <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
+    <div class="mobile-nav-sidebar" id="mobile-nav-sidebar">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="https://portfolio-website-sedh.onrender.com" target="_blank" class="nav-link" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+            <span>View Full Portfolio</span>
+            <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i>
+        </a>
+    </div>
+
+    <main>
+        <div class="hero">
+            <div class="container">
+                <div class="hero-title-wrapper">
+                    <h1 class="hero-title" id="mainTitle">FROM IDEAS TO WORKING CODE</h1>
+                </div>
+                <p class="hero-subtitle fade-in-content">Python, Software Developer, React • Hackathon finalist • Real-world projects</p>
+                <p class="hero-subtitle fade-in-content" style="text-align: center; color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+                    <a href="https://portfolio-website-sedh.onrender.com" target="_blank" style="color: var(--purple-accent); text-decoration: underline;">View full interactive portfolio</a> for complete projects and timeline
+                    <br><span style="font-size: 0.75rem; opacity: 0.8;">Note: The full portfolio may take a moment to wake up if it's been idle</span>
+                </p>
+                <div class="hero-cta-container fade-in-content">
+                    <div class="scroll-cta" onclick="document.getElementById('projects-section').scrollIntoView({behavior: 'smooth'})">
+                        <span class="scroll-cta-text">Explore My Work</span>
+                        <div class="scroll-cta-icon">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                    </div>
+                    <a href="resume.pdf" target="_blank" class="resume-cta">
+                        <span class="resume-cta-text">View My Resume</span>
+                        <div class="resume-cta-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider-section">
+            <div class="divider-line"></div>
+        </div>
+
+        <div class="container">
+            <section class="projects-section scroll-reveal" id="projects-section">
+                <a href="https://portfolio-website-sedh.onrender.com/projects" class="section-title-link">
+                    <h2 class="section-title">
+                        My Projects
+                        <i class="fas fa-arrow-right section-title-arrow"></i>
+                    </h2>
+                </a>
+                <div class="projects-grid">
+                    <!-- Portfolio Website -->
+                    <div class="project-card pinned-project" data-tags="Flask, Python, Web Dev">
+                        <div class="pinned-project-crown">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="project-card-links">
+                            <a href="https://github.com/OhanaeL/Portfolio" target="_blank" rel="noopener noreferrer" class="project-link-icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://portfolio-website-sedh.onrender.com/" target="_blank" rel="noopener noreferrer" class="project-link-icon">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <a href="portfolio-website.html" class="project-card-link">
+                            <div class="project-card-inner">
+                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                                        <h3>Portfolio Website</h3>
+                                    </div>
+                                </div>
+                                <div class="project-date">
+                                    <i class="fas fa-calendar"></i> 2025
+                                </div>
+                                <div class="project-tags">
+                                    <span class="project-tag">Flask</span>
+                                    <span class="project-tag">Python</span>
+                                    <span class="project-tag">Web Dev</span>
+                                </div>
+                                <p class="project-short-desc">Personal portfolio website showcasing projects, accomplishments, and skills</p>
+                                <div class="project-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Minesweeper Solver -->
+                    <div class="project-card" data-tags="Python, Browser Automation, Algorithms">
+                        <div class="project-card-links">
+                            <a href="https://github.com/OhanaeL/Minesweeper" target="_blank" rel="noopener noreferrer" class="project-link-icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                        <a href="minesweeper-solver.html" class="project-card-link">
+                            <div class="project-card-inner">
+                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                                        <h3>Minesweeper Solver</h3>
+                                    </div>
+                                </div>
+                                <div class="project-date">
+                                    <i class="fas fa-calendar"></i> 2026
+                                </div>
+                                <div class="project-tags">
+                                    <span class="project-tag">Python</span>
+                                    <span class="project-tag">Browser Automation</span>
+                                    <span class="project-tag">Algorithms</span>
+                                </div>
+                                <p class="project-short-desc">Automated Minesweeper solver using browser automation and logical deduction</p>
+                                <div class="project-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- SPLASH Golf Club -->
+                    <div class="project-card" data-tags="Web Dev, Hackathon, React">
+                        <div class="project-card-links">
+                            <a href="https://github.com/OhanaeL/golf-website" target="_blank" rel="noopener noreferrer" class="project-link-icon">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://splashgolfclub.site/" target="_blank" rel="noopener noreferrer" class="project-link-icon">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <a href="splash-golf-club.html" class="project-card-link">
+                            <div class="project-card-inner">
+                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                                        <h3>SPLASH Golf Club</h3>
+                                    </div>
+                                    <p class="project-card-tagline">Hospitality ERP System</p>
+                                </div>
+                                <div class="project-date">
+                                    <i class="fas fa-calendar"></i> March 2025
+                                </div>
+                                <div class="project-tags">
+                                    <span class="project-tag">Web Dev</span>
+                                    <span class="project-tag">Hackathon</span>
+                                    <span class="project-tag">React</span>
+                                </div>
+                                <p class="project-short-desc">Comprehensive golf club ERP system with AI chatbot, winner of 1st Place at CIMSO Hospitality ERP Hackathon 2025</p>
+                                <div class="project-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="divider-section">
+            <div class="divider-line"></div>
+        </div>
+
+        <div class="container">
+            <section class="experiences-section scroll-reveal">
+                <a href="https://portfolio-website-sedh.onrender.com/experience" target="_blank" class="section-title-link">
+                    <h2 class="section-title">
+                        My Experience
+                        <i class="fas fa-arrow-right section-title-arrow"></i>
+                    </h2>
+                </a>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem;">
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 4px; transition: all 0.3s ease;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.5rem;">
+                            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: var(--purple-primary); margin: 0;">Python Developer</h3>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">May 2025 - Ongoing</span>
+                        </div>
+                        <p style="color: var(--text-secondary); margin: 0; font-size: 0.95rem;"><strong style="color: var(--text-primary);">Brillar Company</strong> • Full-time Python Developer at a Python-based AI company. As the sole Python developer on the team, I develop and maintain Python-based AI solutions, design machine learning models, and collaborate on innovative AI projects.</p>
+                    </div>
+                    
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 4px; transition: all 0.3s ease;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.5rem;">
+                            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: var(--purple-primary); margin: 0;">Teaching Assistant & Software Engineer</h3>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">Aug 2024 - Dec 2025</span>
+                        </div>
+                        <p style="color: var(--text-secondary); margin: 0; font-size: 0.95rem;"><strong style="color: var(--text-primary);">Rangsit University</strong> • Teaching Assistant and Software Engineer at Rangsit University, RIC under Professor Billel Arboui. Developed university systems including RSU Jobfair System, RIC Attendance System, and ICT Course Planner, while assisting students and faculty.</p>
+                    </div>
+                    
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 4px; transition: all 0.3s ease;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.5rem;">
+                            <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: var(--purple-primary); margin: 0;">Hackathon Experience</h3>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">2024 - 2025</span>
+                        </div>
+                        <p style="color: var(--text-secondary); margin: 0; font-size: 0.95rem;"><strong style="color: var(--text-primary);">Various Hackathons</strong> • Competed in multiple hackathons, winning 3rd place at Hack the Zodiac Hackathon 2024 and 1st place at CIMSO Hospitality ERP Hackathon 2025. Developed innovative solutions including AI-powered travel and shopping advisors, and a comprehensive golf club management system.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="divider-section">
+            <div class="divider-line"></div>
+        </div>
+
+        <section class="contact-section scroll-reveal" id="contact">
+            <div class="container">
+                <h2 class="section-title pixel-title">Get In Touch</h2>
+                <div class="contact-content">
+                    <p class="contact-text">Want to work together or just say hi? Drop me a message!</p>
+                    
+                    <!-- Contact Methods -->
+                    <div class="contact-methods">
+                        <a href="mailto:htinlinn.116900@gmail.com" class="contact-card">
+                            <div class="pixel-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Email</h3>
+                            <p>htinlinn.116900 at gmail.com</p>
+                        </a>
+                        <a href="https://github.com/OhanaeL" target="_blank" class="contact-card">
+                            <div class="pixel-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h3>GitHub</h3>
+                            <p>@OhanaeL</p>
+                        </a>
+                        <a href="https://www.linkedin.com/in/htin-linn-b599711a1/" target="_blank" class="contact-card">
+                            <div class="pixel-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <h3>LinkedIn</h3>
+                            <p>/in/htin-linn</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="fade-in-content">
+        <div class="container">
+            <p>&copy; 2025 My Portfolio. All rights reserved.</p>
+            <p style="margin-top: 0.5rem;"><a href="https://portfolio-website-sedh.onrender.com/credits" class="footer-link">Credits & Attributions</a></p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Loading bar functionality (from init.js)
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        function initLoadingBar() {
+            const loadingBar = document.getElementById('top-loading-bar');
+            if (!loadingBar) return;
+            
+            let progress = 0;
+            let loadingInterval = null;
+            
+            function startLoading() {
+                loadingBar.classList.add('loading');
+                loadingBar.style.width = '0%';
+                progress = 0;
+                
+                loadingInterval = setInterval(() => {
+                    if (progress < 90) {
+                        progress += Math.random() * 15;
+                        if (progress > 90) progress = 90;
+                        loadingBar.style.width = progress + '%';
+                    }
+                }, 100);
+            }
+            
+            function completeLoading() {
+                if (loadingInterval) {
+                    clearInterval(loadingInterval);
+                }
+                loadingBar.style.width = '100%';
+                setTimeout(() => {
+                    loadingBar.classList.add('complete');
+                    setTimeout(() => {
+                        loadingBar.classList.remove('loading', 'complete');
+                        loadingBar.style.width = '0%';
+                    }, 500);
+                }, 200);
+            }
+            
+            startLoading();
+            
+            if (document.readyState === 'complete') {
+                completeLoading();
+            } else {
+                window.addEventListener('load', function() {
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                    completeLoading();
+                });
+            }
+        }
+
+        initLoadingBar();
+    </script>
+    <script>
+        // Inline essential functionality for local file:// testing
+        // On GitHub Pages (HTTP), the module version will work fine
+        (function() {
+            // Theme toggle
+            function setupThemeToggle() {
+                const themeToggle = document.getElementById('theme-toggle');
+                const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+                const themeIcon = document.getElementById('theme-icon');
+                const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+                
+                const getTheme = () => localStorage.getItem('theme') || 'dark';
+                const setTheme = (theme) => {
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                    if (theme === 'light') {
+                        if (themeIcon) themeIcon.className = 'fas fa-sun';
+                        if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-sun';
+                    } else {
+                        if (themeIcon) themeIcon.className = 'fas fa-moon';
+                        if (mobileThemeIcon) mobileThemeIcon.className = 'fas fa-moon';
+                    }
+                };
+                
+                const toggleTheme = () => {
+                    const currentTheme = getTheme();
+                    setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+                };
+                
+                if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+                if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+            }
+            
+            // Mobile menu
+            function setupMobileMenu() {
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                const mobileSidebar = document.getElementById('mobile-nav-sidebar');
+                const mobileOverlay = document.getElementById('mobile-sidebar-overlay');
+                let scrollPosition = 0;
+                
+                if (mobileMenuBtn && mobileSidebar) {
+                    mobileMenuBtn.addEventListener('click', () => {
+                        mobileMenuBtn.classList.toggle('active');
+                        mobileSidebar.classList.toggle('active');
+                        mobileOverlay.classList.toggle('active');
+                        
+                        if (mobileSidebar.classList.contains('active')) {
+                            scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                            document.body.style.overflow = 'hidden';
+                            document.body.style.position = 'fixed';
+                            document.body.style.top = `-${scrollPosition}px`;
+                            document.body.style.width = '100%';
+                        } else {
+                            document.body.style.overflow = '';
+                            document.body.style.position = '';
+                            document.body.style.top = '';
+                            document.body.style.width = '';
+                            window.scrollTo(0, scrollPosition);
+                        }
+                    });
+                    
+                    if (mobileOverlay) {
+                        mobileOverlay.addEventListener('click', () => {
+                            mobileMenuBtn.classList.remove('active');
+                            mobileSidebar.classList.remove('active');
+                            mobileOverlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                            document.body.style.position = '';
+                            document.body.style.top = '';
+                            document.body.style.width = '';
+                            window.scrollTo(0, scrollPosition);
+                        });
+                    }
+                }
+            }
+            
+            // Back to top
+            function setupBackToTop() {
+                const backToTopButton = document.getElementById('back-to-top');
+                if (!backToTopButton) return;
+                
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        backToTopButton.classList.add('visible');
+                    } else {
+                        backToTopButton.classList.remove('visible');
+                    }
+                });
+                
+                backToTopButton.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+            
+            // Sparkles effect
+            function createSparkles() {
+                const container = document.querySelector('.sparkles-container');
+                if (!container) return;
+                
+                const sparkleCount = 50;
+                for (let i = 0; i < sparkleCount; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = Math.random() > 0.7 ? 'sparkle purple' : 'sparkle';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.top = Math.random() * 100 + '%';
+                    sparkle.style.setProperty('--duration', (2 + Math.random() * 3) + 's');
+                    sparkle.style.setProperty('--delay', Math.random() * 5 + 's');
+                    container.appendChild(sparkle);
+                }
+            }
+            
+            function createConstellation() {
+                const container = document.querySelector('.sparkles-container');
+                if (!container) return;
+                
+                const constellationContainer = document.createElement('div');
+                constellationContainer.className = 'constellation-background';
+                container.appendChild(constellationContainer);
+                
+                const starCount = 80;
+                for (let i = 0; i < starCount; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'constellation-star';
+                    const size = Math.random() * 2 + 1;
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.width = size + 'px';
+                    star.style.height = size + 'px';
+                    star.style.setProperty('--twinkle-delay', Math.random() * 3 + 's');
+                    star.style.setProperty('--twinkle-duration', (2 + Math.random() * 2) + 's');
+                    constellationContainer.appendChild(star);
+                }
+            }
+            
+            // Scroll reveal animations
+            function setupScrollReveal() {
+                const scrollElements = document.querySelectorAll('.scroll-reveal');
+                const projectCards = document.querySelectorAll('.project-card');
+                const contactCards = document.querySelectorAll('.contact-card');
+                let projectsRevealed = false;
+                let contactRevealed = false;
+                
+                const elementInView = (el, offset = 100) => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    return elementTop <= (window.innerHeight || document.documentElement.clientHeight) - offset;
+                };
+                
+                const displayScrollElement = (element) => {
+                    element.classList.add('visible');
+                };
+                
+                const revealProjects = () => {
+                    if (projectsRevealed) return;
+                    projectsRevealed = true;
+                    
+                    projectCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('reveal');
+                        }, index * 200);
+                    });
+                };
+                
+                const revealContact = () => {
+                    if (contactRevealed) return;
+                    contactRevealed = true;
+                    
+                    contactCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('reveal');
+                        }, index * 150);
+                    });
+                };
+                
+                const handleScrollAnimation = () => {
+                    scrollElements.forEach((el) => {
+                        if (elementInView(el, 100)) {
+                            displayScrollElement(el);
+                            if (el.classList.contains('projects-section')) {
+                                revealProjects();
+                            }
+                            if (el.classList.contains('contact-section')) {
+                                revealContact();
+                            }
+                        }
+                    });
+                };
+                
+                window.addEventListener('scroll', handleScrollAnimation);
+                handleScrollAnimation();
+                setTimeout(() => handleScrollAnimation(), 100);
+            }
+            
+            // Title echo effect
+            function setupTitleEcho() {
+                const mainTitle = document.getElementById('mainTitle');
+                if (mainTitle) {
+                    const wrapper = mainTitle.parentElement;
+                    const titleText = mainTitle.textContent;
+                    
+                    for (let i = 0; i < 3; i++) {
+                        const echo = document.createElement('div');
+                        echo.className = 'title-echo';
+                        echo.textContent = titleText;
+                        wrapper.appendChild(echo);
+                    }
+                }
+            }
+            
+            // Fade-in content animation (CSS handles the animation, this just ensures it triggers)
+            function setupFadeInContent() {
+                // CSS already handles fade-in-content animation
+                // Just ensure elements are in the DOM and animation can run
+                const fadeElements = document.querySelectorAll('.fade-in-content');
+                fadeElements.forEach((el) => {
+                    // Force reflow to trigger animation
+                    el.offsetHeight;
+                });
+            }
+            
+            // Initialize everything
+            document.addEventListener('DOMContentLoaded', function() {
+                try {
+                    setupThemeToggle();
+                    setupMobileMenu();
+                    setupBackToTop();
+                    setupScrollReveal();
+                    setupTitleEcho();
+                    setupFadeInContent();
+                    
+                    const theme = localStorage.getItem('theme') || 'dark';
+                    if (theme === 'dark') {
+                        createSparkles();
+                        createConstellation();
+                    }
+                } catch (e) {
+                    console.error('Error initializing page:', e);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
