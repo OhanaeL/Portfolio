@@ -1,0 +1,24 @@
+Minesweeper Solver is an automated Minesweeper solver I developed that uses browser automation and logical deduction to solve Minesweeper games. The project [image:ui.png:supports multiple game sources ] including browser-based Minesweeper sites and simulated environments, with both command-line and pygame GUI interfaces for different use cases. [image:minesweeper.gif:The solver demonstrates automated gameplay] as it solves Minesweeper games through logical deduction.
+
+## Key Features
+
+### Logical Deduction Algorithm
+The solver uses a rule-based approach to solve Minesweeper games through logical deduction. [image:algorithm.png:The algorithm flowchart] illustrates the solving process. If the number of neighboring flags equals the value of a cell, the remaining neighboring cells are safe to click. If the number of revealed cells equals eight minus the cell value, the remaining cells must be mines. When no guaranteed moves exist, the solver calculates probabilities for each unrevealed cell based on neighboring revealed cells to make the best possible move.
+
+### Multiple Game Sources
+The solver can work with browser-based Minesweeper at minesweeper.online or freeminesweeper.org, simulated CLI environments for testing, and includes a Pygame GUI visualization for watching the solver in action.
+
+### Browser Automation
+Uses Playwright for browser automation, allowing the solver to interact with web-based Minesweeper games automatically. The system can detect game states, click cells, and flag mines programmatically, providing a fully automated solving experience.
+
+## Project Focus
+
+This project is primarily focused on visualization using Pygame and browser automation with Playwright, rather than developing a high winrate algorithm. The solver demonstrates the automation capabilities and provides a visual representation of the solving process, making it an educational tool for understanding browser automation and game state detection.
+
+## Technologies & Skills
+
+- Python: Core logic and algorithm implementation
+- Playwright: Browser automation for web-based games
+- Pygame: GUI visualization and interface
+- Probability Calculations: Statistical analysis for uncertain moves
+

@@ -1,7 +1,13 @@
 description: Comprehensive golf club ERP system with AI chatbot, winner of 1st Place at CIMSO Hospitality ERP Hackathon 2025
 date: March 2025
-tags: ERP, React, AI, Hackathon
+tags: Web Dev, Hackathon, React
 team:
-- HTIN LINN
+- Htin Linn
+- Pyaw Kyaw
+- Nyan Lin Aung
+- Suzin Win
+- Saw Dar Eh
+github: https://github.com/OhanaeL/golf-website
+demo: https://splashgolfclub.site/
 
-status: Work In Progress
+disclaimer: While a demo exists, the API was from CIMSO's backend which was only available during the hackathon event. Only a demo video of the project exists to showcase full functionality.

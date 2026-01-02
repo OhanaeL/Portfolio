@@ -1,0 +1,6 @@
+description: Automated Minesweeper solver using browser automation and logical deduction
+date: 2026
+tags: Python, Browser Automation, Algorithms
+github: https://github.com/OhanaeL/Minesweeper
+disclaimer: This project focuses on visualization and browser automation rather than achieving a high winrate algorithm
+

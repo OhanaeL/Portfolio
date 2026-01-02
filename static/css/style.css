@@ -979,8 +979,8 @@ code, pre {
 .hero-title-wrapper {
     display: inline-block;
     text-align: center;
-    height: calc(4.5rem * 1.1 + 1.5rem + (4.5rem * 1.1 + 15px) * 3);
-    min-height: calc(4.5rem * 1.1 + 1.5rem + (4.5rem * 1.1 + 15px) * 3);
+    height: calc(4.5rem+ 1.5rem + (4.5rem + 15px) * 3);
+    min-height: calc(4.5rem + 1.5rem + (4.5rem + 15px) * 3);
 }
 
 .title-echo {
@@ -1203,6 +1203,64 @@ code, pre {
     transform: scale(1.2);
 }
 
+.scroll-media-cta {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    padding: 0.875rem 1.5rem;
+    border: 2px solid var(--purple-primary);
+    background: var(--bg-card);
+    text-decoration: none;
+    box-shadow: 
+        4px 4px 0 var(--purple-strong),
+        inset 0 0 0 1px var(--purple-light);
+    transition: all 0.3s ease;
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.scroll-media-cta:hover {
+    border-color: var(--purple-accent);
+    background: var(--purple-light);
+    transform: translateY(-2px);
+    box-shadow: 
+        6px 6px 0 var(--purple-heavy),
+        inset 0 0 0 1px var(--purple-primary),
+        0 0 20px var(--purple-glow);
+}
+
+.scroll-media-cta-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--purple-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.3s ease;
+}
+
+.scroll-media-cta:hover .scroll-media-cta-text {
+    color: var(--purple-accent);
+}
+
+.scroll-media-cta-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-media-cta-icon i {
+    font-size: 1.25rem;
+    color: var(--purple-primary);
+    transition: all 0.3s ease;
+}
+
+.scroll-media-cta:hover .scroll-media-cta-icon i {
+    color: var(--purple-accent);
+    animation: bounceArrow 1.5s ease-in-out infinite;
+}
+
 @media (max-width: 768px) {
     .hero-cta-container {
         flex-direction: column;
@@ -1211,6 +1269,11 @@ code, pre {
     
     .scroll-cta,
     .resume-cta {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .scroll-media-cta {
         width: 100%;
         justify-content: center;
     }
@@ -2179,8 +2242,58 @@ code, pre {
     font-weight: 600;
 }
 
+.team-others-toggle {
+    display: inline;
+    color: var(--purple-primary);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--purple-primary);
+    text-underline-offset: 2px;
+    transition: color 0.3s ease, text-decoration-color 0.3s ease;
+}
+
+.team-others-toggle:hover {
+    color: var(--purple-accent);
+    text-decoration-color: var(--purple-accent);
+}
+
 .project-content {
     padding: 1rem 0 1rem;
+}
+
+.project-disclaimer {
+    margin-bottom: 2rem;
+}
+
+.disclaimer-content {
+    background: var(--purple-light);
+    border: 2px solid var(--purple-primary);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    box-shadow: 
+        4px 4px 0 var(--purple-strong),
+        inset 0 0 0 1px var(--purple-medium);
+}
+
+.disclaimer-content i {
+    color: var(--purple-primary);
+    font-size: 1.25rem;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+}
+
+.disclaimer-text {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.disclaimer-text strong {
+    color: var(--purple-primary);
+    font-weight: 600;
 }
 
 .project-description {
@@ -2375,6 +2488,10 @@ code, pre {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--bg-card);
+    border: 2px solid var(--purple-primary);
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .image-preview.active {
@@ -2478,6 +2595,49 @@ code, pre {
     opacity: 1;
 }
 
+.gallery-video-thumbnail {
+    width: 100%;
+    height: 140px;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 2px solid var(--border-color);
+}
+
+.gallery-video-thumbnail i {
+    font-size: 3rem;
+    color: var(--purple-primary);
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover .gallery-video-thumbnail i {
+    color: var(--purple-accent);
+    transform: scale(1.1);
+}
+
+.gallery-pdf-icon {
+    width: 100%;
+    height: 140px;
+    background: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-color);
+}
+
+.gallery-pdf-icon i {
+    font-size: 3rem;
+    color: var(--purple-primary);
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover .gallery-pdf-icon i {
+    color: var(--purple-accent);
+    transform: scale(1.1);
+}
+
 .gallery-item-loading {
     position: absolute;
     top: 0;
@@ -2576,6 +2736,7 @@ code, pre {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
+    touch-action: pan-y pinch-zoom;
 }
 
 .image-preview-wrapper {
@@ -2611,6 +2772,32 @@ code, pre {
     background: var(--bg-primary);
     border-radius: 2px;
     position: relative;
+}
+
+#image-preview-video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 900px;
+}
+
+#image-preview-video iframe,
+#image-preview-video video {
+    width: 100%;
+    max-width: 900px;
+    border: 3px solid var(--purple-primary);
+    background: var(--bg-primary);
+    border-radius: 2px;
+}
+
+#image-preview-video iframe {
+    aspect-ratio: 16/9;
+    height: auto;
+}
+
+#image-preview-video video {
+    max-height: 80vh;
 }
 
 .image-preview-title {
@@ -2693,6 +2880,12 @@ code, pre {
     pointer-events: none;
 }
 
+@media (max-width: 768px) {
+    .image-preview-nav {
+        display: none !important;
+    }
+}
+
 /* Embeds Section */
 .embeds-section {
     margin-top: 4rem;
@@ -2764,6 +2957,17 @@ code, pre {
     width: 100%;
     height: 100%;
     border: none;
+}
+
+.video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 3px solid var(--purple-primary);
+    border-radius: 8px;
+    background: var(--bg-primary);
 }
 
 .video-title {

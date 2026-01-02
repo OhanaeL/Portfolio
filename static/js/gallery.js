@@ -1,8 +1,6 @@
-// Image hover preview functionality
 export function setupImageHover() {
     const imageHoverTriggers = document.querySelectorAll('.image-hover-trigger');
     if (imageHoverTriggers.length > 0) {
-        // Create a portal container at the very root to avoid all stacking context issues
         let portal = document.getElementById('image-preview-portal');
         if (!portal) {
             portal = document.createElement('div');
@@ -11,18 +9,14 @@ export function setupImageHover() {
             document.body.appendChild(portal);
         }
         
-        // Create a single preview element
         const preview = document.createElement('div');
         preview.className = 'image-preview';
         portal.appendChild(preview);
         
-        // Image cache to preload images
         const imageCache = new Map();
         
-        // Preload function
         function preloadImage(src) {
             return new Promise((resolve, reject) => {
-                // Check cache first
                 if (imageCache.has(src)) {
                     const cached = imageCache.get(src);
                     if (cached.complete) {
@@ -41,7 +35,6 @@ export function setupImageHover() {
             });
         }
         
-        // Track current active trigger and image
         let activeTrigger = null;
         let currentImageSrc = null;
         let isImageLoaded = false;
@@ -49,38 +42,31 @@ export function setupImageHover() {
         let currentMouseY = 0;
         let loadingPromise = null;
         
-        // Update mouse position
         function updateMousePosition(e) {
             currentMouseX = e.clientX;
             currentMouseY = e.clientY;
         }
         
-        // Mouse move handler to follow cursor
         function handleMouseMove(e) {
             updateMousePosition(e);
             if (!activeTrigger) return;
             
-            // Update position whether loading or loaded
             if (preview.classList.contains('active')) {
                 updatePreviewPosition(currentMouseX, currentMouseY);
             }
         }
         
-        // Update preview position based on mouse coordinates
         function updatePreviewPosition(mouseX, mouseY) {
-            const offsetY = 20; // 20 pixels above cursor
+            const offsetY = 20;
             
-            // Get dimensions from preview container itself (works for both loading and loaded states)
             const previewWidth = preview.offsetWidth || 200;
             const previewHeight = preview.offsetHeight || 200;
             const viewportWidth = window.innerWidth;
             const viewportHeight = window.innerHeight;
             
-            // Calculate position - center horizontally on cursor
             let left = mouseX - (previewWidth / 2);
             let top = mouseY - previewHeight - offsetY;
             
-            // Keep preview within viewport bounds
             if (left < 10) {
                 left = 10;
             } else if (left + previewWidth > viewportWidth - 10) {
@@ -88,7 +74,6 @@ export function setupImageHover() {
             }
             
             if (top < 10) {
-                // If not enough space above, show below cursor
                 top = mouseY + offsetY;
             }
             
@@ -96,7 +81,6 @@ export function setupImageHover() {
             preview.style.top = top + 'px';
         }
         
-        // Add global mousemove listener
         document.addEventListener('mousemove', handleMouseMove);
         
         imageHoverTriggers.forEach(trigger => {
@@ -107,22 +91,18 @@ export function setupImageHover() {
                 currentImageSrc = imageSrc;
                 isImageLoaded = false;
                 
-                // Cancel any previous loading
                 if (loadingPromise) {
                     loadingPromise = null;
                 }
                 
-                // Update mouse position from the enter event
                 if (e) {
                     updateMousePosition(e);
                 }
                 
-                // Show loading state immediately
                 preview.classList.remove('active', 'loading');
                 preview.innerHTML = '';
                 preview.classList.add('loading');
                 
-                // Set loading dimensions
                 const loadingWidth = 200;
                 const loadingHeight = 200;
                 preview.style.width = loadingWidth + 'px';
@@ -130,19 +110,16 @@ export function setupImageHover() {
                 preview.style.minWidth = loadingWidth + 'px';
                 preview.style.minHeight = loadingHeight + 'px';
                 
-                // Create loading spinner
                 const loadingSpinner = document.createElement('div');
                 loadingSpinner.className = 'image-loading-spinner';
                 loadingSpinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
                 preview.appendChild(loadingSpinner);
                 
-                // Set initial position
                 preview.style.position = 'fixed';
                 preview.style.zIndex = '10000';
                 updatePreviewPosition(currentMouseX, currentMouseY);
                 preview.classList.add('active');
                 
-                // Create a promise for this specific load
                 const loadId = Date.now();
                 loadingPromise = loadId;
                 
@@ -229,7 +206,6 @@ export function setupImageHover() {
     }
 }
 
-// Image preview modal functionality (click to view)
 export function setupImagePreview() {
     const galleryItems = document.querySelectorAll('.gallery-item');
     
@@ -237,7 +213,6 @@ export function setupImagePreview() {
         return;
     }
     
-    // Image cache for modal
     const modalImageCache = new Map();
     
     function preloadModalImage(src) {
@@ -260,37 +235,62 @@ export function setupImagePreview() {
         });
     }
     
-    // Remove any existing modal first
     const existingModal = document.getElementById('image-preview-modal-portal');
     if (existingModal) {
         existingModal.remove();
     }
     
-    // Collect all gallery images and their titles
-    const galleryImages = [];
+    const galleryItemsArray = [];
     galleryItems.forEach(item => {
-        const img = item.querySelector('img');
+        const type = item.getAttribute('data-type') || 'image';
         const titleEl = item.querySelector('.gallery-title');
-        if (img) {
-            galleryImages.push({
-                src: img.src,
-                title: titleEl ? titleEl.textContent : ''
-            });
+        const title = titleEl ? titleEl.textContent : '';
+        
+        if (type === 'image') {
+            const img = item.querySelector('img');
+            if (img) {
+                galleryItemsArray.push({
+                    type: 'image',
+                    src: img.src,
+                    title: title,
+                    element: item
+                });
+            }
+        } else if (type === 'video') {
+            const videoType = item.getAttribute('data-video-type');
+            if (videoType === 'youtube') {
+                const videoId = item.getAttribute('data-video-id');
+                galleryItemsArray.push({
+                    type: 'video',
+                    videoType: 'youtube',
+                    videoId: videoId,
+                    title: title,
+                    element: item
+                });
+            } else if (videoType === 'local') {
+                const videoSrc = item.getAttribute('data-video-src');
+                galleryItemsArray.push({
+                    type: 'video',
+                    videoType: 'local',
+                    src: videoSrc,
+                    title: title,
+                    element: item
+                });
+            }
         }
     });
     
     let currentImageIndex = -1;
     
-    // Create modal portal directly in body
     const modal = document.createElement('div');
     modal.id = 'image-preview-modal-portal';
     modal.className = 'image-preview-modal';
     modal.innerHTML = `
         <button class="image-preview-close" aria-label="Close"><i class="fas fa-times"></i></button>
-        <button class="image-preview-nav image-preview-prev" aria-label="Previous image" style="display: none;">
+        <button class="image-preview-nav image-preview-prev" aria-label="Previous" style="display: none;">
             <i class="fas fa-chevron-left"></i>
         </button>
-        <button class="image-preview-nav image-preview-next" aria-label="Next image" style="display: none;">
+        <button class="image-preview-nav image-preview-next" aria-label="Next" style="display: none;">
             <i class="fas fa-chevron-right"></i>
         </button>
         <div class="image-preview-content">
@@ -299,15 +299,16 @@ export function setupImagePreview() {
             </div>
             <div class="image-preview-wrapper">
                 <img src="" alt="" id="image-preview-img" style="display: none;">
+                <div id="image-preview-video" style="display: none;"></div>
             </div>
             <div class="image-preview-title" id="image-preview-title"></div>
         </div>
     `;
     
-    // Append to body
     document.body.appendChild(modal);
     
     const modalImg = document.getElementById('image-preview-img');
+    const modalVideo = document.getElementById('image-preview-video');
     const modalTitle = document.getElementById('image-preview-title');
     const modalLoading = modal.querySelector('.image-preview-loading');
     const closeBtn = modal.querySelector('.image-preview-close');
@@ -315,7 +316,7 @@ export function setupImagePreview() {
     const nextBtn = modal.querySelector('.image-preview-next');
     
     function updateNavigationButtons() {
-        if (galleryImages.length <= 1) {
+        if (galleryItemsArray.length <= 1) {
             prevBtn.style.display = 'none';
             nextBtn.style.display = 'none';
             return;
@@ -325,73 +326,100 @@ export function setupImagePreview() {
         nextBtn.style.display = 'flex';
         
         prevBtn.disabled = currentImageIndex === 0;
-        nextBtn.disabled = currentImageIndex === galleryImages.length - 1;
+        nextBtn.disabled = currentImageIndex === galleryItemsArray.length - 1;
     }
     
-    async function openPreview(imgSrc, title) {
-        // Find the index of the clicked image
-        currentImageIndex = galleryImages.findIndex(img => img.src === imgSrc);
-        if (currentImageIndex === -1) {
-            currentImageIndex = 0;
+    async function openPreview(index) {
+        if (index < 0 || index >= galleryItemsArray.length) {
+            index = 0;
         }
-        
-        await showImage(currentImageIndex);
+        await showItem(index);
     }
     
-    async function showImage(index) {
-        if (index < 0 || index >= galleryImages.length) return;
+    async function showItem(index) {
+        if (index < 0 || index >= galleryItemsArray.length) return;
         
         currentImageIndex = index;
-        const imageData = galleryImages[index];
+        const itemData = galleryItemsArray[index];
         
         if (modalTitle) {
-            modalTitle.textContent = imageData.title || '';
+            modalTitle.textContent = itemData.title || '';
         }
         
         updateNavigationButtons();
         
-        // Show loading state
         if (modalLoading) {
             modalLoading.style.display = 'flex';
         }
         if (modalImg) {
             modalImg.style.display = 'none';
         }
+        if (modalVideo) {
+            modalVideo.style.display = 'none';
+            modalVideo.innerHTML = '';
+        }
         
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
         
-        try {
-            const img = await preloadModalImage(imageData.src);
-            
-            if (modalImg) {
-                const currentSrc = modalImg.src || '';
-                if (currentSrc !== imageData.src) {
-                    modalImg.src = imageData.src;
+        if (itemData.type === 'image') {
+            try {
+                const img = await preloadModalImage(itemData.src);
+                
+                if (modalImg) {
+                    const currentSrc = modalImg.src || '';
+                    if (currentSrc !== itemData.src) {
+                        modalImg.src = itemData.src;
+                    }
+                    modalImg.style.display = 'block';
                 }
-                modalImg.style.display = 'block';
+                
+                if (modalLoading) {
+                    modalLoading.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Failed to load modal image:', itemData.src, error);
+                if (modalLoading) {
+                    modalLoading.style.display = 'none';
+                }
+            }
+        } else if (itemData.type === 'video') {
+            if (modalLoading) {
+                modalLoading.style.display = 'none';
             }
             
-            if (modalLoading) {
-                modalLoading.style.display = 'none';
+            if (itemData.videoType === 'youtube') {
+                modalVideo.innerHTML = `
+                    <iframe 
+                        src="https://www.youtube.com/embed/${itemData.videoId}" 
+                        title="${itemData.title}"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="width: 100%; max-width: 900px; aspect-ratio: 16/9;">
+                    </iframe>
+                `;
+            } else if (itemData.videoType === 'local') {
+                modalVideo.innerHTML = `
+                    <video controls style="width: 100%; max-width: 900px;">
+                        <source src="${itemData.src}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                `;
             }
-        } catch (error) {
-            console.error('Failed to load modal image:', imageData.src, error);
-            if (modalLoading) {
-                modalLoading.style.display = 'none';
-            }
+            modalVideo.style.display = 'block';
         }
     }
     
-    function showNextImage() {
-        if (currentImageIndex < galleryImages.length - 1) {
-            showImage(currentImageIndex + 1);
+    function showNextItem() {
+        if (currentImageIndex < galleryItemsArray.length - 1) {
+            showItem(currentImageIndex + 1);
         }
     }
     
-    function showPrevImage() {
+    function showPrevItem() {
         if (currentImageIndex > 0) {
-            showImage(currentImageIndex - 1);
+            showItem(currentImageIndex - 1);
         }
     }
     
@@ -399,48 +427,55 @@ export function setupImagePreview() {
         if (e) {
             e.stopPropagation();
         }
+        if (modalVideo) {
+            modalVideo.innerHTML = '';
+        }
         modal.classList.remove('active');
         document.body.style.overflow = '';
     }
     
-    // Add click handlers and loading states to gallery items
-    galleryItems.forEach(item => {
-        const img = item.querySelector('img');
-        const titleEl = item.querySelector('.gallery-title');
+    galleryItems.forEach((item, index) => {
+        const type = item.getAttribute('data-type') || 'image';
         
-        if (img) {
-            // Create loading overlay
-            const loadingOverlay = document.createElement('div');
-            loadingOverlay.className = 'gallery-item-loading';
-            loadingOverlay.innerHTML = '<div class="image-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>';
-            item.appendChild(loadingOverlay);
-            
-            // Handle image load
-            if (img.complete) {
-                img.classList.add('loaded');
-                loadingOverlay.remove();
-            } else {
-                img.addEventListener('load', function() {
+        if (type === 'image') {
+            const img = item.querySelector('img');
+            if (img) {
+                const loadingOverlay = document.createElement('div');
+                loadingOverlay.className = 'gallery-item-loading';
+                loadingOverlay.innerHTML = '<div class="image-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>';
+                item.appendChild(loadingOverlay);
+                
+                if (img.complete) {
                     img.classList.add('loaded');
                     loadingOverlay.remove();
-                });
+                } else {
+                    img.addEventListener('load', function() {
+                        img.classList.add('loaded');
+                        loadingOverlay.remove();
+                    });
+                    
+                    img.addEventListener('error', function() {
+                        loadingOverlay.remove();
+                    });
+                }
                 
-                img.addEventListener('error', function() {
-                    loadingOverlay.remove();
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openPreview(index);
                 });
             }
-            
+        } else if (type === 'video') {
             item.style.cursor = 'pointer';
             item.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                const title = titleEl ? titleEl.textContent : '';
-                openPreview(img.src, title);
+                openPreview(index);
             });
         }
     });
     
-    // Close button
     if (closeBtn) {
         closeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
@@ -448,30 +483,26 @@ export function setupImagePreview() {
         });
     }
     
-    // Navigation buttons
     if (prevBtn) {
         prevBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            showPrevImage();
+            showPrevItem();
         });
     }
     
     if (nextBtn) {
         nextBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            showNextImage();
+            showNextItem();
         });
     }
     
-    // Close on overlay click (but not on the content)
     modal.addEventListener('click', function(e) {
-        // Only close if clicking directly on the modal background, not on content
         if (e.target === modal || (e.target.classList.contains('image-preview-modal') && !e.target.closest('.image-preview-content'))) {
             closePreview(e);
         }
     });
     
-    // Prevent clicks on content from closing
     const content = modal.querySelector('.image-preview-content');
     if (content) {
         content.addEventListener('click', function(e) {
@@ -479,18 +510,62 @@ export function setupImagePreview() {
         });
     }
     
-    // Keyboard navigation
     document.addEventListener('keydown', function(e) {
         if (!modal.classList.contains('active')) return;
         
         if (e.key === 'Escape') {
             closePreview();
         } else if (e.key === 'ArrowLeft') {
-            showPrevImage();
+            showPrevItem();
         } else if (e.key === 'ArrowRight') {
-            showNextImage();
+            showNextItem();
         }
     });
+    
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+    let isPointerDown = false;
+    
+    const handlePointerDown = (e) => {
+        if (!modal.classList.contains('active')) return;
+        isPointerDown = true;
+        pointerStartX = e.clientX;
+        pointerStartY = e.clientY;
+    };
+    
+    const handlePointerMove = (e) => {
+        if (!isPointerDown || !modal.classList.contains('active')) return;
+    };
+    
+    const handlePointerUp = (e) => {
+        if (!isPointerDown || !modal.classList.contains('active')) {
+            isPointerDown = false;
+            return;
+        }
+        
+        const deltaX = e.clientX - pointerStartX;
+        const deltaY = e.clientY - pointerStartY;
+        
+        const minSwipeDistance = 50;
+        const maxVerticalSwipe = 100;
+        
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaY) < maxVerticalSwipe) {
+            if (Math.abs(deltaX) > minSwipeDistance) {
+                if (deltaX > 0) {
+                    showPrevItem();
+                } else {
+                    showNextItem();
+                }
+            }
+        }
+        
+        isPointerDown = false;
+    };
+    
+    modal.addEventListener('pointerdown', handlePointerDown, { passive: true });
+    modal.addEventListener('pointermove', handlePointerMove, { passive: true });
+    modal.addEventListener('pointerup', handlePointerUp, { passive: true });
+    modal.addEventListener('pointercancel', handlePointerUp, { passive: true });
 }
 
 
