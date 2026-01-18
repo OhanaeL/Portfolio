@@ -94,33 +94,40 @@
                         <div class="certificates-grid">
                             {% for cert in about.certificates %}
                             <div class="certificate-card">
-                                <div class="certificate-header">
-                                    <i class="fas fa-certificate"></i>
-                                    <h3 class="certificate-title">{{ cert.title }}</h3>
-                                    {% if cert.year %}
-                                    <span class="certificate-year">{{ cert.year }}</span>
+                                <div class="certificate-header certificate-toggle">
+                                    <div class="certificate-header-content">
+                                        <i class="fas fa-certificate"></i>
+                                        <h3 class="certificate-title">{{ cert.title }}</h3>
+                                        {% if cert.year %}
+                                        <span class="certificate-year">{{ cert.year }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <button class="certificate-expand-btn" aria-label="Toggle certificate details">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                                <div class="certificate-details">
+                                    {% if cert.from %}
+                                    <div class="certificate-from">
+                                        <i class="fas fa-university"></i>
+                                        <span>{{ cert.from }}</span>
+                                    </div>
                                     {% endif %}
-                                </div>
-                                {% if cert.from %}
-                                <div class="certificate-from">
-                                    <i class="fas fa-university"></i>
-                                    <span>{{ cert.from }}</span>
-                                </div>
-                                {% endif %}
-                                {% if cert.description %}
-                                <div class="certificate-description-wrapper">
-                                    <p class="certificate-description">{{ cert.description }}</p>
-                                </div>
-                                {% endif %}
-                                <div class="certificate-actions">
-                                    <a href="/certificate/{{ cert.filename }}" target="_blank" rel="noopener noreferrer" class="certificate-btn">
-                                        <i class="fas fa-file"></i> View Certificate
-                                    </a>
-                                    {% if cert.verification %}
-                                    <a href="{{ cert.verification }}" target="_blank" rel="noopener noreferrer" class="certificate-btn verify-btn">
-                                        <i class="fas fa-check-circle"></i> Verify
-                                    </a>
+                                    {% if cert.description %}
+                                    <div class="certificate-description-wrapper">
+                                        <p class="certificate-description">{{ cert.description }}</p>
+                                    </div>
                                     {% endif %}
+                                    <div class="certificate-actions">
+                                        <a href="/certificate/{{ cert.filename|path_encode }}" target="_blank" rel="noopener noreferrer" class="certificate-btn">
+                                            <i class="fas fa-file"></i> View Certificate
+                                        </a>
+                                        {% if cert.verification %}
+                                        <a href="{{ cert.verification }}" target="_blank" rel="noopener noreferrer" class="certificate-btn verify-btn">
+                                            <i class="fas fa-check-circle"></i> Verify
+                                        </a>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                             {% endfor %}

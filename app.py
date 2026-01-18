@@ -5,8 +5,14 @@ from pathlib import Path
 from datetime import datetime
 import json
 import markdown
+from urllib.parse import quote
 
 app = Flask(__name__)
+
+@app.template_filter('path_encode')
+def path_encode_filter(s):
+    """URL encode for path segments (handles #, spaces, etc.)"""
+    return quote(str(s), safe='')
 app.config['PUBLIC_FOLDER'] = 'public'
 app.config['PROJECTS_FOLDER'] = 'public/projects'
 app.config['ACCOMPLISHMENTS_FOLDER'] = 'public/accomplishments'

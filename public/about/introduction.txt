@@ -1,3 +1,3 @@
 Hi, I’m Htin Linn.
 
-I’m an ICT student at Rangsit International College with a focus on software and web development. I build practical applications using technologies like React, TypeScript, and Python, and I’ve worked on real-world systems through academic projects, hackathons, and team-based development.
+I’m a software developer with a background in Information and Communication Technology, focused on backend and web development. I build production-ready applications using Python, FastAPI, React, and modern web technologies, and I’ve worked on real-world systems through professional roles, hackathons, and team-based projects.

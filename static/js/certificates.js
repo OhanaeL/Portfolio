@@ -54,6 +54,10 @@ export function setupCertificateTooltips() {
         }
     }
     
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+    
     document.addEventListener('mousemove', handleMouseMove);
     
     tooltipWrappers.forEach(wrapper => {
@@ -61,6 +65,8 @@ export function setupCertificateTooltips() {
         if (!descriptionText) return;
         
         wrapper.addEventListener('mouseenter', function(e) {
+            if (isMobile()) return;
+            
             activeWrapper = wrapper;
             
             if (e) {
@@ -75,6 +81,8 @@ export function setupCertificateTooltips() {
         });
         
         wrapper.addEventListener('mouseleave', function() {
+            if (isMobile()) return;
+            
             if (activeWrapper === wrapper) {
                 activeWrapper = null;
             tooltip.classList.remove('active');
@@ -84,6 +92,44 @@ export function setupCertificateTooltips() {
                 }
             }, 200);
             }
+        });
+    });
+}
+
+export function setupCertificateExpand() {
+    const certificateCards = document.querySelectorAll('.certificate-card');
+    
+    function handleResize() {
+        certificateCards.forEach(card => {
+            if (window.innerWidth > 768) {
+                card.classList.remove('expanded');
+            }
+        });
+    }
+    
+    window.addEventListener('resize', handleResize);
+    
+    certificateCards.forEach(card => {
+        const toggle = card.querySelector('.certificate-toggle');
+        const expandBtn = card.querySelector('.certificate-expand-btn');
+        
+        if (!toggle || !expandBtn) return;
+        
+        function toggleExpand(e) {
+            if (window.innerWidth > 768) return;
+            
+            e.stopPropagation();
+            card.classList.toggle('expanded');
+        }
+        
+        toggle.addEventListener('click', toggleExpand);
+        expandBtn.addEventListener('click', toggleExpand);
+        
+        const links = card.querySelectorAll('.certificate-btn');
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
         });
     });
 }
