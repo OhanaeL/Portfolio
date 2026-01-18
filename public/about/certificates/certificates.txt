@@ -32,3 +32,10 @@ title: Teaching Assistant Certificate
 from: Rangsit University, RIC
 description: Recognition for outstanding contribution as a teaching assistant in computer science courses
 year: 2025
+
+filename: CSharpwithMicrosoft.png
+title: Foundation C# with Microsoft
+from: Microsoft
+description: Foundational certification covering core C# programming concepts and Microsoft development fundamentals. Completed comprehensive coursework demonstrating proficiency in C# syntax, object-oriented programming principles, and Microsoft development tools.
+year: 2026
+verification: https://freecodecamp.org/certification/fcc-5ac26495-1530-475d-894d-e91baa531657/foundational-c-sharp-with-microsoft

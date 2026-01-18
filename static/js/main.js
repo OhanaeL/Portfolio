@@ -4,7 +4,7 @@ import { setupScrollReveal, setupTitleEcho, setupScrollArrow } from './animation
 import { setupSmoothScroll } from './navigation.js';
 import { setupImageHover, setupImagePreview } from './gallery.js';
 import { setupTagFilters, setupProjectSearch } from './filters.js';
-import { setupCertificateTooltips } from './certificates.js';
+import { setupCertificateTooltips, setupCertificateExpand } from './certificates.js';
 import { setupThemeToggle } from './theme.js';
 import { setupBackToTop } from './back-to-top.js';
 
@@ -21,5 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setupImageHover();
     setupImagePreview();
     setupCertificateTooltips();
+    setupCertificateExpand();
     setupBackToTop();
 });

@@ -1,3 +1,3 @@
-I'm an ICT student at Rangsit International College, RSU, where I'm pursuing my passion for technology and computer science.
+I have a background in Information and Communication Technology from Rangsit International College, RSU, with a strong focus on software development and backend systems.
 
-My academic journey has been focused on developing practical skills in programming, software development, and technology solutions. I've worked on various projects ranging from web applications to machine learning models, always eager to explore new technologies and methodologies.
+I’m a full-stack developer with deep experience in Python backend development. I’ve built and maintained production systems involving APIs, data pipelines, and AI-driven features, while also working closely with frontend applications when needed.

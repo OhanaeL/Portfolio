@@ -1,6 +1,6 @@
-description: Backend system for RSU attendance tracking and management
+description: Fullstack system for RSU attendance tracking and management
 date: December 2024
-tags: JavaScript, Backend, Node.js
+tags: JavaScript, Fullstack, Node.js
 team:
 - Htin Linn
 
