@@ -9,16 +9,16 @@ The solver uses a rule-based approach to solve Minesweeper games through logical
 The solver can work with browser-based Minesweeper at minesweeper.online or freeminesweeper.org, simulated CLI environments for testing, and includes a Pygame GUI visualization for watching the solver in action.
 
 ### Browser Automation
-Uses Playwright for browser automation, allowing the solver to interact with web-based Minesweeper games automatically. The system can detect game states, click cells, and flag mines programmatically, providing a fully automated solving experience.
+Uses Playwright or Selenium for browser automation, allowing the solver to interact with web-based Minesweeper games automatically. The system can detect game states, click cells, and flag mines programmatically, providing a fully automated solving experience.
 
 ## Project Focus
 
-This project is primarily focused on visualization using Pygame and browser automation with Playwright, rather than developing a high winrate algorithm. The solver demonstrates the automation capabilities and provides a visual representation of the solving process, making it an educational tool for understanding browser automation and game state detection.
+This project is primarily focused on visualization using Pygame and browser automation with Playwright or Selenium, rather than developing a high winrate algorithm. The solver demonstrates the automation capabilities and provides a visual representation of the solving process, making it an educational tool for understanding browser automation and game state detection.
 
 ## Technologies & Skills
 
 - Python: Core logic and algorithm implementation
-- Playwright: Browser automation for web-based games
+- Playwright or Selenium: Browser automation for web-based games
 - Pygame: GUI visualization and interface
 - Probability Calculations: Statistical analysis for uncertain moves
 
