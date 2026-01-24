@@ -1,0 +1,191 @@
+:root {
+    /* Background Colors */
+    --bg-primary: #050508;
+    --bg-secondary: #0a0a0f;
+    --bg-card: #0f0f15;
+    
+    /* Purple Palette */
+    --purple-primary: #9d4edd;
+    --purple-secondary: #c77dff;
+    --purple-dark: #7b2cbf;
+    --purple-accent: #e0aaff;
+    --purple-glow: rgba(157, 78, 221, 0.25);
+    
+    /* Purple Opacity Variants */
+    --purple-light: rgba(157, 78, 221, 0.1);
+    --purple-medium: rgba(157, 78, 221, 0.15);
+    --purple-strong: rgba(157, 78, 221, 0.2);
+    --purple-heavy: rgba(157, 78, 221, 0.3);
+    --purple-intense: rgba(157, 78, 221, 0.4);
+    --purple-strong-dark: rgba(123, 44, 191, 0.2);
+    
+    /* Text Colors */
+    --text-primary: #f0f0f3;
+    --text-secondary: #a8a8b8;
+    --text-muted: #6e6e7e;
+    
+    /* Border and UI Colors */
+    --border-color: #1a1a22;
+    
+    /* Overlay Colors */
+    --overlay-black-70: rgba(0, 0, 0, 0.7);
+    --overlay-black-85: rgba(0, 0, 0, 0.85);
+    --overlay-black-95: rgba(0, 0, 0, 0.95);
+    --overlay-black-50: rgba(0, 0, 0, 0.5);
+    --overlay-black-80: rgba(0, 0, 0, 0.8);
+    --overlay-black-20: rgba(0, 0, 0, 0.2);
+    --overlay-black-30: rgba(0, 0, 0, 0.3);
+    
+    /* White/Sparkle Colors */
+    --white-40: rgba(255, 255, 255, 0.4);
+    --white-30: rgba(255, 255, 255, 0.3);
+    --white-10: rgba(255, 255, 255, 0.1);
+    --white-20: rgba(255, 255, 255, 0.2);
+    --white-pure: #ffffff;
+    
+    /* Status Colors */
+    --status-warning-bg: rgba(255, 193, 7, 0.2);
+    --status-warning-color: #ffc107;
+    --status-warning-border: rgba(255, 193, 7, 0.3);
+    --status-success-bg: rgba(76, 175, 80, 0.1);
+    --status-success-color: #4caf50;
+    --status-success-border: #4caf50;
+    --status-error-bg: rgba(244, 67, 54, 0.1);
+    --status-error-color: #f44336;
+    --status-error-border: #f44336;
+    --status-danger-color: #e74c3c;
+    
+    /* Navbar Background */
+    --navbar-bg: rgba(15, 15, 21, 0.95);
+    --navbar-bg-solid: rgba(15, 15, 21, 0.98);
+    
+    /* Certificate Colors */
+    --cert-bg-light: linear-gradient(135deg, #f5f3eb 0%, #faf8f0 100%);
+    --cert-border-beige: #d4c5a0;
+    --cert-border-gold: #c8a951;
+    --cert-text-dark: #2a2a2a;
+    --cert-text-brown: #8b6914;
+    --cert-bg-gold: linear-gradient(135deg, #f4d03f 0%, #d4af37 100%);
+    --cert-text-light-brown: #6a4f0f;
+    --cert-text-gray: #4a4a4a;
+    --cert-bg-dark: #2a2a2a;
+    --cert-text-light: #f9f7f3;
+    --cert-bg-darker: #3a3a3a;
+    --cert-shadow-beige: rgba(212, 197, 160, 0.3);
+    --cert-shadow-beige-light: rgba(212, 197, 160, 0.03);
+    --cert-shadow-gold: rgba(200, 169, 81, 0.4);
+    --cert-shadow-gold-light: rgba(200, 169, 81, 0.3);
+    --cert-shadow-dark: rgba(42, 42, 42, 0.3);
+    
+    /* Gradients */
+    --gradient-1: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 50%, #5a189a 100%);
+    --gradient-2: linear-gradient(135deg, #c77dff 0%, #9d4edd 100%);
+    
+    /* Background Gradients */
+    --bg-gradient-1: radial-gradient(circle at 20% 20%, rgba(157, 78, 221, 0.08) 0%, transparent 50%);
+    --bg-gradient-2: radial-gradient(circle at 80% 80%, rgba(123, 44, 191, 0.06) 0%, transparent 50%);
+    
+    /* Shadow Colors */
+    --shadow-purple-20: rgba(157, 78, 221, 0.2);
+    --shadow-purple-40: rgba(157, 78, 221, 0.4);
+    --shadow-purple-10: rgba(157, 78, 221, 0.1);
+    --shadow-purple-30: rgba(157, 78, 221, 0.3);
+    --shadow-purple-15: rgba(157, 78, 221, 0.15);
+    
+    /* Gold Colors */
+    --gold-primary: #ffd700;
+    --gold-shadow: rgba(255, 215, 0, 0.3);
+    --gold-inset: rgba(255, 215, 0, 0.5);
+    --gold-hover-shadow: rgba(255, 215, 0, 0.4);
+    --gold-hover-inset: rgba(255, 215, 0, 0.6);
+}
+
+[data-theme="light"] {
+    --bg-primary: #f5e6d3;
+    --bg-secondary: #ede0cc;
+    --bg-card: #faf4e8;
+    
+    --purple-primary: #d97706;
+    --purple-secondary: #f59e0b;
+    --purple-dark: #b45309;
+    --purple-accent: #fbbf24;
+    --purple-glow: rgba(217, 119, 6, 0.25);
+    
+    --purple-light: rgba(255, 165, 0, 0.1);
+    --purple-medium: rgba(255, 165, 0, 0.15);
+    --purple-strong: rgba(255, 165, 0, 0.2);
+    --purple-heavy: rgba(255, 165, 0, 0.3);
+    --purple-intense: rgba(255, 165, 0, 0.4);
+    --purple-strong-dark: rgba(180, 83, 9, 0.2);
+    
+    --text-primary: #8b4513;
+    --text-secondary: #a0522d;
+    --text-muted: #cd853f;
+    
+    --border-color: #d4b896;
+    
+    --overlay-black-70: rgba(245, 230, 211, 0.7);
+    --overlay-black-85: rgba(245, 230, 211, 0.85);
+    --overlay-black-95: rgba(245, 230, 211, 0.95);
+    --overlay-black-50: rgba(245, 230, 211, 0.5);
+    --overlay-black-80: rgba(245, 230, 211, 0.8);
+    --overlay-black-20: rgba(245, 230, 211, 0.2);
+    --overlay-black-30: rgba(245, 230, 211, 0.3);
+    
+    --white-40: rgba(139, 69, 19, 0.4);
+    --white-30: rgba(139, 69, 19, 0.3);
+    --white-10: rgba(139, 69, 19, 0.1);
+    --white-20: rgba(139, 69, 19, 0.2);
+    --white-pure: #8b4513;
+    
+    --status-warning-bg: rgba(255, 193, 7, 0.2);
+    --status-warning-color: #d97706;
+    --status-warning-border: rgba(217, 119, 6, 0.3);
+    --status-success-bg: rgba(76, 175, 80, 0.1);
+    --status-success-color: #4caf50;
+    --status-success-border: #4caf50;
+    --status-error-bg: rgba(244, 67, 54, 0.1);
+    --status-error-color: #f44336;
+    --status-error-border: #f44336;
+    --status-danger-color: #e74c3c;
+    
+    --navbar-bg: rgba(250, 244, 232, 0.95);
+    --navbar-bg-solid: rgba(250, 244, 232, 0.98);
+    
+    --gradient-1: linear-gradient(135deg, #d97706 0%, #b45309 50%, #92400e 100%);
+    --gradient-2: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    
+    --bg-gradient-1: radial-gradient(circle at 20% 20%, rgba(255, 165, 0, 0.05) 0%, transparent 50%);
+    --bg-gradient-2: radial-gradient(circle at 80% 80%, rgba(255, 140, 0, 0.03) 0%, transparent 50%);
+    
+    --shadow-purple-20: rgba(217, 119, 6, 0.2);
+    --shadow-purple-40: rgba(217, 119, 6, 0.4);
+    --shadow-purple-10: rgba(217, 119, 6, 0.1);
+    --shadow-purple-30: rgba(217, 119, 6, 0.3);
+    --shadow-purple-15: rgba(217, 119, 6, 0.15);
+    
+    /* Gold Colors */
+    --gold-primary: #d97706;
+    --gold-shadow: rgba(217, 119, 6, 0.3);
+    --gold-inset: rgba(217, 119, 6, 0.5);
+    --gold-hover-shadow: rgba(217, 119, 6, 0.4);
+    --gold-hover-inset: rgba(217, 119, 6, 0.6);
+}
+
+[data-theme="light"] .hero-title {
+    text-shadow: 
+        4px 4px 0px rgba(180, 83, 9, 0.2),
+        -2px -2px 0px rgba(255, 165, 0, 0.15);
+}
+
+[data-theme="light"] .section-title {
+    text-shadow: 2px 2px 0px rgba(180, 83, 9, 0.15);
+}
+
+[data-theme="light"] .timeline-year {
+    text-shadow: 2px 2px 0px rgba(180, 83, 9, 0.15);
+}
+
+[data-theme="light"] .skill-score {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}

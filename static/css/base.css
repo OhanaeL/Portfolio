@@ -1,0 +1,301 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+.navbar,
+.nav-link,
+.logo,
+.project-card,
+.experience-card,
+.contact-card,
+.tag-filter-btn,
+.search-container,
+.search-input,
+.tags-filter,
+.section-title,
+.hero-title,
+.hero-subtitle,
+.card,
+button,
+a,
+input,
+textarea,
+select {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+html {
+    width: 100%;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: var(--bg-primary);
+    background-image: 
+        var(--bg-gradient-1),
+        var(--bg-gradient-2);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.7;
+    font-weight: 400;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-top: 80px;
+    transition: background-color 0.3s ease, color 0.3s ease, background-image 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px; /* Space for fixed mobile navbar */
+    }
+}
+
+/* Sparkles Effect */
+.sparkles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+[data-theme="light"] .sparkle,
+[data-theme="light"] .shooting-star,
+[data-theme="light"] .constellation-background {
+    display: none !important;
+}
+
+[data-theme="light"] .sparkles-container {
+    display: block !important;
+}
+
+/* Top Loading Bar */
+.top-loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple-dark), var(--purple-primary), var(--purple-dark));
+    z-index: 10000;
+    transition: width 0.3s ease-out, opacity 0.3s ease-out;
+    opacity: 0;
+    box-shadow: 0 0 8px rgba(123, 44, 191, 0.4);
+}
+
+[data-theme="dark"] .top-loading-bar {
+    background: linear-gradient(90deg, #4a1a6b, #6b2a8f, #4a1a6b);
+    box-shadow: 0 0 6px rgba(74, 26, 107, 0.5);
+}
+
+.top-loading-bar.loading {
+    opacity: 1;
+}
+
+.top-loading-bar.complete {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+.light-mode-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.light-mode-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeInCircle 0.5s ease-out forwards;
+}
+
+.light-mode-shape:nth-child(1) { animation-delay: 0s; }
+.light-mode-shape:nth-child(2) { animation-delay: 0.05s; }
+.light-mode-shape:nth-child(3) { animation-delay: 0.1s; }
+.light-mode-shape:nth-child(4) { animation-delay: 0.15s; }
+.light-mode-shape:nth-child(5) { animation-delay: 0.2s; }
+.light-mode-shape:nth-child(6) { animation-delay: 0.25s; }
+.light-mode-shape:nth-child(7) { animation-delay: 0.3s; }
+.light-mode-shape:nth-child(8) { animation-delay: 0.35s; }
+
+@keyframes fadeInCircle {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.sparkle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--white-40);
+    border-radius: 50%;
+    box-shadow: 0 0 3px var(--white-30);
+    animation: twinkle var(--duration) ease-in-out infinite;
+    animation-delay: var(--delay);
+}
+
+.sparkle.purple {
+    background: var(--purple-primary);
+    box-shadow: 0 0 5px var(--purple-glow);
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+}
+
+/* Constellation Background */
+.constellation-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+}
+
+.constellation-star {
+    position: absolute;
+    background: var(--white-pure);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: constellationTwinkle var(--twinkle-duration, 3s) ease-in-out infinite;
+    animation-delay: var(--twinkle-delay, 0s);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.constellation-star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.constellation-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(157, 78, 221, 0.2) 50%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    transform-origin: 0 50%;
+    pointer-events: none;
+}
+
+@keyframes constellationTwinkle {
+    0%, 100% {
+        opacity: var(--initial-opacity, 0.3);
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: calc(var(--initial-opacity, 0.3) * 2);
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+main {
+    position: relative;
+    z-index: 0;
+}
+
+/* Scroll reveal */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Divider Section */
+.divider-section {
+    padding: 3rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider-line {
+    width: 80%;
+    max-width: 900px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--purple-primary) 50%, transparent 100%);
+    position: relative;
+}
+
+/* Code-like elements */
+code, pre {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--purple-light);
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* Selection */
+::selection {
+    background: var(--purple-primary);
+    color: var(--white-pure);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--purple-dark);
+    border-radius: 6px;
+    border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--purple-primary);
+}
