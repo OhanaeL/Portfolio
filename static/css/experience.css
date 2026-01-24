@@ -1,0 +1,208 @@
+/* Experience Page */
+.experience-page {
+    padding: 2rem 0 4rem;
+    min-height: 80vh;
+}
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.experience-grid .experience-card {
+    aspect-ratio: 5;
+}
+
+.experience-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.experience-card.reveal {
+    animation: projectReveal 0.6s ease-out forwards;
+}
+
+.experience-card:hover {
+    transform: translateY(-5px);
+}
+
+.experience-card-inner {
+    background: var(--bg-card);
+    border: 3px solid var(--border-color);
+    border-radius: 0;
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 
+        6px 6px 0 var(--shadow-purple-20),
+        inset 0 0 0 1px var(--purple-light);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.experience-card:hover .experience-card-inner {
+    border-color: var(--purple-primary);
+    box-shadow: 
+        8px 8px 0 var(--shadow-purple-30),
+        inset 0 0 0 1px var(--purple-primary);
+}
+
+.experience-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.experience-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--purple-accent);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.experience-company {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.experience-company i {
+    color: var(--purple-primary);
+}
+
+.experience-short-desc {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+@media (max-width: 768px) {
+    .experience-grid .experience-card {
+        aspect-ratio: unset;
+        min-height: auto;
+    }
+    
+    .experience-card-inner {
+        min-height: 200px;
+    }
+}
+
+/* About Page */
+.about-page {
+    padding: 2rem 0 4rem;
+    min-height: 80vh;
+}
+
+.about-info-bar {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: var(--bg-card);
+    border: 3px solid var(--border-color);
+    padding: 2rem;
+    box-shadow: 
+        6px 6px 0 var(--shadow-purple-20),
+        inset 0 0 0 1px var(--purple-light);
+}
+
+.profile-pic-container {
+    flex-shrink: 0;
+    position: relative;
+}
+
+.profile-pic {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border: 4px solid var(--purple-primary);
+    box-shadow: 
+        8px 8px 0 var(--purple-dark),
+        inset 0 0 0 4px rgba(157, 78, 221, 0.2);
+    image-rendering: pixelated;
+    transition: opacity 0.3s ease;
+}
+
+.profile-pic-skeleton {
+    width: 180px;
+    height: 180px;
+    background: var(--bg-card);
+    border: 4px solid var(--border-color);
+    box-shadow: 
+        8px 8px 0 var(--purple-dark),
+        inset 0 0 0 4px rgba(157, 78, 221, 0.2);
+    border-radius: 0;
+    animation: skeletonPulse 1.5s ease-in-out infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.info-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex-grow: 1;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.info-label {
+    font-size: 0.95rem;
+    color: var(--purple-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.info-value {
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.info-link {
+    font-size: 1rem;
+    color: var(--purple-accent);
+    text-decoration: none;
+    border-bottom: 2px solid var(--purple-accent);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.info-link:hover {
+    color: var(--white-pure);
+    border-bottom-color: var(--white-pure);
+    background: var(--purple-strong);
+}
