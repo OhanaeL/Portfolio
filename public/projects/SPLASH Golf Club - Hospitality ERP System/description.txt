@@ -1,4 +1,4 @@
-SPLASH Golf Club is a Next.js web application I developed for golf club management and booking, which won **1st Place** at the CIMSO ERP Hackathon. Built with Next.js 15 and TypeScript, [image:homepage.png:the application] provides real-time tee time bookings, member management, and integrates with CIMSO ERP systems for hotel and restaurant services. A companion Flutter mobile app extends the functionality to mobile devices.
+SPLASH Golf Club is a React-based golf club management system I developed that won **1st Place** out of 20+ teams at the CIMSO Hospitality ERP Hackathon 2025. The system is integrated with CIMSO's ERP and features an AI-powered multilingual, voice-enabled chatbot to automate booking workflows and enhance user experience. [image:homepage.png:The application] provides real-time tee time bookings, member management, and integrates with CIMSO ERP systems for hotel and restaurant services.
 
 ## Key Features
 
@@ -13,11 +13,11 @@ Comprehensive dashboard with analytics, revenue charts, booking statistics, and 
 
 ## Technologies & Skills
 
-- Next.js 15: React framework with App Router for server-side rendering
-- TypeScript: Type-safe development
-- React Query: Data fetching and caching
-- Google Generative AI: AI-powered chat functionality
+- HTML, CSS, JavaScript: Core web technologies
+- React: Frontend framework for building the user interface
+- Axios: HTTP client for API communication
 - Tailwind CSS: Utility-first CSS framework
+- Google Generative AI: AI-powered multilingual, voice-enabled chatbot functionality
 
 ## Development Approach
 

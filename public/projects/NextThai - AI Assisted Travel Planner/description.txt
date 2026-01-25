@@ -1,4 +1,4 @@
-NextThai is an AI-powered travel planning application I developed for the Hack the Zodiac Hackathon in April 2024, where it was selected as a finalist. The application uses Google's Gemini AI to generate personalized travel itineraries for Thailand based on user preferences, budget constraints, and time limitations. Built with Streamlit, [image:TravelPlanner.png:the application] transforms the complex process of trip planning into a simple, automated experience.
+NextThai is an AI travel assistant I developed for the Hack the Zodiac Hackathon in April 2024, where our team won **2nd Runner-Up** out of 30+ teams. The application generates personalized Thailand itineraries using LLM-based recommendations with downloadable PDF travel plans. Built with Streamlit and Google's Gemini AI, [image:TravelPlanner.png:the application] transforms the complex process of trip planning into a simple, automated experience based on user preferences, budget constraints, and time limitations.
 
 ## Key Features
 

@@ -1,24 +1,25 @@
-In May 2025, I started my full-time position as a Python Developer at Brillar Company, a Python-based AI company. As the sole Python developer on the team, I took on significant responsibilities in developing and maintaining Python-based AI solutions.
+In May 2025, I started my full-time position as a Python Developer (Backend / AI) at Brillar, where I own end-to-end development of AI-focused Python microservices, handling architecture, implementation, and production operations.
 
 ## Role Overview
 
-This role has been instrumental in my professional growth, allowing me to work on real-world AI projects, collaborate with a talented team, and contribute to innovative solutions in the artificial intelligence space. The experience has deepened my expertise in Python development and AI technologies.
+This role has provided hands-on experience building scalable, production-ready backend systems and deploying real-world AI services. I work on real-world AI projects, collaborate with the team, and contribute to innovative solutions in the artificial intelligence space.
 
 ## Key Responsibilities
 
-- Develop and maintain Python-based AI applications and services
-- Design and implement machine learning models and algorithms
-- Collaborate with cross-functional teams on AI solutions
-- Optimize and improve existing AI systems
-- Contribute to the company's AI product development
+- Own end-to-end development of two AI-focused Python microservices, handling architecture, implementation, and production operations
+- Lead backend development for a central integration service connecting multiple third-party systems (SalesIQ, Chatwoot, Zoho)
+- Build document ingestion service for file-to-text extraction to support AI and LLM-based workflows
+- Integrate LLM agent frameworks and optimize Dockerized deployments with focus on performance, memory efficiency, and observability
+- Monitor system performance using Grafana and ensure services run efficiently at scale
 
 ## Technologies & Skills
 
-- Python programming and development
-- Machine Learning and AI frameworks
-- Software architecture and design
-- Problem-solving and debugging
-- Team collaboration and communication
-
-Working at Brillar Company has provided me with hands-on experience in the AI industry and the opportunity to work on cutting-edge technologies that solve real-world problems.
+- Python (FastAPI)
+- LLM frameworks
+- Docker
+- REST APIs
+- Data Pipelines
+- File Processing (Docling)
+- Monitoring & Observability (Grafana)
+- Git
 

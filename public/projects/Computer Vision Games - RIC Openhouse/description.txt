@@ -1,4 +1,4 @@
-Computer Vision Games is a collection of interactive gaming projects I developed for [image:me.png:the RIC Openhouse] in November 2025. It features multiple camera-based games that detect [image:camera.jpg:the person’s face and hand gestures] to demonstrate the use of computer vision technology. Three different games were developed from this project each being able to be controlled using interactive hand gestures and intuitive gaming experience.
+Computer Vision Games is a real-time hand-gesture controlled game system I developed that was selected from among peer projects for official showcase at the RIC Open House in August 2025. The system features multiple camera-based games that detect [image:camera.jpg:the person's face and hand gestures] to demonstrate the use of computer vision technology. I presented the project to 5+ faculty members and hundreds of students through live demonstrations, showcasing how modern AI and computer vision can create engaging, interactive experiences.
 
 ## Games Included
 
@@ -20,6 +20,6 @@ Additionally, users were able to select which games they wanted to play via an i
 - MediaPipe: For hand tracking
 - Pygame: For gameplay ui and sound effects
 
-## Showcase Summary
+## Project Impact
 
-This project successfully demonstrated computer vision technology to visitors at the RIC Openhouse, showcasing how modern AI and computer vision can create engaging, interactive experiences.
+This project was selected from among peer projects for official showcase at the RIC Open House, demonstrating the practical applications of computer vision technology in interactive gaming. Through live demonstrations to 5+ faculty members and hundreds of students, the project showcased how modern AI and computer vision can create engaging, interactive experiences.

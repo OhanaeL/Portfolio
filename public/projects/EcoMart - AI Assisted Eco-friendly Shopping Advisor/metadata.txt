@@ -1,6 +1,6 @@
-description: AI-powered eco-friendly shopping advisor that won 2nd Runner-Up at Hack the Zodiac Hackathon 2024
+description: AI-powered sustainability-focused shopping advisor aggregating product data from Amazon, Lazada, and other e-commerce platforms with eco-friendliness scoring and top-5 recommendations. Won 2nd Runner-Up (30+ teams) at Hack the Zodiac Hackathon 2024
 date: April 2024
-tags: AI, Hackathon, Python
+tags: AI, Hackathon, Python, Streamlit, Google GenAI
 
 github: https://github.com/OhanaeL/ecomart-2.0
 demo: https://ecomart-2-hackathonsubmission.streamlit.app

@@ -99,7 +99,7 @@
             <!-- Desktop nav links -->
             <div class="nav-links">
                 <a href="/" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Home</a>
-                <a href="/timeline" class="nav-link {% if request.endpoint == 'timeline' %}active{% endif %}">Timeline</a>
+                <a href="/timeline" class="nav-link {% if request.endpoint == 'timeline' %}active{% endif %}" style="display: none;">Timeline</a>
                 <a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About Me</a>
                 <a href="/experience" class="nav-link {% if request.endpoint == 'experience' %}active{% endif %}">Experience</a>
                 <div class="dropdown" {% if request.endpoint == 'projects' or request.endpoint == 'project' %}data-current-page="true"{% endif %}>
@@ -144,7 +144,7 @@
     <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>
     <div class="mobile-nav-sidebar" id="mobile-nav-sidebar">
         <a href="/" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">Home</a>
-        <a href="/timeline" class="nav-link {% if request.endpoint == 'timeline' %}active{% endif %}">My Journey</a>
+        <a href="/timeline" class="nav-link {% if request.endpoint == 'timeline' %}active{% endif %}" style="display: none;">My Journey</a>
         <a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About Me</a>
         <a href="/experience" class="nav-link {% if request.endpoint == 'experience' %}active{% endif %}">Experience</a>
         <a href="/projects" class="nav-link {% if request.endpoint == 'projects' or request.endpoint == 'project' %}active{% endif %}">Projects</a>
