@@ -1,2 +1,29 @@
-Backend system developed for RSU attendance tracking and management. This system provides API endpoints for managing student attendance records and related functionality.
+RIC Attendance System is a full-stack QR-based attendance tracking system I developed for Rangsit International College. The system implements location verification to ensure accurate attendance recording and saves approximately 15 minutes per staff member per class by reducing manual tracking processes.
+
+## Key Features
+
+### QR Code Attendance
+Students scan QR codes to mark their attendance, providing a quick and efficient way to record attendance without manual roll calls.
+
+### Location Verification
+The system verifies the student's location to ensure they are physically present at the class location, preventing fraudulent attendance marking.
+
+### Real-time Tracking
+Staff members can view attendance records in real-time, with immediate updates as students check in.
+
+### Automated Reporting
+The system generates attendance reports automatically, eliminating the need for manual data entry and calculation.
+
+## Technologies & Skills
+
+- React: Frontend user interface
+- Node.js: Backend runtime
+- Express.js: Backend framework and API development
+- MongoDB: Database for storing attendance records
+- MySQL: Additional database for related data
+- REST APIs: API endpoints for attendance management
+
+## Project Impact
+
+This system significantly improved efficiency in attendance tracking, saving approximately 15 minutes per staff member per class. The location verification feature ensures data accuracy and prevents attendance fraud, making it a reliable solution for academic institutions.
 

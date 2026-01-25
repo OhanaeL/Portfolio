@@ -1,2 +1,29 @@
-Backend system developed for RSU attendance tracking and management. This system provides API endpoints for managing student attendance records and related functionality.
+RSU Jobfair System is a full-stack job fair platform I developed for Rangsit University job fair events. The platform was used by approximately 300 students, staff, and participating companies during a live event and was designed for reuse in future job fairs.
+
+## Key Features
+
+### Student Registration
+Students can register for the job fair, providing their information and interests to match with participating companies.
+
+### Company Management
+Participating companies can manage their profiles, job listings, and interact with registered students.
+
+### Event Management
+Staff members can manage the job fair event, including scheduling, company assignments, and student-company matching.
+
+### Real-time Updates
+The platform provides real-time updates on event status, company availability, and student registrations.
+
+## Technologies & Skills
+
+- React: Frontend user interface
+- Node.js: Backend runtime
+- Express.js: Backend framework and API development
+- MongoDB: Database for storing user and event data
+- MySQL: Additional database for related information
+- REST APIs: API endpoints for platform functionality
+
+## Project Impact
+
+The system successfully supported a live job fair event with ~300 users, demonstrating its scalability and reliability. The platform was designed for reuse, making it a sustainable solution for future university job fair events.
 
