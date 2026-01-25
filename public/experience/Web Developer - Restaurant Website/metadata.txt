@@ -1,0 +1,3 @@
+description: Freelance full-stack web developer creating responsive websites for small businesses. Developed full-stack web applications using Python backend and Bootstrap frontend, including a restaurant website with modern UI/UX, mobile-responsive design, and interactive features.
+date: January 2021 - February 2022
+company: Freelance (Myanmar)
