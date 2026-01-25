@@ -1,0 +1,25 @@
+I worked as a freelance web developer, creating websites for small businesses in Myanmar. One of my projects involved designing and developing a full-stack website for a local restaurant.
+
+## Project Overview
+
+Designed and developed a modern, responsive website for a restaurant, focusing on user experience and mobile compatibility. The website featured an intuitive interface for showcasing menu items, contact information, and business details, with a Python backend handling server-side logic and data management.
+
+## Key Responsibilities
+
+- Developed full-stack web application using Python for backend and Bootstrap for frontend
+- Created modern UI/UX with Bootstrap framework, ensuring responsive design
+- Built backend services and APIs using Python
+- Implemented interactive features and navigation
+- Ensured mobile-responsive design for various device sizes
+- Managed client communication and requirements gathering
+
+## Technologies & Skills
+
+- Python: Backend development and server-side logic
+- Bootstrap: Frontend framework for responsive design
+- HTML/CSS: Custom styling and layout
+- JavaScript: Frontend interactivity
+- Full-stack Development: End-to-end web application development
+- Client Communication: Requirements gathering and project management
+
+This experience provided valuable insights into full-stack web development and helped strengthen my skills in both backend and frontend development, which I later applied to more complex projects.
