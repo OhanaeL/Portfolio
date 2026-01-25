@@ -1,4 +1,4 @@
-description: Teaching Assistant and Software Engineer at Rangsit University, RIC under Professor Billel Arboui. Developed university systems including RSU Jobfair System, RIC Attendance System, and ICT Course Planner, while assisting students and faculty.
-date: Aug 2024 - Dec 2025
-company: Rangsit University
+description: Teaching Assistant and Software Developer at Rangsit International College, Rangsit University. Built backend services for internal systems including QR-based attendance system with location verification, job fair platform used by ~300 users, and course recommendation system adopted by ~100 students.
+date: August 2024 - December 2025
+company: Rangsit International College, Rangsit University
 

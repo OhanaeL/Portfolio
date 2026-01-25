@@ -1,0 +1,24 @@
+Phishing URL Detection Model is a machine learning-based system I developed to detect phishing URLs using datasets collected between 2019 and 2024. The project performs URL feature extraction and evaluates multiple classification models to identify malicious links, achieving up to 94% accuracy.
+
+## Key Features
+
+### URL Feature Extraction
+The system extracts relevant features from URLs to identify patterns commonly associated with phishing attempts. These features help distinguish between legitimate and malicious URLs through statistical analysis and pattern recognition.
+
+### Multiple Classification Models
+The project evaluates various machine learning classification models to determine the most effective approach for phishing detection. Through comprehensive testing and validation, the system achieves high accuracy rates in identifying malicious URLs.
+
+### Model Serialization
+The trained models are serialized using joblib for easy reuse and deployment. This allows the detection system to be integrated into other applications or used as a standalone service for URL validation.
+
+## Technologies & Skills
+
+- Python: Core programming language
+- pandas: Data manipulation and analysis
+- NumPy: Numerical computing
+- scikit-learn: Machine learning algorithms and model evaluation
+- joblib: Model serialization and persistence
+
+## Project Impact
+
+This project demonstrates practical application of machine learning for cybersecurity, addressing real-world threats through data-driven approaches. The high accuracy rate makes it suitable for integration into security systems and web applications to protect users from phishing attacks.

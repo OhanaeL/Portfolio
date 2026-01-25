@@ -1,0 +1,7 @@
+description: Machine learning-based system to detect phishing URLs using datasets collected between 2019 and 2024, achieving up to 94% accuracy
+date: January 2024
+tags: Machine Learning, Python, Data Science, Security
+team:
+- Htin Linn
+
+github: https://github.com/OhanaeL/phishing-url-detection

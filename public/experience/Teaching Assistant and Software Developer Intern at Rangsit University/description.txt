@@ -1,17 +1,37 @@
-I served as a Teaching Assistant and Software Engineer at Rangsit University, RIC under Professor Billel Arboui from August 2024 to December 2025. This role was a significant part of my academic and professional development journey.
+I served as a Teaching Assistant and Software Developer Intern at Rangsit International College, Rangsit University from August 2024 to December 2025. This role was a significant part of my academic and professional development journey.
 
 I received [image:teaching_assistant.png:recognition] for my outstanding contribution as a teaching assistant and software engineer. During this time, I worked for an additional 4 months as part of my Co-Op Education process for RIC.
 
 ## Key Responsibilities
 
+- Built backend services for internal systems, including a QR-based attendance system, job fair platform, and an alumni website (demo phase)
 - Assisted in teaching and supporting students in computer science courses
-- Developed and maintained several university systems
 - Collaborated with faculty and students on various software projects
 - Provided technical guidance and mentorship to fellow students
 
 ## Projects Developed
 
-I helped develop [image:jobfair_homepage.png:the RSU Jobfair System], [image:attendence_system.png:RIC Attendance System], and [image:ICT_courseplanner.png:the ICT Course Planner], as well as aiding my fellow classmates with their projects and coursework.
+I developed [image:jobfair_homepage.png:the RSU Jobfair System], [image:attendence_system.png:RIC Attendance System], and [image:ICT_courseplanner.png:the ICT Course Planner].
+
+### RIC Attendance System
+
+Implemented QR attendance with location verification, saving approximately 15 minutes per staff member per class by reducing manual tracking.
+
+### RSU Jobfair System
+
+Developed a job fair system used by ~300 students, staff, and participating companies during a live event and designed for reuse.
+
+### ICT Course Planner
+
+Built a course recommendation system adopted by ~100 students to support data-driven course selection.
+
+## Technologies & Skills
+
+- Python (FastAPI, Django)
+- JavaScript (Node.js, Express, React)
+- REST APIs
+- MongoDB, MySQL
+- Git
 
 This experience provided valuable insights into software development in an academic environment and strengthened my skills in both development and teaching.
 

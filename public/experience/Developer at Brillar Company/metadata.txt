@@ -1,4 +1,4 @@
-description: Full-time Python Developer at a Python-based AI company. As the sole Python developer on the team, I develop and maintain Python-based AI solutions, design machine learning models, and collaborate on innovative AI projects.
-date: May 2025 - Ongoing
-company: Brillar Company
+description: Full-time Python Developer (Backend / AI) at Brillar. Own end-to-end development of AI-focused Python microservices, lead backend development for integration services, build document ingestion systems, and optimize Dockerized deployments with focus on performance and observability.
+date: May 2025 - Current
+company: Brillar
 
