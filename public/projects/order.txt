@@ -1,9 +1,9 @@
+Portfolio Website
 SPLASH Golf Club - Hospitality ERP System
 Phishing URL Detection Model
 EcoMart - AI Assisted Eco-friendly Shopping Advisor
 NextThai - AI Assisted Travel Planner
 Computer Vision Games - RIC Openhouse
-Portfolio Website
 Minesweeper Solver
 RIC Attendance System
 ICT Automated Course Planner

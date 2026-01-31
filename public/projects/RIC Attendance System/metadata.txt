@@ -1,6 +1,6 @@
 description: Fullstack QR-based attendance system with location verification for RSU attendance tracking and management
 date: December 2024
-tags: React, JavaScript, Fullstack, Node.js, Express.js, MongoDB, MySQL
+tags: React, Fullstack, Node.js, Socket.io
 team:
 - Htin Linn
 

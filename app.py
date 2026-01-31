@@ -1,11 +1,11 @@
-from flask import Flask, render_template, send_from_directory, abort, request, jsonify
+from flask import Flask, render_template, send_from_directory, abort, request, jsonify, redirect, url_for
 import os
 import re
 from pathlib import Path
 from datetime import datetime
 import json
 import markdown
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 app = Flask(__name__)
 
@@ -19,6 +19,7 @@ app.config['ACCOMPLISHMENTS_FOLDER'] = 'public/accomplishments'
 app.config['EXPERIENCE_FOLDER'] = 'public/experience'
 app.config['ABOUT_FOLDER'] = 'public/about'
 app.config['CONTACT_LOG'] = 'contact_submissions.json'
+app.config['USE_BUILT_ASSETS'] = os.path.exists('static/dist/js/main.js')
 
 def format_team_for_display(team_list):
     """Format team list to show 'Htin Linn, and X others' format."""
@@ -102,6 +103,38 @@ def get_project_metadata(project_name):
     
     return metadata
 
+def project_name_to_slug(project_name):
+    """Convert project name to URL-friendly slug."""
+    return project_name.lower().replace(' ', '-')
+
+def slug_to_project_name(slug):
+    """Convert slug back to project name by finding matching project folder."""
+    projects_path = Path(app.config['PROJECTS_FOLDER'])
+    if not projects_path.exists():
+        return None
+    
+    for folder in projects_path.iterdir():
+        if folder.is_dir():
+            if project_name_to_slug(folder.name) == slug:
+                return folder.name
+    return None
+
+def experience_name_to_slug(experience_name):
+    """Convert experience name to URL-friendly slug."""
+    return experience_name.lower().replace(' ', '-')
+
+def slug_to_experience_name(slug):
+    """Convert slug back to experience name by finding matching experience folder."""
+    experience_path = Path(app.config['EXPERIENCE_FOLDER'])
+    if not experience_path.exists():
+        return None
+    
+    for folder in experience_path.iterdir():
+        if folder.is_dir():
+            if experience_name_to_slug(folder.name) == slug:
+                return folder.name
+    return None
+
 def get_all_projects():
     """Get all project folders and their metadata, with featured projects first, then alphabetical."""
     projects = []
@@ -134,7 +167,7 @@ def get_all_projects():
                 'name': folder.name,
                 'title': title,
                 'tagline': tagline,
-                'slug': folder.name.lower().replace(' ', '-'),
+                'slug': project_name_to_slug(folder.name),
                 'metadata': metadata
             }
     
@@ -231,7 +264,8 @@ def parse_project(project_name):
     
     def replace_project_link(match):
         linked_project = match.group(1)
-        return f'<a href="/project/{linked_project}" class="project-link">{linked_project}</a>'
+        project_slug = project_name_to_slug(linked_project)
+        return f'<a href="/project/{project_slug}" class="project-link">{linked_project}</a>'
     
     description_html = re.sub(r'\[website_link:([^\]]+)\]', replace_project_link, description_html)
     
@@ -366,9 +400,20 @@ def projects():
     all_projects = get_all_projects()
     return render_template('projects.html', projects=all_projects, all_projects=all_projects)
 
-@app.route('/project/<project_name>')
-def project_detail(project_name):
+@app.route('/project/<project_slug>')
+def project_detail(project_slug):
     """Individual project page."""
+    project_name = slug_to_project_name(project_slug)
+    
+    if not project_name:
+        if ' ' in project_slug:
+            projects_path = Path(app.config['PROJECTS_FOLDER'])
+            if projects_path.exists():
+                for folder in projects_path.iterdir():
+                    if folder.is_dir() and folder.name == project_slug:
+                        return redirect(url_for('project_detail', project_slug=project_name_to_slug(folder.name)), code=301)
+        abort(404)
+    
     project = parse_project(project_name)
     
     if not project:
@@ -508,7 +553,8 @@ def parse_accomplishment(accomplishment_name):
     
     def replace_project_link(match):
         project_name = match.group(1)
-        return f'<a href="/project/{project_name}" class="project-link">{project_name}</a>'
+        project_slug = project_name_to_slug(project_name)
+        return f'<a href="/project/{project_slug}" class="project-link">{project_name}</a>'
     
     description_html = re.sub(r'\[website_link:([^\]]+)\]', replace_project_link, description_html)
     
@@ -622,7 +668,7 @@ def get_all_experiences():
                 experiences.append({
                     'name': folder_name,
                     'date': date_display,
-                    'slug': folder_name.lower().replace(' ', '-')
+                    'slug': experience_name_to_slug(folder_name)
                 })
     else:
         for folder in experience_path.iterdir():
@@ -635,7 +681,7 @@ def get_all_experiences():
                 experiences.append({
                     'name': folder_name,
                     'date': date_display,
-                    'slug': folder_name.lower().replace(' ', '-')
+                    'slug': experience_name_to_slug(folder_name)
                 })
         
         def sort_key(exp):
@@ -713,7 +759,8 @@ def parse_experience(experience_name):
     
     def replace_project_link(match):
         project_name = match.group(1)
-        return f'<a href="/project/{project_name}" class="project-link">{project_name}</a>'
+        project_slug = project_name_to_slug(project_name)
+        return f'<a href="/project/{project_slug}" class="project-link">{project_name}</a>'
     
     description_html = re.sub(r'\[website_link:([^\]]+)\]', replace_project_link, description_html)
     
@@ -836,14 +883,26 @@ def experience():
                 'name': exp['name'],
                 'display_name': display_name,
                 'date': exp['date'] or metadata['date'],
+                'slug': exp['slug'],
                 'metadata': metadata
             })
     
     return render_template('experience.html', experiences=experience_list, all_projects=all_projects)
 
-@app.route('/experience/<experience_name>')
-def experience_detail(experience_name):
+@app.route('/experience/<experience_slug>')
+def experience_detail(experience_slug):
     """Individual experience detail page."""
+    experience_name = slug_to_experience_name(experience_slug)
+    
+    if not experience_name:
+        if ' ' in experience_slug:
+            experience_path = Path(app.config['EXPERIENCE_FOLDER'])
+            if experience_path.exists():
+                for folder in experience_path.iterdir():
+                    if folder.is_dir() and folder.name == experience_slug:
+                        return redirect(url_for('experience_detail', experience_slug=experience_name_to_slug(folder.name)), code=301)
+        abort(404)
+    
     experience = parse_experience(experience_name)
     
     if not experience:
@@ -1137,9 +1196,17 @@ def sitemap():
     projects = get_all_projects()
     for project in projects:
         pages.append({
-            'loc': f'{base_url}/project/{project["name"]}',
+            'loc': f'{base_url}/project/{project["slug"]}',
             'changefreq': 'monthly',
             'priority': '0.9'
+        })
+    
+    experiences = get_all_experiences()
+    for experience in experiences:
+        pages.append({
+            'loc': f'{base_url}/experience/{experience["slug"]}',
+            'changefreq': 'monthly',
+            'priority': '0.8'
         })
     
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n'

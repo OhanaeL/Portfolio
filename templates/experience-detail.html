@@ -24,12 +24,12 @@
             <a href="/experience" class="back-link"><i class="fas fa-arrow-left"></i> Back to Experience</a>
             <div class="project-nav-buttons">
                 {% if prev_experience %}
-                <a href="/experience/{{ prev_experience.name }}" class="nav-project-btn prev-project" title="Previous: {{ prev_experience.name }}">
+                <a href="/experience/{{ prev_experience.slug }}" class="nav-project-btn prev-project" title="Previous: {{ prev_experience.name }}">
                     <i class="fas fa-chevron-left"></i>
                 </a>
                 {% endif %}
                 {% if next_experience %}
-                <a href="/experience/{{ next_experience.name }}" class="nav-project-btn next-project" title="Next: {{ next_experience.name }}">
+                <a href="/experience/{{ next_experience.slug }}" class="nav-project-btn next-project" title="Next: {{ next_experience.name }}">
                     <i class="fas fa-chevron-right"></i>
                 </a>
                 {% endif %}

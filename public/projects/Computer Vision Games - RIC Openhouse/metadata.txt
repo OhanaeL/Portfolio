@@ -1,5 +1,5 @@
 description: Real-time hand-gesture controlled game system (Fruit Ninja, drawing app, Rock-Paper-Scissors) selected from among peer projects for official showcase at RIC Open House. Presented to 5+ faculty members and hundreds of students
 date: August 2025
-tags: Computer Vision, Python, OpenCV, MediaPipe, Pygame
+tags: Python, OpenCV, MediaPipe, Pygame
 
 github: https://github.com/OhanaeL/RIC-Openhouse

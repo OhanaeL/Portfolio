@@ -109,7 +109,7 @@
                         {% if all_projects %}
                         <div class="dropdown-divider"></div>
                         {% for proj in all_projects[:5] %}
-                        <a href="/project/{{ proj.name }}">{{ proj.name }}</a>
+                        <a href="/project/{{ proj.slug }}">{{ proj.name }}</a>
                         {% endfor %}
                         {% endif %}
                     </div>
@@ -166,7 +166,11 @@
     </button>
 
     <script src="{{ url_for('static', filename='js/init.js') }}"></script>
+    {% if config.USE_BUILT_ASSETS %}
+    <script type="module" src="{{ url_for('static', filename='dist/js/main.js') }}"></script>
+    {% else %}
     <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% endif %}
 </body>
 </html>
 

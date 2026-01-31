@@ -1,6 +1,6 @@
 description: Fullstack job fair platform used by ~300 users for RSU job fair events
 date: December 2024
-tags: React, JavaScript, Fullstack, Node.js, Express.js, MongoDB, MySQL
+tags: React, Node.js, MongoDB
 team:
 - Htin Linn
 

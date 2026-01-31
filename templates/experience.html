@@ -26,7 +26,7 @@
         <div class="experience-section scroll-reveal">
         <div class="experience-grid">
             {% for experience in experiences %}
-            <a href="/experience/{{ experience.name }}" class="experience-card">
+            <a href="/experience/{{ experience.slug }}" class="experience-card">
                 <div class="experience-card-inner">
                     <h3>{{ experience.display_name }}</h3>
                     {% if experience.date %}

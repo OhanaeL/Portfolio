@@ -1,0 +1,7 @@
+I worked as a freelance web developer, creating websites and web applications for small businesses and organizations.
+
+## Key Achievements
+
+- Built and deployed an online ordering system for a local restaurant, reducing average order time by ~3 minutes and improving customer flow
+- Collaborated with the development team to ship a website for a hackathon with 20+ participants
+- Engineered custom e-commerce integrations for small businesses, streamlining sales processes and facilitating seamless inventory synchronization across platforms

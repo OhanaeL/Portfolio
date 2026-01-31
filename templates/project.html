@@ -24,12 +24,12 @@
             <a href="/projects" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
             <div class="project-nav-buttons">
                 {% if prev_project %}
-                <a href="/project/{{ prev_project.name }}" class="nav-project-btn prev-project" title="Previous: {{ prev_project.name }}">
+                <a href="/project/{{ prev_project.slug }}" class="nav-project-btn prev-project" title="Previous: {{ prev_project.name }}">
                     <i class="fas fa-chevron-left"></i>
                 </a>
                 {% endif %}
                 {% if next_project %}
-                <a href="/project/{{ next_project.name }}" class="nav-project-btn next-project" title="Next: {{ next_project.name }}">
+                <a href="/project/{{ next_project.slug }}" class="nav-project-btn next-project" title="Next: {{ next_project.name }}">
                     <i class="fas fa-chevron-right"></i>
                 </a>
                 {% endif %}

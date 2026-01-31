@@ -1,6 +1,6 @@
 description: React-based golf club management system integrated with CIMSO's ERP, featuring AI-powered multilingual voice-enabled chatbot. Won 1st Place out of 20+ teams at CIMSO Hospitality ERP Hackathon 2025
 date: March 2025
-tags: React, Hackathon, AI, Frontend, JavaScript
+tags: React, Hackathon, AI, Frontend
 team:
 - Htin Linn
 - Pyaw Kyaw
