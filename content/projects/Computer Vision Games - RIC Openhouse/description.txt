@@ -1,0 +1,25 @@
+Computer Vision Games is a real-time hand-gesture controlled game system I developed that was selected from among peer projects for official showcase at the RIC Open House in August 2025. The system features multiple camera-based games that detect [image:camera.jpg:the person's face and hand gestures] to demonstrate the use of computer vision technology. I presented the project to 5+ faculty members and hundreds of students through live demonstrations, showcasing how modern AI and computer vision can create engaging, interactive experiences.
+
+## Games Included
+
+### Fruit Ninja
+A gesture-controlled version of the popular Fruit Ninja game where players slice fruits using their fingers. [image:fruit.png:The game] keeps track of lives and the time the user has been alive to slowly ramp up in difficulty.
+
+### Drawing Application
+[image:drawing.png:An interactive drawing tool] that allows users to create artwork using their fingers, demonstrating precision tracking and real-time interaction.
+
+### Rock-Paper-Scissors
+[image:rps.png:A classic game with a twist], where players play against the computer using hand gestures instead of physical hand signs, with a specialised message based on the user's detected facial emotions.
+
+Additionally, users were able to select which games they wanted to play via an interactive [image:mainmenu.png:main menu].
+
+## Technologies & Skills
+
+- Python: Core programming language
+- OpenCV: For computer vision
+- MediaPipe: For hand tracking
+- Pygame: For gameplay ui and sound effects
+
+## Project Impact
+
+This project was selected from among peer projects for official showcase at the RIC Open House, demonstrating the practical applications of computer vision technology in interactive gaming. Through live demonstrations to 5+ faculty members and hundreds of students, the project showcased how modern AI and computer vision can create engaging, interactive experiences.

@@ -1,0 +1,28 @@
+NextThai is an AI travel assistant I developed for the Hack the Zodiac Hackathon in April 2024, where our team won **2nd Runner-Up** out of 30+ teams. The application generates personalized Thailand itineraries using LLM-based recommendations with downloadable PDF travel plans. Built with Streamlit and Google's Gemini AI, [image:TravelPlanner.png:the application] transforms the complex process of trip planning into a simple, automated experience based on user preferences, budget constraints, and time limitations.
+
+## Key Features
+
+### Customizable Planning
+Users can select from 33 major Thai cities as starting points and destinations, choose from 32 different trip types including adventure, cultural, beach, and luxury experiences. The application supports flexible budgets ranging from 1,000 to 15,000+ Thai Baht per person and can plan trips for 1-30 travelers with custom date ranges.
+
+### AI-Powered Itinerary Generation
+Powered by Google Gemini AI, the application generates comprehensive travel plans in seconds. It intelligently allocates budgets across transportation, accommodation, and activities while respecting time constraints and ensuring realistic itineraries. The system automatically plans return trips to the starting destination and provides [image:TravelPlanner.png:detailed daily schedules] with recommendations.
+
+### Budget Management
+The application includes dynamic budget calculation based on trip duration, per-person cost tracking, and automatic budget validation to prevent overruns. Transportation costs are included from the start to the first destination, and the system provides suggestions when trips aren't feasible within the specified constraints.
+
+### PDF Export
+Users can [image:Download.png:download their complete itineraries] as PDF documents with professional formatting. The [image:PDF.png:exported PDF] includes structured content with headings and detailed information, allowing for offline access and easy sharing with travel companions.
+
+## Technologies & Skills
+
+- Python: Core programming language
+- Streamlit: Web application framework
+- Google Gemini AI: AI-powered itinerary generation
+- Markdown2: Converting AI responses to formatted content
+- ReportLab: PDF generation
+- DateTime: Date calculations and trip duration management
+
+## Hackathon Achievement
+
+This project was developed as part of a competitive hackathon and successfully advanced to the finalist stage, demonstrating effective use of AI technology for practical problem-solving and creating an intuitive interface that simplifies complex travel planning.

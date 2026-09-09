@@ -1,0 +1,3 @@
+I have a background in Information and Communication Technology from Rangsit International College, RSU, with a strong focus on software development and backend systems.
+
+I’m a full-stack developer with deep experience in Python backend development. I’ve built and maintained production systems involving APIs, data pipelines, and AI-driven features, while also working closely with frontend applications when needed.

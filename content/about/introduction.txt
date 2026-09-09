@@ -1,0 +1,3 @@
+Hi, I’m Htin Linn.
+
+I’m a software developer with a background in Information and Communication Technology, focused on backend and web development. I build production-ready applications using Python, FastAPI, React, and modern web technologies, and I’ve worked on real-world systems through professional roles, hackathons, and team-based projects.

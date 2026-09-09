@@ -1,0 +1,28 @@
+Portfolio Website is a file-based content management system I developed to showcase my projects, accomplishments, and professional journey. Built with Flask and vanilla JavaScript, [image:homepage.png:the application] provides a streamlined way to manage portfolio content without database dependencies or admin panels. The entire site is driven by organized folders and text files, making content updates as simple as editing files.
+
+## Key Features
+
+### File-Based Content Management
+Projects, experiences, and accomplishments are managed through simple folder structures. Adding new content requires creating a folder, dropping in description files and images, and updating an order.txt file to control display priority. All content supports Markdown formatting for rich text descriptions.
+
+### Dynamic Search and Filtering
+The projects page includes [image:projects_page.png:real-time search functionality] that filters results as users type, along with automatic tag-based filtering. Tags are extracted from project metadata, creating dynamic filter options without manual configuration.
+
+### Interactive Image Previews
+Built-in hover functionality allows inline image previews within descriptions. Users can hover over text links to see [image:homepage.png:image previews] without cluttering the page layout, providing context without disrupting the reading flow.
+
+### Responsive Design and Theming
+The site features a dark purple theme with pixel art-inspired design elements, fully responsive across devices. CSS variables enable easy theme customization, and the site includes light and dark mode support with smooth transitions.
+
+## Technologies & Skills
+
+- Python: Core backend logic with Flask
+- Flask: Web framework for routing and templating
+- JavaScript: Vanilla JS for interactivity, search, and filtering
+- CSS: Custom styling with CSS variables for theming
+- Jinja2: Template engine for dynamic content generation
+- File System: Content management through organized folder structures
+
+## Development Approach
+
+This project emphasizes simplicity and maintainability. By avoiding databases and admin panels, the portfolio remains lightweight and easy to update. The file-based approach allows version control of all content, making it straightforward to track changes and deploy updates.

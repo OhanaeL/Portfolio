@@ -1,0 +1,23 @@
+EcoMart is an AI-powered sustainability-focused shopping advisor I developed for the Hack the Zodiac Hackathon 2024, where it won **2nd Runner-Up** out of 30+ teams. The platform aggregates product data from Amazon, Lazada, and other e-commerce platforms, providing eco-friendliness scoring and top-5 recommendations. Built with Streamlit and Google's Gemini AI, [image:fullApp.png:the application] helps users make sustainable shopping decisions by combining real-time product data with AI-powered ESG analysis.
+
+## Key Features
+
+### Intelligent Product Search
+Users can search for products and receive curated eco-friendly alternatives. The system integrates with Amazon Product API via RapidAPI to fetch live product information including prices, ratings, images, and climate pledge status.
+
+### AI-Powered ESG Analysis
+Leverages Google's Gemini AI to evaluate products for environmental impact, sustainability, and ESG compliance. The system uses multi-turn conversations to maintain context, generating [image:Response Example.png:detailed eco-friendly reasoning] for each product recommendation.
+
+### Flexible Configuration
+Supports multiple API keys with fallback mechanisms, allowing users to input their own keys or use pre-configured secrets. The [image:options.png:configuration panel] includes customizable price filtering in Thai Baht with automatic currency conversion from Singapore Dollar, since the RapidAPI Amazon Product API returns prices in Singapore Dollar format.
+
+## Technologies & Skills
+
+- Python: Core programming language
+- Streamlit: Web application framework
+- Google Gemini AI: Multi-turn conversation AI for product analysis and ESG evaluation
+- RapidAPI: Amazon Product API integration for real-time product data
+
+## Hackathon Achievement
+
+This project won 2nd Runner-Up at the Hack the Zodiac Hackathon 2024, demonstrating effective integration of multiple REST APIs, AI technology, and user-centric design to address real-world sustainability challenges.
