@@ -1,0 +1,99 @@
+/* Homepage "now" + highlights — information-dense blocks that give a
+   visitor something concrete above the fold. */
+
+.now-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 1rem;
+}
+
+.now-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.75rem 1.9rem;
+}
+
+.now-label {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple-primary);
+    margin-bottom: 0.75rem;
+}
+
+.now-role {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin: 0 0 0.6rem;
+}
+
+.now-role strong { font-weight: 600; }
+
+.now-detail {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0 0 1.25rem;
+}
+
+.now-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.now-stack span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.03em;
+    color: var(--text-secondary);
+    background: var(--purple-light);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 0.28rem 0.6rem;
+}
+
+/* Highlights */
+.highlights-section {
+    max-width: 900px;
+    margin: 1.75rem auto 0;
+    padding: 0 1.5rem;
+}
+
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+}
+
+.highlight {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.25rem 1.35rem;
+}
+
+.highlight-figure {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--purple-primary);
+    margin-bottom: 0.4rem;
+}
+
+.highlight-text {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .now-card { padding: 1.35rem 1.25rem; }
+    .highlight-figure { font-size: 1.4rem; }
+}

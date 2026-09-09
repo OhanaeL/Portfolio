@@ -43,7 +43,6 @@
 
 .certificate-card:hover {
     border-color: var(--cert-border-gold);
-    transform: translate(-2px, -2px);
     box-shadow: 6px 6px 0 var(--cert-shadow-gold);
     z-index: 100;
 }
@@ -130,7 +129,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     color: var(--cert-text-light-brown);
     margin-top: -0.5rem;
@@ -143,7 +142,7 @@
 }
 
 .certificate-description {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     color: var(--cert-text-gray);
     line-height: 1.6;
@@ -175,7 +174,7 @@
     padding: 1.25rem 1.5rem;
     border: 3px solid var(--cert-border-gold);
     border-radius: 8px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
     line-height: 1.6;
     z-index: 10000;
@@ -214,7 +213,7 @@
     border: 2px solid var(--cert-bg-darker);
     color: var(--cert-text-light);
     text-decoration: none;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -224,7 +223,6 @@
 .certificate-btn:hover {
     background: var(--cert-bg-darker);
     color: var(--white-pure);
-    transform: translate(2px, 2px);
     box-shadow: none;
 }
 
@@ -352,25 +350,23 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border: 3px solid var(--purple-dark);
+    border: 1px solid var(--border-color);
     box-shadow: 
-        6px 6px 0 var(--purple-dark),
+        0 4px 14px var(--shadow-purple-20),
         inset 0 0 0 2px var(--white-10);
     transition: all 0.3s ease;
 }
 
 .resume-button:hover {
     background: var(--purple-secondary);
-    transform: translate(-3px, -3px);
     box-shadow: 
-        9px 9px 0 var(--purple-dark),
+        0 8px 28px var(--shadow-purple-30),
         inset 0 0 0 2px var(--white-20);
 }
 
 .resume-button:active {
-    transform: translate(-1px, -1px);
     box-shadow: 
-        4px 4px 0 var(--purple-dark),
+        0 2px 8px var(--shadow-purple-20),
         inset 0 0 0 2px var(--white-10);
 }
 
@@ -385,7 +381,7 @@
     border: 3px solid var(--border-color);
     padding: 4rem;
     box-shadow: 
-        8px 8px 0 rgba(157, 78, 221, 0.2),
+        0 8px 28px var(--shadow-purple-30),
         inset 0 0 0 1px var(--purple-light);
 }
 
@@ -409,13 +405,10 @@
     margin-bottom: 1.5rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    text-shadow: 
-        2px 2px 0px var(--purple-dark),
-        -1px -1px 0px var(--purple-strong);
 }
 
 .about-section-content {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     color: var(--text-secondary);
     line-height: 1.8;
     font-size: 1.05rem;
@@ -490,7 +483,7 @@
 }
 
 .skill-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.75rem;
     color: var(--purple-accent);
     background: var(--purple-strong);
@@ -541,7 +534,7 @@
 }
 
 .skills-subtitle {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     color: var(--text-secondary);
     margin-top: -1rem;
@@ -550,7 +543,7 @@
 }
 
 .skill-usage {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
     color: var(--text-secondary);
     margin-top: 0.5rem;

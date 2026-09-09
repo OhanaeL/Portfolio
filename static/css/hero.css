@@ -35,9 +35,6 @@
     z-index: 1;
     color: var(--white-pure);
     text-transform: uppercase;
-    text-shadow: 
-        4px 4px 0px var(--purple-dark),
-        -2px -2px 0px var(--purple-heavy);
 }
 
 .hero-title::selection {
@@ -49,71 +46,10 @@
 .hero-title-wrapper {
     display: inline-block;
     text-align: center;
-    height: calc(4.5rem+ 1.5rem + (4.5rem + 15px) * 3);
-    min-height: calc(4.5rem + 1.5rem + (4.5rem + 15px) * 3);
-}
-
-.title-echo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 3.5rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    color: var(--purple-primary);
-    pointer-events: none;
-    margin: 0;
-    margin-bottom: 15px;
-    max-height: 200px;
-    overflow: visible;
-    text-transform: uppercase;
-}
-
-.title-echo:nth-child(2) {
-    opacity: 0;
-    animation: echoFall1 1.5s ease-out forwards;
-}
-
-.title-echo:nth-child(3) {
-    opacity: 0;
-    animation: echoFall2 1.5s ease-out forwards;
-    animation-delay: 0.5s;
-}
-
-.title-echo:nth-child(4) {
-    opacity: 0;
-    animation: echoFall3 1.5s ease-out forwards;
-    animation-delay: 1s;
-}
-
-@keyframes echoFall1 {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0.8;
-    }
-}
-
-@keyframes echoFall2 {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0.55;
-    }
-}
-
-@keyframes echoFall3 {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 0.3;
-    }
 }
 
 .hero-subtitle {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 1.15rem;
     color: var(--text-secondary);
     font-weight: 400;
@@ -135,7 +71,7 @@
     border: 2px solid var(--purple-primary);
     background: var(--bg-card);
     box-shadow: 
-        4px 4px 0 var(--purple-strong),
+        0 2px 8px var(--shadow-purple-20),
         inset 0 0 0 1px var(--purple-light);
     transition: all 0.3s ease;
     animation: pulseGlow 2s ease-in-out infinite;
@@ -146,7 +82,7 @@
     background: var(--purple-light);
     transform: translateY(-2px);
     box-shadow: 
-        6px 6px 0 var(--purple-heavy),
+        0 4px 14px var(--shadow-purple-20),
         inset 0 0 0 1px var(--purple-primary),
         0 0 20px var(--purple-glow);
 }
@@ -194,12 +130,12 @@
 @keyframes pulseGlow {
     0%, 100% {
         box-shadow: 
-            4px 4px 0 var(--purple-strong),
+            0 2px 8px var(--shadow-purple-20),
             inset 0 0 0 1px var(--purple-light);
     }
     50% {
         box-shadow: 
-            4px 4px 0 var(--purple-strong),
+            0 2px 8px var(--shadow-purple-20),
             inset 0 0 0 1px var(--purple-light),
             0 0 15px var(--purple-glow);
     }
@@ -226,7 +162,7 @@
     background: var(--bg-card);
     text-decoration: none;
     box-shadow: 
-        4px 4px 0 var(--purple-strong),
+        0 2px 8px var(--shadow-purple-20),
         inset 0 0 0 1px var(--purple-light);
     transition: all 0.3s ease;
     animation: pulseGlow 2s ease-in-out infinite;
@@ -237,7 +173,7 @@
     background: var(--purple-light);
     transform: translateY(-2px);
     box-shadow: 
-        6px 6px 0 var(--purple-heavy),
+        0 4px 14px var(--shadow-purple-20),
         inset 0 0 0 1px var(--purple-primary),
         0 0 20px var(--purple-glow);
 }
@@ -284,7 +220,7 @@
     background: var(--bg-card);
     text-decoration: none;
     box-shadow: 
-        4px 4px 0 var(--purple-strong),
+        0 2px 8px var(--shadow-purple-20),
         inset 0 0 0 1px var(--purple-light);
     transition: all 0.3s ease;
     animation: pulseGlow 2s ease-in-out infinite;
@@ -295,7 +231,7 @@
     background: var(--purple-light);
     transform: translateY(-2px);
     box-shadow: 
-        6px 6px 0 var(--purple-heavy),
+        0 4px 14px var(--shadow-purple-20),
         inset 0 0 0 1px var(--purple-primary),
         0 0 20px var(--purple-glow);
 }

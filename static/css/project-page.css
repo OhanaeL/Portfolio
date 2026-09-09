@@ -40,13 +40,12 @@
     text-decoration: none;
     font-size: 1.25rem;
     transition: all 0.3s ease;
-    box-shadow: 3px 3px 0 var(--purple-strong);
+    box-shadow: 0 1px 3px var(--shadow-purple-15);
 }
 
 .nav-project-btn:hover {
     border-color: var(--purple-primary);
     background: var(--purple-light);
-    transform: translate(-2px, -2px);
     box-shadow: 5px 5px 0 var(--shadow-purple-40);
     color: var(--purple-accent);
 }
@@ -136,7 +135,7 @@
     background: var(--bg-card);
     padding: 0.75rem 1.25rem;
     border: 2px solid var(--border-color);
-    box-shadow: 3px 3px 0 var(--purple-strong);
+    box-shadow: 0 1px 3px var(--shadow-purple-15);
 }
 
 .meta-item i {
@@ -154,8 +153,7 @@
     border-color: var(--purple-primary);
     background: var(--purple-light);
     color: var(--purple-primary);
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0 var(--purple-heavy);
+    box-shadow: 0 4px 14px var(--shadow-purple-20);
 }
 
 .project-external-link:hover i {
@@ -207,7 +205,7 @@
     align-items: flex-start;
     gap: 1rem;
     box-shadow: 
-        4px 4px 0 var(--purple-strong),
+        0 2px 8px var(--shadow-purple-20),
         inset 0 0 0 1px var(--purple-medium);
 }
 
@@ -510,7 +508,6 @@
 
 .gallery-item:hover {
     border-color: var(--purple-primary);
-    transform: translate(-2px, -2px);
     box-shadow: 4px 4px 0 var(--shadow-purple-40);
     z-index: 10;
 }
@@ -590,7 +587,7 @@
 }
 
 .gallery-title {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
     color: var(--text-secondary);
     padding: 0.5rem;
@@ -608,10 +605,10 @@
     left: 50%;
     transform: translateX(-50%);
     background: var(--bg-card);
-    border: 3px solid var(--purple-primary);
+    border: 1px solid var(--border-color);
     padding: 0.75rem 1rem;
     margin-bottom: 0.5rem;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
     color: var(--text-primary);
     white-space: nowrap;
@@ -619,7 +616,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     box-shadow: 
-        4px 4px 0 var(--purple-dark),
+        0 2px 8px var(--shadow-purple-20),
         0 0 20px var(--overlay-black-50);
     opacity: 0;
     pointer-events: none;
@@ -701,7 +698,7 @@
     max-width: 100%;
     max-height: 80vh;
     object-fit: contain;
-    border: 3px solid var(--purple-primary);
+    border: 1px solid var(--border-color);
     background: var(--bg-primary);
     border-radius: 2px;
     position: relative;
@@ -719,7 +716,7 @@
 #image-preview-video video {
     width: 100%;
     max-width: 900px;
-    border: 3px solid var(--purple-primary);
+    border: 1px solid var(--border-color);
     background: var(--bg-primary);
     border-radius: 2px;
 }
@@ -872,7 +869,7 @@
 
 .video-embed:hover {
     border-color: var(--purple-primary);
-    box-shadow: 4px 4px 0 var(--purple-heavy);
+    box-shadow: 0 2px 8px var(--shadow-purple-20);
 }
 
 .video-wrapper {
@@ -898,13 +895,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    border: 3px solid var(--purple-primary);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     background: var(--bg-primary);
 }
 
 .video-title {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     color: var(--text-primary);
     padding: 0.75rem;
@@ -935,8 +932,7 @@
 .pdf-embed:hover {
     border-color: var(--purple-primary);
     background: var(--purple-light);
-    transform: translate(-2px, -2px);
-    box-shadow: 4px 4px 0 var(--purple-heavy);
+    box-shadow: 0 2px 8px var(--shadow-purple-20);
 }
 
 .pdf-embed i:first-child {
@@ -993,7 +989,7 @@
     border: 2px solid var(--border-color);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 3px 3px 0 var(--purple-strong);
+    box-shadow: 0 1px 3px var(--shadow-purple-15);
 }
 
 .video-wrapper {
@@ -1013,7 +1009,7 @@
 }
 
 .video-title {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     color: var(--text-primary);
     padding: 1rem;
@@ -1036,13 +1032,13 @@
     border: 2px solid var(--border-color);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 3px 3px 0 var(--purple-strong);
+    box-shadow: 0 1px 3px var(--shadow-purple-15);
     transition: all 0.3s ease;
 }
 
 .pdf-embed:hover {
     transform: translateY(-2px);
-    box-shadow: 6px 6px 0 var(--purple-heavy);
+    box-shadow: 0 4px 14px var(--shadow-purple-20);
 }
 
 .pdf-link {
@@ -1052,7 +1048,7 @@
     padding: 1.25rem;
     text-decoration: none;
     color: var(--text-primary);
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-weight: 600;
     transition: color 0.3s ease;
 }

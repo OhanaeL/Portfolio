@@ -4,4 +4,4 @@ Served as Teaching Assistant and Software Engineer at RSU under Professor Billel
 
 **Software Engineer**: Developed [image:jobfair_homepage.png:the RSU Jobfair System], [image:attendence_system.png:RIC Attendance System], and [image:ICT_courseplanner.png:the ICT Course Planner] for university operations.
 
-Check out the projects here: [website_link:RSU Jobfair System], [website_link:RIC Attendance System], [website_link:ICT Automated Course Planner] and [website_link:RIC Alumni Website]
+Check out the projects here: [website_link:RSU Jobfair System], [website_link:RIC Attendance System] and [website_link:ICT Automated Course Planner]

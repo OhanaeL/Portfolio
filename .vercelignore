@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+build/
+.omc/
+*.docx
+~$*
+*.bak
+*.orig
+resume.tex
+contact_submissions.json

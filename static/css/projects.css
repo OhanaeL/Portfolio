@@ -14,7 +14,7 @@
     display: inline-block;
     padding: 1rem 2rem;
     background: var(--bg-card);
-    border: 3px solid var(--purple-primary);
+    border: 1px solid var(--border-color);
     color: var(--purple-primary);
     text-decoration: none;
     font-family: 'Space Grotesk', sans-serif;
@@ -23,14 +23,13 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     transition: all 0.3s ease;
-    box-shadow: 4px 4px 0 var(--purple-heavy);
+    box-shadow: 0 2px 8px var(--shadow-purple-20);
 }
 
 .view-all-projects-btn:hover {
     background: var(--purple-primary);
     color: var(--text-primary);
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 var(--purple-heavy);
+    box-shadow: 0 1px 3px var(--shadow-purple-15);
 }
 
 .view-all-projects-btn i {
@@ -54,9 +53,6 @@
     display: inline-block;
     width: 100%;
     text-transform: uppercase;
-    text-shadow: 
-        3px 3px 0px var(--purple-dark),
-        -1px -1px 0px var(--purple-strong);
 }
 
 .section-title-link {
@@ -68,9 +64,6 @@
 
 .section-title-link:hover .section-title {
     color: var(--purple-primary);
-    transform: translate(-3px, -3px);
-    text-shadow: 
-        8px 8px 0 var(--purple-heavy);
 }
 
 .section-title-link .section-title {
@@ -192,7 +185,6 @@
 }
 
 .project-card:hover {
-    transform: translate(-3px, -3px);
     border-color: var(--purple-primary);
     box-shadow: 
         9px 9px 0 var(--shadow-purple-40),
@@ -316,7 +308,7 @@
 }
 
 .project-card-tagline {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     color: var(--text-secondary);
     margin: 0;
@@ -358,7 +350,7 @@
     margin-bottom: 1rem;
     font-size: 0.9rem;
     line-height: 1.6;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     flex-grow: 1;
 }
 
@@ -374,19 +366,19 @@
 .search-input {
     width: 100%;
     padding: 1.25rem 3.5rem 1.25rem 3.5rem;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 1rem;
     background: var(--bg-card);
     border: 3px solid var(--border-color);
     color: var(--text-primary);
     transition: all 0.3s ease;
-    box-shadow: 4px 4px 0 var(--purple-strong);
+    box-shadow: 0 2px 8px var(--shadow-purple-20);
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--purple-primary);
-    box-shadow: 6px 6px 0 var(--purple-heavy);
+    box-shadow: 0 4px 14px var(--shadow-purple-20);
 }
 
 .search-input::placeholder {
@@ -431,7 +423,7 @@
     padding: 1.5rem;
     background: var(--bg-card);
     border: 3px solid var(--border-color);
-    box-shadow: 4px 4px 0 var(--purple-strong);
+    box-shadow: 0 2px 8px var(--shadow-purple-20);
     position: relative;
     min-height: 60px;
 }
@@ -639,14 +631,14 @@
     border-color: var(--purple-primary);
     color: var(--purple-primary);
     transform: translateY(-2px);
-    box-shadow: 3px 3px 0 var(--purple-heavy);
+    box-shadow: 0 1px 3px var(--shadow-purple-15);
 }
 
 .tag-filter-btn.active {
     background: var(--purple-primary);
     color: var(--white-pure);
     border-color: var(--purple-primary);
-    box-shadow: 3px 3px 0 var(--purple-dark);
+    box-shadow: 0 1px 3px var(--shadow-purple-15);
 }
 
 .tag-filter-btn i {
@@ -667,7 +659,7 @@
 .tags-filter-dropdown {
     width: 100%;
     padding: 0.9rem 1.2rem;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -678,7 +670,7 @@
     border-radius: 0;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 4px 4px 0 var(--purple-strong);
+    box-shadow: 0 2px 8px var(--shadow-purple-20);
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239d4edd' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -689,13 +681,13 @@
 .tags-filter-dropdown:hover {
     border-color: var(--purple-primary);
     background-color: var(--purple-light);
-    box-shadow: 5px 5px 0 var(--purple-heavy);
+    box-shadow: 0 4px 14px var(--shadow-purple-20);
 }
 
 .tags-filter-dropdown:focus {
     outline: none;
     border-color: var(--purple-primary);
-    box-shadow: 5px 5px 0 var(--purple-heavy);
+    box-shadow: 0 4px 14px var(--shadow-purple-20);
 }
 
 .tags-filter-dropdown option {
@@ -754,5 +746,5 @@
 .empty-state p {
     font-size: 1.05rem;
     color: var(--text-muted);
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Inter', sans-serif;
 }

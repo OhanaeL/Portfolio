@@ -55,3 +55,17 @@ package-lock.json
 yarn.lock
 .pnpm-debug.log*# Build output
 static/dist/
+
+# Personal documents — must not reach the public repo
+/*.docx
+/resume.tex
+/~$*
+*.bak
+*.orig
+
+# Static build output (Vercel regenerates it)
+/build/
+
+# OMC plugin scratch dirs
+.omc/
+**/.omc/

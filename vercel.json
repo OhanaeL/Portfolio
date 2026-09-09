@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "pip3 install -r requirements.txt",
+  "buildCommand": "python3 freeze.py",
+  "outputDirectory": "build",
+  "cleanUrls": true
+}

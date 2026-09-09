@@ -1,65 +1,80 @@
+/* ============================================================
+   Design tokens — restrained neutral palette, one accent.
+   Legacy --purple-* / --shadow-purple-* names are kept so the
+   existing stylesheets keep working; they now carry accent and
+   neutral-shadow values rather than literal purple.
+   ============================================================ */
+
 :root {
+    /* Semantic aliases (prefer these going forward) */
+    --bg: #0B0B0C;
+    --surface: #141416;
+    --border: #232326;
+    --text: #F4F4F5;
+    --muted: #A1A1AA;
+    --accent: #A78BFA;
+
     /* Background Colors */
-    --bg-primary: #050508;
-    --bg-secondary: #0a0a0f;
-    --bg-card: #0f0f15;
-    
-    /* Purple Palette */
-    --purple-primary: #9d4edd;
-    --purple-secondary: #c77dff;
-    --purple-dark: #7b2cbf;
-    --purple-accent: #e0aaff;
-    --purple-glow: rgba(157, 78, 221, 0.25);
-    
-    /* Purple Opacity Variants */
-    --purple-light: rgba(157, 78, 221, 0.1);
-    --purple-medium: rgba(157, 78, 221, 0.15);
-    --purple-strong: rgba(157, 78, 221, 0.2);
-    --purple-heavy: rgba(157, 78, 221, 0.3);
-    --purple-intense: rgba(157, 78, 221, 0.4);
-    --purple-strong-dark: rgba(123, 44, 191, 0.2);
-    
+    --bg-primary: #0B0B0C;
+    --bg-secondary: #0F0F11;
+    --bg-card: #141416;
+
+    /* Accent palette (legacy purple-* names) */
+    --purple-primary: #A78BFA;
+    --purple-secondary: #C4B5FD;
+    --purple-dark: #8B5CF6;
+    --purple-accent: #DDD6FE;
+    --purple-glow: rgba(167, 139, 250, 0.14);
+
+    /* Accent opacity variants */
+    --purple-light: rgba(167, 139, 250, 0.06);
+    --purple-medium: rgba(167, 139, 250, 0.10);
+    --purple-strong: rgba(167, 139, 250, 0.14);
+    --purple-heavy: rgba(167, 139, 250, 0.20);
+    --purple-intense: rgba(167, 139, 250, 0.28);
+    --purple-strong-dark: rgba(139, 92, 246, 0.16);
+
     /* Text Colors */
-    --text-primary: #f0f0f3;
-    --text-secondary: #a8a8b8;
-    --text-muted: #6e6e7e;
-    
+    --text-primary: #F4F4F5;
+    --text-secondary: #A1A1AA;
+    --text-muted: #71717A;
+
     /* Border and UI Colors */
-    --border-color: #1a1a22;
-    
+    --border-color: #232326;
+
     /* Overlay Colors */
-    --overlay-black-70: rgba(0, 0, 0, 0.7);
+    --overlay-black-70: rgba(0, 0, 0, 0.70);
     --overlay-black-85: rgba(0, 0, 0, 0.85);
     --overlay-black-95: rgba(0, 0, 0, 0.95);
-    --overlay-black-50: rgba(0, 0, 0, 0.5);
-    --overlay-black-80: rgba(0, 0, 0, 0.8);
-    --overlay-black-20: rgba(0, 0, 0, 0.2);
-    --overlay-black-30: rgba(0, 0, 0, 0.3);
-    
+    --overlay-black-50: rgba(0, 0, 0, 0.50);
+    --overlay-black-80: rgba(0, 0, 0, 0.80);
+    --overlay-black-20: rgba(0, 0, 0, 0.20);
+    --overlay-black-30: rgba(0, 0, 0, 0.30);
+
     /* White/Sparkle Colors */
-    --white-40: rgba(255, 255, 255, 0.4);
-    --white-30: rgba(255, 255, 255, 0.3);
-    --white-10: rgba(255, 255, 255, 0.1);
-    --white-20: rgba(255, 255, 255, 0.2);
+    --white-40: rgba(255, 255, 255, 0.40);
+    --white-30: rgba(255, 255, 255, 0.30);
+    --white-10: rgba(255, 255, 255, 0.10);
+    --white-20: rgba(255, 255, 255, 0.20);
     --white-pure: #ffffff;
-    
+
     /* Status Colors */
-    --status-warning-bg: rgba(255, 193, 7, 0.2);
-    --status-warning-color: #ffc107;
-    --status-warning-border: rgba(255, 193, 7, 0.3);
-    --status-success-bg: rgba(76, 175, 80, 0.1);
-    --status-success-color: #4caf50;
-    --status-success-border: #4caf50;
-    --status-error-bg: rgba(244, 67, 54, 0.1);
-    --status-error-color: #f44336;
-    --status-error-border: #f44336;
-    --status-danger-color: #e74c3c;
-    
-    /* Navbar Background */
-    --navbar-bg: rgba(15, 15, 21, 0.95);
-    --navbar-bg-solid: rgba(15, 15, 21, 0.98);
-    
-    /* Certificate Colors */
+    --status-warning-bg: rgba(245, 158, 11, 0.12);
+    --status-warning-color: #F59E0B;
+    --status-warning-border: rgba(245, 158, 11, 0.30);
+    --status-success-bg: rgba(16, 185, 129, 0.12);
+    --status-success-color: #10B981;
+    --status-success-border: rgba(16, 185, 129, 0.40);
+    --status-error-bg: rgba(239, 68, 68, 0.12);
+    --status-error-color: #EF4444;
+    --status-error-border: rgba(239, 68, 68, 0.40);
+    --status-danger-color: #EF4444;
+
+    /* Navbar Background (blurred, so low alpha reads well) */
+    --navbar-bg: rgba(11, 11, 12, 0.72);
+    --navbar-bg-solid: rgba(11, 11, 12, 0.94);
+
+    /* Certificate Colors — intentionally paper-like, left alone */
     --cert-bg-light: linear-gradient(135deg, #f5f3eb 0%, #faf8f0 100%);
     --cert-border-beige: #d4c5a0;
     --cert-border-gold: #c8a951;
@@ -76,116 +91,104 @@
     --cert-shadow-gold: rgba(200, 169, 81, 0.4);
     --cert-shadow-gold-light: rgba(200, 169, 81, 0.3);
     --cert-shadow-dark: rgba(42, 42, 42, 0.3);
-    
+
     /* Gradients */
-    --gradient-1: linear-gradient(135deg, #9d4edd 0%, #7b2cbf 50%, #5a189a 100%);
-    --gradient-2: linear-gradient(135deg, #c77dff 0%, #9d4edd 100%);
-    
-    /* Background Gradients */
-    --bg-gradient-1: radial-gradient(circle at 20% 20%, rgba(157, 78, 221, 0.08) 0%, transparent 50%);
-    --bg-gradient-2: radial-gradient(circle at 80% 80%, rgba(123, 44, 191, 0.06) 0%, transparent 50%);
-    
-    /* Shadow Colors */
-    --shadow-purple-20: rgba(157, 78, 221, 0.2);
-    --shadow-purple-40: rgba(157, 78, 221, 0.4);
-    --shadow-purple-10: rgba(157, 78, 221, 0.1);
-    --shadow-purple-30: rgba(157, 78, 221, 0.3);
-    --shadow-purple-15: rgba(157, 78, 221, 0.15);
-    
-    /* Gold Colors */
-    --gold-primary: #ffd700;
-    --gold-shadow: rgba(255, 215, 0, 0.3);
-    --gold-inset: rgba(255, 215, 0, 0.5);
-    --gold-hover-shadow: rgba(255, 215, 0, 0.4);
-    --gold-hover-inset: rgba(255, 215, 0, 0.6);
+    --gradient-1: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+    --gradient-2: linear-gradient(135deg, #C4B5FD 0%, #A78BFA 100%);
+
+    /* Background Gradients — barely-there ambient tint */
+    --bg-gradient-1: radial-gradient(circle at 20% 20%, rgba(167, 139, 250, 0.045) 0%, transparent 55%);
+    --bg-gradient-2: radial-gradient(circle at 80% 80%, rgba(167, 139, 250, 0.030) 0%, transparent 55%);
+
+    /* Shadows — neutral depth, not accent glow */
+    --shadow-purple-10: rgba(0, 0, 0, 0.20);
+    --shadow-purple-15: rgba(0, 0, 0, 0.26);
+    --shadow-purple-20: rgba(0, 0, 0, 0.32);
+    --shadow-purple-30: rgba(0, 0, 0, 0.40);
+    --shadow-purple-40: rgba(0, 0, 0, 0.50);
+
+    /* Gold Colors — muted, for awards/certificates */
+    --gold-primary: #D4A72C;
+    --gold-shadow: rgba(212, 167, 44, 0.25);
+    --gold-inset: rgba(212, 167, 44, 0.40);
+    --gold-hover-shadow: rgba(212, 167, 44, 0.35);
+    --gold-hover-inset: rgba(212, 167, 44, 0.50);
 }
 
 [data-theme="light"] {
-    --bg-primary: #f5e6d3;
-    --bg-secondary: #ede0cc;
-    --bg-card: #faf4e8;
-    
-    --purple-primary: #d97706;
-    --purple-secondary: #f59e0b;
-    --purple-dark: #b45309;
-    --purple-accent: #fbbf24;
-    --purple-glow: rgba(217, 119, 6, 0.25);
-    
-    --purple-light: rgba(255, 165, 0, 0.1);
-    --purple-medium: rgba(255, 165, 0, 0.15);
-    --purple-strong: rgba(255, 165, 0, 0.2);
-    --purple-heavy: rgba(255, 165, 0, 0.3);
-    --purple-intense: rgba(255, 165, 0, 0.4);
-    --purple-strong-dark: rgba(180, 83, 9, 0.2);
-    
-    --text-primary: #8b4513;
-    --text-secondary: #a0522d;
-    --text-muted: #cd853f;
-    
-    --border-color: #d4b896;
-    
-    --overlay-black-70: rgba(245, 230, 211, 0.7);
-    --overlay-black-85: rgba(245, 230, 211, 0.85);
-    --overlay-black-95: rgba(245, 230, 211, 0.95);
-    --overlay-black-50: rgba(245, 230, 211, 0.5);
-    --overlay-black-80: rgba(245, 230, 211, 0.8);
-    --overlay-black-20: rgba(245, 230, 211, 0.2);
-    --overlay-black-30: rgba(245, 230, 211, 0.3);
-    
-    --white-40: rgba(139, 69, 19, 0.4);
-    --white-30: rgba(139, 69, 19, 0.3);
-    --white-10: rgba(139, 69, 19, 0.1);
-    --white-20: rgba(139, 69, 19, 0.2);
-    --white-pure: #8b4513;
-    
-    --status-warning-bg: rgba(255, 193, 7, 0.2);
-    --status-warning-color: #d97706;
-    --status-warning-border: rgba(217, 119, 6, 0.3);
-    --status-success-bg: rgba(76, 175, 80, 0.1);
-    --status-success-color: #4caf50;
-    --status-success-border: #4caf50;
-    --status-error-bg: rgba(244, 67, 54, 0.1);
-    --status-error-color: #f44336;
-    --status-error-border: #f44336;
-    --status-danger-color: #e74c3c;
-    
-    --navbar-bg: rgba(250, 244, 232, 0.95);
-    --navbar-bg-solid: rgba(250, 244, 232, 0.98);
-    
-    --gradient-1: linear-gradient(135deg, #d97706 0%, #b45309 50%, #92400e 100%);
-    --gradient-2: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    
-    --bg-gradient-1: radial-gradient(circle at 20% 20%, rgba(255, 165, 0, 0.05) 0%, transparent 50%);
-    --bg-gradient-2: radial-gradient(circle at 80% 80%, rgba(255, 140, 0, 0.03) 0%, transparent 50%);
-    
-    --shadow-purple-20: rgba(217, 119, 6, 0.2);
-    --shadow-purple-40: rgba(217, 119, 6, 0.4);
-    --shadow-purple-10: rgba(217, 119, 6, 0.1);
-    --shadow-purple-30: rgba(217, 119, 6, 0.3);
-    --shadow-purple-15: rgba(217, 119, 6, 0.15);
-    
-    /* Gold Colors */
-    --gold-primary: #d97706;
-    --gold-shadow: rgba(217, 119, 6, 0.3);
-    --gold-inset: rgba(217, 119, 6, 0.5);
-    --gold-hover-shadow: rgba(217, 119, 6, 0.4);
-    --gold-hover-inset: rgba(217, 119, 6, 0.6);
-}
+    --bg: #FCFCFD;
+    --surface: #FFFFFF;
+    --border: #E6E6EA;
+    --text: #18181B;
+    --muted: #71717A;
+    --accent: #7C3AED;
 
-[data-theme="light"] .hero-title {
-    text-shadow: 
-        4px 4px 0px rgba(180, 83, 9, 0.2),
-        -2px -2px 0px rgba(255, 165, 0, 0.15);
-}
+    --bg-primary: #FCFCFD;
+    --bg-secondary: #F4F4F6;
+    --bg-card: #FFFFFF;
 
-[data-theme="light"] .section-title {
-    text-shadow: 2px 2px 0px rgba(180, 83, 9, 0.15);
-}
+    --purple-primary: #7C3AED;
+    --purple-secondary: #8B5CF6;
+    --purple-dark: #6D28D9;
+    --purple-accent: #A78BFA;
+    --purple-glow: rgba(124, 58, 237, 0.12);
 
-[data-theme="light"] .timeline-year {
-    text-shadow: 2px 2px 0px rgba(180, 83, 9, 0.15);
-}
+    --purple-light: rgba(124, 58, 237, 0.05);
+    --purple-medium: rgba(124, 58, 237, 0.08);
+    --purple-strong: rgba(124, 58, 237, 0.12);
+    --purple-heavy: rgba(124, 58, 237, 0.18);
+    --purple-intense: rgba(124, 58, 237, 0.26);
+    --purple-strong-dark: rgba(109, 40, 217, 0.16);
 
-[data-theme="light"] .skill-score {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    --text-primary: #18181B;
+    --text-secondary: #52525B;
+    --text-muted: #71717A;
+
+    --border-color: #E6E6EA;
+
+    --overlay-black-70: rgba(252, 252, 253, 0.70);
+    --overlay-black-85: rgba(252, 252, 253, 0.85);
+    --overlay-black-95: rgba(252, 252, 253, 0.95);
+    --overlay-black-50: rgba(252, 252, 253, 0.50);
+    --overlay-black-80: rgba(252, 252, 253, 0.80);
+    --overlay-black-20: rgba(252, 252, 253, 0.20);
+    --overlay-black-30: rgba(252, 252, 253, 0.30);
+
+    --white-40: rgba(24, 24, 27, 0.40);
+    --white-30: rgba(24, 24, 27, 0.30);
+    --white-10: rgba(24, 24, 27, 0.08);
+    --white-20: rgba(24, 24, 27, 0.16);
+    --white-pure: #18181B;
+
+    --status-warning-bg: rgba(245, 158, 11, 0.12);
+    --status-warning-color: #B45309;
+    --status-warning-border: rgba(245, 158, 11, 0.35);
+    --status-success-bg: rgba(16, 185, 129, 0.12);
+    --status-success-color: #047857;
+    --status-success-border: rgba(16, 185, 129, 0.40);
+    --status-error-bg: rgba(239, 68, 68, 0.10);
+    --status-error-color: #B91C1C;
+    --status-error-border: rgba(239, 68, 68, 0.35);
+    --status-danger-color: #B91C1C;
+
+    --navbar-bg: rgba(252, 252, 253, 0.72);
+    --navbar-bg-solid: rgba(252, 252, 253, 0.95);
+
+    --gradient-1: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+    --gradient-2: linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%);
+
+    --bg-gradient-1: radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.035) 0%, transparent 55%);
+    --bg-gradient-2: radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.025) 0%, transparent 55%);
+
+    --shadow-purple-10: rgba(24, 24, 27, 0.06);
+    --shadow-purple-15: rgba(24, 24, 27, 0.08);
+    --shadow-purple-20: rgba(24, 24, 27, 0.10);
+    --shadow-purple-30: rgba(24, 24, 27, 0.14);
+    --shadow-purple-40: rgba(24, 24, 27, 0.18);
+
+    --gold-primary: #B4841F;
+    --gold-shadow: rgba(180, 132, 31, 0.25);
+    --gold-inset: rgba(180, 132, 31, 0.40);
+    --gold-hover-shadow: rgba(180, 132, 31, 0.35);
+    --gold-hover-inset: rgba(180, 132, 31, 0.50);
 }
