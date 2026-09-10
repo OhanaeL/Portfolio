@@ -1,49 +1,580 @@
+/* ============================================================
+   Design tokens - neutral surfaces, one violet accent.
+   Light is the default; dark follows the OS or an explicit
+   data-theme on the html element.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #fbfbfc;
+  --surface: #ffffff;
+  --surface-2: #f4f4f6;
+  --border: #e5e5ea;
+  --text: #18181b;
+  --muted: #5f5f6a;
+  --faint: #8b8b96;
+  --accent: #6d28d9;
+  --accent-soft: rgba(109, 40, 217, 0.08);
+  --accent-line: rgba(109, 40, 217, 0.22);
+  --shadow-sm: 0 1px 2px rgba(24, 24, 27, 0.05);
+  --shadow-md: 0 4px 16px rgba(24, 24, 27, 0.08);
+  --radius: 12px;
+  --maxw: 1080px;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --bg: #0b0b0d;
+    --surface: #141417;
+    --surface-2: #1b1b1f;
+    --border: #26262c;
+    --text: #f2f2f4;
+    --muted: #a5a5b0;
+    --faint: #74747f;
+    --accent: #a78bfa;
+    --accent-soft: rgba(167, 139, 250, 0.10);
+    --accent-line: rgba(167, 139, 250, 0.28);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45);
   }
 }
 
+:root[data-theme="dark"] {
+  --bg: #0b0b0d;
+  --surface: #141417;
+  --surface-2: #1b1b1f;
+  --border: #26262c;
+  --text: #f2f2f4;
+  --muted: #a5a5b0;
+  --faint: #74747f;
+  --accent: #a78bfa;
+  --accent-soft: rgba(167, 139, 250, 0.10);
+  --accent-line: rgba(167, 139, 250, 0.28);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; }
 html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  scroll-behavior: smooth;
+  /* clears the sticky header when jumping to an anchor */
+  scroll-padding-top: 5rem;
 }
 
 body {
-  min-height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* longhand on purpose: a shorthand here wipes the vertical padding of any
+   element that is also a .container (every <section className="container">). */
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.mono { font-family: var(--font-mono), ui-monospace, monospace; }
+
+/* ---------- nav: opens as a full-width bar, condenses into a
+   floating glass island once you scroll ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+}
+/* .nav-inner is also .container, so its 1.5rem padding lines the nav text
+   up exactly with the hero and the card grid below. */
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 66px;
+  border-radius: 0;
+  position: relative;
+}
+.nav-name { font-weight: 650; letter-spacing: -0.01em; }
+.nav-links { display: flex; gap: 1.6rem; align-items: center; }
+.nav-links a {
+  color: var(--muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-weight: 550;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--text); }
+
+/* pill CTA, echoing the MagickMind header */
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--facet-edge);
+  background: color-mix(in srgb, var(--surface) 58%, transparent);
+  color: var(--text) !important;
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: border-color 0.15s, color 0.15s, transform 0.15s;
+}
+.nav-cta:hover {
+  border-color: var(--accent);
+  color: var(--accent) !important;
+  transform: translateY(-1px);
+}
+
+/* ---------- hero ---------- */
+/* vertical only — the shorthand would wipe .container's horizontal padding
+   and pull the hero 24px left of everything else on the page. */
+.hero { padding-top: 4.5rem; padding-bottom: 2.5rem; }
+.hero h1 {
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  max-width: 20ch;
+}
+.hero .lede { font-size: 1.12rem; color: var(--muted); max-width: 62ch; margin: 0 0 1.75rem; }
+
+.eyebrow {
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.85rem;
+  display: block;
+}
+
+.btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.93rem;
+  font-weight: 550;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+.btn:hover { border-color: var(--accent-line); transform: translateY(-1px); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+.btn-primary:hover { filter: brightness(1.06); }
+
+/* ---------- sections ---------- */
+section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+.section-head h2 { font-size: 1.35rem; letter-spacing: -0.015em; margin: 0; font-weight: 650; }
+.section-head a { color: var(--accent); font-size: 0.9rem; font-weight: 550; }
+
+/* ---------- cards ---------- */
+.grid { display: grid; gap: 1rem; }
+.grid-3 { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.grid-2 { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.4rem;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
   display: flex;
   flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  gap: 0.6rem;
+  height: 100%;
+}
+a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.card h3 { margin: 0; font-size: 1.02rem; font-weight: 620; letter-spacing: -0.01em; }
+.card p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.card-meta { color: var(--faint); font-size: 0.8rem; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; padding-top: 0.5rem; }
+.tag {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.2rem 0.45rem;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* ---------- now + stats ---------- */
+.now {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.7rem;
+}
+.now h2 { margin: 0 0 0.5rem; font-size: 1.06rem; font-weight: 620; letter-spacing: -0.01em; }
+.now p { margin: 0 0 1.1rem; color: var(--muted); font-size: 0.95rem; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem;
+}
+.stat .figure {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  line-height: 1.15;
+}
+.stat .label { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
+
+/* ---------- prose ---------- */
+.prose { max-width: 72ch; }
+.prose h2 { font-size: 1.25rem; margin: 2.2rem 0 0.7rem; letter-spacing: -0.015em; font-weight: 650; }
+.prose h3 { font-size: 1.05rem; margin: 1.6rem 0 0.5rem; font-weight: 620; }
+.prose p, .prose li { color: var(--muted); }
+.prose a.xlink { color: var(--accent); border-bottom: 1px solid var(--accent-line); }
+.prose code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.87em;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.32rem;
+}
+.prose pre {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+.prose pre code { border: 0; background: none; padding: 0; }
+.prose hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+.prose blockquote {
+  margin: 1.2rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent-line);
+  color: var(--muted);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* inline image reference: hover or focus reveals the figure */
+.imgref {
+  position: relative;
+  color: var(--accent);
+  border-bottom: 1px dashed var(--accent-line);
+  cursor: help;
+  outline: none;
+}
+.imgref img {
+  position: absolute;
+  left: 0;
+  top: 1.7em;
+  z-index: 40;
+  width: min(420px, 70vw);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.16s, transform 0.16s, visibility 0.16s;
+}
+.imgref:hover img,
+.imgref:focus img,
+.imgref:focus-within img { opacity: 1; visibility: visible; transform: translateY(0); }
+
+/* ---------- detail page ---------- */
+.detail-head {
+  padding: 3rem 0 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.detail-head h1 {
+  font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+  letter-spacing: -0.025em;
+  margin: 0.4rem 0 0.6rem;
+  font-weight: 700;
+}
+.detail-head .sub { color: var(--muted); margin: 0 0 1.1rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; color: var(--faint); font-size: 0.87rem; }
+.back { color: var(--muted); font-size: 0.9rem; }
+.back:hover { color: var(--accent); }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.gallery img { border-radius: 10px; border: 1px solid var(--border); }
+.embed { margin: 2rem 0; }
+.embed video { width: 100%; border-radius: 10px; border: 1px solid var(--border); }
+
+.notice {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin: 1.5rem 0;
+}
+
+/* ---------- about ---------- */
+.about-head { display: flex; gap: 1.75rem; align-items: center; flex-wrap: wrap; }
+.about-head img {
+  width: 132px;
+  height: 132px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+}
+.skill { margin-bottom: 0.9rem; }
+.skill-top { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.3rem; }
+.skill-top span:last-child { color: var(--faint); font-size: 0.82rem; }
+.bar { height: 5px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+
+/* ---------- footer ---------- */
+footer {
+  border-top: 1px solid var(--border);
+  margin-top: 3rem;
+  padding: 2rem 0;
+  color: var(--faint);
+  font-size: 0.88rem;
+}
+.footer-inner { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.footer-inner a:hover { color: var(--accent); }
+
+/* ============================================================
+   Crystalline layer — prismatic ambient light, a fine film
+   grain, and frosted glass surfaces. Pure CSS, no dependency,
+   no WebGL, nothing to load.
+   ============================================================ */
+
+/* prismatic light, fixed so it reads as depth behind the page */
+body {
+  background-image:
+    radial-gradient(58rem 38rem at 10% -12%, var(--glow-a), transparent 62%),
+    radial-gradient(48rem 34rem at 96% 6%, var(--glow-b), transparent 62%),
+    radial-gradient(44rem 38rem at 46% 108%, var(--glow-c), transparent 62%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+:root {
+  --glow-a: rgba(109, 40, 217, 0.22);
+  --glow-b: rgba(79, 70, 229, 0.18);
+  --glow-c: rgba(14, 165, 233, 0.14);
+  --facet: rgba(255, 255, 255, 0.85);
+  --facet-edge: rgba(109, 40, 217, 0.28);
+  --grain: 0.6;
+  --glass: 70%;
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  :root:not([data-theme="light"]) {
+    --glow-a: rgba(167, 139, 250, 0.34);
+    --glow-b: rgba(129, 140, 248, 0.26);
+    --glow-c: rgba(56, 189, 248, 0.18);
+    --facet: rgba(255, 255, 255, 0.16);
+    --facet-edge: rgba(167, 139, 250, 0.42);
+    --grain: 0.8;
+    --glass: 58%;
   }
+}
+:root[data-theme="dark"] {
+  --glow-a: rgba(167, 139, 250, 0.34);
+  --glow-b: rgba(129, 140, 248, 0.26);
+  --glow-c: rgba(56, 189, 248, 0.18);
+  --facet: rgba(255, 255, 255, 0.16);
+  --facet-edge: rgba(167, 139, 250, 0.42);
+  --grain: 0.8;
+  --glass: 58%;
+}
+
+/* film grain — feTurbulence inlined, so no image request */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.075'/%3E%3C/svg%3E");
+}
+
+/* keep content above the grain.
+   NOTE: do not set position here on .nav — it would override
+   position:sticky and the header would scroll away. */
+main, footer { position: relative; z-index: 1; }
+
+/* frosted, faceted surfaces */
+.card,
+.now,
+.stat,
+.notice {
+  position: relative;
+  background: color-mix(in srgb, var(--surface) var(--glass), transparent);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 var(--facet);
+}
+
+/* prismatic edge — a 1px gradient border, light catching one corner */
+.card::before,
+.now::before,
+.stat::before,
+.notice::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    var(--facet) 0%,
+    transparent 38%,
+    transparent 62%,
+    var(--facet-edge) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+a.card:hover {
+  box-shadow: var(--shadow-md), inset 0 1px 0 var(--facet);
+}
+a.card:hover::before {
+  background: linear-gradient(
+    135deg,
+    var(--facet) 0%,
+    var(--facet-edge) 45%,
+    transparent 60%,
+    var(--facet-edge) 100%
+  );
+}
+
+/* ---- header morph: full-width bar at rest, glass island on scroll ---- */
+/* the resting bar carries its own glass so content never shows through it */
+.nav {
+  background: color-mix(in srgb, var(--bg) 74%, transparent);
+  backdrop-filter: blur(16px) saturate(170%);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+  transition: top 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.34s ease, border-color 0.34s ease;
+}
+.nav-inner {
+  background: none;
+  box-shadow: none;
+  transition: background 0.34s ease, box-shadow 0.34s ease,
+    border-radius 0.34s cubic-bezier(0.4, 0, 0.2, 1), height 0.34s ease,
+    backdrop-filter 0.34s ease;
+}
+/* the prismatic edge only belongs to the island */
+.nav-inner::before { opacity: 0; transition: opacity 0.3s ease; }
+
+/* scrolled: the bar detaches, condenses and turns to glass. .nav-inner keeps
+   its container width the whole time, so nothing shifts horizontally. */
+/* scrolled: the bar's glass hands off to the pill and the bar itself
+   becomes invisible, leaving the island floating over the page. */
+.nav--stuck {
+  top: 0.85rem;
+  border-bottom-color: transparent;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.nav--stuck .nav-inner {
+  height: 54px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 52%, transparent);
+  backdrop-filter: blur(22px) saturate(190%);
+  -webkit-backdrop-filter: blur(22px) saturate(190%);
+  box-shadow: var(--shadow-md), inset 0 1px 0 var(--facet);
+}
+.nav--stuck .nav-inner::before { opacity: 1; }
+.nav-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    var(--facet) 0%,
+    transparent 40%,
+    transparent 60%,
+    var(--facet-edge) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.tag {
+  background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* a single refracted edge across the top of the hero */
+.hero::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 2.5rem;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 45%, transparent),
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+@media (max-width: 640px) {
+  .hero { padding-top: 3rem; padding-bottom: 2rem; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.88rem; }
+  .about-head img { width: 104px; height: 104px; }
+  /* blur is expensive on mobile GPUs — drop it, keep the tint */
+  .card, .now, .stat, .notice { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }

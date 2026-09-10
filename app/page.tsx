@@ -1,69 +1,79 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { site } from "@/lib/site";
+import { getProjects, str, list } from "@/lib/content";
 
 export default function Home() {
+  const projects = getProjects().slice(0, 3);
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
+    <>
+      <div className="container hero">
+        <span className="eyebrow">
+          {site.role} · {site.location}
+        </span>
+        <h1>{site.headline}</h1>
+        <p className="lede">{site.description}</p>
+        <div className="btn-row">
+          <Link className="btn btn-primary" href="/projects/">
+            View projects
+          </Link>
+          <a className="btn" href={site.resume} target="_blank" rel="noopener noreferrer">
+            Résumé (PDF)
           </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+          <a className="btn" href={`mailto:${site.email}`}>
+            Get in touch
           </a>
         </div>
-      </main>
-    </div>
+      </div>
+
+      <div className="container">
+        <div className="now">
+          <span className="eyebrow">Currently</span>
+          <h2>{site.now.title}</h2>
+          <p>{site.now.body}</p>
+          <div className="tags">
+            {site.now.stack.map((t) => (
+              <span className="tag" key={t}>
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="stats">
+          {site.stats.map((s) => (
+            <div className="stat" key={s.figure}>
+              <div className="figure">{s.figure}</div>
+              <div className="label">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <section className="container">
+        <div className="section-head">
+          <h2>Selected work</h2>
+          <Link href="/projects/">All projects →</Link>
+        </div>
+        <div className="grid grid-3">
+          {projects.map((p) => (
+            <Link className="card" key={p.slug} href={`/projects/${p.slug}/`}>
+              <h3>{p.name}</h3>
+              {str(p.meta, "date") && <div className="card-meta">{str(p.meta, "date")}</div>}
+              <p>{str(p.meta, "description")}</p>
+              <div className="tags">
+                {list(p.meta, "tags")
+                  .slice(0, 4)
+                  .map((t) => (
+                    <span className="tag" key={t}>
+                      {t}
+                    </span>
+                  ))}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
