@@ -1,6 +1,6 @@
-description: React-based golf club management system integrated with CIMSO's ERP, featuring AI-powered multilingual voice-enabled chatbot. Won 1st Place out of 20+ teams at CIMSO Hospitality ERP Hackathon 2025
+description: AI-powered golf booking system. A multilingual, voice-enabled assistant completes real bookings by calling into CIMSO's ERP, rather than just answering questions. Won 1st Place out of 20+ teams at the CIMSO Hospitality ERP Hackathon 2025.
 date: March 2025
-tags: React, Hackathon, AI, Frontend
+tags: AI, Voice, LLM, ERP Integration, React, Hackathon
 team:
 - Htin Linn
 - Pyaw Kyaw

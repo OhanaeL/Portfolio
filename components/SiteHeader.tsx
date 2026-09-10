@@ -19,10 +19,29 @@ export default function SiteHeader() {
   const [stuck, setStuck] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setStuck(window.scrollY > 24);
-    onScroll();
+    // Hysteresis: engage at 56px, release at 16px. A single threshold lets the
+    // header chatter, because any layout nudge around that one value flips it
+    // back and forth on consecutive scroll events.
+    const ENGAGE = 56;
+    const RELEASE = 16;
+    let frame = 0;
+
+    const read = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setStuck((was) => (was ? y > RELEASE : y > ENGAGE));
+    };
+    // coalesce bursts of scroll events into one read per frame
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(read);
+    };
+
+    read();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (

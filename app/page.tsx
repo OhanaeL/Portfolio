@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { getProjects, str, list } from "@/lib/content";
+import Toolbox from "@/components/Toolbox";
 
 export default function Home() {
   const projects = getProjects().slice(0, 3);
@@ -27,7 +28,8 @@ export default function Home() {
       </div>
 
       <div className="container">
-        <div className="now">
+        <div className="bento">
+        <div className="now bento-main">
           <span className="eyebrow">Currently</span>
           <h2>{site.now.title}</h2>
           <p>{site.now.body}</p>
@@ -40,7 +42,6 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="stats">
           {site.stats.map((s) => (
             <div className="stat" key={s.figure}>
               <div className="figure">{s.figure}</div>
@@ -49,6 +50,8 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      <Toolbox />
 
       <section className="container">
         <div className="section-head">

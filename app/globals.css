@@ -18,6 +18,8 @@
   --shadow-md: 0 4px 16px rgba(24, 24, 27, 0.08);
   --radius: 12px;
   --maxw: 1080px;
+  --sb-thumb: rgba(24, 24, 27, 0.20);
+  --sb-thumb-hover: rgba(109, 40, 217, 0.45);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,6 +36,8 @@
     --accent-line: rgba(167, 139, 250, 0.28);
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45);
+    --sb-thumb: rgba(255, 255, 255, 0.16);
+    --sb-thumb-hover: rgba(167, 139, 250, 0.5);
   }
 }
 
@@ -50,14 +54,40 @@
   --accent-line: rgba(167, 139, 250, 0.28);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45);
+  --sb-thumb: rgba(255, 255, 255, 0.16);
+  --sb-thumb-hover: rgba(167, 139, 250, 0.5);
 }
 
 * { box-sizing: border-box; }
 html {
-  scroll-behavior: smooth;
+  /* NO scroll-behavior: smooth here. The App Router scrolls to top on route
+     change; an animated scroll gets interrupted by hydration and strands you
+     mid-page. Verified: smooth -> lands at 536, auto -> lands at 0. */
+  scroll-behavior: auto;
   /* clears the sticky header when jumping to an anchor */
   scroll-padding-top: 5rem;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--sb-thumb) transparent;
 }
+
+/* ---------- scrollbar (Chromium / Safari) ---------- */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb);
+  border-radius: 999px;
+  /* transparent border + padding-box clip leaves breathing room round the thumb */
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sb-thumb-hover);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:active { background: var(--accent); background-clip: padding-box; }
+::-webkit-scrollbar-corner { background: transparent; }
 
 body {
   margin: 0;
@@ -77,8 +107,8 @@ img { max-width: 100%; display: block; }
 .container {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 .mono { font-family: var(--font-mono), ui-monospace, monospace; }
 
@@ -99,7 +129,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  height: 66px;
+  height: 74px;
   border-radius: 0;
   position: relative;
 }
@@ -140,7 +170,7 @@ img { max-width: 100%; display: block; }
 /* ---------- hero ---------- */
 /* vertical only — the shorthand would wipe .container's horizontal padding
    and pull the hero 24px left of everything else on the page. */
-.hero { padding-top: 4.5rem; padding-bottom: 2.5rem; }
+.hero { padding-top: 6.5rem; padding-bottom: 4rem; }
 .hero h1 {
   font-size: clamp(2rem, 4.6vw, 3rem);
   line-height: 1.12;
@@ -180,19 +210,19 @@ img { max-width: 100%; display: block; }
 .btn-primary:hover { filter: brightness(1.06); }
 
 /* ---------- sections ---------- */
-section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+section { padding-top: 4.5rem; padding-bottom: 4.5rem; }
 .section-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.25rem;
   gap: 1rem;
 }
 .section-head h2 { font-size: 1.35rem; letter-spacing: -0.015em; margin: 0; font-weight: 650; }
 .section-head a { color: var(--accent); font-size: 0.9rem; font-weight: 550; }
 
 /* ---------- cards ---------- */
-.grid { display: grid; gap: 1rem; }
+.grid { display: grid; gap: 1.35rem; }
 .grid-3 { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 .grid-2 { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
 
@@ -200,7 +230,7 @@ section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.35rem 1.4rem;
+  padding: 1.7rem 1.75rem;
   box-shadow: var(--shadow-sm);
   transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
   display: flex;
@@ -230,7 +260,7 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.6rem 1.7rem;
+  padding: 2.1rem 2.2rem;
 }
 .now h2 { margin: 0 0 0.5rem; font-size: 1.06rem; font-weight: 620; letter-spacing: -0.01em; }
 .now p { margin: 0 0 1.1rem; color: var(--muted); font-size: 0.95rem; }
@@ -238,14 +268,14 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.35rem;
+  margin-top: 1.75rem;
 }
 .stat {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.1rem 1.2rem;
+  padding: 1.5rem 1.6rem;
 }
 .stat .figure {
   font-size: 1.45rem;
@@ -314,9 +344,9 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
 
 /* ---------- detail page ---------- */
 .detail-head {
-  padding: 3rem 0 1.5rem;
+  padding: 4.5rem 0 2.25rem;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 .detail-head h1 {
   font-size: clamp(1.7rem, 3.4vw, 2.3rem);
@@ -368,7 +398,7 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
 footer {
   border-top: 1px solid var(--border);
   margin-top: 3rem;
-  padding: 2rem 0;
+  padding: 3rem 0;
   color: var(--faint);
   font-size: 0.88rem;
 }
@@ -445,8 +475,8 @@ main, footer { position: relative; z-index: 1; }
 .notice {
   position: relative;
   background: color-mix(in srgb, var(--surface) var(--glass), transparent);
-  backdrop-filter: blur(14px) saturate(160%);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
   box-shadow: var(--shadow-sm), inset 0 1px 0 var(--facet);
 }
 
@@ -487,52 +517,91 @@ a.card:hover::before {
   );
 }
 
-/* ---- header morph: full-width bar at rest, glass island on scroll ---- */
-/* the resting bar carries its own glass so content never shows through it */
-.nav {
-  background: color-mix(in srgb, var(--bg) 74%, transparent);
-  backdrop-filter: blur(16px) saturate(170%);
-  -webkit-backdrop-filter: blur(16px) saturate(170%);
-  transition: top 0.34s cubic-bezier(0.4, 0, 0.2, 1),
-    background 0.34s ease, border-color 0.34s ease;
-}
-.nav-inner {
-  background: none;
-  box-shadow: none;
-  transition: background 0.34s ease, box-shadow 0.34s ease,
-    border-radius 0.34s cubic-bezier(0.4, 0, 0.2, 1), height 0.34s ease,
-    backdrop-filter 0.34s ease;
-}
-/* the prismatic edge only belongs to the island */
-.nav-inner::before { opacity: 0; transition: opacity 0.3s ease; }
+/* ---- header morph: ONE glass layer that changes its own bounds ----
+   Previously the bar and the pill each painted a background, so mid-morph
+   they composited over each other and the pill area went dark. Now a single
+   .nav::before is the only glass; it animates from full-bleed to pill. */
+.nav { background: none; border-bottom: 0; }
+.nav-inner { background: none; box-shadow: none; z-index: 1; }
 
-/* scrolled: the bar detaches, condenses and turns to glass. .nav-inner keeps
-   its container width the whole time, so nothing shifts horizontally. */
-/* scrolled: the bar's glass hands off to the pill and the bar itself
-   becomes invisible, leaving the island floating over the page. */
-.nav--stuck {
-  top: 0.85rem;
-  border-bottom-color: transparent;
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-.nav--stuck .nav-inner {
-  height: 54px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--surface) 52%, transparent);
-  backdrop-filter: blur(22px) saturate(190%);
-  -webkit-backdrop-filter: blur(22px) saturate(190%);
-  box-shadow: var(--shadow-md), inset 0 1px 0 var(--facet);
-}
-.nav--stuck .nav-inner::before { opacity: 1; }
-.nav-inner::before {
+.nav::before {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--bg) 76%, transparent);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  backdrop-filter: blur(30px) saturate(190%);
+  box-shadow: 0 1px 0 var(--border);
   pointer-events: none;
+  transition: left 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    right 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    top 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    bottom 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.34s ease, box-shadow 0.34s ease;
+}
+
+/* scrolled: the same layer pulls in to the container width and rounds off.
+   NOTE: .nav--stuck deliberately does NOT touch `top`. On a sticky element
+   `top` is the stick offset, so changing it moves the box and shows up as a
+   step/jitter at the threshold. The float is done with glass insets below. */
+.nav--stuck::before {
+  top: 10px;
+  bottom: 10px;
+  left: max(0px, calc((100% - var(--maxw)) / 2));
+  right: max(0px, calc((100% - var(--maxw)) / 2));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+  box-shadow: var(--shadow-md), inset 0 1px 0 var(--facet);
+}
+/* height stays 66px in BOTH states. Changing it shifts page height, which
+   moves scrollY, which re-crosses the threshold and makes the header flicker.
+   The pill looks shorter because the glass layer insets vertically instead. */
+/* The prismatic edge lives on .nav::after, which animates exactly the same
+   left/right/border-radius as the glass in ::before — so the border and the
+   background are one moving surface rather than two that drift apart. */
+.nav::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  border-radius: 0;
+  padding: 1px;
+  opacity: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--facet-edge) 22%,
+    var(--facet) 50%,
+    var(--facet-edge) 78%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  transition: left 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    right 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    top 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    bottom 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.34s ease;
+}
+.nav--stuck::after {
+  top: 10px;
+  bottom: 10px;
+  left: max(0px, calc((100% - var(--maxw)) / 2));
+  right: max(0px, calc((100% - var(--maxw)) / 2));
+  border-radius: 999px;
   background: linear-gradient(
     135deg,
     var(--facet) 0%,
@@ -540,16 +609,12 @@ a.card:hover::before {
     transparent 60%,
     var(--facet-edge) 100%
   );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
 }
 
 .tag {
   background: color-mix(in srgb, var(--surface-2) 70%, transparent);
-  backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 /* a single refracted edge across the top of the hero */
@@ -577,4 +642,111 @@ a.card:hover::before {
   .about-head img { width: 104px; height: 104px; }
   /* blur is expensive on mobile GPUs — drop it, keep the tint */
   .card, .now, .stat, .notice { backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+/* ---------- toolbox: one bare horizontal rail ---------- */
+.section-note { color: var(--faint); font-size: 0.88rem; }
+
+/* fade the rail out at both edges so tiles drift in and out of view */
+.rail-wrap {
+  position: relative;
+  overflow: hidden;
+  /* full-bleed: this sits outside .container so it already spans the page.
+     No 100vw trick, which would overflow by the scrollbar width. */
+  width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 1.5rem, #000 calc(100% - 1.5rem), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 1.5rem, #000 calc(100% - 1.5rem), transparent 100%);
+}
+
+/* --gap is shared by the rail and its two sets so the loop maths stays exact */
+.rail {
+  --gap: 1.6rem;
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+  padding-block: 0.5rem 1.25rem;
+  animation: rail-marquee 70s linear infinite;
+  will-change: transform;
+}
+.rail-set { display: flex; gap: var(--gap); }
+
+/* let people stop it to actually read a tile */
+.rail-wrap:hover .rail,
+.rail-wrap:focus-within .rail { animation-play-state: paused; }
+
+/* Width is 2 sets + 1 gap, so one set + one gap == 50% + half a gap.
+   Shifting by exactly that puts the duplicate where the original began. */
+@keyframes rail-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - (var(--gap) / 2))); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail { animation: none; overflow-x: auto; width: auto; scrollbar-width: thin; }
+}
+
+/* no card: just the logo plate and a label */
+.tool {
+  flex: 0 0 auto;
+  width: 82px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  scroll-snap-align: start;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.tool-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #f4f4f6;
+  border: 1px solid var(--border);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.tool:hover .tool-icon { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.tool-icon img { width: 28px; height: 28px; object-fit: contain; }
+
+.tool-mono {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #52525b;
+}
+
+.tool-name {
+  font-size: 0.74rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ---------- bento ---------- */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(0, auto);
+  gap: 1.35rem;
+}
+/* the "currently" panel anchors the grid at 2x2 */
+.bento-main { grid-column: span 2; grid-row: span 2; }
+.bento .stat { margin: 0; }
+
+@media (max-width: 900px) {
+  .bento { grid-template-columns: repeat(2, 1fr); }
+  .bento-main { grid-column: 1 / -1; grid-row: auto; }
+}
+@media (max-width: 560px) {
+  .bento { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .container { padding-left: 1.25rem; padding-right: 1.25rem; }
+  section { padding-top: 3rem; padding-bottom: 3rem; }
+  .hero { padding-top: 4rem; padding-bottom: 2.5rem; }
 }

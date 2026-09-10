@@ -1,4 +1,4 @@
-SPLASH Golf Club is a React-based golf club management system I developed that won **1st Place** out of 20+ teams at the CIMSO Hospitality ERP Hackathon 2025. The system is integrated with CIMSO's ERP and features an AI-powered multilingual, voice-enabled chatbot to automate booking workflows and enhance user experience. [image:homepage.png:The application] provides real-time tee time bookings, member management, and integrates with CIMSO ERP systems for hotel and restaurant services.
+SPLASH Golf Club is an **AI-powered booking system** for a golf club, built at the CIMSO Hospitality ERP Hackathon 2025 where it won **1st Place** out of 20+ teams. The centrepiece is a multilingual, voice-enabled assistant that does not just answer questions — it drives the booking workflow end to end, calling into CIMSO's ERP to check real tee-time availability, apply day-of-week pricing and commit the reservation. [image:homepage.png:The application] wraps that in a React front end with member management and hotel/restaurant services from the same ERP.
 
 ## Key Features
 
