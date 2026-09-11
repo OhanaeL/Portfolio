@@ -1,57 +1,59 @@
-# Contact form submissions
-contact_submissions.json
-__bak__
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-.venv/
-ENV/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-# Flask
-instance/
-.webassets-cache
+# testing
+/coverage
 
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+# next.js
+/.next/
+/out/
 
-# OS
+# production
+/build
+
+# misc
 .DS_Store
-Thumbs.db
+*.pem
 
-# Logs
-*.log
-
-# Node.js
-node_modules/
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
-yarn.lock
-.pnpm-debug.log*# Build output
-static/dist/
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# OMC plugin scratch dirs
+.omc/
+**/.omc/
+
+# Personal documents â€” must not reach the public repo
+/*.docx
+/resume.tex
+/~$*
+*.bak
+*.orig
+
+# Static build output (Vercel regenerates it)
+/build/
+
+# OMC plugin scratch dirs
+.omc/
+**/.omc/

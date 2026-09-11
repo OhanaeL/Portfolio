@@ -1,0 +1,7 @@
+# Projects shown on the site, in order.
+# Anything not listed stays on disk but is not published — add a line to bring it back.
+SPLASH Golf Club - AI Booking System
+RSU Jobfair System
+NextThai - AI Assisted Travel Planner
+Computer Vision Games - RIC Openhouse
+Phishing URL Detection Model

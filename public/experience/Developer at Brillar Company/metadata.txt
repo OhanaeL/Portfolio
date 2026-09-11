@@ -1,4 +1,0 @@
-description: Full-time Python Developer (Backend / AI) at Brillar. Own end-to-end development of AI-focused Python microservices, lead backend development for integration services, build document ingestion systems, and optimize Dockerized deployments with focus on performance and observability.
-date: May 2025 - Current
-company: Brillar
-

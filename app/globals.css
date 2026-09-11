@@ -1,0 +1,752 @@
+/* ============================================================
+   Design tokens - neutral surfaces, one violet accent.
+   Light is the default; dark follows the OS or an explicit
+   data-theme on the html element.
+   ============================================================ */
+:root {
+  --bg: #fbfbfc;
+  --surface: #ffffff;
+  --surface-2: #f4f4f6;
+  --border: #e5e5ea;
+  --text: #18181b;
+  --muted: #5f5f6a;
+  --faint: #8b8b96;
+  --accent: #6d28d9;
+  --accent-soft: rgba(109, 40, 217, 0.08);
+  --accent-line: rgba(109, 40, 217, 0.22);
+  --shadow-sm: 0 1px 2px rgba(24, 24, 27, 0.05);
+  --shadow-md: 0 4px 16px rgba(24, 24, 27, 0.08);
+  --radius: 12px;
+  --maxw: 1080px;
+  --sb-thumb: rgba(24, 24, 27, 0.20);
+  --sb-thumb-hover: rgba(109, 40, 217, 0.45);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0b0d;
+    --surface: #141417;
+    --surface-2: #1b1b1f;
+    --border: #26262c;
+    --text: #f2f2f4;
+    --muted: #a5a5b0;
+    --faint: #74747f;
+    --accent: #a78bfa;
+    --accent-soft: rgba(167, 139, 250, 0.10);
+    --accent-line: rgba(167, 139, 250, 0.28);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45);
+    --sb-thumb: rgba(255, 255, 255, 0.16);
+    --sb-thumb-hover: rgba(167, 139, 250, 0.5);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0b0d;
+  --surface: #141417;
+  --surface-2: #1b1b1f;
+  --border: #26262c;
+  --text: #f2f2f4;
+  --muted: #a5a5b0;
+  --faint: #74747f;
+  --accent: #a78bfa;
+  --accent-soft: rgba(167, 139, 250, 0.10);
+  --accent-line: rgba(167, 139, 250, 0.28);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45);
+  --sb-thumb: rgba(255, 255, 255, 0.16);
+  --sb-thumb-hover: rgba(167, 139, 250, 0.5);
+}
+
+* { box-sizing: border-box; }
+html {
+  /* NO scroll-behavior: smooth here. The App Router scrolls to top on route
+     change; an animated scroll gets interrupted by hydration and strands you
+     mid-page. Verified: smooth -> lands at 536, auto -> lands at 0. */
+  scroll-behavior: auto;
+  /* clears the sticky header when jumping to an anchor */
+  scroll-padding-top: 5rem;
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--sb-thumb) transparent;
+}
+
+/* ---------- scrollbar (Chromium / Safari) ---------- */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb);
+  border-radius: 999px;
+  /* transparent border + padding-box clip leaves breathing room round the thumb */
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sb-thumb-hover);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:active { background: var(--accent); background-clip: padding-box; }
+::-webkit-scrollbar-corner { background: transparent; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* longhand on purpose: a shorthand here wipes the vertical padding of any
+   element that is also a .container (every <section className="container">). */
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.mono { font-family: var(--font-mono), ui-monospace, monospace; }
+
+/* ---------- nav: opens as a full-width bar, condenses into a
+   floating glass island once you scroll ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+}
+/* .nav-inner is also .container, so its 1.5rem padding lines the nav text
+   up exactly with the hero and the card grid below. */
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 74px;
+  border-radius: 0;
+  position: relative;
+}
+.nav-name { font-weight: 650; letter-spacing: -0.01em; }
+.nav-links { display: flex; gap: 1.6rem; align-items: center; }
+.nav-links a {
+  color: var(--muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-weight: 550;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--text); }
+
+/* pill CTA, echoing the MagickMind header */
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--facet-edge);
+  background: color-mix(in srgb, var(--surface) 58%, transparent);
+  color: var(--text) !important;
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: border-color 0.15s, color 0.15s, transform 0.15s;
+}
+.nav-cta:hover {
+  border-color: var(--accent);
+  color: var(--accent) !important;
+  transform: translateY(-1px);
+}
+
+/* ---------- hero ---------- */
+/* vertical only — the shorthand would wipe .container's horizontal padding
+   and pull the hero 24px left of everything else on the page. */
+.hero { padding-top: 6.5rem; padding-bottom: 4rem; }
+.hero h1 {
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  max-width: 20ch;
+}
+.hero .lede { font-size: 1.12rem; color: var(--muted); max-width: 62ch; margin: 0 0 1.75rem; }
+
+.eyebrow {
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.85rem;
+  display: block;
+}
+
+.btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.93rem;
+  font-weight: 550;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+.btn:hover { border-color: var(--accent-line); transform: translateY(-1px); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+.btn-primary:hover { filter: brightness(1.06); }
+
+/* ---------- sections ---------- */
+section { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2.25rem;
+  gap: 1rem;
+}
+.section-head h2 { font-size: 1.35rem; letter-spacing: -0.015em; margin: 0; font-weight: 650; }
+.section-head a { color: var(--accent); font-size: 0.9rem; font-weight: 550; }
+
+/* ---------- cards ---------- */
+.grid { display: grid; gap: 1.35rem; }
+.grid-3 { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.grid-2 { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.7rem 1.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+}
+a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.card h3 { margin: 0; font-size: 1.02rem; font-weight: 620; letter-spacing: -0.01em; }
+.card p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.card-meta { color: var(--faint); font-size: 0.8rem; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; padding-top: 0.5rem; }
+.tag {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0.2rem 0.45rem;
+}
+
+/* ---------- now + stats ---------- */
+.now {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.1rem 2.2rem;
+}
+.now h2 { margin: 0 0 0.5rem; font-size: 1.06rem; font-weight: 620; letter-spacing: -0.01em; }
+.now p { margin: 0 0 1.1rem; color: var(--muted); font-size: 0.95rem; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1.35rem;
+  margin-top: 1.75rem;
+}
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.6rem;
+}
+.stat .figure {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  line-height: 1.15;
+}
+.stat .label { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; }
+
+/* ---------- prose ---------- */
+.prose { max-width: 72ch; }
+.prose h2 { font-size: 1.25rem; margin: 2.2rem 0 0.7rem; letter-spacing: -0.015em; font-weight: 650; }
+.prose h3 { font-size: 1.05rem; margin: 1.6rem 0 0.5rem; font-weight: 620; }
+.prose p, .prose li { color: var(--muted); }
+.prose a.xlink { color: var(--accent); border-bottom: 1px solid var(--accent-line); }
+.prose code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.87em;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.32rem;
+}
+.prose pre {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+.prose pre code { border: 0; background: none; padding: 0; }
+.prose hr { border: 0; border-top: 1px solid var(--border); margin: 2rem 0; }
+.prose blockquote {
+  margin: 1.2rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent-line);
+  color: var(--muted);
+}
+
+/* inline image reference: hover or focus reveals the figure */
+.imgref {
+  position: relative;
+  color: var(--accent);
+  border-bottom: 1px dashed var(--accent-line);
+  cursor: help;
+  outline: none;
+}
+.imgref img {
+  position: absolute;
+  left: 0;
+  top: 1.7em;
+  z-index: 40;
+  width: min(420px, 70vw);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.16s, transform 0.16s, visibility 0.16s;
+}
+.imgref:hover img,
+.imgref:focus img,
+.imgref:focus-within img { opacity: 1; visibility: visible; transform: translateY(0); }
+
+/* ---------- detail page ---------- */
+.detail-head {
+  padding: 4.5rem 0 2.25rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+.detail-head h1 {
+  font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+  letter-spacing: -0.025em;
+  margin: 0.4rem 0 0.6rem;
+  font-weight: 700;
+}
+.detail-head .sub { color: var(--muted); margin: 0 0 1.1rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; color: var(--faint); font-size: 0.87rem; }
+.back { color: var(--muted); font-size: 0.9rem; }
+.back:hover { color: var(--accent); }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.gallery img { border-radius: 10px; border: 1px solid var(--border); }
+.embed { margin: 2rem 0; }
+.embed video { width: 100%; border-radius: 10px; border: 1px solid var(--border); }
+
+.notice {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin: 1.5rem 0;
+}
+
+/* ---------- about ---------- */
+.about-head { display: flex; gap: 1.75rem; align-items: center; flex-wrap: wrap; }
+.about-head img {
+  width: 132px;
+  height: 132px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+}
+.skill { margin-bottom: 0.9rem; }
+.skill-top { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.3rem; }
+.skill-top span:last-child { color: var(--faint); font-size: 0.82rem; }
+.bar { height: 5px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+
+/* ---------- footer ---------- */
+footer {
+  border-top: 1px solid var(--border);
+  margin-top: 3rem;
+  padding: 3rem 0;
+  color: var(--faint);
+  font-size: 0.88rem;
+}
+.footer-inner { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.footer-inner a:hover { color: var(--accent); }
+
+/* ============================================================
+   Crystalline layer — prismatic ambient light, a fine film
+   grain, and frosted glass surfaces. Pure CSS, no dependency,
+   no WebGL, nothing to load.
+   ============================================================ */
+
+/* prismatic light, fixed so it reads as depth behind the page */
+body {
+  background-image:
+    radial-gradient(58rem 38rem at 10% -12%, var(--glow-a), transparent 62%),
+    radial-gradient(48rem 34rem at 96% 6%, var(--glow-b), transparent 62%),
+    radial-gradient(44rem 38rem at 46% 108%, var(--glow-c), transparent 62%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+:root {
+  --glow-a: rgba(109, 40, 217, 0.22);
+  --glow-b: rgba(79, 70, 229, 0.18);
+  --glow-c: rgba(14, 165, 233, 0.14);
+  --facet: rgba(255, 255, 255, 0.85);
+  --facet-edge: rgba(109, 40, 217, 0.28);
+  --grain: 0.6;
+  --glass: 70%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --glow-a: rgba(167, 139, 250, 0.34);
+    --glow-b: rgba(129, 140, 248, 0.26);
+    --glow-c: rgba(56, 189, 248, 0.18);
+    --facet: rgba(255, 255, 255, 0.16);
+    --facet-edge: rgba(167, 139, 250, 0.42);
+    --grain: 0.8;
+    --glass: 58%;
+  }
+}
+:root[data-theme="dark"] {
+  --glow-a: rgba(167, 139, 250, 0.34);
+  --glow-b: rgba(129, 140, 248, 0.26);
+  --glow-c: rgba(56, 189, 248, 0.18);
+  --facet: rgba(255, 255, 255, 0.16);
+  --facet-edge: rgba(167, 139, 250, 0.42);
+  --grain: 0.8;
+  --glass: 58%;
+}
+
+/* film grain — feTurbulence inlined, so no image request */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.075'/%3E%3C/svg%3E");
+}
+
+/* keep content above the grain.
+   NOTE: do not set position here on .nav — it would override
+   position:sticky and the header would scroll away. */
+main, footer { position: relative; z-index: 1; }
+
+/* frosted, faceted surfaces */
+.card,
+.now,
+.stat,
+.notice {
+  position: relative;
+  background: color-mix(in srgb, var(--surface) var(--glass), transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 var(--facet);
+}
+
+/* prismatic edge — a 1px gradient border, light catching one corner */
+.card::before,
+.now::before,
+.stat::before,
+.notice::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    var(--facet) 0%,
+    transparent 38%,
+    transparent 62%,
+    var(--facet-edge) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+a.card:hover {
+  box-shadow: var(--shadow-md), inset 0 1px 0 var(--facet);
+}
+a.card:hover::before {
+  background: linear-gradient(
+    135deg,
+    var(--facet) 0%,
+    var(--facet-edge) 45%,
+    transparent 60%,
+    var(--facet-edge) 100%
+  );
+}
+
+/* ---- header morph: ONE glass layer that changes its own bounds ----
+   Previously the bar and the pill each painted a background, so mid-morph
+   they composited over each other and the pill area went dark. Now a single
+   .nav::before is the only glass; it animates from full-bleed to pill. */
+.nav { background: none; border-bottom: 0; }
+.nav-inner { background: none; box-shadow: none; z-index: 1; }
+
+.nav::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  border-radius: 0;
+  background: color-mix(in srgb, var(--bg) 76%, transparent);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  backdrop-filter: blur(30px) saturate(190%);
+  box-shadow: 0 1px 0 var(--border);
+  pointer-events: none;
+  transition: left 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    right 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    top 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    bottom 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.34s ease, box-shadow 0.34s ease;
+}
+
+/* scrolled: the same layer pulls in to the container width and rounds off.
+   NOTE: .nav--stuck deliberately does NOT touch `top`. On a sticky element
+   `top` is the stick offset, so changing it moves the box and shows up as a
+   step/jitter at the threshold. The float is done with glass insets below. */
+.nav--stuck::before {
+  top: 10px;
+  bottom: 10px;
+  left: max(0px, calc((100% - var(--maxw)) / 2));
+  right: max(0px, calc((100% - var(--maxw)) / 2));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+  box-shadow: var(--shadow-md), inset 0 1px 0 var(--facet);
+}
+/* height stays 66px in BOTH states. Changing it shifts page height, which
+   moves scrollY, which re-crosses the threshold and makes the header flicker.
+   The pill looks shorter because the glass layer insets vertically instead. */
+/* The prismatic edge lives on .nav::after, which animates exactly the same
+   left/right/border-radius as the glass in ::before — so the border and the
+   background are one moving surface rather than two that drift apart. */
+.nav::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  border-radius: 0;
+  padding: 1px;
+  opacity: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--facet-edge) 22%,
+    var(--facet) 50%,
+    var(--facet-edge) 78%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  transition: left 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    right 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    top 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    bottom 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.34s ease;
+}
+.nav--stuck::after {
+  top: 10px;
+  bottom: 10px;
+  left: max(0px, calc((100% - var(--maxw)) / 2));
+  right: max(0px, calc((100% - var(--maxw)) / 2));
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    var(--facet) 0%,
+    transparent 40%,
+    transparent 60%,
+    var(--facet-edge) 100%
+  );
+}
+
+.tag {
+  background: color-mix(in srgb, var(--surface-2) 70%, transparent);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+/* a single refracted edge across the top of the hero */
+.hero::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 2.5rem;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 45%, transparent),
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+@media (max-width: 640px) {
+  .hero { padding-top: 3rem; padding-bottom: 2rem; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.88rem; }
+  .about-head img { width: 104px; height: 104px; }
+  /* blur is expensive on mobile GPUs — drop it, keep the tint */
+  .card, .now, .stat, .notice { backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+/* ---------- toolbox: one bare horizontal rail ---------- */
+.section-note { color: var(--faint); font-size: 0.88rem; }
+
+/* fade the rail out at both edges so tiles drift in and out of view */
+.rail-wrap {
+  position: relative;
+  overflow: hidden;
+  /* full-bleed: this sits outside .container so it already spans the page.
+     No 100vw trick, which would overflow by the scrollbar width. */
+  width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 1.5rem, #000 calc(100% - 1.5rem), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 1.5rem, #000 calc(100% - 1.5rem), transparent 100%);
+}
+
+/* --gap is shared by the rail and its two sets so the loop maths stays exact */
+.rail {
+  --gap: 1.6rem;
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+  padding-block: 0.5rem 1.25rem;
+  animation: rail-marquee 70s linear infinite;
+  will-change: transform;
+}
+.rail-set { display: flex; gap: var(--gap); }
+
+/* let people stop it to actually read a tile */
+.rail-wrap:hover .rail,
+.rail-wrap:focus-within .rail { animation-play-state: paused; }
+
+/* Width is 2 sets + 1 gap, so one set + one gap == 50% + half a gap.
+   Shifting by exactly that puts the duplicate where the original began. */
+@keyframes rail-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - (var(--gap) / 2))); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail { animation: none; overflow-x: auto; width: auto; scrollbar-width: thin; }
+}
+
+/* no card: just the logo plate and a label */
+.tool {
+  flex: 0 0 auto;
+  width: 82px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  scroll-snap-align: start;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.tool-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #f4f4f6;
+  border: 1px solid var(--border);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.tool:hover .tool-icon { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.tool-icon img { width: 28px; height: 28px; object-fit: contain; }
+
+.tool-mono {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #52525b;
+}
+
+.tool-name {
+  font-size: 0.74rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ---------- bento ---------- */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(0, auto);
+  gap: 1.35rem;
+}
+/* the "currently" panel anchors the grid at 2x2 */
+.bento-main { grid-column: span 2; grid-row: span 2; }
+.bento .stat { margin: 0; }
+
+@media (max-width: 900px) {
+  .bento { grid-template-columns: repeat(2, 1fr); }
+  .bento-main { grid-column: 1 / -1; grid-row: auto; }
+}
+@media (max-width: 560px) {
+  .bento { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .container { padding-left: 1.25rem; padding-right: 1.25rem; }
+  section { padding-top: 3rem; padding-bottom: 3rem; }
+  .hero { padding-top: 4rem; padding-bottom: 2.5rem; }
+}
