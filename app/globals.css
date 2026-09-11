@@ -222,7 +222,14 @@ main { padding-bottom: var(--block-gap); }
   margin-bottom: 2.25rem;
   gap: 1rem;
 }
-.section-head h2 { font-size: 1.35rem; letter-spacing: -0.015em; margin: 0; font-weight: 650; }
+/* section titles are set in tracked caps, echoing the LYNN wordmark */
+.section-head h2 {
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 700;
+}
 .section-head a { color: var(--accent); font-size: 0.9rem; font-weight: 550; }
 
 /* ---------- cards ---------- */
