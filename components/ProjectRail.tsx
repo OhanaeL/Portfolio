@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { str, list, type Entry } from "@/lib/content";
 
 function monogram(name: string) {
@@ -12,26 +11,25 @@ function thumb(p: Entry) {
   return pick ? `${p.mediaBase}/images/${encodeURIComponent(pick)}` : undefined;
 }
 
+/** Everything about a project lives on the card: image, name, blurb, tags, links. */
 function Card({ p, hidden }: { p: Entry; hidden?: boolean }) {
   const src = thumb(p);
   const github = str(p.meta, "github");
   const demo = str(p.meta, "demo") || str(p.meta, "website");
   const tab = hidden ? -1 : undefined;
-  const href = `/projects/${p.slug}/`;
   return (
     <article className="proj" aria-hidden={hidden || undefined}>
-      <Link className="proj-thumb" href={href} tabIndex={tab}>
+      <div className="proj-thumb">
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={src} alt="" />
         ) : (
           <span className="proj-mono">{monogram(p.name)}</span>
         )}
-      </Link>
+      </div>
       <div className="proj-body">
-        <h3 className="proj-name">
-          <Link href={href} tabIndex={tab}>{p.name}</Link>
-        </h3>
+        <h3 className="proj-name">{p.name}</h3>
+        {str(p.meta, "description") && <p className="proj-desc">{str(p.meta, "description")}</p>}
         <div className="proj-meta">
           {str(p.meta, "date") && <span className="proj-date">{str(p.meta, "date")}</span>}
           {list(p.meta, "tags")
@@ -42,21 +40,20 @@ function Card({ p, hidden }: { p: Entry; hidden?: boolean }) {
               </span>
             ))}
         </div>
-        <div className="proj-links">
-          <Link href={href} tabIndex={tab}>
-            Details <span aria-hidden="true">→</span>
-          </Link>
-          {github && (
-            <a href={github} target="_blank" rel="noopener noreferrer" tabIndex={tab}>
-              GitHub <span aria-hidden="true">↗</span>
-            </a>
-          )}
-          {demo && (
-            <a href={demo} target="_blank" rel="noopener noreferrer" tabIndex={tab}>
-              Live <span aria-hidden="true">↗</span>
-            </a>
-          )}
-        </div>
+        {(github || demo) && (
+          <div className="proj-links">
+            {github && (
+              <a href={github} target="_blank" rel="noopener noreferrer" tabIndex={tab}>
+                GitHub <span aria-hidden="true">↗</span>
+              </a>
+            )}
+            {demo && (
+              <a href={demo} target="_blank" rel="noopener noreferrer" tabIndex={tab}>
+                Live <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+        )}
       </div>
     </article>
   );

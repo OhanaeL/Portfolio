@@ -7,9 +7,9 @@ import SmoothLink from "./SmoothLink";
 
 // one page: these are anchors, in the order the sections appear
 const nav = [
-  { href: "/#experience", label: "Experience" },
-  { href: "/#projects", label: "Projects" },
-  { href: "/#about", label: "About" },
+  { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
+  { href: "#about", label: "About" },
 ];
 
 /**

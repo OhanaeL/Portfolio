@@ -665,8 +665,8 @@ a.card:hover::before {
   /* lives inside .container, so its edges line up with the bento and the
      project grid; the mask below fades the tiles out just inside them. */
   width: 100%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 1.5rem, #000 calc(100% - 1.5rem), transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 1.5rem, #000 calc(100% - 1.5rem), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 0.75rem, #000 calc(100% - 0.75rem), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 0.75rem, #000 calc(100% - 0.75rem), transparent 100%);
 }
 
 /* --gap is shared by the rail and its two sets so the loop maths stays exact */
@@ -874,7 +874,6 @@ a.card:hover::before {
 }
 .proj:hover { border-color: var(--accent-line); transform: translateY(-2px); }
 .proj-thumb {
-  display: block;
   position: relative;
   height: 180px;
   background: linear-gradient(135deg, var(--surface-2), color-mix(in srgb, var(--accent) 22%, var(--surface-2)));
@@ -890,13 +889,12 @@ a.card:hover::before {
   letter-spacing: 0.06em;
   color: var(--accent);
 }
-.proj-body { padding: 1rem 1.15rem 1.1rem; display: flex; flex-direction: column; gap: 0.55rem; }
+.proj-body { padding: 1rem 1.15rem 1.1rem; display: flex; flex-direction: column; gap: 0.55rem; flex: 1; }
 .proj-name { margin: 0; font-size: 0.98rem; font-weight: 620; letter-spacing: -0.01em; }
-.proj-name a { color: inherit; }
-.proj-name a:hover { color: var(--accent); }
+.proj-desc { margin: 0; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
 .proj-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; }
 .proj-date { color: var(--faint); font-size: 0.78rem; margin-right: 0.25rem; }
-.proj-links { display: flex; gap: 1rem; margin-top: 0.15rem; }
+.proj-links { display: flex; gap: 1rem; margin-top: auto; padding-top: 0.35rem; }
 .proj-links a {
   font-size: 0.8rem;
   font-weight: 550;
