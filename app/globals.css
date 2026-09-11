@@ -734,15 +734,65 @@ a.card:hover::before {
 }
 
 /* ---------- bento ---------- */
+/* One shell, tight gutters, tiles that stretch to fill their cells: the
+   tiles read as compartments of a single tray rather than loose cards. */
 .bento {
+  --bento-gap: 0.7rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(0, auto);
-  gap: 1.35rem;
+  grid-auto-rows: minmax(0, 1fr);
+  gap: var(--bento-gap);
+  padding: var(--bento-gap);
+  border-radius: calc(var(--radius) + var(--bento-gap));
+  position: relative;
+  background: color-mix(in srgb, var(--surface) 42%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 var(--facet);
 }
+.bento::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(135deg, var(--facet) 0%, transparent 38%, transparent 62%, var(--facet-edge) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+/* inside the tray the tiles drop their own glass and share one flat tone */
+.bento > .now,
+.bento > .stat {
+  margin: 0;
+  border-radius: var(--radius);
+  border: 0;
+  background: color-mix(in srgb, var(--surface-2) 72%, transparent);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+.bento > .now::before,
+.bento > .stat::before { background: linear-gradient(135deg, var(--facet) 0%, transparent 45%); }
 /* the "currently" panel anchors the grid at 2x2 */
 .bento-main { grid-column: span 2; grid-row: span 2; }
-.bento .stat { margin: 0; }
+.bento .stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 132px;
+  padding: 1.35rem 1.5rem;
+}
+.bento .stat .figure { font-size: 1.6rem; }
+/* one accent tile gives the tray a focal point */
+.bento .stat.stat--accent {
+  background: linear-gradient(135deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 70%, #1e1b4b) 100%);
+}
+.bento .stat.stat--accent .figure { color: #fff; }
+.bento .stat.stat--accent .label { color: color-mix(in srgb, #fff 82%, transparent); }
+.bento .stat.stat--accent::before { background: linear-gradient(135deg, rgba(255,255,255,0.45) 0%, transparent 50%); }
 
 @media (max-width: 900px) {
   .bento { grid-template-columns: repeat(2, 1fr); }
@@ -750,6 +800,7 @@ a.card:hover::before {
 }
 @media (max-width: 560px) {
   .bento { grid-template-columns: 1fr; }
+  .bento .stat { min-height: 0; }
 }
 
 @media (max-width: 640px) {
