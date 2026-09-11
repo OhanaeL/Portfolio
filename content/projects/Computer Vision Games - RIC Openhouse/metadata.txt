@@ -3,3 +3,4 @@ date: August 2025
 tags: Python, OpenCV, MediaPipe, Pygame
 
 github: https://github.com/OhanaeL/RIC-Openhouse
+thumbnail: mainmenu.png

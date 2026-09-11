@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 
+// one page: these are anchors, in the order the sections appear
 const nav = [
-  { href: "/projects/", label: "Projects" },
-  { href: "/experience/", label: "Experience" },
-  { href: "/about/", label: "About" },
+  { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
+  { href: "#about", label: "About" },
 ];
 
 /**
@@ -52,9 +53,9 @@ export default function SiteHeader() {
         </Link>
         <nav className="nav-links">
           {nav.map((item) => (
-            <Link key={item.href} href={item.href}>
+            <a key={item.href} href={item.href}>
               {item.label}
-            </Link>
+            </a>
           ))}
           <a className="nav-cta" href={`mailto:${site.email}`}>
             Get in touch <span aria-hidden="true">→</span>

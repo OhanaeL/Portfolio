@@ -1,10 +1,13 @@
-import Link from "next/link";
 import { site } from "@/lib/site";
-import { getProjects, str, list } from "@/lib/content";
+import { getProjects, getExperience } from "@/lib/content";
 import Toolbox from "@/components/Toolbox";
+import Timeline, { dated } from "@/components/Timeline";
+import ProjectRail from "@/components/ProjectRail";
+import AboutSection from "@/components/AboutSection";
 
 export default function Home() {
-  const projects = getProjects().slice(0, 3);
+  const projects = getProjects(); // filtered + ordered by featured.txt
+  const experience = getExperience();
 
   return (
     <>
@@ -15,9 +18,9 @@ export default function Home() {
         <h1>{site.headline}</h1>
         <p className="lede">{site.description}</p>
         <div className="btn-row">
-          <Link className="btn btn-primary" href="/projects/">
+          <a className="btn btn-primary" href="#projects">
             View projects
-          </Link>
+          </a>
           <a className="btn" href={site.resume} target="_blank" rel="noopener noreferrer">
             Résumé (PDF)
           </a>
@@ -27,21 +30,20 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="container">
+      <section className="container" id="now">
         <div className="bento">
-        <div className="now bento-main">
-          <span className="eyebrow">Currently</span>
-          <h2>{site.now.title}</h2>
-          <p>{site.now.body}</p>
-          <div className="tags">
-            {site.now.stack.map((t) => (
-              <span className="tag" key={t}>
-                {t}
-              </span>
-            ))}
+          <div className="now bento-main">
+            <span className="eyebrow">Currently</span>
+            <h2>{site.now.title}</h2>
+            <p>{site.now.body}</p>
+            <div className="tags">
+              {site.now.stack.map((t) => (
+                <span className="tag" key={t}>
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
-
           {site.stats.map((s) => (
             <div className="stat" key={s.figure}>
               <div className="figure">{s.figure}</div>
@@ -49,33 +51,31 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </div>
+      </section>
+
+      <section className="container" id="experience">
+        <div className="section-head">
+          <h2>Experience</h2>
+          <span className="section-note">{dated(experience).length} roles</span>
+        </div>
+        <Timeline entries={experience} />
+      </section>
 
       <Toolbox />
 
-      <section className="container">
+      <section className="container" id="projects">
         <div className="section-head">
-          <h2>Selected work</h2>
-          <Link href="/projects/">All projects →</Link>
+          <h2>Selected Projects</h2>
+          <span className="section-note">{projects.length} projects</span>
         </div>
-        <div className="grid grid-3">
-          {projects.map((p) => (
-            <Link className="card" key={p.slug} href={`/projects/${p.slug}/`}>
-              <h3>{p.name}</h3>
-              {str(p.meta, "date") && <div className="card-meta">{str(p.meta, "date")}</div>}
-              <p>{str(p.meta, "description")}</p>
-              <div className="tags">
-                {list(p.meta, "tags")
-                  .slice(0, 4)
-                  .map((t) => (
-                    <span className="tag" key={t}>
-                      {t}
-                    </span>
-                  ))}
-              </div>
-            </Link>
-          ))}
+        <ProjectRail projects={projects} />
+      </section>
+
+      <section className="container" id="about">
+        <div className="section-head">
+          <h2>About</h2>
         </div>
+        <AboutSection />
       </section>
     </>
   );

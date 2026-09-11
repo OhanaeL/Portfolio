@@ -4,3 +4,4 @@ tags: LLM, Streamlit, Python, AI
 
 github: https://github.com/OhanaeL/next-thai
 demo: https://next-thai-hackathonsubmission.streamlit.app
+thumbnail: TravelPlanner.png

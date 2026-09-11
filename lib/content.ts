@@ -199,7 +199,10 @@ export function getAbout(): About {
   }).filter((s) => s.name);
 
   const certDir = path.join(process.cwd(), "public", "media", "about", "certificates");
-  const certificates = fs.existsSync(certDir) ? fs.readdirSync(certDir).sort() : [];
+  // only the certificates themselves — the folder also carries a README and a notes file
+  const certificates = fs.existsSync(certDir)
+    ? fs.readdirSync(certDir).filter((f) => /\.(pdf|png|jpe?g|webp)$/i.test(f)).sort()
+    : [];
 
   return { info, sections, skills, certificates };
 }
