@@ -91,6 +91,7 @@ html {
 ::-webkit-scrollbar-corner { background: transparent; }
 
 body {
+  overflow-x: hidden;
   margin: 0;
   background: var(--bg);
   color: var(--text);
@@ -802,7 +803,9 @@ a.card:hover::before {
 .bento .stat .figure { font-size: 1.6rem; }
 
 @media (max-width: 900px) {
-  .bento { grid-template-columns: repeat(2, 1fr); }
+  /* rows size to content once the "currently" panel spans the full width;
+     1fr rows would stretch every stat to its height */
+  .bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
   .bento-main { grid-column: 1 / -1; grid-row: auto; }
 }
 @media (max-width: 560px) {
@@ -958,6 +961,37 @@ a.card:hover::before {
   .tl-date { grid-column: 2; order: -1; padding-top: 0; margin-bottom: 0.2rem; }
   .tl-rail { grid-row: 1 / span 2; }
   .about { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ---------- phones ---------- */
+@media (max-width: 720px) {
+  /* four items + a pill don't fit in 360px: the pill goes (email is in the
+     hero, About and the footer); the three anchors tighten up */
+  .nav-cta { display: none; }
+  .nav-inner { height: 60px; gap: 0.75rem; }
+  .nav-links { gap: 1rem; }
+  .nav-links a { font-size: 0.68rem; letter-spacing: 0.07em; }
+  .nav-name { font-size: 0.82rem; letter-spacing: 0.16em; }
+  /* the island keeps a little air from the screen edge instead of running edge to edge */
+  .nav--stuck { transform: translateY(8px); }
+  .nav--stuck::before,
+  .nav--stuck::after { left: 8px; right: 8px; top: 4px; bottom: 4px; }
+  html { scroll-padding-top: 5rem; }
+
+  .hero h1 { font-size: clamp(1.75rem, 8vw, 2.3rem); }
+  .hero .lede { font-size: 1rem; }
+  .btn-row { gap: 0.5rem; }
+
+  .now { padding: 1.5rem 1.35rem; }
+  .bento .stat { padding: 1.15rem 1.35rem; }
+  .bento .stat .figure { font-size: 1.4rem; }
+
+  .proj { width: min(300px, calc(100vw - 4rem)); }
+  .proj-thumb { height: 160px; }
+
+  .about-side { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .about-side img { width: 96px; height: 96px; }
+  .about-actions { flex-basis: 100%; }
 }
 
 @media (max-width: 640px) {
