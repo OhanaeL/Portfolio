@@ -42,8 +42,8 @@ export default function Home() {
           </div>
         </div>
 
-          {site.stats.map((s, i) => (
-            <div className={i === 0 ? "stat stat--accent" : "stat"} key={s.figure}>
+          {site.stats.map((s) => (
+            <div className="stat" key={s.figure}>
               <div className="figure">{s.figure}</div>
               <div className="label">{s.label}</div>
             </div>

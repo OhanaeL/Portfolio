@@ -11,15 +11,15 @@
   --text: #18181b;
   --muted: #5f5f6a;
   --faint: #8b8b96;
-  --accent: #6d28d9;
-  --accent-soft: rgba(109, 40, 217, 0.08);
-  --accent-line: rgba(109, 40, 217, 0.22);
+  --accent: #7011ff;
+  --accent-soft: rgba(112, 17, 255, 0.08);
+  --accent-line: rgba(112, 17, 255, 0.22);
   --shadow-sm: 0 1px 2px rgba(24, 24, 27, 0.05);
   --shadow-md: 0 4px 16px rgba(24, 24, 27, 0.08);
   --radius: 12px;
   --maxw: 1080px;
   --sb-thumb: rgba(24, 24, 27, 0.20);
-  --sb-thumb-hover: rgba(109, 40, 217, 0.45);
+  --sb-thumb-hover: rgba(112, 17, 255, 0.45);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,13 +31,13 @@
     --text: #f2f2f4;
     --muted: #a5a5b0;
     --faint: #74747f;
-    --accent: #a78bfa;
-    --accent-soft: rgba(167, 139, 250, 0.10);
-    --accent-line: rgba(167, 139, 250, 0.28);
+    --accent: #9b4dff;
+    --accent-soft: rgba(155, 77, 255, 0.10);
+    --accent-line: rgba(155, 77, 255, 0.28);
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45);
     --sb-thumb: rgba(255, 255, 255, 0.16);
-    --sb-thumb-hover: rgba(167, 139, 250, 0.5);
+    --sb-thumb-hover: rgba(155, 77, 255, 0.5);
   }
 }
 
@@ -49,13 +49,13 @@
   --text: #f2f2f4;
   --muted: #a5a5b0;
   --faint: #74747f;
-  --accent: #a78bfa;
-  --accent-soft: rgba(167, 139, 250, 0.10);
-  --accent-line: rgba(167, 139, 250, 0.28);
+  --accent: #9b4dff;
+  --accent-soft: rgba(155, 77, 255, 0.10);
+  --accent-line: rgba(155, 77, 255, 0.28);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45);
   --sb-thumb: rgba(255, 255, 255, 0.16);
-  --sb-thumb-hover: rgba(167, 139, 250, 0.5);
+  --sb-thumb-hover: rgba(155, 77, 255, 0.5);
 }
 
 * { box-sizing: border-box; }
@@ -422,32 +422,32 @@ body {
 }
 
 :root {
-  --glow-a: rgba(109, 40, 217, 0.22);
-  --glow-b: rgba(79, 70, 229, 0.18);
-  --glow-c: rgba(14, 165, 233, 0.14);
+  --glow-a: rgba(112, 17, 255, 0.22);
+  --glow-b: rgba(192, 38, 211, 0.14);
+  --glow-c: rgba(6, 182, 212, 0.14);
   --facet: rgba(255, 255, 255, 0.85);
-  --facet-edge: rgba(109, 40, 217, 0.28);
+  --facet-edge: rgba(112, 17, 255, 0.28);
   --grain: 0.6;
   --glass: 70%;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --glow-a: rgba(167, 139, 250, 0.34);
-    --glow-b: rgba(129, 140, 248, 0.26);
-    --glow-c: rgba(56, 189, 248, 0.18);
+    --glow-a: rgba(155, 77, 255, 0.34);
+    --glow-b: rgba(217, 70, 239, 0.22);
+    --glow-c: rgba(34, 211, 238, 0.20);
     --facet: rgba(255, 255, 255, 0.16);
-    --facet-edge: rgba(167, 139, 250, 0.42);
+    --facet-edge: rgba(155, 77, 255, 0.42);
     --grain: 0.8;
     --glass: 58%;
   }
 }
 :root[data-theme="dark"] {
-  --glow-a: rgba(167, 139, 250, 0.34);
-  --glow-b: rgba(129, 140, 248, 0.26);
-  --glow-c: rgba(56, 189, 248, 0.18);
+  --glow-a: rgba(155, 77, 255, 0.34);
+  --glow-b: rgba(217, 70, 239, 0.22);
+  --glow-c: rgba(34, 211, 238, 0.20);
   --facet: rgba(255, 255, 255, 0.16);
-  --facet-edge: rgba(167, 139, 250, 0.42);
+  --facet-edge: rgba(155, 77, 255, 0.42);
   --grain: 0.8;
   --glass: 58%;
 }
@@ -658,8 +658,8 @@ a.card:hover::before {
 .rail-wrap {
   position: relative;
   overflow: hidden;
-  /* full-bleed: this sits outside .container so it already spans the page.
-     No 100vw trick, which would overflow by the scrollbar width. */
+  /* lives inside .container, so its edges line up with the bento and the
+     project grid; the mask below fades the tiles out just inside them. */
   width: 100%;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 1.5rem, #000 calc(100% - 1.5rem), transparent 100%);
   mask-image: linear-gradient(90deg, transparent 0, #000 1.5rem, #000 calc(100% - 1.5rem), transparent 100%);
@@ -734,26 +734,25 @@ a.card:hover::before {
 }
 
 /* ---------- bento ---------- */
-/* One shell, tight gutters, tiles that stretch to fill their cells: the
-   tiles read as compartments of a single tray rather than loose cards. */
+/* One card, no gutters. The 1px grid gap exposes the shell's background,
+   which is the divider colour — so every seam between tiles is a hairline
+   and the tiles read as compartments of the same card. */
 .bento {
-  --bento-gap: 0.7rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(0, 1fr);
-  gap: var(--bento-gap);
-  padding: var(--bento-gap);
-  border-radius: calc(var(--radius) + var(--bento-gap));
+  gap: 1px;
+  border-radius: var(--radius);
+  overflow: hidden;
   position: relative;
-  background: color-mix(in srgb, var(--surface) 42%, transparent);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
+  background: var(--border);
   box-shadow: var(--shadow-sm), inset 0 1px 0 var(--facet);
 }
 .bento::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   border-radius: inherit;
   padding: 1px;
   pointer-events: none;
@@ -763,19 +762,19 @@ a.card:hover::before {
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
 }
-/* inside the tray the tiles drop their own glass and share one flat tone */
+/* tiles: flat, square, opaque enough that only the gaps show the divider */
 .bento > .now,
 .bento > .stat {
   margin: 0;
-  border-radius: var(--radius);
   border: 0;
-  background: color-mix(in srgb, var(--surface-2) 72%, transparent);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--surface) 96%, var(--bg));
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   box-shadow: none;
 }
 .bento > .now::before,
-.bento > .stat::before { background: linear-gradient(135deg, var(--facet) 0%, transparent 45%); }
+.bento > .stat::before { display: none; }
 /* the "currently" panel anchors the grid at 2x2 */
 .bento-main { grid-column: span 2; grid-row: span 2; }
 .bento .stat {
@@ -783,16 +782,9 @@ a.card:hover::before {
   flex-direction: column;
   justify-content: flex-end;
   min-height: 132px;
-  padding: 1.35rem 1.5rem;
+  padding: 1.35rem 1.6rem;
 }
 .bento .stat .figure { font-size: 1.6rem; }
-/* one accent tile gives the tray a focal point */
-.bento .stat.stat--accent {
-  background: linear-gradient(135deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 70%, #1e1b4b) 100%);
-}
-.bento .stat.stat--accent .figure { color: #fff; }
-.bento .stat.stat--accent .label { color: color-mix(in srgb, #fff 82%, transparent); }
-.bento .stat.stat--accent::before { background: linear-gradient(135deg, rgba(255,255,255,0.45) 0%, transparent 50%); }
 
 @media (max-width: 900px) {
   .bento { grid-template-columns: repeat(2, 1fr); }

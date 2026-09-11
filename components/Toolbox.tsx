@@ -47,15 +47,15 @@ export default function Toolbox() {
           <h2>Toolbox</h2>
           <span className="section-note">{tools.length} tools I actually work in</span>
         </div>
-      </div>
 
-      <div className="rail-wrap">
-        <div className="rail">
-          {set}
-          <div className="rail-set" aria-hidden="true">
-            {tools.map((t) => (
-              <Tile tool={t} group={t.group} key={`dup-${t.name}`} />
-            ))}
+        <div className="rail-wrap">
+          <div className="rail">
+            {set}
+            <div className="rail-set" aria-hidden="true">
+              {tools.map((t) => (
+                <Tile tool={t} group={t.group} key={`dup-${t.name}`} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
