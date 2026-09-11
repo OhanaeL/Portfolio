@@ -658,15 +658,15 @@ a.card:hover::before {
 /* ---------- toolbox: one bare horizontal rail ---------- */
 .section-note { color: var(--faint); font-size: 0.88rem; }
 
-/* fade the rail out at both edges so tiles drift in and out of view */
+/* soften the rail at both edges — a faint dip, not a full fade to black */
 .rail-wrap {
   position: relative;
   overflow: hidden;
   /* lives inside .container, so its edges line up with the bento and the
      project grid; the mask below fades the tiles out just inside them. */
   width: 100%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 0.75rem, #000 calc(100% - 0.75rem), transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 0.75rem, #000 calc(100% - 0.75rem), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0, #000 1.25rem, #000 calc(100% - 1.25rem), rgba(0, 0, 0, 0.45) 100%);
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0, #000 1.25rem, #000 calc(100% - 1.25rem), rgba(0, 0, 0, 0.45) 100%);
 }
 
 /* --gap is shared by the rail and its two sets so the loop maths stays exact */
