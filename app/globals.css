@@ -170,7 +170,7 @@ img { max-width: 100%; display: block; }
 /* ---------- hero ---------- */
 /* vertical only — the shorthand would wipe .container's horizontal padding
    and pull the hero 24px left of everything else on the page. */
-.hero { padding-top: 6.5rem; padding-bottom: 4rem; }
+.hero { padding-top: 4rem; padding-bottom: 4rem; }
 .hero h1 {
   font-size: clamp(2rem, 4.6vw, 3rem);
   line-height: 1.12;
