@@ -4,6 +4,7 @@ import Toolbox from "@/components/Toolbox";
 import Timeline, { dated } from "@/components/Timeline";
 import ProjectRail from "@/components/ProjectRail";
 import AboutSection from "@/components/AboutSection";
+import SmoothLink from "@/components/SmoothLink";
 
 export default function Home() {
   const projects = getProjects(); // filtered + ordered by featured.txt
@@ -18,9 +19,9 @@ export default function Home() {
         <h1>{site.headline}</h1>
         <p className="lede">{site.description}</p>
         <div className="btn-row">
-          <a className="btn btn-primary" href="#projects">
+          <SmoothLink className="btn btn-primary" href="#projects">
             View projects
-          </a>
+          </SmoothLink>
           <a className="btn" href={site.resume} target="_blank" rel="noopener noreferrer">
             Résumé (PDF)
           </a>

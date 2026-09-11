@@ -4,7 +4,7 @@
    data-theme on the html element.
    ============================================================ */
 :root {
-  --block-gap: 5rem;
+  --block-gap: 4rem;
   --bg: #fbfbfc;
   --surface: #ffffff;
   --surface-2: #f4f4f6;
@@ -134,7 +134,7 @@ img { max-width: 100%; display: block; }
   border-radius: 0;
   position: relative;
 }
-.nav-name { font-weight: 650; letter-spacing: -0.01em; }
+.nav-name { font-weight: 700; letter-spacing: 0.18em; font-size: 0.9rem; }
 .nav-links { display: flex; gap: 1.6rem; align-items: center; }
 .nav-links a {
   color: var(--muted);
@@ -171,7 +171,7 @@ img { max-width: 100%; display: block; }
 /* ---------- hero ---------- */
 /* vertical only — the shorthand would wipe .container's horizontal padding
    and pull the hero 24px left of everything else on the page. */
-.hero { padding-top: 4rem; padding-bottom: 0; }
+.hero { padding-top: 3rem; padding-bottom: 0; }
 .hero h1 {
   font-size: clamp(2rem, 4.6vw, 3rem);
   line-height: 1.12;
@@ -874,6 +874,7 @@ a.card:hover::before {
 }
 .proj:hover { border-color: var(--accent-line); transform: translateY(-2px); }
 .proj-thumb {
+  display: block;
   position: relative;
   height: 180px;
   background: linear-gradient(135deg, var(--surface-2), color-mix(in srgb, var(--accent) 22%, var(--surface-2)));
@@ -891,6 +892,8 @@ a.card:hover::before {
 }
 .proj-body { padding: 1rem 1.15rem 1.1rem; display: flex; flex-direction: column; gap: 0.55rem; }
 .proj-name { margin: 0; font-size: 0.98rem; font-weight: 620; letter-spacing: -0.01em; }
+.proj-name a { color: inherit; }
+.proj-name a:hover { color: var(--accent); }
 .proj-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; }
 .proj-date { color: var(--faint); font-size: 0.78rem; margin-right: 0.25rem; }
 .proj-links { display: flex; gap: 1rem; margin-top: 0.15rem; }
@@ -954,6 +957,6 @@ a.card:hover::before {
 
 @media (max-width: 640px) {
   .container { padding-left: 1.25rem; padding-right: 1.25rem; }
-  :root { --block-gap: 3.5rem; }
+  :root { --block-gap: 3rem; }
   .hero { padding-top: 3rem; }
 }

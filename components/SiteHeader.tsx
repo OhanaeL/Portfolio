@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
+import SmoothLink from "./SmoothLink";
 
 // one page: these are anchors, in the order the sections appear
 const nav = [
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#about", label: "About" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#about", label: "About" },
 ];
 
 /**
@@ -48,14 +49,14 @@ export default function SiteHeader() {
   return (
     <header className={stuck ? "nav nav--stuck" : "nav"}>
       <div className="container nav-inner">
-        <Link href="/" className="nav-name">
-          {site.name}
+        <Link href="/" className="nav-name" aria-label={site.name}>
+          LYNN
         </Link>
         <nav className="nav-links">
           {nav.map((item) => (
-            <a key={item.href} href={item.href}>
+            <SmoothLink key={item.href} href={item.href}>
               {item.label}
-            </a>
+            </SmoothLink>
           ))}
           <a className="nav-cta" href={`mailto:${site.email}`}>
             Get in touch <span aria-hidden="true">→</span>

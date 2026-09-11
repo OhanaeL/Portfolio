@@ -1,3 +1,3 @@
 Hi, I’m Htin Linn.
 
-I’m a software developer with a background in Information and Communication Technology, focused on backend and web development. I build production-ready applications using Python, FastAPI, React, and modern web technologies, and I’ve worked on real-world systems through professional roles, hackathons, and team-based projects.
+I’m a software engineer at MagickMind, working on the infrastructure that AI agents run on: the supervisor that launches each agent as an isolated, credentialed process, the reasoning service that decides what it does next, and the memory it carries between turns. That work spans Rust, Go and Python services, most of it in production, and I contribute to Mindroid, the company’s open-source Rust agent runtime.
