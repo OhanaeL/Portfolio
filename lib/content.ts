@@ -1,3 +1,4 @@
+import { asset } from "./paths";
 import fs from "node:fs";
 import path from "node:path";
 import { marked } from "marked";
@@ -74,7 +75,7 @@ function mediaFiles(section: Section, slug: string, kind: "images" | "embeds"): 
 /** Expand the two custom shortcodes, then render markdown. */
 function render(description: string, section: Section, slug: string) {
   const used = new Set<string>();
-  const base = `/media/${section}/${slug}`;
+  const base = asset(`/media/${section}/${slug}`);
 
   let out = description.replace(/\[image:([^\]]+)\]/g, (_m, body: string) => {
     const [file, ...rest] = String(body).split(":");
@@ -137,7 +138,7 @@ export function getSection(section: Section): Entry[] {
       html,
       gallery: images.filter((f) => !used.has(f)),
       embeds: mediaFiles(section, slug, "embeds"),
-      mediaBase: `/media/${section}/${slug}`,
+      mediaBase: asset(`/media/${section}/${slug}`),
     } satisfies Entry;
   });
 

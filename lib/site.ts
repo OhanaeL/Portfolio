@@ -1,3 +1,5 @@
+import { asset } from "./paths";
+
 export const site = {
   name: "Htin Linn",
   role: "Software Engineer",
@@ -26,5 +28,5 @@ export const site = {
     { figure: "1st place", label: "CIMSO Hospitality ERP Hackathon, 2025" },
   ],
 
-  resume: "/media/about/resume.pdf",
+  resume: asset("/media/about/resume.pdf"),
 } as const;

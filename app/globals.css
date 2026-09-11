@@ -65,7 +65,7 @@ html {
      mid-page. Verified: smooth -> lands at 536, auto -> lands at 0. */
   scroll-behavior: auto;
   /* clears the sticky header when jumping to an anchor */
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6rem;
   /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: var(--sb-thumb) transparent;
@@ -549,10 +549,17 @@ a.card:hover::before {
 /* scrolled: the same layer pulls in to the container width and rounds off.
    NOTE: .nav--stuck deliberately does NOT touch `top`. On a sticky element
    `top` is the stick offset, so changing it moves the box and shows up as a
-   step/jitter at the threshold. The float is done with glass insets below. */
+   step/jitter at the threshold. The drop is done with a transform instead:
+   it moves the painted box without touching layout or scrollY, so the
+   whole header (text + glass) slides down ~12px as the island forms. */
+.nav {
+  transition: transform 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.nav--stuck { transform: translateY(12px); }
 .nav--stuck::before {
-  top: 10px;
-  bottom: 10px;
+  top: 6px;
+  bottom: 6px;
   left: max(0px, calc((100% - var(--maxw)) / 2));
   right: max(0px, calc((100% - var(--maxw)) / 2));
   border-radius: 999px;
@@ -597,8 +604,8 @@ a.card:hover::before {
     background 0.34s ease;
 }
 .nav--stuck::after {
-  top: 10px;
-  bottom: 10px;
+  top: 6px;
+  bottom: 6px;
   left: max(0px, calc((100% - var(--maxw)) / 2));
   right: max(0px, calc((100% - var(--maxw)) / 2));
   border-radius: 999px;

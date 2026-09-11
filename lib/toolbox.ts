@@ -1,3 +1,5 @@
+import { asset } from "./paths";
+
 /**
  * The stacks I actually work in, grouped by what they're for.
  * `icon` is a devicon slug; `path` overrides the default -original variant.
@@ -18,10 +20,10 @@ export interface ToolGroup {
 
 // Icons are vendored into public/icons so the site has no external requests.
 // `path` from dev(slug, variant) is kept for provenance; the served file is local.
-const dev = (slug: string, _variant = "original") => `/icons/${slug}.svg`;
+const dev = (slug: string, _variant = "original") => asset(`/icons/${slug}.svg`);
 
 export const iconUrl = (t: Tool) =>
-  t.path ? t.path : t.icon ? `/icons/${t.icon}.svg` : undefined;
+  t.path ? t.path : t.icon ? asset(`/icons/${t.icon}.svg`) : undefined;
 
 export const toolbox: ToolGroup[] = [
   {

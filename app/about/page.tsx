@@ -1,3 +1,4 @@
+import { asset } from "@/lib/paths";
 import type { Metadata } from "next";
 import { getAbout, str } from "@/lib/content";
 import { site } from "@/lib/site";
@@ -16,7 +17,7 @@ export default function AboutPage() {
       <div className="detail-head">
         <span className="eyebrow">About</span>
         <div className="about-head">
-          <img src="/media/about/profile.png" alt={site.name} width={132} height={132} />
+          <img src={asset("/media/about/profile.png")} alt={site.name} width={132} height={132} />
           <div>
             <h1 style={{ margin: "0 0 .4rem" }}>{str(about.info, "name") || site.name}</h1>
             <p className="sub" style={{ margin: 0 }}>
@@ -76,7 +77,7 @@ export default function AboutPage() {
               <a
                 className="card"
                 key={c}
-                href={`/media/about/certificates/${encodeURIComponent(c)}`}
+                href={asset(`/media/about/certificates/${encodeURIComponent(c)}`)}
                 target="_blank"
                 rel="noopener noreferrer"
               >
