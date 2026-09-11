@@ -25,16 +25,13 @@ export default function Home() {
           <a className="btn" href={site.resume} target="_blank" rel="noopener noreferrer">
             Résumé (PDF)
           </a>
-          <a className="btn" href={`mailto:${site.email}`}>
-            Get in touch
-          </a>
         </div>
       </div>
 
-      <section className="container" id="now">
+      <section className="container reveal" id="now">
         <div className="bento">
           <div className="now bento-main">
-            <span className="eyebrow">Currently</span>
+            <span className="now-label">Currently</span>
             <h2>{site.now.title}</h2>
             <p>{site.now.body}</p>
             <div className="tags">
@@ -54,7 +51,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="container" id="experience">
+      <section className="container reveal" id="experience">
         <div className="section-head">
           <h2>Experience</h2>
           <span className="section-note">{dated(experience).length} roles</span>
@@ -64,7 +61,7 @@ export default function Home() {
 
       <Toolbox />
 
-      <section className="container" id="projects">
+      <section className="container reveal" id="projects">
         <div className="section-head">
           <h2>Selected Projects</h2>
           <span className="section-note">{projects.length} projects</span>
@@ -72,7 +69,7 @@ export default function Home() {
         <ProjectRail projects={projects} />
       </section>
 
-      <section className="container" id="about">
+      <section className="container reveal" id="about">
         <div className="section-head">
           <h2>About</h2>
         </div>

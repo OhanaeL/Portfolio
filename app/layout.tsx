@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
+import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
 
-const sans = Inter({
+const sans = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
+const mono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
@@ -19,12 +20,12 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.role}`,
-    template: `%s — ${site.name}`,
+    default: `${site.name}, ${site.role}`,
+    template: `%s | ${site.name}`,
   },
   description: site.description,
   openGraph: {
-    title: `${site.name} — ${site.role}`,
+    title: `${site.name}, ${site.role}`,
     description: site.description,
     type: "website",
     url: site.url,
@@ -35,28 +36,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
+        <a className="skip" href="#main">
+          Skip to content
+        </a>
         <SiteHeader />
 
-        <main>{children}</main>
+        <main id="main">{children}</main>
 
         <footer>
           <div className="container footer-inner">
             <span>
               © {new Date().getFullYear()} {site.name}
             </span>
-            <span>
+            <nav className="footer-links" aria-label="Contact">
               <a href={`mailto:${site.email}`}>Email</a>
-              {" · "}
               <a href={site.github} target="_blank" rel="noopener noreferrer">
                 GitHub
               </a>
-              {" · "}
               <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
                 LinkedIn
               </a>
-            </span>
+            </nav>
           </div>
         </footer>
+        <Reveal />
       </body>
     </html>
   );

@@ -11,7 +11,7 @@ function monogram(name: string) {
 function Tile({ tool, group }: { tool: Tool; group: string }) {
   const src = iconUrl(tool);
   return (
-    <div className="tool" title={`${tool.name} — ${group}`}>
+    <div className="tool" title={`${tool.name} (${group})`}>
       <div className="tool-icon">
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -41,7 +41,7 @@ export default function Toolbox() {
   );
 
   return (
-    <section id="toolbox">
+    <section id="toolbox" className="reveal">
       <div className="container">
         <div className="section-head">
           <h2>Toolbox</h2>

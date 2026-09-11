@@ -8,7 +8,7 @@ export const site = {
   github: "https://github.com/OhanaeL",
   linkedin: "https://www.linkedin.com/in/htin-linn-b599711a1/",
   // Update this once the Vercel domain is assigned.
-  url: "https://htinlinn.vercel.app",
+  url: "https://ohanael.github.io/Portfolio",
 
   headline: "I build the systems AI agents run on.",
   description:

@@ -17,8 +17,8 @@ export const dated = (entries: Entry[]) =>
 
 const MONTH = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]+/g;
 
-/** "August 2024 - December 2025" -> "Aug 2024 – Dec 2025", so the column stays one line. */
-const compact = (d: string) => d.replace(MONTH, "$1").replace(/\s+-\s+/g, " – ");
+/** "August 2024 - December 2025" -> "Aug 2024 - Dec 2025", so the column stays one line. */
+const compact = (d: string) => d.replace(MONTH, "$1");
 
 /** Condensed, linear: date on the left, one dot per role, one-paragraph summary. */
 export default function Timeline({ entries }: { entries: Entry[] }) {
