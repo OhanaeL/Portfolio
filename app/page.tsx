@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="container hero">
+      <div className="container hero spot" data-spot="after">
         <div className="hero-copy">
           <span className="eyebrow">
             {site.role} · {site.location}
@@ -39,7 +39,7 @@ export default function Home() {
         </dl>
       </div>
 
-      <section className="container reveal" id="experience">
+      <section className="container reveal spot" id="experience" data-spot="after">
         <div className="section-head">
           <h2>Experience</h2>
           <span className="section-note">{dated(experience).length} roles</span>
@@ -49,7 +49,7 @@ export default function Home() {
 
       <Toolbox />
 
-      <section className="container reveal" id="projects">
+      <section className="container reveal spot" id="projects" data-spot="after">
         <div className="section-head">
           <h2>Selected Projects</h2>
           <span className="section-note">{projects.length} projects</span>
@@ -57,7 +57,7 @@ export default function Home() {
         <ProjectRail projects={projects} />
       </section>
 
-      <section className="container reveal" id="about">
+      <section className="container reveal spot" id="about" data-spot="after">
         <div className="section-head">
           <h2>About</h2>
         </div>

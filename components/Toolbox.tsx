@@ -41,7 +41,7 @@ export default function Toolbox() {
   );
 
   return (
-    <section id="toolbox" className="reveal">
+    <section id="toolbox" className="reveal spot" data-spot="after">
       <div className="container">
         <div className="section-head">
           <h2>Toolbox</h2>

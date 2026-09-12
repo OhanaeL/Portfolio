@@ -50,7 +50,7 @@ export default function Timeline({ entries }: { entries: Entry[] }) {
         return (
           <li className={current ? "tl-item tl-item--current" : "tl-item"} key={e.slug}>
             <span className="tl-date">{compact(date)}</span>
-            <span className="tl-rail" aria-hidden="true">
+            <span className="tl-rail spot" aria-hidden="true">
               <i className="tl-dot" />
             </span>
             <div className="tl-body">

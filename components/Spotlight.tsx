@@ -38,8 +38,14 @@ export default function Spotlight() {
         // the ring pseudo may be inset from the element box: subtract its offset
         const pseudo = el.dataset.spot === "after" ? "::after" : "::before";
         const cs = getComputedStyle(el, pseudo);
+        // static pseudos report "auto"; bottom-anchored lines need the offset derived
         const ox = parseFloat(cs.left) || 0;
-        const oy = parseFloat(cs.top) || 0;
+        const oy =
+          cs.top !== "auto"
+            ? parseFloat(cs.top) || 0
+            : cs.bottom !== "auto"
+              ? r.height - (parseFloat(cs.height) || 0) - (parseFloat(cs.bottom) || 0)
+              : 0;
         el.style.setProperty("--x", `${px - r.left - ox}px`);
         el.style.setProperty("--y", `${py - r.top - oy}px`);
         el.dataset.lit = "1";

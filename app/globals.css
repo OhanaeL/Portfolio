@@ -176,19 +176,20 @@ img { max-width: 100%; display: block; }
    Copy and stats centre in the 1fr row; the hairline sits in the auto row
    at the bottom, so the next section always starts just below the fold. */
 .hero {
+  position: relative;
   --nav-h: 74px;
   min-height: calc(100dvh - var(--nav-h));
   padding-top: 1rem;
   padding-bottom: 0;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 1fr;
   gap: 0 4rem;
   align-items: center;
 }
 .hero-copy { min-width: 0; }
 /* the hairline spans both columns */
-.hero::after { grid-column: 1 / -1; margin-top: 0; align-self: end; }
+.hero::after { position: absolute; left: 2rem; right: 2rem; bottom: 0; }
 /* stats in the hero: same tray, 2x2, figures read top-down under their label */
 .bento.bento--stats { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; margin: 0; }
 .bento.bento--stats .stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 0.35rem; min-height: 120px; }
@@ -236,23 +237,25 @@ img { max-width: 100%; display: block; }
 /* ---------- sections ---------- */
 /* Rhythm: each block owns the gap ABOVE it and nothing below, so the space
    between any two consecutive blocks is always exactly --block-gap. */
-section { padding-top: calc(var(--block-gap) * 0.6); padding-bottom: 0; }
+section { position: relative; padding-top: calc(var(--block-gap) * 0.6); padding-bottom: calc(var(--block-gap) * 0.6); }
 main { padding-bottom: var(--block-gap); }
 /* every section closes with the same hairline the hero ends on; the last one
    hands over to the footer's own border instead */
 main > section::after {
   content: "";
-  display: block;
+  position: absolute;
+  left: 2rem;
+  right: 2rem;
+  bottom: 0;
   height: 1px;
   background: var(--border);
-  margin-top: calc(var(--block-gap) * 0.6);
+  pointer-events: none;
 }
 main > section:last-of-type::after { display: none; }
 /* the toolbox section is full-bleed for its rail, so its line takes container width by hand */
 #toolbox::after {
-  width: min(calc(100% - 4rem), calc(var(--maxw) - 4rem));
-  margin-left: auto;
-  margin-right: auto;
+  left: max(2rem, calc((100% - var(--maxw)) / 2 + 2rem));
+  right: max(2rem, calc((100% - var(--maxw)) / 2 + 2rem));
 }
 .section-head {
   display: flex;
@@ -643,10 +646,9 @@ a.card:hover::before { background: var(--accent-line); }
 /* a single refracted edge across the top of the hero */
 .hero::after {
   content: "";
-  display: block;
   height: 1px;
-  margin-top: 2.5rem;
   background: var(--border);
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -959,8 +961,18 @@ a.card:hover::before { background: var(--accent-line); }
   grid-template-columns: 9rem 1fr;
   gap: 1rem;
   padding: 0.7rem 0;
-  border-bottom: 1px solid var(--border);
+  position: relative;
   font-size: 0.92rem;
+}
+.fact::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+  pointer-events: none;
 }
 .fact dt { color: var(--faint); }
 .fact dd { margin: 0; color: var(--text); }
@@ -1050,9 +1062,8 @@ a.card:hover::before { background: var(--accent-line); }
 
 @media (max-width: 960px) {
   /* stacked: copy takes the flexible row, stats sit under it, hairline last */
-  .hero { grid-template-columns: 1fr; grid-template-rows: 1fr auto auto; row-gap: 2rem; }
+  .hero { grid-template-columns: 1fr; grid-template-rows: 1fr auto; row-gap: 2rem; padding-bottom: 2rem; }
   .hero-copy { align-self: center; }
-  .hero::after { margin-top: 1rem; }
 }
 @media (max-width: 480px) {
   .bento.bento--stats .stat { min-height: 0; padding: 1rem 1.1rem; }
@@ -1065,9 +1076,15 @@ a.card:hover::before { background: var(--accent-line); }
    only ever appears on the edge. Without --x/--y (touch, or far away) the
    gradient sits off-canvas and the ring is just the border colour. */
 :root { --spot-r: 200px; }
+/* the tray's own background shows through its 1px gaps as the dividers */
+.spot.bento,
 .spot.bento::before,
 .spot.proj::before,
-.spot.nav::after {
+.spot.nav::after,
+main > section.spot::after,
+.hero.spot::after,
+.tl-rail.spot::before,
+.fact.spot::before {
   background:
     radial-gradient(
       var(--spot-r) circle at var(--x, -9999px) var(--y, -9999px),
@@ -1123,7 +1140,8 @@ a.card:hover::before { background: var(--accent-line); }
 
 @media (max-width: 640px) {
   .container { padding-left: 1.25rem; padding-right: 1.25rem; }
-  #toolbox::after { width: calc(100% - 2.5rem); }
+  main > section::after, .hero::after { left: 1.25rem; right: 1.25rem; }
+  #toolbox::after { left: 1.25rem; right: 1.25rem; }
   .section-head h2 { font-size: 1.2rem; }
   :root { --block-gap: 3rem; }
   .hero { padding-top: 1.5rem; }

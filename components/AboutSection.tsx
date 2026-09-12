@@ -43,7 +43,7 @@ export default function AboutSection() {
 
         <dl className="facts">
           {site.facts.map(([k, v]) => (
-            <div className="fact" key={k}>
+            <div className="fact spot" key={k}>
               <dt>{k}</dt>
               <dd>{v}</dd>
             </div>
