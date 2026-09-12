@@ -1100,10 +1100,6 @@ a.card:hover::before { background: var(--accent-line); }
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
 }
-/* my layer: lifted a little, accent label, the ring a shade brighter */
-.stack-layer--mine { background: color-mix(in srgb, var(--surface-2) 92%, var(--bg)); }
-.stack-layer--mine::before { background: color-mix(in srgb, var(--border) 40%, var(--faint)); }
-.stack-layer--mine .stack-label { color: var(--accent); }
 .stack-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.7rem; }
 .stack-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--text); }
 .stack-note { font-size: 0.66rem; color: var(--faint); letter-spacing: 0.02em; }
@@ -1116,7 +1112,6 @@ a.card:hover::before { background: var(--accent-line); }
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--surface) 70%, transparent);
 }
-.stack-layer--mine .stack-items li { color: var(--text); }
 
 /* between layers: three short wires with packets, and the verb */
 .stack-link {
@@ -1155,6 +1150,14 @@ a.card:hover::before { background: var(--accent-line); }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--faint);
+}
+.stack-cap {
+  margin: 0.9rem 0 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  text-align: right;
 }
 @media (prefers-reduced-motion: reduce) { .stack-wire i { animation: none; opacity: 0; } }
 @media (max-width: 480px) {

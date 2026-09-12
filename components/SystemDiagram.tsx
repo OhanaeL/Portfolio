@@ -1,42 +1,43 @@
 /**
- * The headline, drawn: AI agents sit on top of the runtime I build, which sits
- * on models and infrastructure. Three layers, the middle one is mine.
- * HTML only, so the spotlight lights its rings and connectors like the rest
- * of the page; the packets on the connectors show traffic moving through.
+ * A cross-section of what I ship, top to bottom: interfaces, the services
+ * behind them (including the agent runtime), and the data and infra that keep
+ * them running. All three layers are mine; the caption says so. HTML only,
+ * so the spotlight lights its rings and wires like the rest of the page.
  */
-type Layer = { key: string; label: string; note: string; items: readonly string[]; mine?: boolean };
+type Layer = { key: string; label: string; note: string; items: readonly string[] };
 
 const LAYERS: readonly Layer[] = [
   {
-    key: "agents",
-    label: "AI agents",
-    note: "what people use",
-    items: ["support agent", "sales agent", "research agent", "coding agent"],
+    key: "ui",
+    label: "Interfaces",
+    note: "what users see",
+    items: ["React", "Next.js", "TypeScript", "dashboards"],
   },
   {
-    key: "runtime",
-    label: "Agent runtime",
-    note: "what I build",
-    items: ["supervisor", "reasoning service", "memory", "tool calling"],
-    mine: true,
+    key: "services",
+    label: "Services",
+    note: "where the logic lives",
+    items: ["Go & Rust services", "FastAPI", "agent runtime", "integrations"],
   },
   {
-    key: "infra",
-    label: "Models & infra",
-    note: "what it runs on",
-    items: ["LLM APIs", "Postgres", "Redis", "Docker"],
+    key: "data",
+    label: "Data & infra",
+    note: "what keeps it running",
+    items: ["Postgres", "Redis", "Docker", "Grafana / OTel"],
   },
 ];
+
+const VERBS = ["calls", "reads / writes"];
 
 export default function SystemDiagram() {
   return (
     <figure
       className="stack"
-      aria-label="Three layers: AI agents on top, the agent runtime I build in the middle, models and infrastructure underneath."
+      aria-label="Three layers I work across: interfaces, services including the agent runtime, and data and infrastructure."
     >
       {LAYERS.map((layer, i) => (
         <div key={layer.key} className="stack-row">
-          <div className={layer.mine ? "stack-layer stack-layer--mine spot" : "stack-layer spot"}>
+          <div className="stack-layer spot">
             <div className="stack-head">
               <span className="stack-label">{layer.label}</span>
               <span className="stack-note">{layer.note}</span>
@@ -54,11 +55,12 @@ export default function SystemDiagram() {
                   <i style={{ animationDelay: `${i * 1.1 + n * 0.45}s` }} />
                 </span>
               ))}
-              <span className="stack-verb">{i === 0 ? "runs on" : "built on"}</span>
+              <span className="stack-verb">{VERBS[i]}</span>
             </div>
           )}
         </div>
       ))}
+      <figcaption className="stack-cap">I work across all three layers, end to end.</figcaption>
     </figure>
   );
 }
