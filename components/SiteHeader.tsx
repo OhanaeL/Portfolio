@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 import SmoothLink from "./SmoothLink";
+import { OPEN_EVENT } from "./CommandMenu";
 
 // one page: these are anchors, in the order the sections appear
 const nav = [
@@ -19,6 +20,7 @@ const nav = [
  */
 export default function SiteHeader() {
   const [stuck, setStuck] = useState(false);
+  const [mac, setMac] = useState(true);
 
   useEffect(() => {
     // Hysteresis: engage at 56px, release at 16px. A single threshold lets the
@@ -39,6 +41,7 @@ export default function SiteHeader() {
     };
 
     read();
+    setMac(/Mac|iPhone|iPad/.test(navigator.platform));
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -58,6 +61,15 @@ export default function SiteHeader() {
               {item.label}
             </SmoothLink>
           ))}
+          <button
+            type="button"
+            className="nav-kbd"
+            aria-label="Open command menu"
+            onClick={() => window.dispatchEvent(new Event(OPEN_EVENT))}
+          >
+            <kbd>{mac ? "⌘" : "ctrl"}</kbd>
+            <kbd>K</kbd>
+          </button>
           <a className="nav-cta" href={`mailto:${site.email}`}>
             Get in touch <span aria-hidden="true">→</span>
           </a>
