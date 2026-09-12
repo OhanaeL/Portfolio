@@ -12,13 +12,12 @@ function thumb(p: Entry) {
 }
 
 /** Everything about a project lives on the card: image, name, blurb, tags, links. */
-function Card({ p, hidden }: { p: Entry; hidden?: boolean }) {
+function Card({ p }: { p: Entry }) {
   const src = thumb(p);
   const github = str(p.meta, "github");
   const demo = str(p.meta, "demo") || str(p.meta, "website");
-  const tab = hidden ? -1 : undefined;
   return (
-    <article className="proj spot" aria-hidden={hidden || undefined}>
+    <article className="proj spot">
       <div className="proj-thumb">
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -43,12 +42,12 @@ function Card({ p, hidden }: { p: Entry; hidden?: boolean }) {
         {(github || demo) && (
           <div className="proj-links">
             {github && (
-              <a href={github} target="_blank" rel="noopener noreferrer" tabIndex={tab}>
+              <a href={github} target="_blank" rel="noopener noreferrer">
                 GitHub <span aria-hidden="true">↗</span>
               </a>
             )}
             {demo && (
-              <a href={demo} target="_blank" rel="noopener noreferrer" tabIndex={tab}>
+              <a href={demo} target="_blank" rel="noopener noreferrer">
                 Live <span aria-hidden="true">↗</span>
               </a>
             )}
@@ -59,21 +58,14 @@ function Card({ p, hidden }: { p: Entry; hidden?: boolean }) {
   );
 }
 
-/** Marquee of project cards, drifting right to left. */
+/** A hand-scrolled row of project cards that snaps card to card. */
 export default function ProjectRail({ projects }: { projects: Entry[] }) {
   return (
     <div className="rail-wrap">
       <div className="rail rail--projects">
-        <div className="rail-set">
-          {projects.map((p) => (
-            <Card p={p} key={p.slug} />
-          ))}
-        </div>
-        <div className="rail-set">
-          {projects.map((p) => (
-            <Card p={p} hidden key={`dup-${p.slug}`} />
-          ))}
-        </div>
+        {projects.map((p) => (
+          <Card p={p} key={p.slug} />
+        ))}
       </div>
     </div>
   );

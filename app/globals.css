@@ -3,60 +3,62 @@
    Light is the default; dark follows the OS or an explicit
    data-theme on the html element.
    ============================================================ */
+/* Palette: ink black, prussian blue, dusk blue, dusty denim, alabaster grey.
+   Dark mode is the default read; light mode inverts on the same five. */
 :root {
   --block-gap: 4rem;
-  --bg: #fbfbfc;
-  --surface: #ffffff;
-  --surface-2: #f4f4f6;
-  --border: #e5e5ea;
-  --text: #18181b;
-  --muted: #5f5f6a;
-  --faint: #8b8b96;
-  --accent: #2f5fd0;
-  --accent-soft: rgba(47, 95, 208, 0.08);
-  --accent-line: rgba(47, 95, 208, 0.22);
-  --shadow-sm: 0 1px 2px rgba(30, 40, 70, 0.06);
-  --shadow-md: 0 6px 20px rgba(30, 40, 70, 0.10);
+  --bg: #e0e1dd;
+  --surface: #eaebe7;
+  --surface-2: #d5d7d2;
+  --border: #c4c8c3;
+  --text: #0d1b2a;
+  --muted: #415a77;
+  --faint: #778da9;
+  --accent: #415a77;
+  --accent-soft: rgba(65, 90, 119, 0.10);
+  --accent-line: rgba(65, 90, 119, 0.30);
+  --shadow-sm: 0 1px 2px rgba(13, 27, 42, 0.08);
+  --shadow-md: 0 6px 20px rgba(13, 27, 42, 0.14);
   --radius: 12px;
   --maxw: 1240px;
-  --sb-thumb: rgba(24, 24, 27, 0.20);
-  --sb-thumb-hover: rgba(47, 95, 208, 0.45);
+  --sb-thumb: rgba(13, 27, 42, 0.22);
+  --sb-thumb-hover: rgba(65, 90, 119, 0.55);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0b0b0d;
-    --surface: #141417;
-    --surface-2: #1b1b1f;
-    --border: #26262c;
-    --text: #f2f2f4;
-    --muted: #a5a5b0;
-    --faint: #74747f;
-    --accent: #5f8fe8;
-    --accent-soft: rgba(95, 143, 232, 0.10);
-    --accent-line: rgba(95, 143, 232, 0.28);
-    --shadow-sm: 0 1px 2px rgba(6, 10, 24, 0.5);
-    --shadow-md: 0 8px 28px rgba(6, 10, 24, 0.5);
-    --sb-thumb: rgba(255, 255, 255, 0.16);
-    --sb-thumb-hover: rgba(95, 143, 232, 0.5);
+    --bg: #0d1b2a;
+    --surface: #1b263b;
+    --surface-2: #243247;
+    --border: #2e3f5b;
+    --text: #e0e1dd;
+    --muted: #b8c1cf;
+    --faint: #778da9;
+    --accent: #778da9;
+    --accent-soft: rgba(119, 141, 169, 0.12);
+    --accent-line: rgba(119, 141, 169, 0.36);
+    --shadow-sm: 0 1px 2px rgba(5, 12, 22, 0.5);
+    --shadow-md: 0 8px 28px rgba(5, 12, 22, 0.5);
+    --sb-thumb: rgba(224, 225, 221, 0.16);
+    --sb-thumb-hover: rgba(119, 141, 169, 0.6);
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0b0b0d;
-  --surface: #141417;
-  --surface-2: #1b1b1f;
-  --border: #26262c;
-  --text: #f2f2f4;
-  --muted: #a5a5b0;
-  --faint: #74747f;
-  --accent: #5f8fe8;
-  --accent-soft: rgba(95, 143, 232, 0.10);
-  --accent-line: rgba(95, 143, 232, 0.28);
-  --shadow-sm: 0 1px 2px rgba(6, 10, 24, 0.5);
-  --shadow-md: 0 8px 28px rgba(6, 10, 24, 0.5);
-  --sb-thumb: rgba(255, 255, 255, 0.16);
-  --sb-thumb-hover: rgba(95, 143, 232, 0.5);
+  --bg: #0d1b2a;
+  --surface: #1b263b;
+  --surface-2: #243247;
+  --border: #2e3f5b;
+  --text: #e0e1dd;
+  --muted: #b8c1cf;
+  --faint: #778da9;
+  --accent: #778da9;
+  --accent-soft: rgba(119, 141, 169, 0.12);
+  --accent-line: rgba(119, 141, 169, 0.36);
+  --shadow-sm: 0 1px 2px rgba(5, 12, 22, 0.5);
+  --shadow-md: 0 8px 28px rgba(5, 12, 22, 0.5);
+  --sb-thumb: rgba(224, 225, 221, 0.16);
+  --sb-thumb-hover: rgba(119, 141, 169, 0.6);
 }
 
 * { box-sizing: border-box; }
@@ -233,7 +235,7 @@ img { max-width: 100%; display: block; }
   transition: border-color 0.15s, background 0.15s, transform 0.15s;
 }
 .btn:hover { border-color: var(--accent-line); transform: translateY(-1px); }
-.btn-primary { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
 .btn-primary:hover { filter: brightness(1.06); }
 
 /* ---------- sections ---------- */
@@ -684,8 +686,19 @@ a.card:hover::before { background: var(--accent-line); }
 }
 .rail-set { display: flex; gap: var(--gap); }
 
-.rail--reverse { animation-direction: reverse; }
-.rail--projects { --gap: 1.35rem; --dur: 60s; }
+/* projects: a hand-scrolled row that snaps card to card, no marquee */
+.rail--projects {
+  --gap: 1.35rem;
+  animation: none;
+  width: auto;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding-left: 0.25rem;
+  scrollbar-width: none;
+  padding-bottom: 0.5rem;
+}
+.rail--projects::-webkit-scrollbar { display: none; }
+.rail--projects .proj { scroll-snap-align: start; }
 
 /* let people stop it to actually read a tile */
 .rail-wrap:hover .rail,
@@ -1022,7 +1035,7 @@ a.card:hover::before { background: var(--accent-line); }
   padding: 0.6rem 0.9rem;
   border-radius: 8px;
   background: var(--accent);
-  color: #fff;
+  color: var(--bg);
   font-weight: 600;
 }
 .skip:focus { top: 0.75rem; }
