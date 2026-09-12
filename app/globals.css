@@ -1112,43 +1112,22 @@ a.card:hover::before { background: var(--accent-line); }
   background: color-mix(in srgb, var(--surface) 70%, transparent);
 }
 
-/* between layers: three short wires with packets, and the verb */
-.stack-link {
-  position: relative;
-  height: 2.6rem;
-  display: flex;
-  justify-content: center;
-  gap: 4rem;
-}
-.stack-wire { position: relative; width: 1px; height: 100%; }
-.stack-wire::before { content: ""; position: absolute; inset: 0; background: var(--border); }
-.stack-wire i {
+/* between layers: one hairline arrow, lit by the spotlight like every other line */
+.stack-link { position: relative; height: 2.4rem; display: flex; justify-content: center; }
+.stack-arrow { position: relative; width: 1px; height: 100%; }
+.stack-arrow::before { content: ""; position: absolute; inset: 0; background: var(--border); }
+/* arrowhead: a small rotated square, its two visible edges drawn in the border colour */
+.stack-arrow::after {
+  content: "";
   position: absolute;
   left: 50%;
-  top: 0;
-  width: 5px;
-  height: 5px;
-  margin-left: -2.5px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: stack-flow 3.6s cubic-bezier(0.32, 0.72, 0, 1) infinite;
-}
-@keyframes stack-flow {
-  0%   { top: 0; opacity: 0; }
-  8%   { opacity: 1; }
-  40%  { top: calc(100% - 5px); opacity: 1; }
-  46%  { top: calc(100% - 5px); opacity: 0; }
-  100% { top: calc(100% - 5px); opacity: 0; }
-}
-.stack-verb {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--faint);
+  bottom: 1px;
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid var(--faint);
+  border-bottom: 1px solid var(--faint);
+  transform: translateX(-50%) rotate(45deg);
+  transform-origin: center;
 }
 .stack-cap {
   margin: 0.9rem 0 0;
@@ -1158,9 +1137,8 @@ a.card:hover::before { background: var(--accent-line); }
   color: var(--faint);
   text-align: right;
 }
-@media (prefers-reduced-motion: reduce) { .stack-wire i { animation: none; opacity: 0; } }
 @media (max-width: 480px) {
-  .stack-link { height: 2rem; gap: 2.5rem; }
+  .stack-link { height: 1.8rem; }
 }
 
 /* ---------- monospace metadata ---------- */
@@ -1239,7 +1217,7 @@ main > section.spot::after,
 .tl-rail.spot::before,
 .fact.spot::before,
 .stack-layer.spot::before,
-.stack-wire.spot::before {
+.stack-arrow.spot::before {
   background:
     radial-gradient(
       var(--spot-r) circle at var(--x, -9999px) var(--y, -9999px),

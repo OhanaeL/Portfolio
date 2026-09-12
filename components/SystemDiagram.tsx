@@ -2,7 +2,7 @@
  * A cross-section of what I ship, top to bottom: interfaces, the services
  * behind them (including the agent runtime), and the data and infra that keep
  * them running. All three layers are mine; the caption says so. HTML only,
- * so the spotlight lights its rings and wires like the rest of the page.
+ * so the spotlight lights its rings and arrows like the rest of the page.
  */
 type Layer = { key: string; label: string; items: readonly string[] };
 
@@ -24,8 +24,6 @@ const LAYERS: readonly Layer[] = [
   },
 ];
 
-const VERBS = ["calls", "reads / writes"];
-
 export default function SystemDiagram() {
   return (
     <figure
@@ -46,12 +44,7 @@ export default function SystemDiagram() {
           </div>
           {i < LAYERS.length - 1 && (
             <div className="stack-link" aria-hidden="true">
-              {[0, 1, 2].map((n) => (
-                <span key={n} className="stack-wire spot">
-                  <i style={{ animationDelay: `${i * 1.1 + n * 0.45}s` }} />
-                </span>
-              ))}
-              <span className="stack-verb">{VERBS[i]}</span>
+              <span className="stack-arrow spot" />
             </div>
           )}
         </div>
