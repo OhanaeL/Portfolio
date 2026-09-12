@@ -1,4 +1,5 @@
 import { str, list, type Entry } from "@/lib/content";
+import AutoScroll from "./AutoScroll";
 
 function monogram(name: string) {
   const words = name.split(/[\s-]+/).filter((w) => /^[A-Za-z0-9]/.test(w));
@@ -58,15 +59,24 @@ function Card({ p }: { p: Entry }) {
   );
 }
 
-/** A hand-scrolled row of project cards that snaps card to card. */
+/**
+ * A scroll container that also drifts on its own: the row is rendered twice
+ * and scrollLeft advances every frame, wrapping when it passes the first copy,
+ * so it loops seamlessly. Hovering, touching or scrolling it yourself pauses
+ * the drift, which resumes a moment after you let go.
+ */
 export default function ProjectRail({ projects }: { projects: Entry[] }) {
   return (
     <div className="rail-wrap">
-      <div className="rail rail--projects">
-        {projects.map((p) => (
-          <Card p={p} key={p.slug} />
+      <AutoScroll className="rail rail--projects">
+        {[0, 1].map((copy) => (
+          <div className="rail-set" key={copy} aria-hidden={copy === 1 || undefined}>
+            {projects.map((p) => (
+              <Card p={p} key={`${copy}-${p.slug}`} />
+            ))}
+          </div>
         ))}
-      </div>
+      </AutoScroll>
     </div>
   );
 }

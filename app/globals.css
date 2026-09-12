@@ -684,19 +684,16 @@ a.card:hover::before { background: var(--accent-line); }
 }
 .rail-set { display: flex; gap: var(--gap); }
 
-/* projects: a hand-scrolled row that snaps card to card, no marquee */
+/* projects: a real scroll container that AutoScroll drifts; no CSS marquee, no snap */
 .rail--projects {
   --gap: 1.35rem;
   animation: none;
   width: auto;
   overflow-x: auto;
-  scroll-snap-type: x proximity;
-  scroll-padding-left: 0.25rem;
   scrollbar-width: none;
   padding-bottom: 0.5rem;
 }
 .rail--projects::-webkit-scrollbar { display: none; }
-.rail--projects .proj { scroll-snap-align: start; }
 
 /* let people stop it to actually read a tile */
 .rail-wrap:hover .rail,
