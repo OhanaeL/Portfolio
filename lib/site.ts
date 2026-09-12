@@ -23,11 +23,12 @@ export const site = {
     ["Hackathons", "1st place, CIMSO Hospitality ERP 2025. 3rd place, Hack the Zodiac 2024"],
   ] as [string, string][],
 
+  // headline numbers, kept product-agnostic: what changed, not whose system it was
   stats: [
-    { figure: "40% faster", label: "Fast-path response latency in the reasoning service" },
-    { figure: "4s → 2.5s", label: "Agent turn latency after execution-loop caching" },
-    { figure: "~20%", label: "Reasoning accuracy gain from frontier methods (RLM, mixture of judges)" },
-    { figure: "#1 contributor", label: "On three of MagickMind's core services" },
+    { figure: "40% faster", label: "Hot-path latency on a production AI service" },
+    { figure: "4s → 2.5s", label: "Per-turn agent latency after caching the execution loop" },
+    { figure: "~20%", label: "Accuracy gain from new reasoning methods, in production" },
+    { figure: "#1 contributor", label: "Across three production services" },
   ],
 
   resume: asset("/media/about/resume.pdf"),
