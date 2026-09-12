@@ -59,11 +59,11 @@ function Card({ p, hidden }: { p: Entry; hidden?: boolean }) {
   );
 }
 
-/** Same marquee as the toolbox, run in reverse so the two rails move against each other. */
+/** Marquee of project cards, drifting right to left. */
 export default function ProjectRail({ projects }: { projects: Entry[] }) {
   return (
     <div className="rail-wrap">
-      <div className="rail rail--projects rail--reverse">
+      <div className="rail rail--projects">
         <div className="rail-set">
           {projects.map((p) => (
             <Card p={p} key={p.slug} />

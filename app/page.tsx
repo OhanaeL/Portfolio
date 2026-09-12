@@ -1,6 +1,6 @@
 import { site } from "@/lib/site";
 import { getProjects, getExperience } from "@/lib/content";
-import Toolbox from "@/components/Toolbox";
+import ToolStrip from "@/components/ToolStrip";
 import Timeline, { dated } from "@/components/Timeline";
 import ProjectRail from "@/components/ProjectRail";
 import AboutSection from "@/components/AboutSection";
@@ -48,9 +48,8 @@ export default function Home() {
           <span className="section-note">{dated(experience).length} roles</span>
         </div>
         <Timeline entries={experience} />
+        <ToolStrip />
       </section>
-
-      <Toolbox />
 
       <section className="container reveal spot" id="projects" data-spot="after">
         <div className="section-head">
