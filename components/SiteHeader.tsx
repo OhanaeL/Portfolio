@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 import SmoothLink from "./SmoothLink";
+import ThemeToggle from "./ThemeToggle";
 
 // one page: these are anchors, in the order the sections appear
 const nav = [
@@ -58,6 +59,7 @@ export default function SiteHeader() {
               {item.label}
             </SmoothLink>
           ))}
+          <ThemeToggle />
           <a className="nav-cta" href={`mailto:${site.email}`}>
             Get in touch <span aria-hidden="true">→</span>
           </a>
