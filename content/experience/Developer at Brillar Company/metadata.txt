@@ -1,4 +1,4 @@
-description: Associate Fullstack Engineer at Brillar (Atenxion), Singapore. Own end-to-end development of AI-focused Python microservices, lead backend development for integration services, build document ingestion systems, and optimize Dockerized deployments with focus on performance and observability.
+description: Associate Fullstack Engineer at Brillar (Atenxion), a Singapore company, working remotely. Own end-to-end development of AI-focused Python microservices, lead backend development for integration services, build document ingestion systems, and optimize Dockerized deployments with focus on performance and observability.
 date: May 2025 - Apr 2026
 company: Brillar
 
