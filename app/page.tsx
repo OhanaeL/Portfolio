@@ -5,6 +5,7 @@ import Timeline, { dated } from "@/components/Timeline";
 import ProjectRail from "@/components/ProjectRail";
 import AboutSection from "@/components/AboutSection";
 import SmoothLink from "@/components/SmoothLink";
+import SystemDiagram from "@/components/SystemDiagram";
 
 export default function Home() {
   const projects = getProjects(); // filtered + ordered by featured.txt
@@ -28,6 +29,8 @@ export default function Home() {
             </a>
           </div>
         </div>
+
+        <SystemDiagram />
 
         <dl className="bento bento--stats spot" aria-label="Highlights">
           {site.stats.map((s) => (

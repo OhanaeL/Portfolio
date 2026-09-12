@@ -182,19 +182,20 @@ img { max-width: 100%; display: block; }
   padding-top: 1rem;
   padding-bottom: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  grid-template-rows: 1fr;
-  gap: 0 4rem;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-rows: auto auto;
+  align-content: center;
   align-items: center;
+  gap: 2.75rem 4rem;
 }
 .hero-copy { min-width: 0; }
 /* the hairline spans both columns */
 .hero::after { position: absolute; left: 2rem; right: 2rem; bottom: 0; }
 /* stats in the hero: same tray, 2x2, figures read top-down under their label */
-.bento.bento--stats { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; margin: 0; }
-.bento.bento--stats .stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 0.35rem; min-height: 120px; }
+.bento.bento--stats { grid-column: 1 / -1; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; margin: 0; }
+.bento.bento--stats .stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 0.3rem; min-height: 0; padding: 1.1rem 1.35rem; }
 .bento--stats .stat .label { margin: 0; }
-.bento--stats .stat .figure { margin: 0; }
+.bento--stats .stat .figure { margin: 0; font-size: 1.45rem; }
 .hero h1 {
   text-wrap: balance;
   font-size: clamp(2rem, 4.6vw, 3rem);
@@ -1062,12 +1063,90 @@ a.card:hover::before { background: var(--accent-line); }
 
 @media (max-width: 960px) {
   /* stacked: copy takes the flexible row, stats sit under it, hairline last */
-  .hero { grid-template-columns: 1fr; grid-template-rows: 1fr auto; row-gap: 2rem; padding-bottom: 2rem; }
-  .hero-copy { align-self: center; }
+  .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; row-gap: 2rem; padding-bottom: 2rem; }
+  .sys { max-width: 520px; }
+  .bento.bento--stats { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 480px) {
   .bento.bento--stats .stat { min-height: 0; padding: 1rem 1.1rem; }
   .bento.bento--stats .stat .figure { font-size: 1.3rem; }
+}
+
+/* ---------- runtime diagram (hero) ---------- */
+.sys {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 360px;
+  font-family: var(--font-mono), monospace;
+}
+.sys-node {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0 0.9rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--surface) 96%, var(--bg));
+  text-align: center;
+}
+.sys-node::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: var(--border);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.sys-title {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text);
+}
+.sys-sub { font-size: 0.66rem; color: var(--faint); letter-spacing: 0.01em; line-height: 1.3; }
+
+/* connectors: a positioned 1px line, the light painted on ::before like every other hairline */
+.sys-line { position: absolute; }
+.sys-line--v { width: 1px; transform: translateX(-0.5px); }
+.sys-line--h { height: 1px; }
+.sys-line::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+}
+/* the packet: a small accent dot travelling the line's length */
+.sys-line i {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: sys-flow 4.2s cubic-bezier(0.32, 0.72, 0, 1) infinite;
+}
+@keyframes sys-flow {
+  0%   { top: 0; opacity: 0; }
+  6%   { opacity: 1; }
+  30%  { top: calc(100% - 5px); opacity: 1; }
+  34%  { top: calc(100% - 5px); opacity: 0; }
+  100% { top: calc(100% - 5px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .sys-line i { animation: none; opacity: 0; } }
+@media (max-width: 480px) {
+  .sys { height: 300px; }
+  .sys-sub { display: none; }
+  .sys-node { padding: 0 0.5rem; }
 }
 
 /* ---------- spotlight borders ---------- */
@@ -1084,7 +1163,9 @@ a.card:hover::before { background: var(--accent-line); }
 main > section.spot::after,
 .hero.spot::after,
 .tl-rail.spot::before,
-.fact.spot::before {
+.fact.spot::before,
+.sys-node.spot::before,
+.sys-line.spot::before {
   background:
     radial-gradient(
       var(--spot-r) circle at var(--x, -9999px) var(--y, -9999px),
