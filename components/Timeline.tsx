@@ -3,7 +3,8 @@ import { str, list, type Entry } from "@/lib/content";
 /** "Software Engineer at Foo" -> ["Software Engineer", "Foo"]; no " at " -> [name, company meta]. */
 function split(e: Entry) {
   const i = e.name.indexOf(" at ");
-  const title = i > 0 ? e.name.slice(0, i) : e.name;
+  // `title:` in metadata wins over the folder name
+  const title = str(e.meta, "title") || (i > 0 ? e.name.slice(0, i) : e.name);
   const company = str(e.meta, "company") || (i > 0 ? e.name.slice(i + 4) : "");
   return { title, company };
 }
