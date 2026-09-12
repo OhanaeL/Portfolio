@@ -1,4 +1,4 @@
-description: Software Engineer on the MagickMind team at General Magick Industries, owning the agent runtime and inference path: the agent supervisor, the reasoning service and agent memory, across services written in Rust, Go and Python.
+description: Software Engineer on the MagickMind team at General Magick Industries, owning the agent runtime: the agent supervisor, the reasoning service and agent memory, across services written in Rust, Go and Python.
 date: Apr 2026 - Current
 company: General Magick Industries (MagickMind)
 links:

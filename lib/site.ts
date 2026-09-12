@@ -12,7 +12,7 @@ export const site = {
 
   headline: "I build the systems AI agents run on.",
   description:
-    "Software engineer working on agent runtimes, LLM inference and the backend services behind them, in Rust, Go and Python.",
+    "Software engineer working on agent runtimes and the backend services behind them, in Rust, Go and Python.",
 
   // the About block: a two-sentence intro (content/about/introduction.txt) plus these facts
   facts: [
@@ -24,7 +24,7 @@ export const site = {
   ] as [string, string][],
 
   stats: [
-    { figure: "40% faster", label: "Fast-path inference latency in the reasoning service" },
+    { figure: "40% faster", label: "Fast-path response latency in the reasoning service" },
     { figure: "4s → 2.5s", label: "Agent turn latency after execution-loop caching" },
     { figure: "300+ / 100+", label: "Candidates and companies on a recruitment platform I built" },
     { figure: "1st place", label: "CIMSO Hospitality ERP Hackathon, 2025" },
