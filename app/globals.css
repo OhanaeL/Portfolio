@@ -154,7 +154,7 @@ img { max-width: 100%; display: block; }
   gap: 0.45rem;
   padding: 0.5rem 1rem;
   border-radius: 999px;
-  border: 1px solid var(--facet-edge);
+  border: 1px solid var(--border);
   background: color-mix(in srgb, var(--surface) 58%, transparent);
   color: var(--text) !important;
   font-size: 0.72rem;
@@ -634,7 +634,7 @@ a.card:hover::before { background: var(--accent-line); }
   left: max(0px, calc((100% - var(--maxw)) / 2));
   right: max(0px, calc((100% - var(--maxw)) / 2));
   border-radius: 999px;
-  background: var(--facet-edge);
+  background: var(--border);
 }
 
 .tag {
@@ -1093,17 +1093,6 @@ main > section.spot::after,
       transparent 100%
     ),
     var(--border);
-}
-/* the header ring's stuck state used the facet colour; keep that as its base */
-.spot.nav--stuck::after {
-  background:
-    radial-gradient(
-      var(--spot-r) circle at var(--x, -9999px) var(--y, -9999px),
-      var(--accent) 0%,
-      color-mix(in srgb, var(--accent) 55%, transparent) 35%,
-      transparent 100%
-    ),
-    var(--facet-edge);
 }
 
 /* ---------- phones ---------- */
