@@ -53,7 +53,7 @@ export const toolbox: ToolGroup[] = [
   },
   {
     title: "AI & agents",
-    blurb: "Agent runtimes, inference paths and retrieval.",
+    blurb: "Agent runtimes, tool calling and retrieval.",
     tools: [
       { name: "LLM APIs" },
       { name: "LangChain" },
