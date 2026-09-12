@@ -18,7 +18,7 @@
   --shadow-sm: 0 1px 2px rgba(30, 40, 70, 0.06);
   --shadow-md: 0 6px 20px rgba(30, 40, 70, 0.10);
   --radius: 12px;
-  --maxw: 1320px;
+  --maxw: 1240px;
   --sb-thumb: rgba(24, 24, 27, 0.20);
   --sb-thumb-hover: rgba(47, 95, 208, 0.45);
 }
@@ -182,7 +182,7 @@ img { max-width: 100%; display: block; }
   padding-top: 1rem;
   padding-bottom: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   grid-template-rows: auto auto;
   align-content: center;
   align-items: center;
@@ -1064,7 +1064,7 @@ a.card:hover::before { background: var(--accent-line); }
 @media (max-width: 960px) {
   /* stacked: copy takes the flexible row, stats sit under it, hairline last */
   .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; row-gap: 2rem; padding-bottom: 2rem; }
-  .sys { max-width: 520px; }
+  .stack { max-width: 520px; }
   .bento.bento--stats { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 480px) {
@@ -1072,26 +1072,22 @@ a.card:hover::before { background: var(--accent-line); }
   .bento.bento--stats .stat .figure { font-size: 1.3rem; }
 }
 
-/* ---------- runtime diagram (hero) ---------- */
-.sys {
-  position: relative;
+/* ---------- stack diagram (hero) ---------- */
+.stack {
   margin: 0;
   width: 100%;
-  height: 360px;
-  font-family: var(--font-mono), monospace;
-}
-.sys-node {
-  position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 0.15rem;
-  padding: 0 0.9rem;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--surface) 96%, var(--bg));
-  text-align: center;
+  font-family: var(--font-mono), monospace;
 }
-.sys-node::before {
+.stack-row { display: flex; flex-direction: column; }
+.stack-layer {
+  position: relative;
+  padding: 0.95rem 1.1rem 1rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 96%, var(--bg));
+}
+.stack-layer::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1104,27 +1100,35 @@ a.card:hover::before { background: var(--accent-line); }
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
 }
-.sys-title {
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--text);
+/* my layer: lifted a little, accent label, the ring a shade brighter */
+.stack-layer--mine { background: color-mix(in srgb, var(--surface-2) 92%, var(--bg)); }
+.stack-layer--mine::before { background: color-mix(in srgb, var(--border) 40%, var(--faint)); }
+.stack-layer--mine .stack-label { color: var(--accent); }
+.stack-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.7rem; }
+.stack-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--text); }
+.stack-note { font-size: 0.66rem; color: var(--faint); letter-spacing: 0.02em; }
+.stack-items { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.stack-items li {
+  font-size: 0.7rem;
+  color: var(--muted);
+  padding: 0.28rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
 }
-.sys-sub { font-size: 0.66rem; color: var(--faint); letter-spacing: 0.01em; line-height: 1.3; }
+.stack-layer--mine .stack-items li { color: var(--text); }
 
-/* connectors: a positioned 1px line, the light painted on ::before like every other hairline */
-.sys-line { position: absolute; }
-.sys-line--v { width: 1px; transform: translateX(-0.5px); }
-.sys-line--h { height: 1px; }
-.sys-line::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--border);
+/* between layers: three short wires with packets, and the verb */
+.stack-link {
+  position: relative;
+  height: 2.6rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
 }
-/* the packet: a small accent dot travelling the line's length */
-.sys-line i {
+.stack-wire { position: relative; width: 1px; height: 100%; }
+.stack-wire::before { content: ""; position: absolute; inset: 0; background: var(--border); }
+.stack-wire i {
   position: absolute;
   left: 50%;
   top: 0;
@@ -1133,20 +1137,29 @@ a.card:hover::before { background: var(--accent-line); }
   margin-left: -2.5px;
   border-radius: 50%;
   background: var(--accent);
-  animation: sys-flow 4.2s cubic-bezier(0.32, 0.72, 0, 1) infinite;
+  animation: stack-flow 3.6s cubic-bezier(0.32, 0.72, 0, 1) infinite;
 }
-@keyframes sys-flow {
+@keyframes stack-flow {
   0%   { top: 0; opacity: 0; }
-  6%   { opacity: 1; }
-  30%  { top: calc(100% - 5px); opacity: 1; }
-  34%  { top: calc(100% - 5px); opacity: 0; }
+  8%   { opacity: 1; }
+  40%  { top: calc(100% - 5px); opacity: 1; }
+  46%  { top: calc(100% - 5px); opacity: 0; }
   100% { top: calc(100% - 5px); opacity: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .sys-line i { animation: none; opacity: 0; } }
+.stack-verb {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+@media (prefers-reduced-motion: reduce) { .stack-wire i { animation: none; opacity: 0; } }
 @media (max-width: 480px) {
-  .sys { height: 300px; }
-  .sys-sub { display: none; }
-  .sys-node { padding: 0 0.5rem; }
+  .stack-link { height: 2rem; gap: 2.5rem; }
+  .stack-note { display: none; }
 }
 
 /* ---------- monospace metadata ---------- */
@@ -1170,134 +1183,6 @@ a.card:hover::before { background: var(--accent-line); }
 .about-who span { font-size: 0.78rem; }
 .footer-inner { font-size: 0.78rem; }
 .stat .label { font-size: 0.76rem; line-height: 1.45; }
-
-/* ---------- header ⌘K trigger ---------- */
-.nav-kbd {
-  display: inline-flex;
-  gap: 3px;
-  align-items: center;
-  padding: 0.35rem 0.45rem;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  transition: color 0.2s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.2s cubic-bezier(0.32, 0.72, 0, 1);
-}
-.nav-kbd:hover { color: var(--text); border-color: var(--faint); }
-.nav-kbd kbd,
-.cmdk kbd {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.66rem;
-  line-height: 1;
-  padding: 0.22rem 0.36rem;
-  border-radius: 5px;
-  background: color-mix(in srgb, var(--surface-2) 80%, transparent);
-  border: 1px solid var(--border);
-  color: inherit;
-}
-@media (hover: none) { .nav-kbd { display: none; } }
-
-/* ---------- command menu ---------- */
-.cmdk-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 12vh 1rem 1rem;
-  background: color-mix(in srgb, var(--bg) 55%, transparent);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  animation: cmdk-fade 0.16s cubic-bezier(0.32, 0.72, 0, 1);
-}
-.cmdk {
-  width: min(560px, 100%);
-  max-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--surface) 96%, var(--bg));
-  border: 1.5px solid var(--border);
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
-  animation: cmdk-rise 0.2s cubic-bezier(0.32, 0.72, 0, 1);
-}
-@keyframes cmdk-fade { from { opacity: 0; } }
-@keyframes cmdk-rise { from { opacity: 0; transform: translateY(8px) scale(0.985); } }
-.cmdk-input-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.35rem 0.9rem 0.35rem 1rem;
-  border-bottom: 1px solid var(--border);
-}
-.cmdk-input {
-  flex: 1;
-  min-width: 0;
-  height: 2.9rem;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--text);
-  font: inherit;
-  font-size: 0.98rem;
-}
-.cmdk-input::placeholder { color: var(--faint); }
-.cmdk-kbd { color: var(--faint); }
-.cmdk-list {
-  list-style: none;
-  margin: 0;
-  padding: 0.4rem;
-  overflow-y: auto;
-}
-.cmdk-group {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.66rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--faint);
-  padding: 0.7rem 0.75rem 0.35rem;
-}
-.cmdk-item {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.6rem 0.75rem;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--text);
-  font: inherit;
-  font-size: 0.92rem;
-  text-align: left;
-  cursor: pointer;
-}
-.cmdk-item.is-active { background: color-mix(in srgb, var(--surface-2) 85%, transparent); }
-.cmdk-item.is-active .cmdk-hint { color: var(--muted); }
-.cmdk-hint {
-  font-family: var(--font-mono), monospace;
-  font-size: 0.7rem;
-  color: var(--faint);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.cmdk-empty { padding: 1.25rem 0.75rem; color: var(--faint); font-size: 0.9rem; }
-.cmdk-foot {
-  display: flex;
-  gap: 1.25rem;
-  padding: 0.55rem 1rem;
-  border-top: 1px solid var(--border);
-  font-family: var(--font-mono), monospace;
-  font-size: 0.68rem;
-  color: var(--faint);
-}
-.cmdk-foot span { display: inline-flex; align-items: center; gap: 0.3rem; }
-@media (prefers-reduced-motion: reduce) { .cmdk-overlay, .cmdk { animation: none; } }
 
 /* ---------- side nav (wide screens) ---------- */
 .sidenav {
@@ -1352,8 +1237,8 @@ main > section.spot::after,
 .hero.spot::after,
 .tl-rail.spot::before,
 .fact.spot::before,
-.sys-node.spot::before,
-.sys-line.spot::before {
+.stack-layer.spot::before,
+.stack-wire.spot::before {
   background:
     radial-gradient(
       var(--spot-r) circle at var(--x, -9999px) var(--y, -9999px),
@@ -1368,7 +1253,7 @@ main > section.spot::after,
 @media (max-width: 720px) {
   /* four items + a pill don't fit in 360px: the pill goes (email is in the
      hero, About and the footer); the three anchors tighten up */
-  .nav-cta, .nav-kbd { display: none; }
+  .nav-cta { display: none; }
   .nav-inner { height: 60px; gap: 0.75rem; }
   .nav-links { gap: 1rem; }
   .nav-links a { font-size: 0.68rem; letter-spacing: 0.07em; }

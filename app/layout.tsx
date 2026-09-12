@@ -4,7 +4,6 @@ import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import Reveal from "@/components/Reveal";
 import Spotlight from "@/components/Spotlight";
-import CommandMenu from "@/components/CommandMenu";
 import SideNav from "@/components/SideNav";
 import { site } from "@/lib/site";
 
@@ -39,13 +38,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
-        {/* apply a saved theme override before first paint so there is no flash */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t}}catch(e){}",
-          }}
-        />
         <a className="skip" href="#main">
           Skip to content
         </a>
@@ -70,7 +62,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
         <SideNav />
-        <CommandMenu />
         <Reveal />
         <Spotlight />
       </body>
