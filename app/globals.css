@@ -1293,6 +1293,8 @@ main > section.spot::after,
   html { scroll-padding-top: 74px; }
   main > section { min-height: calc(100dvh - 74px); display: flex; flex-direction: column; padding-top: 2rem; padding-bottom: 2rem; }
   main > section > .section-head { flex: 0 0 auto; margin-bottom: 1.5rem; }
+  /* the last block only needs to be as tall as its content; the footer follows */
+  main > section:last-of-type { min-height: 0; }
   /* keep each block inside its screen: tighter timeline rows, shorter cards */
   .tl-item { padding-bottom: 0.9rem; }
   .tl-rail::before { bottom: -0.9rem; }
