@@ -196,7 +196,7 @@ img { max-width: 100%; display: block; }
 .bento.bento--stats { grid-column: 1 / -1; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; margin: 0; }
 .bento.bento--stats .stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 0.3rem; min-height: 0; padding: 1.1rem 1.35rem; }
 .bento--stats .stat .label { margin: 0; }
-.bento--stats .stat .figure { margin: 0; font-size: 1.45rem; }
+.bento--stats .stat .figure { margin: 0; font-size: 1.25rem; }
 .hero h1 {
   text-wrap: balance;
   font-size: clamp(2rem, 4.6vw, 3rem);
@@ -1140,7 +1140,7 @@ a.card:hover::before { background: var(--accent-line); }
 .fact dt { font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; padding-top: 0.15rem; }
 .about-who span { font-size: 0.78rem; }
 .footer-inner { font-size: 0.78rem; }
-.stat .label { font-size: 0.76rem; line-height: 1.45; }
+.stat .label { font-size: 0.7rem; line-height: 1.45; }
 
 /* ---------- side nav (wide screens): the cylinder ---------- */
 .sidenav {
@@ -1245,6 +1245,20 @@ main > section.spot::after,
   .proj { width: min(300px, calc(100vw - 4rem)); }
   .proj-thumb { height: 160px; }
 
+  /* tools: two rows that scroll sideways, faded at the edges, instead of a wall of chips */
+  .tools-list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, auto);
+    gap: 0.35rem;
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 2rem), transparent 100%);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 2rem), transparent 100%);
+  }
+  .tools-list::-webkit-scrollbar { display: none; }
+  .tool-chip { white-space: nowrap; }
   .about-side { flex-direction: row; flex-wrap: wrap; align-items: center; }
   .about-side img { width: 96px; height: 96px; }
   .about-actions { flex-basis: 100%; }
