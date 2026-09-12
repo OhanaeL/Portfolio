@@ -172,7 +172,22 @@ img { max-width: 100%; display: block; }
 /* ---------- hero ---------- */
 /* vertical only — the shorthand would wipe .container's horizontal padding
    and pull the hero 24px left of everything else on the page. */
-.hero { padding-top: 3rem; padding-bottom: 0; }
+.hero {
+  padding-top: 3rem;
+  padding-bottom: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 3rem 4rem;
+  align-items: center;
+}
+.hero-copy { min-width: 0; }
+/* the hairline spans both columns */
+.hero::after { grid-column: 1 / -1; }
+/* stats in the hero: same tray, 2x2, figures read top-down under their label */
+.bento.bento--stats { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; margin: 0; }
+.bento.bento--stats .stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 0.35rem; min-height: 120px; }
+.bento--stats .stat .label { margin: 0; }
+.bento--stats .stat .figure { margin: 0; }
 .hero h1 {
   text-wrap: balance;
   font-size: clamp(2rem, 4.6vw, 3rem);
@@ -825,6 +840,12 @@ a.card:hover::before { background: var(--accent-line); }
 }
 .tl-title { margin: 0; font-size: 1rem; font-weight: 620; letter-spacing: -0.01em; }
 .tl-company { color: var(--muted); font-weight: 500; }
+.tl-company a {
+  color: inherit;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.tl-company a:hover { color: var(--accent); border-color: var(--accent-line); }
 .tl-desc {
   margin: 0.35rem 0 0;
   color: var(--muted);
@@ -994,6 +1015,14 @@ a.card:hover::before { background: var(--accent-line); }
   :root[data-js] .reveal { opacity: 1; transform: none; transition: none; }
 }
 
+@media (max-width: 960px) {
+  .hero { grid-template-columns: 1fr; gap: 2.25rem; }
+}
+@media (max-width: 480px) {
+  .bento.bento--stats { grid-template-columns: 1fr; }
+  .bento.bento--stats .stat { min-height: 0; }
+}
+
 /* ---------- phones ---------- */
 @media (max-width: 720px) {
   /* four items + a pill don't fit in 360px: the pill goes (email is in the
@@ -1028,5 +1057,5 @@ a.card:hover::before { background: var(--accent-line); }
 @media (max-width: 640px) {
   .container { padding-left: 1.25rem; padding-right: 1.25rem; }
   :root { --block-gap: 3rem; }
-  .hero { padding-top: 3rem; }
+  .hero { padding-top: 2.5rem; }
 }

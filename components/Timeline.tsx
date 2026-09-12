@@ -1,4 +1,4 @@
-import { str, type Entry } from "@/lib/content";
+import { str, list, type Entry } from "@/lib/content";
 
 /** "Software Engineer at Foo" -> ["Software Engineer", "Foo"]; no " at " -> [name, company meta]. */
 function split(e: Entry) {
@@ -6,6 +6,25 @@ function split(e: Entry) {
   const title = i > 0 ? e.name.slice(0, i) : e.name;
   const company = str(e.meta, "company") || (i > 0 ? e.name.slice(i + 4) : "");
   return { title, company };
+}
+
+/**
+ * `links:` in metadata is a list of "Name|https://..." lines. When present the
+ * company reads as those names, each linking out; otherwise plain `company:` text.
+ */
+function companyLinks(e: Entry) {
+  const items = list(e.meta, "links")
+    .map((l) => l.split("|").map((x) => x.trim()))
+    .filter((p) => p.length === 2 && p[1]);
+  if (!items.length) return null;
+  return items.map(([name, href], i) => (
+    <span key={href}>
+      {i > 0 && " / "}
+      <a href={href} target="_blank" rel="noopener noreferrer">
+        {name}
+      </a>
+    </span>
+  ));
 }
 
 /** Entries without a real date (the hackathon roundup) don't belong on a timeline. */
@@ -37,7 +56,7 @@ export default function Timeline({ entries }: { entries: Entry[] }) {
             <div className="tl-body">
               <h3 className="tl-title">
                 {title}
-                {company && <span className="tl-company"> · {company}</span>}
+                <span className="tl-company"> · {companyLinks(e) ?? company}</span>
               </h3>
               <p className="tl-desc">{str(e.meta, "description")}</p>
             </div>

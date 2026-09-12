@@ -13,43 +13,31 @@ export default function Home() {
   return (
     <>
       <div className="container hero">
-        <span className="eyebrow">
-          {site.role} · {site.location}
-        </span>
-        <h1>{site.headline}</h1>
-        <p className="lede">{site.description}</p>
-        <div className="btn-row">
-          <SmoothLink className="btn btn-primary" href="#projects">
-            View projects
-          </SmoothLink>
-          <a className="btn" href={site.resume} target="_blank" rel="noopener noreferrer">
-            Résumé (PDF)
-          </a>
-        </div>
-      </div>
-
-      <section className="container reveal" id="now">
-        <div className="bento">
-          <div className="now bento-main">
-            <span className="now-label">Currently</span>
-            <h2>{site.now.title}</h2>
-            <p>{site.now.body}</p>
-            <div className="tags">
-              {site.now.stack.map((t) => (
-                <span className="tag" key={t}>
-                  {t}
-                </span>
-              ))}
-            </div>
+        <div className="hero-copy">
+          <span className="eyebrow">
+            {site.role} · {site.location}
+          </span>
+          <h1>{site.headline}</h1>
+          <p className="lede">{site.description}</p>
+          <div className="btn-row">
+            <SmoothLink className="btn btn-primary" href="#projects">
+              View projects
+            </SmoothLink>
+            <a className="btn" href={site.resume} target="_blank" rel="noopener noreferrer">
+              Résumé (PDF)
+            </a>
           </div>
+        </div>
+
+        <dl className="bento bento--stats" aria-label="Highlights">
           {site.stats.map((s) => (
             <div className="stat" key={s.figure}>
-              <div className="figure">{s.figure}</div>
-              <div className="label">{s.label}</div>
+              <dt className="label">{s.label}</dt>
+              <dd className="figure">{s.figure}</dd>
             </div>
           ))}
-        </div>
-      </section>
+        </dl>
+      </div>
 
       <section className="container reveal" id="experience">
         <div className="section-head">

@@ -14,13 +14,6 @@ export const site = {
   description:
     "Software engineer working on agent runtimes, LLM inference and the backend services behind them, in Rust, Go and Python.",
 
-  now: {
-    title: "Software Engineer at MagickMind (General Magick Industries)",
-    body:
-      "I own the agent runtime and inference path: the agent supervisor that runs each agent as an isolated, credentialed process, the reasoning service behind it, and agent memory. Contributor to Mindroid, the company's open-source Rust agent runtime.",
-    stack: ["Python", "Rust", "Go", "TypeScript", "React", "FastAPI", "Docker", "PostgreSQL"],
-  },
-
   // the About block: a two-sentence intro (content/about/introduction.txt) plus these facts
   facts: [
     ["Based in", "Bangkok, Thailand"],
