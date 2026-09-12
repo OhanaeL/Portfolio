@@ -172,17 +172,23 @@ img { max-width: 100%; display: block; }
 /* ---------- hero ---------- */
 /* vertical only — the shorthand would wipe .container's horizontal padding
    and pull the hero 24px left of everything else on the page. */
+/* The landing fills the first screen: viewport height minus the 74px bar.
+   Copy and stats centre in the 1fr row; the hairline sits in the auto row
+   at the bottom, so the next section always starts just below the fold. */
 .hero {
-  padding-top: 3rem;
+  --nav-h: 74px;
+  min-height: calc(100dvh - var(--nav-h));
+  padding-top: 1rem;
   padding-bottom: 0;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: 3rem 4rem;
+  grid-template-rows: 1fr auto;
+  gap: 0 4rem;
   align-items: center;
 }
 .hero-copy { min-width: 0; }
 /* the hairline spans both columns */
-.hero::after { grid-column: 1 / -1; }
+.hero::after { grid-column: 1 / -1; margin-top: 0; align-self: end; }
 /* stats in the hero: same tray, 2x2, figures read top-down under their label */
 .bento.bento--stats { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr; margin: 0; }
 .bento.bento--stats .stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 0.35rem; min-height: 120px; }
@@ -230,8 +236,24 @@ img { max-width: 100%; display: block; }
 /* ---------- sections ---------- */
 /* Rhythm: each block owns the gap ABOVE it and nothing below, so the space
    between any two consecutive blocks is always exactly --block-gap. */
-section { padding-top: var(--block-gap); padding-bottom: 0; }
+section { padding-top: calc(var(--block-gap) * 0.6); padding-bottom: 0; }
 main { padding-bottom: var(--block-gap); }
+/* every section closes with the same hairline the hero ends on; the last one
+   hands over to the footer's own border instead */
+main > section::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: var(--border);
+  margin-top: calc(var(--block-gap) * 0.6);
+}
+main > section:last-of-type::after { display: none; }
+/* the toolbox section is full-bleed for its rail, so its line takes container width by hand */
+#toolbox::after {
+  width: min(calc(100% - 4rem), calc(var(--maxw) - 4rem));
+  margin-left: auto;
+  margin-right: auto;
+}
 .section-head {
   display: flex;
   align-items: baseline;
@@ -241,8 +263,8 @@ main { padding-bottom: var(--block-gap); }
 }
 /* section titles are set in tracked caps, echoing the LYNN wordmark */
 .section-head h2 {
-  font-size: 1.05rem;
-  letter-spacing: 0.14em;
+  font-size: 1.5rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   margin: 0;
   font-weight: 700;
@@ -632,9 +654,6 @@ a.card:hover::before { background: var(--accent-line); }
 }
 
 @media (max-width: 640px) {
-  .hero { padding-top: 3rem; padding-bottom: 2rem; }
-  .nav-links { gap: 1rem; }
-  .nav-links a { font-size: 0.88rem; }
   .about-head img { width: 104px; height: 104px; }
   /* blur is expensive on mobile GPUs — drop it, keep the tint */
   .card, .now, .stat, .notice { backdrop-filter: none; -webkit-backdrop-filter: none; }
@@ -1016,11 +1035,14 @@ a.card:hover::before { background: var(--accent-line); }
 }
 
 @media (max-width: 960px) {
-  .hero { grid-template-columns: 1fr; gap: 2.25rem; }
+  /* stacked: copy takes the flexible row, stats sit under it, hairline last */
+  .hero { grid-template-columns: 1fr; grid-template-rows: 1fr auto auto; row-gap: 2rem; }
+  .hero-copy { align-self: center; }
+  .hero::after { margin-top: 1rem; }
 }
 @media (max-width: 480px) {
-  .bento.bento--stats { grid-template-columns: 1fr; }
-  .bento.bento--stats .stat { min-height: 0; }
+  .bento.bento--stats .stat { min-height: 0; padding: 1rem 1.1rem; }
+  .bento.bento--stats .stat .figure { font-size: 1.3rem; }
 }
 
 /* ---------- phones ---------- */
@@ -1038,6 +1060,7 @@ a.card:hover::before { background: var(--accent-line); }
   .nav--stuck::after { left: 8px; right: 8px; top: 4px; bottom: 4px; }
   html { scroll-padding-top: 5rem; }
 
+  .hero { --nav-h: 60px; }
   .hero h1 { font-size: clamp(1.75rem, 8vw, 2.3rem); }
   .hero .lede { font-size: 1rem; }
   .btn-row { gap: 0.5rem; }
@@ -1056,6 +1079,8 @@ a.card:hover::before { background: var(--accent-line); }
 
 @media (max-width: 640px) {
   .container { padding-left: 1.25rem; padding-right: 1.25rem; }
+  #toolbox::after { width: calc(100% - 2.5rem); }
+  .section-head h2 { font-size: 1.2rem; }
   :root { --block-gap: 3rem; }
-  .hero { padding-top: 2.5rem; }
+  .hero { padding-top: 1.5rem; }
 }
