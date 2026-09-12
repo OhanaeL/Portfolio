@@ -1,0 +1,5 @@
+# Roles shown on the timeline, in order. Anything not listed stays on disk unpublished.
+# Freelance work is deliberately left off: the site should read as an engineer on teams, not a contractor.
+Software Engineer at General Magick Industries
+Developer at Brillar Company
+Teaching Assistant and Software Developer Intern at Rangsit University

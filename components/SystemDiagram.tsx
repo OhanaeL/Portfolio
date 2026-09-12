@@ -60,7 +60,7 @@ export default function SystemDiagram() {
           )}
         </div>
       ))}
-      <figcaption className="stack-cap">I work across all three layers, end to end.</figcaption>
+      <figcaption className="stack-cap">The layers I have owned on product teams.</figcaption>
     </figure>
   );
 }
