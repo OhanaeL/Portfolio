@@ -702,7 +702,7 @@ a.card:hover::before { background: var(--accent-line); }
 }
 
 /* ---------- tools strip (foot of Experience) ---------- */
-.tools { margin-top: auto; padding-top: 1.75rem; }
+.tools { margin-top: 0; padding-top: 1.5rem; }
 .tools-label {
   display: block;
   font-family: var(--font-mono), monospace;
@@ -1258,7 +1258,7 @@ main > section.spot::after,
   .tl-item { padding-bottom: 0.9rem; }
   .tl-rail::before { bottom: -0.9rem; }
   .tl-desc { font-size: 0.88rem; line-height: 1.5; }
-  .tools { padding-top: 1rem; }
+  .tools { padding-top: 0.75rem; }
   .tools-label { margin-bottom: 0.45rem; }
   .tool-chip { font-size: 0.66rem; padding: 0.18rem 0.45rem; gap: 0.3rem; }
   .tool-chip img { width: 12px; height: 12px; }
