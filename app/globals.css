@@ -425,15 +425,7 @@ footer {
    no WebGL, nothing to load.
    ============================================================ */
 
-/* prismatic light, fixed so it reads as depth behind the page */
-body {
-  background-image:
-    radial-gradient(58rem 38rem at 10% -12%, var(--glow-a), transparent 62%),
-    radial-gradient(48rem 34rem at 96% 6%, var(--glow-b), transparent 62%),
-    radial-gradient(44rem 38rem at 46% 108%, var(--glow-c), transparent 62%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-}
+/* no ambient glows: the page sits on a flat ground and the grain does the work */
 
 :root {
   --glow-a: rgba(47, 95, 208, 0.22);
@@ -494,7 +486,7 @@ main, footer { position: relative; z-index: 1; }
   box-shadow: var(--shadow-sm), inset 0 1px 0 var(--facet);
 }
 
-/* prismatic edge — a 1px gradient border, light catching one corner */
+/* a uniform 1px hairline, drawn as a masked ring so it follows the radius */
 .card::before,
 .now::before,
 .stat::before,
@@ -505,13 +497,7 @@ main, footer { position: relative; z-index: 1; }
   border-radius: inherit;
   padding: 1px;
   pointer-events: none;
-  background: linear-gradient(
-    135deg,
-    var(--facet) 0%,
-    transparent 38%,
-    transparent 62%,
-    var(--facet-edge) 100%
-  );
+  background: var(--border);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -521,15 +507,7 @@ main, footer { position: relative; z-index: 1; }
 a.card:hover {
   box-shadow: var(--shadow-md), inset 0 1px 0 var(--facet);
 }
-a.card:hover::before {
-  background: linear-gradient(
-    135deg,
-    var(--facet) 0%,
-    var(--facet-edge) 45%,
-    transparent 60%,
-    var(--facet-edge) 100%
-  );
-}
+a.card:hover::before { background: var(--accent-line); }
 
 /* ---- header morph: ONE glass layer that changes its own bounds ----
    Previously the bar and the pill each painted a background, so mid-morph
@@ -598,14 +576,7 @@ a.card:hover::before {
   padding: 1px;
   opacity: 1;
   pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--facet-edge) 22%,
-    var(--facet) 50%,
-    var(--facet-edge) 78%,
-    transparent 100%
-  );
+  background: var(--border);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -623,13 +594,7 @@ a.card:hover::before {
   left: max(0px, calc((100% - var(--maxw)) / 2));
   right: max(0px, calc((100% - var(--maxw)) / 2));
   border-radius: 999px;
-  background: linear-gradient(
-    135deg,
-    var(--facet) 0%,
-    transparent 40%,
-    transparent 60%,
-    var(--facet-edge) 100%
-  );
+  background: var(--facet-edge);
 }
 
 .tag {
@@ -644,12 +609,7 @@ a.card:hover::before {
   display: block;
   height: 1px;
   margin-top: 2.5rem;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--accent) 45%, transparent),
-    transparent
-  );
+  background: var(--border);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -774,7 +734,7 @@ a.card:hover::before {
   border-radius: inherit;
   padding: 1px;
   pointer-events: none;
-  background: linear-gradient(135deg, var(--facet) 0%, transparent 38%, transparent 62%, var(--facet-edge) 100%);
+  background: var(--border);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -888,7 +848,7 @@ a.card:hover::before {
 .proj-thumb {
   position: relative;
   height: 180px;
-  background: linear-gradient(135deg, var(--surface-2), color-mix(in srgb, var(--accent) 22%, var(--surface-2)));
+  background: var(--surface-2);
   display: grid;
   place-items: center;
   border-bottom: 1px solid var(--border);

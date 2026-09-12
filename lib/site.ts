@@ -24,7 +24,7 @@ export const site = {
   // the About block: a two-sentence intro (content/about/introduction.txt) plus these facts
   facts: [
     ["Based in", "Bangkok, Thailand"],
-    ["Education", "ICT, Rangsit International College, Rangsit University"],
+    ["Education", "B.Sc. in ICT, Rangsit International College, Rangsit University"],
     ["Working in", "Rust, Go, Python, TypeScript"],
     ["Open source", "Contributor to Mindroid, MagickMind's Rust agent runtime"],
     ["Hackathons", "1st place, CIMSO Hospitality ERP 2025. 3rd place, Hack the Zodiac 2024"],
