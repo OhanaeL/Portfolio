@@ -532,7 +532,7 @@ main, footer { position: relative; z-index: 1; }
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1px;
+  padding: 1.5px;
   pointer-events: none;
   background: var(--border);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -610,7 +610,7 @@ a.card:hover::before { background: var(--accent-line); }
   right: 0;
   z-index: 0;
   border-radius: 0;
-  padding: 1px;
+  padding: 1.5px;
   opacity: 1;
   pointer-events: none;
   background: var(--border);
@@ -622,8 +622,8 @@ a.card:hover::before { background: var(--accent-line); }
     right 0.34s cubic-bezier(0.4, 0, 0.2, 1),
     top 0.34s cubic-bezier(0.4, 0, 0.2, 1),
     bottom 0.34s cubic-bezier(0.4, 0, 0.2, 1),
-    border-radius 0.34s cubic-bezier(0.4, 0, 0.2, 1),
-    background 0.34s ease;
+    border-radius 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+  /* no background transition here: the spotlight gradient must follow the cursor instantly */
 }
 .nav--stuck::after {
   top: 6px;
@@ -766,7 +766,7 @@ a.card:hover::before { background: var(--accent-line); }
   inset: 0;
   z-index: 1;
   border-radius: inherit;
-  padding: 1px;
+  padding: 1.5px;
   pointer-events: none;
   background: var(--border);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -880,11 +880,25 @@ a.card:hover::before { background: var(--accent-line); }
   flex-direction: column;
   border-radius: var(--radius);
   overflow: hidden;
+  position: relative;
   background: color-mix(in srgb, var(--surface) 96%, var(--bg));
-  border: 1px solid var(--border);
-  transition: border-color 0.2s, transform 0.2s;
+  transition: transform 0.2s cubic-bezier(0.32, 0.72, 0, 1);
 }
-.proj:hover { border-color: var(--accent-line); transform: translateY(-2px); }
+.proj::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: var(--border);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.proj:hover { transform: translateY(-2px); }
 .proj-thumb {
   position: relative;
   height: 180px;
@@ -1043,6 +1057,36 @@ a.card:hover::before { background: var(--accent-line); }
 @media (max-width: 480px) {
   .bento.bento--stats .stat { min-height: 0; padding: 1rem 1.1rem; }
   .bento.bento--stats .stat .figure { font-size: 1.3rem; }
+}
+
+/* ---------- spotlight borders ---------- */
+/* The ring pseudo's background is the border colour with a soft accent pool
+   at the cursor. The mask already limits painting to the ring, so the light
+   only ever appears on the edge. Without --x/--y (touch, or far away) the
+   gradient sits off-canvas and the ring is just the border colour. */
+:root { --spot-r: 200px; }
+.spot.bento::before,
+.spot.proj::before,
+.spot.nav::after {
+  background:
+    radial-gradient(
+      var(--spot-r) circle at var(--x, -9999px) var(--y, -9999px),
+      var(--accent) 0%,
+      color-mix(in srgb, var(--accent) 55%, transparent) 35%,
+      transparent 100%
+    ),
+    var(--border);
+}
+/* the header ring's stuck state used the facet colour; keep that as its base */
+.spot.nav--stuck::after {
+  background:
+    radial-gradient(
+      var(--spot-r) circle at var(--x, -9999px) var(--y, -9999px),
+      var(--accent) 0%,
+      color-mix(in srgb, var(--accent) 55%, transparent) 35%,
+      transparent 100%
+    ),
+    var(--facet-edge);
 }
 
 /* ---------- phones ---------- */

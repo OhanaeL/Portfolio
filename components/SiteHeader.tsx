@@ -47,7 +47,7 @@ export default function SiteHeader() {
   }, []);
 
   return (
-    <header className={stuck ? "nav nav--stuck" : "nav"}>
+    <header className={stuck ? "nav nav--stuck spot" : "nav spot"} data-spot="after">
       <div className="container nav-inner">
         <Link href="/" className="nav-name" aria-label={site.name}>
           LYNN

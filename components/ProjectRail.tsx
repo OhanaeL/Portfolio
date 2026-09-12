@@ -18,7 +18,7 @@ function Card({ p, hidden }: { p: Entry; hidden?: boolean }) {
   const demo = str(p.meta, "demo") || str(p.meta, "website");
   const tab = hidden ? -1 : undefined;
   return (
-    <article className="proj" aria-hidden={hidden || undefined}>
+    <article className="proj spot" aria-hidden={hidden || undefined}>
       <div className="proj-thumb">
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element

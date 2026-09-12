@@ -29,7 +29,7 @@ export default function Home() {
           </div>
         </div>
 
-        <dl className="bento bento--stats" aria-label="Highlights">
+        <dl className="bento bento--stats spot" aria-label="Highlights">
           {site.stats.map((s) => (
             <div className="stat" key={s.figure}>
               <dt className="label">{s.label}</dt>

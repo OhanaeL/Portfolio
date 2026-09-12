@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import Reveal from "@/components/Reveal";
+import Spotlight from "@/components/Spotlight";
 import { site } from "@/lib/site";
 
 const sans = Geist({
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
         <Reveal />
+        <Spotlight />
       </body>
     </html>
   );
