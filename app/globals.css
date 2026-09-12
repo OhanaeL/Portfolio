@@ -1102,7 +1102,6 @@ a.card:hover::before { background: var(--accent-line); }
 }
 .stack-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.7rem; }
 .stack-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; color: var(--text); }
-.stack-note { font-size: 0.66rem; color: var(--faint); letter-spacing: 0.02em; }
 .stack-items { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .stack-items li {
   font-size: 0.7rem;
@@ -1162,7 +1161,6 @@ a.card:hover::before { background: var(--accent-line); }
 @media (prefers-reduced-motion: reduce) { .stack-wire i { animation: none; opacity: 0; } }
 @media (max-width: 480px) {
   .stack-link { height: 2rem; gap: 2.5rem; }
-  .stack-note { display: none; }
 }
 
 /* ---------- monospace metadata ---------- */

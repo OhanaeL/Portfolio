@@ -4,25 +4,22 @@
  * them running. All three layers are mine; the caption says so. HTML only,
  * so the spotlight lights its rings and wires like the rest of the page.
  */
-type Layer = { key: string; label: string; note: string; items: readonly string[] };
+type Layer = { key: string; label: string; items: readonly string[] };
 
 const LAYERS: readonly Layer[] = [
   {
     key: "ui",
     label: "Interfaces",
-    note: "what users see",
     items: ["React", "Next.js", "TypeScript", "dashboards"],
   },
   {
     key: "services",
     label: "Services",
-    note: "where the logic lives",
     items: ["Go & Rust services", "FastAPI", "agent runtime", "integrations"],
   },
   {
     key: "data",
     label: "Data & infra",
-    note: "what keeps it running",
     items: ["Postgres", "Redis", "Docker", "Grafana / OTel"],
   },
 ];
@@ -40,7 +37,6 @@ export default function SystemDiagram() {
           <div className="stack-layer spot">
             <div className="stack-head">
               <span className="stack-label">{layer.label}</span>
-              <span className="stack-note">{layer.note}</span>
             </div>
             <ul className="stack-items">
               {layer.items.map((it) => (
