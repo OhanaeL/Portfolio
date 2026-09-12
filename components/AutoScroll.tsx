@@ -9,7 +9,8 @@ const RESUME_AFTER = 1600; // ms of no interaction before drifting again
  * A horizontal scroll container that advances by itself. Expects its content
  * rendered twice back to back: when scrollLeft passes the first copy it jumps
  * back by that width, so the loop has no visible seam. Any user interaction
- * (hover, touch, wheel, drag, focus) pauses it; it resumes shortly after.
+ * (hover, drag, touch, focus) pauses it; it resumes shortly after. Dragging
+ * wraps too, so you can pull it left or right indefinitely.
  * Off entirely under prefers-reduced-motion.
  */
 export default function AutoScroll({ className, children }: { className?: string; children: React.ReactNode }) {
@@ -26,6 +27,10 @@ export default function AutoScroll({ className, children }: { className?: string
     let frame = 0;
     // the last scrollLeft we wrote: scroll events arrive a frame later, so a flag can't tell ours from the user's
     let lastSet = -1;
+    let dragging = false;
+    let moved = false;
+    let startX = 0;
+    let startLeft = 0;
     // our own fractional position; scrollLeft may round or keep fractions depending on zoom
     let pos = el.scrollLeft;
 
@@ -68,6 +73,50 @@ export default function AutoScroll({ className, children }: { className?: string
       pos = el.scrollLeft;
     };
 
+    // drag to scroll (mouse, pen and touch alike); a real drag also swallows the click that would follow
+    const down = (e: PointerEvent) => {
+      if (e.button !== 0) return;
+      dragging = true;
+      moved = false;
+      startX = e.clientX;
+      startLeft = el.scrollLeft;
+      el.setPointerCapture(e.pointerId);
+      el.classList.add("is-dragging");
+      hold();
+    };
+    const dragMove = (e: PointerEvent) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      const h = half();
+      let next = startLeft - dx;
+      // keep the drag inside the seamless range so it can go on forever either way
+      if (next >= h) { next -= h; startLeft -= h; }
+      else if (next < 0) { next += h; startLeft += h; }
+      lastSet = -1;
+      el.scrollLeft = next;
+      pos = next;
+    };
+    const up = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      el.classList.remove("is-dragging");
+      if (el.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
+      release();
+    };
+    const swallowClick = (e: MouseEvent) => {
+      if (moved) {
+        e.preventDefault();
+        e.stopPropagation();
+        moved = false;
+      }
+    };
+
+    el.addEventListener("pointerdown", down);
+    el.addEventListener("pointermove", dragMove);
+    el.addEventListener("pointerup", up);
+    el.addEventListener("pointercancel", up);
+    el.addEventListener("click", swallowClick, true);
     el.addEventListener("pointerenter", hold);
     el.addEventListener("pointerleave", release);
     el.addEventListener("focusin", hold);
@@ -79,6 +128,11 @@ export default function AutoScroll({ className, children }: { className?: string
 
     return () => {
       cancelAnimationFrame(frame);
+      el.removeEventListener("pointerdown", down);
+      el.removeEventListener("pointermove", dragMove);
+      el.removeEventListener("pointerup", up);
+      el.removeEventListener("pointercancel", up);
+      el.removeEventListener("click", swallowClick, true);
       el.removeEventListener("pointerenter", hold);
       el.removeEventListener("pointerleave", release);
       el.removeEventListener("focusin", hold);

@@ -684,16 +684,20 @@ a.card:hover::before { background: var(--accent-line); }
 }
 .rail-set { display: flex; gap: var(--gap); }
 
-/* projects: a real scroll container that AutoScroll drifts; no CSS marquee, no snap */
+/* projects: AutoScroll drifts it and you can grab and drag it either way, endlessly */
 .rail--projects {
   --gap: 1.35rem;
   animation: none;
   width: auto;
-  overflow-x: auto;
-  scrollbar-width: none;
+  overflow-x: hidden;           /* drag and the drift move it; no wheel, no scrollbar */
+  touch-action: pan-y;          /* vertical page scroll stays native on touch */
+  cursor: grab;
+  user-select: none;
   padding-bottom: 0.5rem;
 }
-.rail--projects::-webkit-scrollbar { display: none; }
+.rail--projects.is-dragging { cursor: grabbing; }
+.rail--projects.is-dragging .proj { transition: none; }
+.rail--projects img { -webkit-user-drag: none; user-drag: none; }
 
 /* let people stop it to actually read a tile */
 .rail-wrap:hover .rail,
