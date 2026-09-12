@@ -555,7 +555,7 @@ a.card:hover::before { background: var(--accent-line); }
   left: max(0px, calc((100% - var(--maxw)) / 2));
   right: max(0px, calc((100% - var(--maxw)) / 2));
   border-radius: 999px;
-  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  background: color-mix(in srgb, var(--surface) 42%, transparent);
   box-shadow: var(--shadow-md), inset 0 1px 0 var(--facet);
 }
 /* height stays 66px in BOTH states. Changing it shifts page height, which
