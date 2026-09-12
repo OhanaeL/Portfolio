@@ -179,14 +179,15 @@ img { max-width: 100%; display: block; }
   position: relative;
   --nav-h: 74px;
   min-height: calc(100dvh - var(--nav-h));
-  padding-top: 1rem;
-  padding-bottom: 0;
+  /* breathing room above the diagram and below the stats strip */
+  padding-top: 1.75rem;
+  padding-bottom: 2.5rem;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   grid-template-rows: auto auto;
   align-content: center;
   align-items: center;
-  gap: 2.75rem 4rem;
+  gap: 2.25rem 4rem;
 }
 .hero-copy { min-width: 0; }
 /* the hairline spans both columns */
