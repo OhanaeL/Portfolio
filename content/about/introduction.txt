@@ -1,3 +1,1 @@
-Hi, I’m Htin Linn.
-
-I’m a software engineer at MagickMind, working on the infrastructure that AI agents run on: the supervisor that launches each agent as an isolated, credentialed process, the reasoning service that decides what it does next, and the memory it carries between turns. That work spans Rust, Go and Python services, most of it in production, and I contribute to Mindroid, the company’s open-source Rust agent runtime.
+I’m a software engineer at MagickMind, building the runtime AI agents run on: the supervisor that launches each agent as an isolated process, the reasoning service behind it, and agent memory, in Rust, Go and Python. Before that I built AI microservices at Brillar (Atenxion) in Singapore and the internal systems students used at Rangsit International College.

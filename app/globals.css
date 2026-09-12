@@ -12,15 +12,15 @@
   --text: #18181b;
   --muted: #5f5f6a;
   --faint: #8b8b96;
-  --accent: #6b46d6;
-  --accent-soft: rgba(107, 70, 214, 0.08);
-  --accent-line: rgba(107, 70, 214, 0.22);
-  --shadow-sm: 0 1px 2px rgba(40, 30, 70, 0.06);
-  --shadow-md: 0 6px 20px rgba(40, 30, 70, 0.10);
+  --accent: #2f5fd0;
+  --accent-soft: rgba(47, 95, 208, 0.08);
+  --accent-line: rgba(47, 95, 208, 0.22);
+  --shadow-sm: 0 1px 2px rgba(30, 40, 70, 0.06);
+  --shadow-md: 0 6px 20px rgba(30, 40, 70, 0.10);
   --radius: 12px;
   --maxw: 1080px;
   --sb-thumb: rgba(24, 24, 27, 0.20);
-  --sb-thumb-hover: rgba(107, 70, 214, 0.45);
+  --sb-thumb-hover: rgba(47, 95, 208, 0.45);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,13 +32,13 @@
     --text: #f2f2f4;
     --muted: #a5a5b0;
     --faint: #74747f;
-    --accent: #9f74f0;
-    --accent-soft: rgba(159, 116, 240, 0.10);
-    --accent-line: rgba(159, 116, 240, 0.28);
-    --shadow-sm: 0 1px 2px rgba(10, 6, 24, 0.5);
-    --shadow-md: 0 8px 28px rgba(10, 6, 24, 0.5);
+    --accent: #5f8fe8;
+    --accent-soft: rgba(95, 143, 232, 0.10);
+    --accent-line: rgba(95, 143, 232, 0.28);
+    --shadow-sm: 0 1px 2px rgba(6, 10, 24, 0.5);
+    --shadow-md: 0 8px 28px rgba(6, 10, 24, 0.5);
     --sb-thumb: rgba(255, 255, 255, 0.16);
-    --sb-thumb-hover: rgba(159, 116, 240, 0.5);
+    --sb-thumb-hover: rgba(95, 143, 232, 0.5);
   }
 }
 
@@ -50,13 +50,13 @@
   --text: #f2f2f4;
   --muted: #a5a5b0;
   --faint: #74747f;
-  --accent: #9f74f0;
-  --accent-soft: rgba(159, 116, 240, 0.10);
-  --accent-line: rgba(159, 116, 240, 0.28);
-  --shadow-sm: 0 1px 2px rgba(10, 6, 24, 0.5);
-  --shadow-md: 0 8px 28px rgba(10, 6, 24, 0.5);
+  --accent: #5f8fe8;
+  --accent-soft: rgba(95, 143, 232, 0.10);
+  --accent-line: rgba(95, 143, 232, 0.28);
+  --shadow-sm: 0 1px 2px rgba(6, 10, 24, 0.5);
+  --shadow-md: 0 8px 28px rgba(6, 10, 24, 0.5);
   --sb-thumb: rgba(255, 255, 255, 0.16);
-  --sb-thumb-hover: rgba(159, 116, 240, 0.5);
+  --sb-thumb-hover: rgba(95, 143, 232, 0.5);
 }
 
 * { box-sizing: border-box; }
@@ -436,32 +436,32 @@ body {
 }
 
 :root {
-  --glow-a: rgba(107, 70, 214, 0.22);
-  --glow-b: rgba(109, 86, 214, 0.12);
-  --glow-c: rgba(70, 100, 220, 0.10);
+  --glow-a: rgba(47, 95, 208, 0.22);
+  --glow-b: rgba(60, 110, 210, 0.11);
+  --glow-c: rgba(40, 80, 180, 0.08);
   --facet: rgba(255, 255, 255, 0.85);
-  --facet-edge: rgba(107, 70, 214, 0.28);
+  --facet-edge: rgba(47, 95, 208, 0.28);
   --grain: 0.6;
   --glass: 70%;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --glow-a: rgba(159, 116, 240, 0.34);
-    --glow-b: rgba(129, 96, 236, 0.16);
-    --glow-c: rgba(84, 110, 232, 0.13);
+    --glow-a: rgba(95, 143, 232, 0.34);
+    --glow-b: rgba(72, 118, 214, 0.16);
+    --glow-c: rgba(56, 96, 190, 0.12);
     --facet: rgba(255, 255, 255, 0.16);
-    --facet-edge: rgba(159, 116, 240, 0.42);
+    --facet-edge: rgba(95, 143, 232, 0.42);
     --grain: 0.8;
     --glass: 58%;
   }
 }
 :root[data-theme="dark"] {
-  --glow-a: rgba(159, 116, 240, 0.34);
-  --glow-b: rgba(129, 96, 236, 0.16);
-  --glow-c: rgba(84, 110, 232, 0.13);
+  --glow-a: rgba(95, 143, 232, 0.34);
+  --glow-b: rgba(72, 118, 214, 0.16);
+  --glow-c: rgba(56, 96, 190, 0.12);
   --facet: rgba(255, 255, 255, 0.16);
-  --facet-edge: rgba(159, 116, 240, 0.42);
+  --facet-edge: rgba(95, 143, 232, 0.42);
   --grain: 0.8;
   --glass: 58%;
 }
@@ -938,6 +938,20 @@ a.card:hover::before {
 .about-actions .btn { padding: 0.5rem 0.9rem; font-size: 0.85rem; }
 .about-body .prose p:first-child { margin-top: 0; }
 .about-body .prose + .prose { margin-top: 0.25rem; }
+/* facts: a short definition list with a hairline under each row */
+.facts { margin: 1.5rem 0 0; }
+.fact {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.92rem;
+}
+.fact dt { color: var(--faint); }
+.fact dd { margin: 0; color: var(--text); }
+@media (max-width: 480px) { .fact { grid-template-columns: 1fr; gap: 0.15rem; } }
+
 .certs { margin-top: 1.75rem; }
 .certs-label {
   display: block;

@@ -21,6 +21,15 @@ export const site = {
     stack: ["Python", "Rust", "Go", "TypeScript", "React", "FastAPI", "Docker", "PostgreSQL"],
   },
 
+  // the About block: a two-sentence intro (content/about/introduction.txt) plus these facts
+  facts: [
+    ["Based in", "Bangkok, Thailand"],
+    ["Education", "ICT, Rangsit International College, Rangsit University"],
+    ["Working in", "Rust, Go, Python, TypeScript"],
+    ["Open source", "Contributor to Mindroid, MagickMind's Rust agent runtime"],
+    ["Hackathons", "1st place, CIMSO Hospitality ERP 2025. 3rd place, Hack the Zodiac 2024"],
+  ] as [string, string][],
+
   stats: [
     { figure: "40% faster", label: "Fast-path inference latency in the reasoning service" },
     { figure: "4s → 2.5s", label: "Agent turn latency after execution-loop caching" },

@@ -41,6 +41,15 @@ export default function AboutSection() {
           <article className="prose" key={s.key} dangerouslySetInnerHTML={{ __html: s.html }} />
         ))}
 
+        <dl className="facts">
+          {site.facts.map(([k, v]) => (
+            <div className="fact" key={k}>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+
         {about.certificates.length > 0 && (
           <div className="certs">
             <span className="certs-label">Certificates</span>
