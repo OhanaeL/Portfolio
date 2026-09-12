@@ -2,10 +2,7 @@ import { asset } from "@/lib/paths";
 import { getAbout, str } from "@/lib/content";
 import { site } from "@/lib/site";
 
-const pretty = (f: string) =>
-  f.replace(/\.(pdf|png|jpg|jpeg)$/i, "").replace(/([a-z])([A-Z])/g, "$1 $2");
-
-/** The old /about page, folded into one two-column block: who + prose + certificates. */
+/** The old /about page, folded into one two-column block: who + prose + facts. */
 export default function AboutSection() {
   const about = getAbout();
 
@@ -50,24 +47,6 @@ export default function AboutSection() {
           ))}
         </dl>
 
-        {about.certificates.length > 0 && (
-          <div className="certs">
-            <span className="certs-label">Certificates</span>
-            <div className="certs-list">
-              {about.certificates.map((c) => (
-                <a
-                  className="cert"
-                  key={c}
-                  href={asset(`/media/about/certificates/${encodeURIComponent(c)}`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {pretty(c)} <span aria-hidden="true">↗</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

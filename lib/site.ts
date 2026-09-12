@@ -26,8 +26,8 @@ export const site = {
   stats: [
     { figure: "40% faster", label: "Fast-path response latency in the reasoning service" },
     { figure: "4s → 2.5s", label: "Agent turn latency after execution-loop caching" },
-    { figure: "300+ / 100+", label: "Candidates and companies on a recruitment platform I built" },
-    { figure: "1st place", label: "CIMSO Hospitality ERP Hackathon, 2025" },
+    { figure: "~20%", label: "Reasoning accuracy gain from frontier methods (RLM, mixture of judges)" },
+    { figure: "#1 contributor", label: "On three of MagickMind's core services" },
   ],
 
   resume: asset("/media/about/resume.pdf"),
