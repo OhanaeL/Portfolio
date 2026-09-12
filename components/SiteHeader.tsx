@@ -49,9 +49,9 @@ export default function SiteHeader() {
   return (
     <header className={stuck ? "nav nav--stuck spot" : "nav spot"} data-spot="after">
       <div className="container nav-inner">
-        <Link href="/" className="nav-name" aria-label={site.name}>
+        <SmoothLink href="#main" className="nav-name" aria-label={`${site.name}, back to top`}>
           LYNN
-        </Link>
+        </SmoothLink>
         <nav className="nav-links">
           {nav.map((item) => (
             <SmoothLink key={item.href} href={item.href}>

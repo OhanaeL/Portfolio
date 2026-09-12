@@ -1141,20 +1141,27 @@ a.card:hover::before { background: var(--accent-line); }
 .footer-inner { font-size: 0.78rem; }
 .stat .label { font-size: 0.76rem; line-height: 1.45; }
 
-/* ---------- side nav (wide screens) ---------- */
+/* ---------- side nav (wide screens): the cylinder ---------- */
 .sidenav {
+  --step: 2.4rem;
   display: none;
   position: fixed;
   left: 1.25rem;
   top: 50%;
-  transform: translateY(-50%);
   z-index: 40;
-  flex-direction: column;
-  gap: 0.9rem;
+  height: 0;
 }
-/* only when the gutter beside the 1320px column has room for a label */
-@media (min-width: 1500px) { .sidenav { display: flex; } }
+/* only when the gutter beside the column has room for a label */
+@media (min-width: 1500px) { .sidenav { display: block; } }
+/* the list is shifted so item --i is centred on the viewport midline */
+.sidenav-list {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(-1 * (var(--i) + 0.5) * var(--step)));
+  transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1);
+}
 .sidenav-item {
+  height: var(--step);
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -1163,21 +1170,25 @@ a.card:hover::before { background: var(--accent-line); }
   font-size: 0.62rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  transition: color 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s, color 0.3s;
 }
 .sidenav-item i {
   display: block;
   width: 14px;
   height: 1px;
   background: var(--border);
-  transition: width 0.25s cubic-bezier(0.32, 0.72, 0, 1), background-color 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: width 0.4s cubic-bezier(0.32, 0.72, 0, 1), background-color 0.3s;
 }
-.sidenav-item span { opacity: 0; transform: translateX(-4px); transition: opacity 0.2s, transform 0.2s cubic-bezier(0.32, 0.72, 0, 1); }
-.sidenav:hover .sidenav-item span,
-.sidenav-item.is-active span { opacity: 1; transform: none; }
+.sidenav-item span { opacity: 0; transform: translateX(-4px); transition: opacity 0.3s, transform 0.4s cubic-bezier(0.32, 0.72, 0, 1); }
+/* distance from the active item decides how far left and how faint */
+.sidenav-item[data-d="0"] { transform: translateX(16px); color: var(--text); }
+.sidenav-item[data-d="0"] i { width: 24px; background: var(--accent); }
+.sidenav-item[data-d="0"] span { opacity: 1; transform: none; }
+.sidenav-item[data-d="1"] { transform: translateX(6px); opacity: 0.8; }
+.sidenav-item[data-d="2"] { transform: translateX(0); opacity: 0.55; }
+.sidenav-item[data-d="3"] { transform: translateX(-4px); opacity: 0.35; }
+.sidenav:hover .sidenav-item span { opacity: 1; transform: none; }
 .sidenav-item:hover { color: var(--muted); }
-.sidenav-item.is-active { color: var(--text); }
-.sidenav-item.is-active i { width: 24px; background: var(--accent); }
 
 /* ---------- spotlight borders ---------- */
 /* The ring pseudo's background is the border colour with a soft accent pool

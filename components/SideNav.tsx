@@ -11,9 +11,11 @@ const SECTIONS = [
 ];
 
 /**
- * Fixed marker rail in the left gutter (wide screens only, see CSS). The
- * section whose top edge was most recently crossed is the active one, which
- * reads correctly for tall sections that never fully enter the viewport.
+ * Fixed rail in the left gutter (wide screens only, see CSS), built like a
+ * revolver cylinder: the active section is always at the vertical centre and
+ * pushed right, the others recede left, and the whole list rolls when the
+ * active one changes. The section whose top edge most recently crossed a line
+ * 40% down the viewport is the active one.
  */
 export default function SideNav() {
   const [active, setActive] = useState("top");
@@ -48,19 +50,25 @@ export default function SideNav() {
     };
   }, []);
 
+  const activeIndex = Math.max(0, SECTIONS.findIndex((s) => s.id === active));
+
   return (
     <nav className="sidenav" aria-label="Sections">
-      {SECTIONS.map((s) => (
-        <SmoothLink
-          key={s.id}
-          href={s.id === "top" ? "#main" : `#${s.id}`}
-          className={active === s.id ? "sidenav-item is-active" : "sidenav-item"}
-          aria-current={active === s.id ? "true" : undefined}
-        >
-          <i aria-hidden="true" />
-          <span>{s.label}</span>
-        </SmoothLink>
-      ))}
+      {/* the list rolls so the active item always sits at the same spot, like a cylinder */}
+      <div className="sidenav-list" style={{ "--i": activeIndex } as React.CSSProperties}>
+        {SECTIONS.map((s, i) => (
+          <SmoothLink
+            key={s.id}
+            href={s.id === "top" ? "#main" : `#${s.id}`}
+            className={active === s.id ? "sidenav-item is-active" : "sidenav-item"}
+            data-d={Math.min(3, Math.abs(i - activeIndex))}
+            aria-current={active === s.id ? "true" : undefined}
+          >
+            <i aria-hidden="true" />
+            <span>{s.label}</span>
+          </SmoothLink>
+        ))}
+      </div>
     </nav>
   );
 }
