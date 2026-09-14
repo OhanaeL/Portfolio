@@ -86,6 +86,30 @@ function Escalation() {
   );
 }
 
+function Bundle() {
+  return (
+    <svg className="dg" viewBox="0 0 640 230" role="img" aria-label="An agent is a bundle of four things it owns: an identity, a personality, its memories and a running process. The bundle joins workspaces, which are rooms it visits rather than things that own it.">
+      <Defs />
+      <text className="dg-caption" x="20" y="26">THE AGENT OWNS THE BUNDLE · ROOMS ARE VISITED</text>
+      <g className="dg-box dg-box--dashed">
+        <rect x={20} y={44} width={300} height={166} />
+        <text className="dg-caption" x={170} y={60} textAnchor="middle">AGENT</text>
+      </g>
+      <Box x={40} y={76} w={122} h={44} label="Identity" sub="own credentials" accent />
+      <Box x={178} y={76} w={122} h={44} label="Personality" sub="versioned, per person" />
+      <Box x={40} y={140} w={122} h={44} label="Memory" sub="its own point of view" accent />
+      <Box x={178} y={140} w={122} h={44} label="Process" sub="one per agent" accent />
+      <Arrow d="M320 100 C 350 100, 350 80, 380 80" />
+      <Arrow d="M320 154 C 350 154, 350 174, 380 174" />
+      <text className="dg-sub" x="350" y="120" textAnchor="middle">joins</text>
+      <Box x={382} y={58} w={120} h={44} label="Workspace A" sub="a room" />
+      <Box x={382} y={152} w={120} h={44} label="Workspace B" sub="another room" />
+      <text className="dg-sub" x="520" y="80" dominantBaseline="middle">people + other agents</text>
+      <text className="dg-sub" x="520" y="174" dominantBaseline="middle">people + other agents</text>
+    </svg>
+  );
+}
+
 /** GPQA, gpt-5.2, same model for every strategy. Source: internal benchmark run, June 2026. */
 const GPQA = [
   { name: "Direct call", pct: 40.2, n: 400 },
@@ -125,6 +149,10 @@ function GpqaChart() {
 }
 
 const FIGURES: Record<string, { el: React.ReactNode; caption: string }> = {
+  bundle: {
+    el: <Bundle />,
+    caption: "What an agent owns, and what it only visits.",
+  },
   "before-after": {
     el: <BeforeAfter />,
     caption: "Before: one orchestrator replies for every agent. After: one process and one identity per agent.",

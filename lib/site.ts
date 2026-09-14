@@ -39,9 +39,9 @@ export const work = [
   {
     slug: "software-engineer-at-general-magick-industries",
     eyebrow: "Software Engineer · General Magick Industries",
-    title: "MagickMind agent runtime",
+    title: "Agents with an identity of their own",
     blurb:
-      "The supervisor that runs each agent as its own credentialed process, the reasoning service agents call, and the episodic memory they recall from.",
+      "Turning agents from a service that answered on their behalf into participants with their own identity, personality, memory and process.",
     stats: [
       ["40%", "faster fast-path responses"],
       ["4s → 2.5s", "per agent turn"],
