@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pilot = site.pilot.enabled && site.pilot.url ? { manifest: buildPilotManifest(), catalog: buildCatalog(), url: site.pilot.url } : null;
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body>
         {/* replay a saved theme choice before first paint so there is no flash */}
         <script
