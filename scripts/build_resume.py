@@ -204,10 +204,6 @@ def build_docx():
     _run(_para(doc, after=1), SUMMARY)
     _labelled(doc, "Languages", LANGUAGES)
 
-    _heading(doc, "SKILLS")
-    for label, text in SKILLS:
-        _labelled(doc, label, text)
-
     _heading(doc, "EXPERIENCE")
     for job in EXPERIENCE:
         p = _para(doc, before=6, after=2)
@@ -217,6 +213,10 @@ def build_docx():
         _run(p, " | " + job["tail"], italic=True)
         for b in job["bullets"]:
             _bullet(doc, b)
+
+    _heading(doc, "SKILLS")
+    for label, text in SKILLS:
+        _labelled(doc, label, text)
 
     _heading(doc, "PROJECTS & ACHIEVEMENTS")
     for b in ACHIEVEMENTS:
@@ -281,8 +281,8 @@ def build_html():
 <div class="name">{NAME}</div><div class="role">{ROLE}</div><div class="contact">{_h(CONTACT)}</div>
 </div><img class="photo" src="data:image/png;base64,{photo}" alt=""></div>
 <h2>SUMMARY</h2><p>{html.escape(SUMMARY)}</p><p><b>Languages:</b> {html.escape(LANGUAGES)}</p>
-<h2>SKILLS</h2>{skills}
 <h2>EXPERIENCE</h2>{exp}
+<h2>SKILLS</h2>{skills}
 <h2>PROJECTS &amp; ACHIEVEMENTS</h2>{_ul(ACHIEVEMENTS)}
 <h2>EDUCATION</h2><p><b>{html.escape(DEGREE)}</b></p><p class="school"><em>{html.escape(SCHOOL)}</em></p>{_ul(EDU_BULLETS)}
 </body></html>"""
