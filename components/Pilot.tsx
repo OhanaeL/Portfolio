@@ -63,7 +63,11 @@ export default function Pilot({ manifest, catalog, url }: { manifest: PilotManif
     >
       <SitepilotWidget
         title="Ask about this site"
-        welcome="Hi! I can point you to anything here — try “which projects used Python?” or “show me the résumé”."
+        subtitle="Knows what is on this page"
+        welcome={[
+          "Hi, I'm the site guide.",
+          "Ask me where anything is and I'll point at it, or ask what Lynn built with a given tool — try “which projects used Python?” or “open the résumé”.",
+        ].join("\n\n")}
         placeholder="Ask about projects, roles, or where things are…"
         showToolToggles={false}
         footer={
@@ -71,12 +75,11 @@ export default function Pilot({ manifest, catalog, url }: { manifest: PilotManif
             Powered by{" "}
             <a href="https://github.com/OhanaeL/sitepilot" target="_blank" rel="noopener noreferrer">
               sitepilot
-            </a>{" "}
-            — this site is annotated with a{" "}
-            <a href="https://github.com/OhanaeL/Portfolio/blob/main/lib/pilot.ts" target="_blank" rel="noopener noreferrer">
-              manifest
             </a>
-            ; the backend is a 30-line Worker.
+            {" · "}
+            <a href="https://github.com/OhanaeL/Portfolio/blob/main/lib/pilot.ts" target="_blank" rel="noopener noreferrer">
+              how this site is annotated
+            </a>
           </>
         }
       />
