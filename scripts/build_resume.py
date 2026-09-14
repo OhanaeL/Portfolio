@@ -1,12 +1,10 @@
 """Render the résumé as .docx (editable source) and .pdf (via headless Edge) from one content definition."""
 
-import base64
 import html
 import subprocess
 from pathlib import Path
 
 from docx import Document
-from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
@@ -14,7 +12,6 @@ from docx.shared import Cm, Pt, RGBColor
 REPO = Path(__file__).resolve().parents[1]
 DOCX = REPO / "content/about/resume.docx"
 PDF = REPO / "public/media/about/resume.pdf"
-PHOTO = REPO / "public/media/about/profile.png"
 HTML = REPO / "content/about/resume.html"
 EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 
@@ -183,22 +180,9 @@ def build_docx():
     normal.font.size = Pt(10)
     normal.element.rPr.rFonts.set(qn("w:eastAsia"), FONT)
 
-    t = doc.add_table(rows=1, cols=2)
-    t.autofit = False
-    left, right = t.rows[0].cells
-    left.width, right.width = Cm(14.4), Cm(3.0)
-    p = left.paragraphs[0]
-    p.paragraph_format.space_after = Pt(0)
-    _run(p, NAME, bold=True, size=24)
-    p = left.add_paragraph()
-    p.paragraph_format.space_after = Pt(2)
-    _run(p, ROLE, size=15)
-    p = left.add_paragraph()
-    p.paragraph_format.space_after = Pt(0)
-    _parts(p, CONTACT)
-    rp = right.paragraphs[0]
-    rp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    rp.add_run().add_picture(str(PHOTO), width=Cm(2.6))
+    _run(_para(doc, after=0), NAME, bold=True, size=24)
+    _run(_para(doc, after=2), ROLE, size=15)
+    _parts(_para(doc, after=0), CONTACT)
 
     _heading(doc, "SUMMARY")
     _run(_para(doc, after=1), SUMMARY)
@@ -236,12 +220,9 @@ CSS = """
 @page { size: A4; margin: 13mm 16mm; }
 body { font-family: "Times New Roman", Times, serif; font-size: 10pt; line-height: 1.25; color: #000; margin: 0; }
 a { color: #0563C1; text-decoration: underline; }
-.head { display: flex; justify-content: space-between; align-items: flex-start; gap: 6mm; }
-.head > div { flex: 1; }
 .name { font-size: 24pt; font-weight: bold; line-height: 1.05; }
 .role { font-size: 15pt; margin: 2pt 0 4pt; }
-.contact { font-size: 9.5pt; }
-.photo { width: 24mm; height: auto; flex: none; }
+.contact { font-size: 10pt; }
 h2 { color: #2E74B5; font-size: 12pt; margin: 8pt 0 2pt; }
 p { margin: 0 0 1.5pt; }
 ul { margin: 0 0 1pt; padding-left: 16pt; }
@@ -269,7 +250,6 @@ def _ul(items):
 
 
 def build_html():
-    photo = base64.b64encode(PHOTO.read_bytes()).decode()
     exp = "".join(
         f'<p class="job"><b>{html.escape(j["title"])}</b> | {_h(j["org"], italic=True)} | <em>{html.escape(j["tail"])}</em></p>'
         + _ul(j["bullets"])
@@ -277,9 +257,7 @@ def build_html():
     )
     skills = "".join(f"<p><b>{html.escape(k)}:</b> {html.escape(v)}</p>" for k, v in SKILLS)
     doc = f"""<!doctype html><html><head><meta charset="utf-8"><title>Htin Linn – Résumé</title><style>{CSS}</style></head><body>
-<div class="head"><div>
 <div class="name">{NAME}</div><div class="role">{ROLE}</div><div class="contact">{_h(CONTACT)}</div>
-</div><img class="photo" src="data:image/png;base64,{photo}" alt=""></div>
 <h2>SUMMARY</h2><p>{html.escape(SUMMARY)}</p><p><b>Languages:</b> {html.escape(LANGUAGES)}</p>
 <h2>EXPERIENCE</h2>{exp}
 <h2>SKILLS</h2>{skills}
