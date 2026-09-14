@@ -11,7 +11,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 
-REPO = Path(r"C:\Users\linn\Repositories\scratch\Portfolio")
+REPO = Path(__file__).resolve().parents[1]
 DOCX = REPO / "content/about/resume.docx"
 PDF = REPO / "public/media/about/resume.pdf"
 PHOTO = REPO / "public/media/about/profile.png"
