@@ -33,3 +33,32 @@ export const site = {
 
   resume: asset("/media/about/resume.pdf"),
 } as const;
+
+/** The case studies in the Work section; `slug` names the experience entry each one opens. */
+export const work = [
+  {
+    slug: "software-engineer-at-general-magick-industries",
+    eyebrow: "Software Engineer · General Magick Industries",
+    title: "MagickMind agent runtime",
+    blurb:
+      "The supervisor that runs each AI agent as an isolated, credentialed process, the reasoning service behind it, and the memory that gives agents recall across conversations.",
+    stats: [
+      ["40%", "faster fast-path responses"],
+      ["4s → 2.5s", "per agent turn"],
+      ["~20%", "accuracy gain from new reasoning methods"],
+    ],
+    diagram: "runtime",
+  },
+  {
+    slug: "developer-at-brillar-company",
+    eyebrow: "Associate Fullstack Engineer · Brillar (Atenxion)",
+    title: "AI microservices and CRM integrations",
+    blurb:
+      "Python services that turn documents and crawled pages into LLM-ready text, and one integration service that connects SalesIQ, Chatwoot and Zoho for every product.",
+    stats: [
+      ["30%", "faster container build and startup"],
+      ["3", "CRM platforms behind one service"],
+    ],
+    diagram: "pipeline",
+  },
+] as const;

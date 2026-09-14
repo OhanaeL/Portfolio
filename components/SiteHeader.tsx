@@ -7,6 +7,7 @@ import ThemeToggle from "./ThemeToggle";
 
 // one page: these are anchors, in the order the sections appear
 const nav = [
+  { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
   { href: "#about", label: "About" },

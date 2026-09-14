@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { site, work } from "@/lib/site";
 import { getProjects, getExperience } from "@/lib/content";
 import ToolStrip from "@/components/ToolStrip";
 import Timeline, { dated } from "@/components/Timeline";
@@ -6,6 +6,7 @@ import ProjectRail from "@/components/ProjectRail";
 import AboutSection from "@/components/AboutSection";
 import SmoothLink from "@/components/SmoothLink";
 import SystemDiagram from "@/components/SystemDiagram";
+import WorkDiagram from "@/components/WorkDiagram";
 
 export default function Home() {
   const projects = getProjects(); // filtered + ordered by featured.txt
@@ -41,6 +42,35 @@ export default function Home() {
           ))}
         </dl>
       </div>
+
+      <section className="container reveal spot" id="work" data-spot="after">
+        <div className="section-head">
+          <h2>Professional Work</h2>
+          <span className="section-note">{work.length} case studies</span>
+        </div>
+        <div className="work-grid">
+          {work.map((w) => (
+            <article className="work spot" key={w.slug}>
+              <div className="work-art">
+                <WorkDiagram kind={w.diagram} />
+              </div>
+              <p className="work-eyebrow">{w.eyebrow}</p>
+              <h3>{w.title}</h3>
+              <p className="work-blurb">{w.blurb}</p>
+              <ul className="work-stats">
+                {w.stats.map(([figure, label]) => (
+                  <li key={label}>
+                    <b>{figure}</b> {label}
+                  </li>
+                ))}
+              </ul>
+              <SmoothLink className="work-more" href="#experience">
+                Read case study <span aria-hidden="true">→</span>
+              </SmoothLink>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="container reveal spot" id="experience" data-spot="after">
         <div className="section-head">

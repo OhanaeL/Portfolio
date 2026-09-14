@@ -5,6 +5,7 @@ import SmoothLink from "./SmoothLink";
 
 const SECTIONS = [
   { id: "top", label: "Top" },
+  { id: "work", label: "Work" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
   { id: "about", label: "About" },
