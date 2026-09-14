@@ -55,7 +55,7 @@ export const work = [
     eyebrow: "Associate Fullstack Engineer · Brillar (Atenxion)",
     title: "AI microservices and CRM integrations",
     blurb:
-      "Python services that turn documents and crawled pages into text for LLM workflows, and one integration service that connects SalesIQ, Chatwoot and Zoho for every product.",
+      "Python services that turn documents and crawled pages into text for LLM workflows, and one integration service that connects Zoho, Chatwoot and Zendesk for every product.",
     stats: [
       ["30%", "faster container build and startup"],
       ["3", "CRM platforms behind one service"],
