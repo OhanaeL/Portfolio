@@ -688,7 +688,7 @@ a.card:hover::before { background: var(--accent-line); }
 }
 
 /* ---------- tools strip (foot of Experience) ---------- */
-.tools { margin-top: 0; padding-top: 1.5rem; }
+.tools { margin-top: 0; padding-top: 2.75rem; }
 .tools-label {
   display: block;
   font-family: var(--font-mono), monospace;
