@@ -4,11 +4,9 @@ import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
-/** What the page is actually showing right now: the saved override, else the OS preference. */
+/** What the page is showing right now: the saved override, else light. */
 function current(): Theme {
-  const set = document.documentElement.dataset.theme;
-  if (set === "light" || set === "dark") return set;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 }
 
 const listeners = new Set<() => void>();
@@ -16,11 +14,8 @@ const notify = () => listeners.forEach((l) => l());
 
 function subscribe(onChange: () => void) {
   listeners.add(onChange);
-  const mq = window.matchMedia("(prefers-color-scheme: dark)");
-  mq.addEventListener("change", onChange);
   return () => {
     listeners.delete(onChange);
-    mq.removeEventListener("change", onChange);
   };
 }
 
