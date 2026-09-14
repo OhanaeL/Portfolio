@@ -5,7 +5,9 @@ import SiteHeader from "@/components/SiteHeader";
 import Reveal from "@/components/Reveal";
 import Spotlight from "@/components/Spotlight";
 import SideNav from "@/components/SideNav";
+import Pilot from "@/components/Pilot";
 import { site } from "@/lib/site";
+import { buildCatalog, buildPilotManifest } from "@/lib/pilot";
 
 const sans = Geist({
   subsets: ["latin"],
@@ -35,6 +37,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const pilot = site.pilot.enabled && site.pilot.url ? { manifest: buildPilotManifest(), catalog: buildCatalog(), url: site.pilot.url } : null;
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
@@ -71,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SideNav />
         <Reveal />
         <Spotlight />
+        {pilot && <Pilot {...pilot} />}
       </body>
     </html>
   );

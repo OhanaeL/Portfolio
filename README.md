@@ -20,6 +20,19 @@ Everything shown on the page comes from `content/` and `lib/site.ts`; no code ch
 
 A project with a video under `public/media/projects/<slug>/embeds/` and no `demo` link gets a "Demo video" link on its card.
 
+## Site assistant
+
+The ✦ button bottom-right is [sitepilot](https://github.com/OhanaeL/sitepilot): an agent that can point at and open anything on the page. The site stays fully static — the only backend is `worker/`, a Cloudflare Worker holding the LLM key (see its README).
+
+| Where | What it drives |
+|-------|----------------|
+| `lib/pilot.ts` | The manifest: which elements the assistant can see (by CSS selector) and the hint for each, generated from the same `content/` metadata that renders the page |
+| `components/Pilot.tsx` | The widget, plus a `search_portfolio` tool over projects, roles and case studies |
+| `worker/src/index.ts` | The persona prompt and the origin allow-list |
+| `lib/site.ts` → `pilot.enabled` | Turn the widget off without touching the Worker |
+
+The widget renders only when `NEXT_PUBLIC_PILOT_URL` is set (the deploy workflow reads the `PILOT_URL` repository variable), so a checkout without a Worker builds exactly as before. Locally: `NEXT_PUBLIC_PILOT_URL=http://localhost:8787 npm run dev` with `worker/` running `npm run dev`.
+
 ## Development
 
 ```bash

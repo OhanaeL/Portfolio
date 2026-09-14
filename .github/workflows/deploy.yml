@@ -37,6 +37,8 @@ jobs:
         # so the same workflow works for either.
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          # The sitepilot Worker URL (repository variable). Unset = no assistant widget.
+          NEXT_PUBLIC_PILOT_URL: ${{ vars.PILOT_URL }}
         run: npm run build
 
       - name: Upload artifact
