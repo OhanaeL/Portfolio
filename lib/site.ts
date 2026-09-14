@@ -48,7 +48,7 @@ export const work = [
       ["+22–34 pts", "GPQA accuracy from reasoning strategies"],
     ],
     diagram: "runtime",
-    caption: "A workspace message reaches the supervisor, which runs each agent as its own process; agents reason through the reasoning service and recall through memory.",
+    caption: "The supervisor mints each agent's credentials and runs it as its own process, then stays out of the way: agents receive workspace messages over pub/sub and reply the same way, and call the reasoning service and episodic memory through the gateway. Escalating from the fast model to the frontier model is the agent's own decision.",
   },
   {
     slug: "developer-at-brillar-company",

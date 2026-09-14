@@ -47,7 +47,7 @@ function BeforeAfter() {
       <Box x={296} y={92} w={52} h={40} label="Model" />
       <line className="dg-arrow" x1="360" y1="20" x2="360" y2="215" strokeDasharray="3 4" />
       <text className="dg-caption" x="384" y="26">AFTER · AGENTS AS PARTICIPANTS</text>
-      <Box x={384} y={100} w={92} h={44} label="Supervisor" accent />
+      <Box x={384} y={100} w={92} h={44} label="Supervisor" sub="spawns · creds" accent />
       <Arrow d="M476 122 C 496 122, 496 64, 516 64" />
       <Arrow d="M476 122 H516" />
       <Arrow d="M476 122 C 496 122, 496 180, 516 180" />
