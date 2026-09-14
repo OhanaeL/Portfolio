@@ -30,13 +30,13 @@ CONTACT = [
     ("link", "Portfolio", "https://ohanael.github.io/Portfolio/"),
 ]
 SUMMARY = (
-    "Software Engineer building the runtime AI agents run on: an agent supervisor, a reasoning service and "
-    "agent memory, in Rust, Go and Python. Previously shipped production Python microservices and AI/LLM "
-    "integrations, with a focus on automated testing, CI/CD and reliable API design."
+    "Python-first Software Engineer building production backend and AI services: REST and gRPC APIs, "
+    "MCP servers and LLM integrations, deployed on Kubernetes with CI/CD and automated testing. Currently "
+    "building the runtime AI agents run on, across Python, Rust and Go."
 )
 LANGUAGES = "English (IELTS 8.0), Burmese (Native), Thai (Basic), Japanese (JLPT N4)"
 SKILLS = [
-    ("Programming", "Python, Rust, Go, TypeScript/JavaScript, Java, C#, HTML/CSS"),
+    ("Programming", "Python, TypeScript/JavaScript, Rust, Go, Java, C#, HTML/CSS"),
     ("Frameworks", "FastAPI, Django, Node.js, Express, React, Next.js"),
     ("AI/ML", "LLM APIs, agent runtimes & native tool calling, RAG, MCP, LangChain, OCR, Computer Vision (OpenCV, MediaPipe)"),
     ("Backend & APIs", "gRPC/Protobuf, RESTful design, async programming, PostgreSQL, MySQL, MongoDB, Redis"),
