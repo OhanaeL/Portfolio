@@ -27,7 +27,7 @@ export const site = {
   stats: [
     { figure: "40% faster", label: "Hot-path latency on a production AI service" },
     { figure: "4s → 2.5s", label: "Per-turn agent latency after caching the execution loop" },
-    { figure: "~20%", label: "Accuracy gain from new reasoning methods, in production" },
+    { figure: "+34 pts", label: "GPQA accuracy from reasoning methods, same model as a direct call" },
     { figure: "#1 contributor", label: "Across three production services" },
   ],
 
@@ -45,7 +45,7 @@ export const work = [
     stats: [
       ["40%", "faster fast-path responses"],
       ["4s → 2.5s", "per agent turn"],
-      ["~20%", "accuracy gain from new reasoning methods"],
+      ["+22–34 pts", "GPQA accuracy from reasoning strategies"],
     ],
     diagram: "runtime",
     caption: "A workspace message reaches the supervisor, which runs each agent as its own process; agents reason through the reasoning service and recall through memory.",

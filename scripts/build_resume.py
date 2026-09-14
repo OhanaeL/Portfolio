@@ -50,7 +50,7 @@ EXPERIENCE = [
         "bullets": [
             ["Top committer since joining on the reasoning, agent-memory and supervisor services; contributor to Mindroid, the open-source Rust agent runtime."],
             ["Built the agent supervisor running each agent as an isolated, credentialed process, and engineered its execution loop with caching, cutting agent turn latency from 4s to 2.5s."],
-            ["Refactored the reasoning service, cutting fast-path latency 40%, and implemented frontier methods (RLM, Lambda-RLM, Mixture of Judges) that lifted benchmark accuracy ~20% over direct LLM calls."],
+            ["Refactored the reasoning service, cutting fast-path latency 40%, and implemented frontier methods (RLM, Lambda-RLM, Mixture of Judges, MCTS) that lifted GPQA accuracy by 22–34 points over a direct call with the same model."],
             ["Shipped native tool calling and mid-turn dual-model escalation across the gateway, reasoning service and supervisor, plus an OpenAI-compatible chat-completions route with tool and image support."],
         ],
     },

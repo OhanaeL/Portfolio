@@ -4,7 +4,7 @@ I work on **MagickMind**, General Magick Industries' AI agent infrastructure pla
 
 - **Agent supervisor.** I built the control plane that mints each agent's credentials and runs it as an isolated OS process, so agents join a workspace as real participants and every action is attributable to a specific agent rather than to one shared orchestrator.
 - **Reasoning path.** I shipped native tool calling and mid-turn escalation between a fast and a frontier model across the gateway, the reasoning service and the supervisor, plus the OpenAI-compatible route that exposes it to any client.
-- **Reasoning methods.** I refactored the reasoning service and implemented frontier methods — RLM, Lambda-RLM and a Mixture-of-Judges panel — and measured where each one pays for itself.
+- **Reasoning methods.** I refactored the reasoning service, implemented frontier methods — RLM, Lambda-RLM, a Mixture-of-Judges panel and tree search — and benchmarked where each one pays for itself.
 - **Agent memory.** I refactored the episodic memory flow that gives agents recall across conversations.
 - **Runtime.** I contribute to **Mindroid**, the company's open-source Rust agent SDK that every agent runs on, and to the Python SDK.
 
@@ -18,6 +18,8 @@ The platform already had a chat orchestrator: one service that received every me
 
 The fix was to stop having a service speak for agents and let each agent speak for itself.
 
+[figure:before-after]
+
 The supervisor is a small control plane with one job: given an agent definition, mint that agent credentials of its own — it becomes an end-user of the workspace, scoped to one tenant — and run it as its own OS process. Each process is a Mindroid agent: it subscribes to the workspace's real-time channel exactly like a person's client does, and it replies through the same send-message endpoint a person would use. Fan-out to the other members is the workspace's job, not the agent's. The orchestrator hop disappears, and attribution falls out for free: a message from an agent is signed by that agent.
 
 Isolation is the point of the process-per-agent design. A misbehaving agent can be killed and restarted without touching its neighbours, its credentials never leave its process, and the supervisor enforces the tenant boundary on every request that asks it to act on someone's behalf.
@@ -28,19 +30,24 @@ The execution loop was the first thing I measured once agents were real. Persist
 
 Tool calls used to be parsed out of model text with XML markers. It worked until it didn't: a stray tag, a model that decided to explain its tool call, and the turn fell apart. I shipped **native tool calling** end to end. The gateway's OpenAI-compatible chat-completions route accepts `tools` and `tool_choice`, returns real `tool_calls` with the matching finish reason, and accepts `role: "tool"` results back; the reasoning service carries the tool configuration natively; Mindroid's tool-executor stage consumes the structured calls. Image inputs ride the same route, so multimodal turns reach the reasoning service from any OpenAI client without a custom SDK.
 
+[figure:escalation]
+
 The second half is **mid-turn escalation**, which came out of a personal prototype. A cheap, fast model answers most turns; when it isn't confident, it hands the turn to a frontier model — within the same turn, with the same context — so the agent never has to choose a model up front. The prototype's raw-JSON "is this final?" protocol became a mandatory tool call carrying the same fields, so there is only one output format and a small model cannot get it wrong. It is a single configuration key: without a fast model configured, the agent resolves one model and runs exactly as before.
 
 Reworking how the reasoning service assembles and dispatches requests — one system turn instead of several, no duplicated history, reasoning effort threaded through instead of silently dropped — brought **fast-path latency down 40%**.
 
 ## Reasoning methods, measured
 
-Beyond a single model call, the reasoning service offers several strategies, and I implemented the newer ones:
+Beyond a single model call, the reasoning service offers several strategies, and I implemented the newer ones and benchmarked them on AIME, GPQA, MATH500 and LongCoT:
 
-- **RLM and Lambda-RLM** run the model's reasoning as code in a sandbox, so it computes rather than guesses. On computation-heavy questions it is exact where a plain frontier call is wrong; the price is a fixed cold-start of roughly 12–14 seconds per run, so it needs an iteration cap and is not a default.
+- **RLM** hands the question to a model that drives a REPL loop: it can run code, call sub-models and keep iterating until it decides it is done. It is exact where a plain call is wrong on computation-heavy questions; the price is a fixed cold start of roughly 12–14 seconds per run and a cost that is unbounded unless capped, so it needs an iteration limit and is not the default.
+- **Lambda-RLM** splits the context programmatically and answers each piece with a sub-model in parallel — always two calls, fixed cost. I validated our node against the paper's reference code (identical accuracy on every benchmark). It works as a tool for short-horizon questions and breaks on chained reasoning, where it degrades to a plain call with less context.
 - **Mixture of Judges** — a panel of candidate answers scored by judges, with a first-come fast path for easy questions, tool use available to panellists, an early-accept threshold so the panel stops as soon as a candidate clears the bar, and tool cost counted against each candidate.
 - **Monte-Carlo tree search** with parallel expansion and an optional aggregator that combines the best branches into a new candidate.
 
-Across the internal benchmarks these methods lifted accuracy by roughly **20%** over calling a model directly. The more useful finding was where they don't help: for simple requests, latency and cost dominate and a single call wins, which is why the panel's fast path and the escalation design above exist.
+[figure:gpqa-chart]
+
+The cleanest comparison is GPQA with the same model behind every strategy. A direct call answers **40.2%**; MCTS lifts that to **62.4%** and RLM to **73.8%** — 22 to 34 points from the strategy alone. The more useful findings were the negative ones. On AIME the base model's generation mattered more than any strategy. Tree search on top of RLM was strictly worse than RLM alone, at two to four times the latency. And for simple requests, latency and cost dominate and a single call wins — which is why the panel has a fast path and why the escalation design above exists at all.
 
 ## Memory
 

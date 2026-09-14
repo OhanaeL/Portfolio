@@ -87,6 +87,9 @@ function render(description: string, section: Section, slug: string) {
     )}" alt="${caption}" loading="lazy" /></span>`;
   });
 
+  // [figure:name] becomes a marker the case-study page swaps for a component
+  out = out.replace(/^\[figure:([\w-]+)\]$/gm, '<div data-figure="$1"></div>');
+
   out = out.replace(/\[website_link:([^\]]+)\]/g, (_m, name: string) => {
     const n = String(name).trim();
     return `<a class="xlink" href="/projects/${slugify(n)}/">${n}</a>`;
