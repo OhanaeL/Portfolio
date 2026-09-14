@@ -1,0 +1,16 @@
+Dear Allianz Technology hiring team,
+
+I am applying for the Forward Deployed Engineer role (104575).
+
+I am a software engineer who ships across the whole stack. At General Magick Industries I build and run the runtime that AI agents run on: a supervisor in Rust that launches each agent as its own process with its own credentials, a reasoning service in Python, a gateway in Go, and front-ends in TypeScript, all deployed on Kubernetes with CI/CD, tests and observability. I work across seventeen service repositories in four languages and have been the top committer on three of them since joining in April.
+
+Two parts of your description match how I already work. The first is reusing building blocks. Our agent runtime is split into Mindroid, an open-source Rust SDK with the generic pieces, and a product layer on top of it; when I build something generic for one agent, it goes back into the SDK so the next one starts further along. The second is documentation: I write the case studies and diagrams that explain the runtime to people outside engineering, because a solution nobody else can operate is not finished.
+
+On security and compliance, I have not worked in a regulated industry, so I will be direct about what I have done instead: per-agent credentials and a tenant boundary enforced on every request, host validation on user-supplied URLs before the server fetches them, request-size caps on public routes, CVE remediation in container images, and a quality gate on new code that we keep green even when it blocks a merge. I would expect to learn the regulatory side from your teams and to bring that discipline with me.
+
+I have about a year and a half of full-time engineering behind me, plus an internship and freelance work before that. I know the posting is pitched at a professional level; I am putting the work in front of you and letting it make the case.
+
+I am based in Bangkok. My portfolio has the full write-ups: https://ohanael.github.io/Portfolio/
+
+Htin Linn
+htinlinn.dev.03@gmail.com
