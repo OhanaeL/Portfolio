@@ -93,6 +93,54 @@ DEGREE = "Bachelor of Science (Information and Communication Technology)"
 SCHOOL = ["Rangsit University | Pathum Thani, Thailand | 2022-2025 | ", ("bold", "GPA: 3.96/4"), " | ", ("bold", "First Class Honours")]
 EDU_BULLETS = [["Mentored classmates and foreign students in programming fundamentals."]]
 
+# ---------------------------------------------------------------- variants
+# `python scripts/build_resume.py systems` writes resume-systems.{docx,pdf} to
+# content/about/ (not served by the site): the same facts, tilted towards
+# systems, Linux and security work for roles that are not about LLMs.
+VARIANTS = {
+    "systems": {
+        "SUMMARY": (
+            "Software engineer working in Rust, Python and Go on backend services that run in production on Linux "
+            "and Kubernetes. Currently building a Rust control plane that supervises one OS process per AI agent and "
+            "mints its credentials. Comfortable in unfamiliar codebases (17 services, four languages); CI/CD, tests "
+            "and observability are part of finishing the job."
+        ),
+        "SKILLS": [
+            ("Programming", "Rust, Python, Go, Bash/Shell, TypeScript, Java, C#"),
+            ("Systems & platform", "Linux containers, Docker, Kubernetes, etcd service discovery, gRPC/Protobuf, Redis (clustered), PostgreSQL, MySQL, MongoDB, RabbitMQ, Centrifugo pub/sub"),
+            ("Security practice", "per-service credentials, tenant isolation, input and host validation on user-supplied URLs, secrets kept out of repositories, dependency CVE remediation, SonarQube quality gates"),
+            ("CI/CD & testing", "GitHub Actions, cargo test/clippy, pytest, multi-stage Docker builds, OpenTelemetry, Grafana"),
+            ("AI (secondary)", "LLM APIs, agent runtimes, LangGraph, RAG, MCP"),
+        ],
+        "GMI_BULLETS": [
+            ["Built the agent supervisor in ", ("bold", "Rust"), ": a control plane that mints per-agent credentials and runs one isolated OS process per agent, enforcing a ", ("bold", "tenant boundary"), " on every request that acts on someone's behalf."],
+            ["Hardened the gateway's public chat route (Go): request-size cap, ", ("bold", "host validation"), " on user-supplied URLs before the server fetches them, and structured tool calls in place of text parsing."],
+            ["Maintenance across three services: remediated ", ("bold", "vendored CVEs"), " in container images (stripped pip from the uv-managed interpreter, pinned setuptools), namespaced Redis keys per service, and made message ingest ", ("bold", "idempotent"), " so retries cannot duplicate records."],
+            ["Cut agent turn latency from ", ("bold", "4s to 2.5s"), " and the reasoning service's fast path by ", ("bold", "40%"), " with targeted caching, measured before and after."],
+            [("bold", "Top committer"), " since joining on three production services; every change ships with tests through CI to Kubernetes. Contributor to Mindroid, the company's open-source Rust runtime."],
+        ],
+        "BRILLAR_BULLETS": [
+            ["Owned two Python (FastAPI) microservices end to end: design, implementation and production operations."],
+            ["Cut container build and startup time by ", ("bold", "30%"), " with Docker changes; added OpenTelemetry and Grafana."],
+            ["Maintained pytest suites in CI/CD for stable weekly releases; reviewed other teams' integrations against the shared CRM integration service (Zoho, Chatwoot, Zendesk)."],
+            ["Built the document ingestion pipeline that turns uploads and crawled pages into text for downstream services."],
+        ],
+        "ROLE": "Software Engineer (Rust / Python / Go)",
+    },
+}
+
+
+def apply_variant(name):
+    global SUMMARY, SKILLS, ROLE, DOCX, PDF, HTML
+    v = VARIANTS[name]
+    SUMMARY, SKILLS, ROLE = v["SUMMARY"], v["SKILLS"], v["ROLE"]
+    EXPERIENCE[0]["bullets"] = v["GMI_BULLETS"]
+    EXPERIENCE[1]["bullets"] = v["BRILLAR_BULLETS"]
+    DOCX = REPO / f"content/about/resume-{name}.docx"
+    PDF = REPO / f"content/about/resume-{name}.pdf"
+    HTML = REPO / f"content/about/resume-{name}.html"
+
+
 # ---------------------------------------------------------------- docx
 BLUE = RGBColor(0x2E, 0x74, 0xB5)
 FONT = "Times New Roman"
@@ -277,7 +325,12 @@ def build_pdf():
 
 
 if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) > 1:
+        apply_variant(sys.argv[1])
     build_docx()
     build_html()
     build_pdf()
+    HTML.unlink(missing_ok=True)
     print("docx", DOCX.stat().st_size, "pdf", PDF.stat().st_size)
