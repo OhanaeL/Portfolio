@@ -212,6 +212,8 @@ def build_docx():
     for b in EDU_BULLETS:
         _bullet(doc, b)
 
+    doc.core_properties.title = f"{NAME.title()} | {ROLE}"
+    doc.core_properties.author = NAME.title()
     doc.save(DOCX)
 
 
@@ -256,7 +258,7 @@ def build_html():
         for j in EXPERIENCE
     )
     skills = "".join(f"<p><b>{html.escape(k)}:</b> {html.escape(v)}</p>" for k, v in SKILLS)
-    doc = f"""<!doctype html><html><head><meta charset="utf-8"><title>Htin Linn – Résumé</title><style>{CSS}</style></head><body>
+    doc = f"""<!doctype html><html><head><meta charset="utf-8"><title>{NAME.title()} | {ROLE}</title><style>{CSS}</style></head><body>
 <div class="name">{NAME}</div><div class="role">{ROLE}</div><div class="contact">{_h(CONTACT)}</div>
 <h2>SUMMARY</h2><p>{html.escape(SUMMARY)}</p><p><b>Languages:</b> {html.escape(LANGUAGES)}</p>
 <h2>EXPERIENCE</h2>{exp}
