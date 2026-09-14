@@ -1,8 +1,7 @@
-description: Backend system for RSU attendance tracking and management
+description: Course recommendation system adopted by 100+ ICT students to support data-driven course selection
 date: December 2024
 tags: Backend, Python, Django
 team:
 - Htin Linn
 
-status: Work In Progress
-
+thumbnail: ICT_courseplanner.png

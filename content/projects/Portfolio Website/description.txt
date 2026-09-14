@@ -1,28 +1,17 @@
-Portfolio Website is a file-based content management system I developed to showcase my projects, accomplishments, and professional journey. Built with Flask and vanilla JavaScript, [image:homepage.png:the application] provides a streamlined way to manage portfolio content without database dependencies or admin panels. The entire site is driven by organized folders and text files, making content updates as simple as editing files.
+Portfolio Website is this site: a single-page portfolio built with Next.js and exported as static HTML, so it deploys to GitHub Pages with no server. [image:homepage.png:The page] covers experience, selected projects and a short about block.
 
 ## Key Features
 
-### File-Based Content Management
-Projects, experiences, and accomplishments are managed through simple folder structures. Adding new content requires creating a folder, dropping in description files and images, and updating an order.txt file to control display priority. All content supports Markdown formatting for rich text descriptions.
+### File-Based Content
+Experience, projects and accomplishments are folders of plain text: a `metadata.txt` of key-value lines and a markdown `description.txt`, with media alongside under `public/media`. `featured.txt` in each section is the allow-list of what is published, so entries can stay on disk without appearing on the site.
 
-### Dynamic Search and Filtering
-The projects page includes [image:projects_page.png:real-time search functionality] that filters results as users type, along with automatic tag-based filtering. Tags are extracted from project metadata, creating dynamic filter options without manual configuration.
+### Static Export
+`next build` renders everything at build time. A GitHub Actions workflow builds on every push to `main` and publishes the `out/` directory to GitHub Pages, with the base path injected so the same workflow serves a user site or a project site.
 
-### Interactive Image Previews
-Built-in hover functionality allows inline image previews within descriptions. Users can hover over text links to see [image:homepage.png:image previews] without cluttering the page layout, providing context without disrupting the reading flow.
-
-### Responsive Design and Theming
-The site features a dark purple theme with pixel art-inspired design elements, fully responsive across devices. CSS variables enable easy theme customization, and the site includes light and dark mode support with smooth transitions.
+### Theming
+Light and dark mode keyed off CSS tokens, with the saved choice replayed by an inline script before first paint so there is no flash.
 
 ## Technologies & Skills
 
-- Python: Core backend logic with Flask
-- Flask: Web framework for routing and templating
-- JavaScript: Vanilla JS for interactivity, search, and filtering
-- CSS: Custom styling with CSS variables for theming
-- Jinja2: Template engine for dynamic content generation
-- File System: Content management through organized folder structures
-
-## Development Approach
-
-This project emphasizes simplicity and maintainability. By avoiding databases and admin panels, the portfolio remains lightweight and easy to update. The file-based approach allows version control of all content, making it straightforward to track changes and deploy updates.
+- Next.js, React, TypeScript
+- GitHub Actions, GitHub Pages

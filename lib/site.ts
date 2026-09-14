@@ -7,7 +7,7 @@ export const site = {
   email: "htinlinn.dev.03@gmail.com",
   github: "https://github.com/OhanaeL",
   linkedin: "https://www.linkedin.com/in/htin-linn-b599711a1/",
-  // Update this once the Vercel domain is assigned.
+  // GitHub Pages project site; the deploy workflow injects the /Portfolio base path.
   url: "https://ohanael.github.io/Portfolio",
 
   headline: "I build the systems AI agents run on.",

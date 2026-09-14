@@ -7,8 +7,6 @@ team:
 - Nyan Lin Aung
 - Suzin Win
 - Saw Dar Eh
-github: https://github.com/OhanaeL/golf-website
-demo: https://splashgolfclub.site/
 
 disclaimer: While a demo exists, the API was from CIMSO's backend which was only available during the hackathon event. Only a demo video of the project exists to showcase full functionality.
 thumbnail: homepage.png

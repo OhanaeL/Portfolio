@@ -19,7 +19,7 @@ Implemented QR attendance with location verification, saving approximately 15 mi
 
 ### RSU Jobfair System
 
-Developed a job fair system used by ~300 students, staff, and participating companies during a live event and designed for reuse.
+Developed a job fair system used by 300+ students and 100+ participating companies during a live event and designed for reuse.
 
 ### ICT Course Planner
 

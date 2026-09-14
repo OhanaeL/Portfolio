@@ -9,7 +9,7 @@ I built the supervisor that runs each agent as an isolated process with its own 
 I refactored the reasoning service and implemented frontier reasoning methods — RLM, Lambda-RLM and Mixture of Judges — which lifted benchmark accuracy by roughly 20% over calling a model directly.
 
 ### Reasoning path
-I shipped native tool calling and mid-turn escalation from a fast model to a frontier model, replacing brittle text-parsed tool calls across the gateway, the reasoning service and the supervisor.
+I shipped native tool calling and mid-turn escalation from a fast model to a frontier model, replacing brittle text-parsed tool calls across the gateway, the reasoning service and the supervisor. The same work added an OpenAI-compatible chat-completions route on the gateway, so tools, tool results and image inputs reach the reasoning service from any OpenAI client.
 
 ### Agent memory
 I refactored the episodic memory flow that gives agents recall across conversations.
@@ -27,4 +27,4 @@ I contribute to **Mindroid**, the company's open-source Rust agent runtime, whic
 
 ## Stack
 
-Rust, Go, Python and TypeScript in the same week — proto changes, gateway routes, supervisor pinning and runtime stages often land as a single stack of pull requests.
+Rust, Go, Python and TypeScript in the same week — proto changes, gateway routes, supervisor pinning and runtime stages often land as a single stack of pull requests. Everything deploys to Kubernetes, with services discovering each other through etcd and streaming to clients over Centrifugo.

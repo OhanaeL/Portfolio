@@ -1,8 +1,8 @@
-description: Personal portfolio website showcasing projects, accomplishments, and skills
-date: 2025
-tags: Flask, Python, Web Dev
+description: This site. A static Next.js portfolio driven by plain-text content folders, deployed to GitHub Pages on every push
+date: 2026
+tags: Next.js, TypeScript, Web Dev
 team:
 - Htin Linn
 
 github: https://github.com/OhanaeL/Portfolio
-demo: https://portfolio-website-sedh.onrender.com/
+demo: https://ohanael.github.io/Portfolio/

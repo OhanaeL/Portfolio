@@ -1,4 +1,4 @@
-description: Software Developer Intern at Rangsit International College, Rangsit University. Built backend services for internal systems including QR-based attendance system with location verification, job fair platform used by ~300 users, and course recommendation system adopted by ~100 students.
+description: Software Developer Intern at Rangsit International College, Rangsit University. Built backend services for internal systems including QR-based attendance system with location verification, job fair platform used by 300+ students and 100+ companies, and course recommendation system adopted by ~100 students.
 date: August 2024 - December 2025
 company: Rangsit International College, Rangsit University
 links:

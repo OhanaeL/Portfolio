@@ -1,6 +1,7 @@
-description: Fullstack job fair platform used by ~300 users for RSU job fair events
+description: Fullstack job fair platform used by 300+ students and 100+ companies during a live RSU job fair event, designed for reuse
 date: December 2024
 tags: React, Node.js, MongoDB
 team:
 - Htin Linn
 
+thumbnail: jobfair_homepage.png

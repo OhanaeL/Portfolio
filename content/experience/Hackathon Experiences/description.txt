@@ -14,7 +14,7 @@ Both projects were selected as finalists, showcasing my ability to create innova
 
 In March 2025, I participated in the CIMSO Hospitality ERP Hackathon and won [image:first.jpg:1st place]. This was a significant achievement that demonstrated my skills in enterprise-level development and API integration.
 
-I built [website_link:SPLASH Golf Club - Hospitality ERP System], a comprehensive golf course booking and management system with a companion mobile app using CIMSO's APIs. This project showcased my ability to:
+I built [website_link:SPLASH Golf Club - AI Booking System], a comprehensive golf course booking and management system with a companion mobile app using CIMSO's APIs. This project showcased my ability to:
 - Integrate complex enterprise APIs
 - Design scalable systems for hospitality management
 - Work effectively in team environments under tight deadlines

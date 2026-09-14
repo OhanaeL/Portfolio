@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+Personal site, live at [ohanael.github.io/Portfolio](https://ohanael.github.io/Portfolio/). A single-page Next.js app exported as static HTML and published to GitHub Pages by `.github/workflows/deploy.yml` on every push to `main`.
 
-First, run the development server:
+## Editing content
+
+Everything shown on the page comes from `content/` and `lib/site.ts`; no code changes are needed for a content update.
+
+| Where | What it drives |
+|-------|----------------|
+| `lib/site.ts` | Name, headline, contact links, the About facts and the headline stats |
+| `lib/toolbox.ts` | The tools strip (icons are vendored in `public/icons/`) |
+| `content/experience/<Title at Company>/metadata.txt` | One timeline row: `description`, `date`, `company`, optional `links` and `title` |
+| `content/projects/<Name>/metadata.txt` | One project card: `description`, `date`, `tags`, optional `github`, `demo`, `thumbnail` |
+| `content/about/introduction.txt` | The About paragraph |
+| `content/about/resume.docx` | Résumé source. Export it from Word to `public/media/about/resume.pdf`, which is what the site links |
+| `public/media/<section>/<slug>/images/` | Media for an entry; `slug` is the folder name lower-cased with spaces as `-` |
+
+`featured.txt` in `content/experience/` and `content/projects/` is the allow-list of what is published, in order. Entries not listed stay on disk unpublished. Each entry's `description.txt` (markdown, with `[image:file:caption]` and `[website_link:Name]` shortcodes) and `content/accomplishments/` are kept for detail pages but are not rendered on the single-page site today.
+
+A project with a video under `public/media/projects/<slug>/embeds/` and no `demo` link gets a "Demo video" link on its card.
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci
+npm run dev     # http://localhost:3000
+npm run lint
+npm run build   # static export to out/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`NEXT_PUBLIC_BASE_PATH` is set by the deploy workflow (`/Portfolio` for this project site); leave it unset locally.

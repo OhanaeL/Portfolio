@@ -1,0 +1,3 @@
+Joined General Magick Industries as a Software Engineer on the MagickMind team, owning the agent runtime: the supervisor that runs each agent as an isolated process, the reasoning service behind it and agent memory, across services in Rust, Go and Python.
+
+Since joining I have been the top committer on the reasoning, agent-memory and supervisor services, and a contributor to Mindroid, the company's open-source Rust agent runtime.

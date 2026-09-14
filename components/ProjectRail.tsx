@@ -17,6 +17,7 @@ function Card({ p }: { p: Entry }) {
   const src = thumb(p);
   const github = str(p.meta, "github");
   const demo = str(p.meta, "demo") || str(p.meta, "website");
+  const video = p.embeds[0] ? `${p.mediaBase}/embeds/${encodeURIComponent(p.embeds[0])}` : "";
   return (
     <article className="proj spot">
       <div className="proj-thumb">
@@ -40,7 +41,7 @@ function Card({ p }: { p: Entry }) {
               </span>
             ))}
         </div>
-        {(github || demo) && (
+        {(github || demo || video) && (
           <div className="proj-links">
             {github && (
               <a href={github} target="_blank" rel="noopener noreferrer">
@@ -50,6 +51,11 @@ function Card({ p }: { p: Entry }) {
             {demo && (
               <a href={demo} target="_blank" rel="noopener noreferrer">
                 Live <span aria-hidden="true">↗</span>
+              </a>
+            )}
+            {!demo && video && (
+              <a href={video} target="_blank" rel="noopener noreferrer">
+                Demo video <span aria-hidden="true">↗</span>
               </a>
             )}
           </div>

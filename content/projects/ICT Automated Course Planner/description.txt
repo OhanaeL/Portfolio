@@ -1,2 +1,6 @@
-Backend system developed for RSU attendance tracking and management. This system provides API endpoints for managing student attendance records and related functionality.
+ICT Automated Course Planner is a course recommendation system I developed for Rangsit International College. It was adopted by 100+ ICT students to support data-driven course selection.
 
+## Technologies & Skills
+
+- Python (Django)
+- REST APIs

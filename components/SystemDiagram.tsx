@@ -20,7 +20,7 @@ const LAYERS: readonly Layer[] = [
   {
     key: "data",
     label: "Data & infra",
-    items: ["Postgres", "Redis", "Docker", "Grafana / OTel"],
+    items: ["Postgres", "Redis", "Kubernetes", "Grafana / OTel"],
   },
 ];
 

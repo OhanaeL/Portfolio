@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
@@ -11,21 +11,27 @@ function current(): Theme {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
+const listeners = new Set<() => void>();
+const notify = () => listeners.forEach((l) => l());
+
+function subscribe(onChange: () => void) {
+  listeners.add(onChange);
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  mq.addEventListener("change", onChange);
+  return () => {
+    listeners.delete(onChange);
+    mq.removeEventListener("change", onChange);
+  };
+}
+
 /**
  * Light / dark switch. Writes data-theme on <html> (the CSS tokens key off it)
  * and remembers the choice; the inline script in layout.tsx replays it before
  * first paint so there is no flash. The label names the mode you'd switch to.
  */
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme | null>(null);
-
-  useEffect(() => {
-    setTheme(current());
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => setTheme(current());
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
+  // null on the server and during hydration, so the markup matches on both sides
+  const theme = useSyncExternalStore(subscribe, current, () => null);
 
   const toggle = () => {
     const next: Theme = current() === "dark" ? "light" : "dark";
@@ -33,7 +39,7 @@ export default function ThemeToggle() {
     try {
       localStorage.setItem("theme", next);
     } catch {}
-    setTheme(next);
+    notify();
   };
 
   const next = theme === "dark" ? "light" : "dark";

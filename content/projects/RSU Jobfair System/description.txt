@@ -1,4 +1,4 @@
-RSU Jobfair System is a full-stack job fair platform I developed for Rangsit University job fair events. The platform was used by approximately 300 students, staff, and participating companies during a live event and was designed for reuse in future job fairs.
+RSU Jobfair System is a full-stack job fair platform I developed for Rangsit University job fair events. The platform was used by 300+ students and 100+ participating companies during a live event and was designed for reuse in future job fairs.
 
 ## Key Features
 
