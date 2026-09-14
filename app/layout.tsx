@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
+import Reveal from "@/components/Reveal";
+import Spotlight from "@/components/Spotlight";
+import SideNav from "@/components/SideNav";
 import { site } from "@/lib/site";
 
 const sans = Geist({
@@ -19,12 +22,12 @@ const mono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | ${site.role}`,
+    default: `${site.name}, ${site.role}`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
   openGraph: {
-    title: `${site.name} | ${site.role}`,
+    title: `${site.name}, ${site.role}`,
     description: site.description,
     type: "website",
     url: site.url,
@@ -47,9 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <SiteHeader />
 
-        <main id="main" className="container">
-          {children}
-        </main>
+        <main id="main">{children}</main>
 
         <footer>
           <div className="container footer-inner">
@@ -67,6 +68,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
           </div>
         </footer>
+        <SideNav />
+        <Reveal />
+        <Spotlight />
       </body>
     </html>
   );

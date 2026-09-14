@@ -64,7 +64,7 @@ export interface Entry {
   mediaBase: string;
 }
 
-export type Section = "projects" | "experience" | "accomplishments";
+type Section = "projects" | "experience" | "accomplishments";
 
 function mediaFiles(section: Section, slug: string, kind: "images" | "embeds"): string[] {
   const dir = path.join(process.cwd(), "public", "media", section, slug, kind);
@@ -73,55 +73,53 @@ function mediaFiles(section: Section, slug: string, kind: "images" | "embeds"): 
 }
 
 /** Expand the two custom shortcodes, then render markdown. */
-function render(description: string, section: Section, slug: string): string {
+function render(description: string, section: Section, slug: string) {
+  const used = new Set<string>();
   const base = asset(`/media/${section}/${slug}`);
 
   let out = description.replace(/\[image:([^\]]+)\]/g, (_m, body: string) => {
     const [file, ...rest] = String(body).split(":");
     const name = file.trim();
-    const caption = rest.join(":").trim() || name;
-    return `<a class="imgref" href="${base}/images/${encodeURIComponent(name)}" target="_blank" rel="noopener noreferrer">${caption}</a>`;
+    const caption = (rest.join(":").trim() || name).replace(/"/g, "&quot;");
+    used.add(name);
+    return `<span class="imgref" tabindex="0">${caption}<img src="${base}/images/${encodeURIComponent(
+      name
+    )}" alt="${caption}" loading="lazy" /></span>`;
   });
 
   out = out.replace(/\[website_link:([^\]]+)\]/g, (_m, name: string) => {
     const n = String(name).trim();
-    return `<a class="xlink" href="${asset(`/projects/${slugify(n)}/`)}">${n}</a>`;
+    return `<a class="xlink" href="/projects/${slugify(n)}/">${n}</a>`;
   });
 
-  return marked.parse(out, { async: false, breaks: true, gfm: true }) as string;
+  const html = marked.parse(out, { async: false, breaks: true, gfm: true }) as string;
+  return { html, used };
 }
 
-const readLines = (file: string) =>
-  fs.existsSync(file)
+export function getSection(section: Section): Entry[] {
+  const dir = path.join(CONTENT, section);
+  if (!fs.existsSync(dir)) return [];
+
+  // featured.txt, when present, is an allow-list: only these entries are published.
+  const featuredFile = path.join(dir, "featured.txt");
+  const featured = fs.existsSync(featuredFile)
     ? fs
-        .readFileSync(file, "utf8")
+        .readFileSync(featuredFile, "utf8")
         .split(/\r?\n/)
         .map((s) => s.trim())
         .filter((s) => s && !s.startsWith("#"))
     : null;
 
-/** "Mar, 2025 - Won 1st Place …" -> date and title, so accomplishments need no metadata file. */
-function fromDatedName(name: string): { date: string; title: string } | null {
-  const m = name.match(/^([A-Za-z]{3}),?\s+(\d{4})\s+-\s+(.+)$/);
-  return m ? { date: `${m[1]} ${m[2]}`, title: m[3] } : null;
-}
-
-/**
- * Every entry in a section. `featured.txt` is an allow-list when present;
- * with `all`, unlisted entries are included after the featured ones.
- */
-export function getSection(section: Section, opts: { all?: boolean } = {}): Entry[] {
-  const dir = path.join(CONTENT, section);
-  if (!fs.existsSync(dir)) return [];
-
-  const featured = readLines(path.join(dir, "featured.txt"));
-  const order = readLines(path.join(dir, "order.txt")) ?? [];
+  const orderFile = path.join(dir, "order.txt");
+  const order = fs.existsSync(orderFile)
+    ? fs.readFileSync(orderFile, "utf8").split(/\r?\n/).map((s) => s.trim()).filter(Boolean)
+    : [];
 
   const names = fs
     .readdirSync(dir, { withFileTypes: true })
     .filter((d) => d.isDirectory())
     .map((d) => d.name)
-    .filter((n) => (featured && !opts.all ? featured.includes(n) : true));
+    .filter((n) => (featured ? featured.includes(n) : true));
 
   const entries = names.map((name) => {
     const slug = slugify(name);
@@ -129,26 +127,23 @@ export function getSection(section: Section, opts: { all?: boolean } = {}): Entr
     const metaPath = path.join(folder, "metadata.txt");
     const descPath = path.join(folder, "description.txt");
     const meta = fs.existsSync(metaPath) ? parseMetadata(fs.readFileSync(metaPath, "utf8")) : {};
-    const dated = fromDatedName(name);
-    if (dated) {
-      meta.date ||= dated.date;
-      meta.title ||= dated.title;
-    }
-    if (featured?.includes(name)) meta.featured = "yes";
     const description = fs.existsSync(descPath) ? fs.readFileSync(descPath, "utf8") : "";
+    const { html, used } = render(description, section, slug);
+
+    const images = mediaFiles(section, slug, "images");
     return {
       name,
       slug,
       meta,
-      html: render(description, section, slug),
-      gallery: mediaFiles(section, slug, "images"),
+      html,
+      gallery: images.filter((f) => !used.has(f)),
       embeds: mediaFiles(section, slug, "embeds"),
       mediaBase: asset(`/media/${section}/${slug}`),
     } satisfies Entry;
   });
 
-  // featured order first, then order.txt, then whatever is left by name
-  const ranking = [...(featured ?? []), ...order.filter((n) => !featured?.includes(n))];
+  // order.txt wins; anything unlisted follows, newest-looking first
+  const ranking = featured ?? order;
   entries.sort((a, b) => {
     const ia = ranking.indexOf(a.name);
     const ib = ranking.indexOf(b.name);
@@ -161,53 +156,53 @@ export function getSection(section: Section, opts: { all?: boolean } = {}): Entr
   return entries;
 }
 
-export const getProjects = (opts?: { all?: boolean }) => getSection("projects", opts);
-export const getExperience = (opts?: { all?: boolean }) => getSection("experience", opts);
-export const getAccomplishments = () => getSection("accomplishments", { all: true });
-
-/** Thumbnail: explicit `thumbnail:` in metadata, else the first image. */
-export function thumbnail(e: Entry): string | undefined {
-  const pick = str(e.meta, "thumbnail") || e.gallery[0];
-  return pick ? `${e.mediaBase}/images/${encodeURIComponent(pick)}` : undefined;
-}
+export const getProjects = () => getSection("projects");
+export const getExperience = () => getSection("experience");
+export const getAccomplishments = () => getSection("accomplishments");
 
 export function getEntry(section: Section, slug: string): Entry | undefined {
-  return getSection(section, { all: true }).find((e) => e.slug === slug);
+  return getSection(section).find((e) => e.slug === slug);
 }
 
-/** content/about/introduction.txt, rendered. */
-export function getIntroduction(): string {
-  const file = path.join(CONTENT, "about", "introduction.txt");
-  if (!fs.existsSync(file)) return "";
-  return marked.parse(fs.readFileSync(file, "utf8"), { async: false, breaks: true, gfm: true }) as string;
+export interface About {
+  info: Meta;
+  sections: { key: string; title: string; html: string }[];
+  skills: { name: string; score: number; label: string; year: string; usage: string }[];
+  certificates: string[];
 }
 
-export interface Certificate {
-  title: string;
-  from: string;
-  description: string;
-  year: string;
-  file: string;
-  verification: string;
-}
+export function getAbout(): About {
+  const dir = path.join(CONTENT, "about");
+  const read = (f: string) =>
+    fs.existsSync(path.join(dir, f)) ? fs.readFileSync(path.join(dir, f), "utf8") : "";
 
-/** public/media/about/certificates/certificates.txt: blank-line-separated `key: value` blocks. */
-export function getCertificates(): Certificate[] {
-  const dir = path.join(process.cwd(), "public", "media", "about", "certificates");
-  const file = path.join(dir, "certificates.txt");
-  if (!fs.existsSync(file)) return [];
-  return fs
-    .readFileSync(file, "utf8")
-    .split(/\r?\n\s*\r?\n/)
-    .map(parseMetadata)
-    .filter((m) => str(m, "filename") && fs.existsSync(path.join(dir, str(m, "filename"))))
-    .map((m) => ({
-      title: str(m, "title"),
-      from: str(m, "from"),
-      description: str(m, "description"),
-      year: str(m, "year"),
-      file: asset(`/media/about/certificates/${encodeURIComponent(str(m, "filename"))}`),
-      verification: str(m, "verification"),
+  const info = parseMetadata(read("info.txt"));
+  const order = read("order.txt").split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
+
+  const sections = order
+    .filter((k) => k !== "skills" && k !== "certificates")
+    .map((key) => ({
+      key,
+      title: key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+      html: marked.parse(read(`${key}.txt`), { async: false, breaks: true, gfm: true }) as string,
     }))
-    .sort((a, b) => b.year.localeCompare(a.year));
+    .filter((s) => s.html.trim());
+
+  const csv = read("skills.csv").split(/\r?\n/).filter(Boolean);
+  const skills = csv.slice(1).map((line) => {
+    // usage is free text and may contain commas — keep the tail intact
+    const p = line.split(",");
+    return {
+      name: p[0], score: Number(p[3] || 0), label: p[4] || "",
+      year: p[5] || "", usage: p.slice(6).join(",").trim(),
+    };
+  }).filter((s) => s.name);
+
+  const certDir = path.join(process.cwd(), "public", "media", "about", "certificates");
+  // only the certificates themselves — the folder also carries a README and a notes file
+  const certificates = fs.existsSync(certDir)
+    ? fs.readdirSync(certDir).filter((f) => /\.(pdf|png|jpe?g|webp)$/i.test(f)).sort()
+    : [];
+
+  return { info, sections, skills, certificates };
 }

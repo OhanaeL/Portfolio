@@ -1,49 +1,67 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { nav, site } from "@/lib/site";
+import { useEffect, useState } from "react";
+import { site } from "@/lib/site";
+import SmoothLink from "./SmoothLink";
 import ThemeToggle from "./ThemeToggle";
 
-const isActive = (pathname: string, href: string) =>
-  href === "/" ? pathname === "/" : pathname.startsWith(href);
+// one page: these are anchors, in the order the sections appear
+const nav = [
+  { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
+  { href: "#about", label: "About" },
+];
 
+/**
+ * Starts as an inset glass island. Past the threshold it rises to the top,
+ * expands edge to edge and stays there. Inner content keeps its container
+ * width throughout, so nothing shifts horizontally.
+ */
 export default function SiteHeader() {
-  const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [stuck, setStuck] = useState(false);
+
+  useEffect(() => {
+    // Hysteresis: engage at 56px, release at 16px. A single threshold lets the
+    // header chatter, because any layout nudge around that one value flips it
+    // back and forth on consecutive scroll events.
+    const ENGAGE = 56;
+    const RELEASE = 16;
+    let frame = 0;
+
+    const read = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setStuck((was) => (was ? y > RELEASE : y > ENGAGE));
+    };
+    // coalesce bursts of scroll events into one read per frame
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(read);
+    };
+
+    read();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
 
   return (
-    <header className="site-header">
-      <div className="container header-inner">
-        <Link href="/" className="brand">
-          {site.name}
-        </Link>
-        <button
-          type="button"
-          className="menu-btn"
-          aria-expanded={open}
-          aria-controls="site-nav"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-        <nav id="site-nav" className={open ? "site-nav open" : "site-nav"} aria-label="Site">
+    <header className={stuck ? "nav nav--stuck spot" : "nav spot"} data-spot="after">
+      <div className="container nav-inner">
+        <SmoothLink href="#main" className="nav-name" aria-label={`${site.name}, back to top`}>
+          LYNN
+        </SmoothLink>
+        <nav className="nav-links">
           {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={isActive(pathname, item.href) ? "active" : undefined}
-              aria-current={isActive(pathname, item.href) ? "page" : undefined}
-              onClick={() => setOpen(false)}
-            >
+            <SmoothLink key={item.href} href={item.href}>
               {item.label}
-            </Link>
+            </SmoothLink>
           ))}
           <ThemeToggle />
+          <a className="nav-cta" href={`mailto:${site.email}`}>
+            Get in touch <span aria-hidden="true">→</span>
+          </a>
         </nav>
       </div>
     </header>

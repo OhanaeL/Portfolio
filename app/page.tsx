@@ -1,67 +1,69 @@
-import Link from "next/link";
-import { site, work } from "@/lib/site";
-import Contacts from "@/components/Contacts";
-import WorkDiagram from "@/components/WorkDiagram";
+import { site } from "@/lib/site";
+import { getProjects, getExperience } from "@/lib/content";
+import ToolStrip from "@/components/ToolStrip";
+import Timeline, { dated } from "@/components/Timeline";
+import ProjectRail from "@/components/ProjectRail";
+import AboutSection from "@/components/AboutSection";
+import SmoothLink from "@/components/SmoothLink";
+import SystemDiagram from "@/components/SystemDiagram";
 
 export default function Home() {
+  const projects = getProjects(); // filtered + ordered by featured.txt
+  const experience = getExperience();
+
   return (
     <>
-      <section className="hero">
-        <div>
-          <span className="eyebrow">{site.role}</span>
+      <div className="container hero spot" data-spot="after">
+        <div className="hero-copy">
+          <span className="eyebrow">
+            {site.role} · {site.location}
+          </span>
           <h1>{site.headline}</h1>
+          <p className="lede">{site.description}</p>
+          <div className="btn-row">
+            <SmoothLink className="btn btn-primary" href="#projects">
+              View projects
+            </SmoothLink>
+            <a className="btn" href={site.resume} target="_blank" rel="noopener noreferrer">
+              Résumé (PDF)
+            </a>
+          </div>
         </div>
-        <div className="btn-row">
-          <Link className="btn btn-primary" href="/projects/">
-            Explore my work <span aria-hidden="true">→</span>
-          </Link>
-          <a className="btn" href={site.resume} target="_blank" rel="noopener noreferrer">
-            View résumé <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </section>
 
-      <section className="block">
-        <div className="block-head">
-          <h2>Professional Work</h2>
-          <Link className="more" href="/experience/">
-            Explore all work <span aria-hidden="true">→</span>
-          </Link>
-        </div>
-        <div className="work-grid">
-          {work.map((w) => (
-            <article className="work" key={w.slug}>
-              <div className="work-art">
-                <WorkDiagram kind={w.diagram} />
-              </div>
-              <p className="work-eyebrow">{w.eyebrow}</p>
-              <h3>{w.title}</h3>
-              <p className="work-blurb">{w.blurb}</p>
-              <ul className="stats">
-                {w.stats.map(([figure, label]) => (
-                  <li key={label}>
-                    <b>{figure}</b> {label}
-                  </li>
-                ))}
-              </ul>
-              <Link className="more" href={`/experience/#${w.slug}`}>
-                Read more <span aria-hidden="true">→</span>
-              </Link>
-            </article>
+        <SystemDiagram />
+
+        <dl className="bento bento--stats spot" aria-label="Highlights">
+          {site.stats.map((s) => (
+            <div className="stat" key={s.figure}>
+              <dt className="label">{s.label}</dt>
+              <dd className="figure">{s.figure}</dd>
+            </div>
           ))}
+        </dl>
+      </div>
+
+      <section className="container reveal spot" id="experience" data-spot="after">
+        <div className="section-head">
+          <h2>Experience</h2>
+          <span className="section-note">{dated(experience).length} roles</span>
         </div>
+        <Timeline entries={experience} />
+        <ToolStrip />
       </section>
 
-      <section className="block edu-block">
-        <div>
-          <h2>Education</h2>
-          <p className="edu-degree">{site.education.degree}</p>
-          <p className="edu-honours">{site.education.honours}</p>
-          <p className="muted">
-            {site.education.school} · {site.education.years}
-          </p>
+      <section className="container reveal spot" id="projects" data-spot="after">
+        <div className="section-head">
+          <h2>Selected Projects</h2>
+          <span className="section-note">{projects.length} projects</span>
         </div>
-        <Contacts />
+        <ProjectRail projects={projects} />
+      </section>
+
+      <section className="container reveal spot" id="about" data-spot="after">
+        <div className="section-head">
+          <h2>About</h2>
+        </div>
+        <AboutSection />
       </section>
     </>
   );
