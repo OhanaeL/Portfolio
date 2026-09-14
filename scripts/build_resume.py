@@ -38,8 +38,8 @@ LANGUAGES = "English (IELTS 8.0), Burmese (Native), Thai (Basic), Japanese (JLPT
 SKILLS = [
     ("Programming", "Python, TypeScript/JavaScript, Rust, Go, Java, C#, HTML/CSS"),
     ("Frameworks", "FastAPI, Django, Node.js, Express, React, Next.js"),
-    ("AI/ML", "LLM APIs, agent runtimes & native tool calling, RAG, MCP, LangChain, OCR, Computer Vision (OpenCV, MediaPipe)"),
-    ("Backend & APIs", "gRPC/Protobuf, RESTful design, async programming, PostgreSQL, MySQL, MongoDB, Redis"),
+    ("AI/ML", "LLM APIs, agent runtimes & native tool calling, LangGraph, LangChain, RAG, MCP, Gemini, OCR, Computer Vision (OpenCV, MediaPipe)"),
+    ("Backend & APIs", "gRPC/Protobuf, RESTful design, async programming, SQL (PostgreSQL, MySQL), MongoDB, Redis"),
     ("DevOps & Tools", "Docker, Kubernetes, CI/CD (GitHub Actions), Git, Grafana, OpenTelemetry, pytest, Jira, AWS"),
 ]
 EXPERIENCE = [
@@ -60,7 +60,7 @@ EXPERIENCE = [
         "tail": "Singapore (Remote) | May 2025 - Apr 2026",
         "bullets": [
             ["Owned two Python microservices and built document processing & web crawling pipelines."],
-            ["Built FastAPI services using RAG, MCP servers and AI-driven UI widgets."],
+            ["Built FastAPI services using LangGraph agents, RAG, MCP servers and AI-driven UI widgets."],
             ["Built the shared CRM integration service (Zoho, Chatwoot, Zendesk) used by several products."],
             ["Cut container build and startup time by ", ("bold", "30%"), " with Docker changes, and added OpenTelemetry and Grafana."],
             ["Maintained pytest suites in CI/CD for stable weekly releases and reviewed microservice integrations."],
