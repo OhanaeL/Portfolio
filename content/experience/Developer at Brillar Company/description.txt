@@ -1,7 +1,25 @@
-Associate Fullstack Engineer on a remote team at Brillar (Atenxion) in Singapore, owning AI-focused Python microservices end to end: architecture, implementation and production operations.
+In May 2025, I started my full-time position as a Python Developer (Backend / AI) at Brillar, where I own end-to-end development of AI-focused Python microservices, handling architecture, implementation, and production operations.
 
-- Owned two **Python microservices** (FastAPI) and built the **document processing and web crawling pipelines** that turn files and pages into text for LLM workflows, using Docling for extraction.
-- Developed AI-powered services using **RAG, MCP servers and AI-driven UI widgets**.
-- Led backend development of a shared **CRM integration service** connecting SalesIQ, Chatwoot and Zoho, used across multiple products.
-- Cut container build and startup time by **30%** through Docker optimisation, and added **OpenTelemetry and Grafana** so every service reports latency and memory.
-- Maintained **pytest** suites in CI/CD for stable weekly releases and reviewed microservice integrations.
+## Role Overview
+
+This role has provided hands-on experience building scalable, production-ready backend systems and deploying real-world AI services. I work on real-world AI projects, collaborate with the team, and contribute to innovative solutions in the artificial intelligence space.
+
+## Key Responsibilities
+
+- Own end-to-end development of two AI-focused Python microservices, handling architecture, implementation, and production operations
+- Lead backend development for a central integration service connecting multiple third-party systems (SalesIQ, Chatwoot, Zoho)
+- Build document ingestion service for file-to-text extraction to support AI and LLM-based workflows
+- Integrate LLM agent frameworks and optimize Dockerized deployments with focus on performance, memory efficiency, and observability
+- Monitor system performance using Grafana and ensure services run efficiently at scale
+
+## Technologies & Skills
+
+- Python (FastAPI)
+- LLM frameworks
+- Docker
+- REST APIs
+- Data Pipelines
+- File Processing (Docling)
+- Monitoring & Observability (Grafana)
+- Git
+
