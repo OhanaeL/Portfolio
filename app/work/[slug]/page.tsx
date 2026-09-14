@@ -5,6 +5,7 @@ import { getEntry, list, str } from "@/lib/content";
 import { work } from "@/lib/site";
 import { asset } from "@/lib/paths";
 import WorkDiagram from "@/components/WorkDiagram";
+import CaseFigure from "@/components/CaseFigures";
 
 type Params = { slug: string };
 
@@ -82,7 +83,11 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
         <figcaption>{w.caption}</figcaption>
       </figure>
 
-      <div className="prose" dangerouslySetInnerHTML={{ __html: e.html }} />
+      <div className="prose">
+        {e.html.split(/<div data-figure="([\w-]+)"><\/div>/).map((part, i) =>
+          i % 2 ? <CaseFigure name={part} key={i} /> : <div key={i} dangerouslySetInnerHTML={{ __html: part }} />
+        )}
+      </div>
 
       <p className="case-foot">
         <a className="work-more" href={asset("/#experience")}>

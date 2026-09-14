@@ -1307,6 +1307,13 @@ main > section.spot::after,
 .case .meta-row dd { margin: 0; }
 .case .work-stats { margin: 0.25rem 0 0; }
 .case-figure { max-width: 720px; margin: 0 0 2.5rem; }
+.prose .case-figure { margin: 1.75rem 0 2rem; }
+.dg-lane { fill: var(--accent-soft); stroke: var(--accent-line); }
+.dg-vert { font-size: 9px; letter-spacing: 0.08em; }
+.dg-chart .dg-grid { stroke: var(--border); stroke-width: 1; }
+.dg-chart .dg-bar { fill: var(--accent); }
+.dg-chart .dg-label { fill: var(--text); font-size: 12px; }
+.dg-chart .dg-label .dg-sub { fill: var(--muted); }
 .case-figure figcaption { font-size: 0.85rem; color: var(--faint); padding: 0.6rem 0.25rem 0.2rem; }
 .case .prose { max-width: 78ch; }
 .case .prose > p:first-child { color: var(--text); font-size: 1.05rem; }
