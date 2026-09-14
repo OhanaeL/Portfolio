@@ -43,6 +43,7 @@ export const toolbox: ToolGroup[] = [
       { name: "Node.js", icon: "nodejs" },
       { name: "Express", icon: "express" },
       { name: "gRPC / Proto" },
+      { name: "SQL" },
     ],
   },
   {
@@ -50,6 +51,7 @@ export const toolbox: ToolGroup[] = [
     blurb: "Agent runtimes, tool calling and retrieval.",
     tools: [
       { name: "LLM APIs" },
+      { name: "LangGraph" },
       { name: "LangChain" },
       { name: "RAG" },
       { name: "MCP" },
