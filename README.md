@@ -13,7 +13,7 @@ Everything shown on the page comes from `content/` and `lib/site.ts`; no code ch
 | `content/experience/<Title at Company>/metadata.txt` | One timeline row: `description`, `date`, `company`, optional `links` and `title` |
 | `content/projects/<Name>/metadata.txt` | One project card: `description`, `date`, `tags`, optional `github`, `demo`, `thumbnail` |
 | `content/about/introduction.txt` | The About paragraph |
-| `content/about/resume.docx` | Résumé source. Export it from Word to `public/media/about/resume.pdf`, which is what the site links |
+| `scripts/build_resume.py` | Résumé content. `pip install python-docx` then `python scripts/build_resume.py` writes `content/about/resume.docx` and prints `public/media/about/resume.pdf` through headless Edge |
 | `public/media/<section>/<slug>/images/` | Media for an entry; `slug` is the folder name lower-cased with spaces as `-` |
 
 `featured.txt` in `content/experience/` and `content/projects/` is the allow-list of what is published, in order. Entries not listed stay on disk unpublished. Each entry's `description.txt` (markdown, with `[image:file:caption]` and `[website_link:Name]` shortcodes) and `content/accomplishments/` are kept for detail pages but are not rendered on the single-page site today.
