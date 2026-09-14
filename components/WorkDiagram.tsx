@@ -66,12 +66,12 @@ function Runtime() {
 
 function Pipeline() {
   return (
-    <svg className="dg" viewBox="0 0 560 250" role="img" aria-label="SalesIQ, Chatwoot and Zoho connect through one integration service; documents and crawled pages pass through an ingestion service to LLM workflows, with Grafana and OpenTelemetry watching every service.">
+    <svg className="dg" viewBox="0 0 560 250" role="img" aria-label="Zoho, Chatwoot and Zendesk connect through one integration service; documents and crawled pages pass through an ingestion service to LLM workflows, with Grafana and OpenTelemetry watching every service.">
       <Defs />
       <text className="dg-caption" x="24" y="30">CONNECT · INGEST · OBSERVE</text>
-      <Box x={24} y={48} w={88} h={34} label="SalesIQ" />
+      <Box x={24} y={48} w={88} h={34} label="Zoho" />
       <Box x={24} y={92} w={88} h={34} label="Chatwoot" />
-      <Box x={24} y={136} w={88} h={34} label="Zoho" />
+      <Box x={24} y={136} w={88} h={34} label="Zendesk" />
       <Arrow d="M112 65 C 140 65, 140 109, 168 109" />
       <Arrow d="M112 109 H168" />
       <Arrow d="M112 153 C 140 153, 140 109, 168 109" />
