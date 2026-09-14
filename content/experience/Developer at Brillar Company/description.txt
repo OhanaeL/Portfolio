@@ -1,25 +1,15 @@
-In May 2025, I started my full-time position as a Python Developer (Backend / AI) at Brillar, where I own end-to-end development of AI-focused Python microservices, handling architecture, implementation, and production operations.
+At Brillar (Atenxion) I was an Associate Fullstack Engineer on a remote team in Singapore, owning AI-focused Python microservices end to end: architecture, implementation and production operations.
 
-## Role Overview
+## My responsibilities
 
-This role has provided hands-on experience building scalable, production-ready backend systems and deploying real-world AI services. I work on real-world AI projects, collaborate with the team, and contribute to innovative solutions in the artificial intelligence space.
+- **Two Python microservices**, owned end to end, built with FastAPI.
+- **Document processing and web crawling pipelines** that turn files and pages into text for LLM workflows, using Docling for extraction.
+- **The CRM integration service**, one backend that connects SalesIQ, Chatwoot and Zoho so every product shares the same integration instead of writing its own.
 
-## Key Responsibilities
+## Getting documents into the model
 
-- Own end-to-end development of two AI-focused Python microservices, handling architecture, implementation, and production operations
-- Lead backend development for a central integration service connecting multiple third-party systems (SalesIQ, Chatwoot, Zoho)
-- Build document ingestion service for file-to-text extraction to support AI and LLM-based workflows
-- Integrate LLM agent frameworks and optimize Dockerized deployments with focus on performance, memory efficiency, and observability
-- Monitor system performance using Grafana and ensure services run efficiently at scale
+Most of the product's value came from what the model could read. The ingestion service takes uploads and crawled pages, extracts text with Docling, and hands clean chunks to the RAG and MCP-server services that the AI-driven UI widgets sit on top of.
 
-## Technologies & Skills
+## Operating it
 
-- Python (FastAPI)
-- LLM frameworks
-- Docker
-- REST APIs
-- Data Pipelines
-- File Processing (Docling)
-- Monitoring & Observability (Grafana)
-- Git
-
+Container build and startup time dropped **30%** after Docker optimisation, which mattered for weekly releases. I added **OpenTelemetry and Grafana** so every service reports latency and memory, and kept the **pytest** suites in CI/CD green so those releases stayed stable. Reviewing other teams' integrations against the shared CRM service was part of the job.

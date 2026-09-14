@@ -1,29 +1,22 @@
-I work on **MagickMind**, General Magick Industries' AI agent infrastructure platform, where I own the agent runtime: not a single service, but the whole vertical slice a request travels through.
+I work on **MagickMind**, General Magick Industries' AI agent infrastructure platform, where I own the agent runtime: not a single service, but the whole vertical slice a request travels through — the supervisor that launches agents, the reasoning service they call, and the memory they read from and write to.
 
-## What I own
+## My responsibilities
 
-### Agent supervisor
-I built the supervisor that runs each agent as an isolated process with its own minted credentials, so agents join a workspace as real participants and every action is attributable to a specific agent rather than to one shared orchestrator.
+- **Agent supervisor.** I built the control plane that mints each agent's credentials and runs it as an isolated OS process, so agents join a workspace as real participants and every action is attributable to a specific agent rather than to one shared orchestrator.
+- **Reasoning service.** I refactored the service and implemented the frontier reasoning methods it offers — RLM, Lambda-RLM and Mixture of Judges — and the OpenAI-compatible route that exposes them.
+- **Agent memory.** I refactored the episodic memory flow that gives agents recall across conversations.
 
-### Reasoning service
-I refactored the reasoning service and implemented frontier reasoning methods — RLM, Lambda-RLM and Mixture of Judges — which lifted benchmark accuracy by roughly 20% over calling a model directly.
+## Agents as real participants
 
-### Reasoning path
-I shipped native tool calling and mid-turn escalation from a fast model to a frontier model, replacing brittle text-parsed tool calls across the gateway, the reasoning service and the supervisor. The same work added an OpenAI-compatible chat-completions route on the gateway, so tools, tool results and image inputs reach the reasoning service from any OpenAI client.
+Before the supervisor, one orchestrator spoke for every agent, so nothing an agent did could be traced back to it. The supervisor runs one process per agent with credentials minted for that agent alone; the agent subscribes to its workspace like any other member and replies through the same endpoint a person would. The runtime itself is **Mindroid**, the company's open-source Rust agent SDK, which I contribute to alongside the Python SDK.
 
-### Agent memory
-I refactored the episodic memory flow that gives agents recall across conversations.
+The execution loop was the first thing I measured. Caching and persisting only where it pays off cut **agent turn latency from 4s to 2.5s**.
 
-## Performance work
+## Reasoning that escalates mid-turn
 
-Two numbers I care about:
+Tool calls used to be parsed out of model text, which broke in small ways constantly. I shipped **native tool calling** end to end — gateway, reasoning service and supervisor — and **mid-turn escalation**: a fast model answers when it can and hands the turn to a frontier model when it can't, within the same turn, so the agent never has to pick a model up front.
 
-- **Agent turn latency: 4s to 2.5s.** I engineered the execution loop to cache and persist only where it actually pays off.
-- **Fast-path response latency: down 40%.** Achieved by reworking how the reasoning service assembles and dispatches requests.
-
-## Open source
-
-I contribute to **Mindroid**, the company's open-source Rust agent runtime, which is published on GitHub alongside the Python SDK.
+Reworking how the reasoning service assembles and dispatches requests brought **fast-path latency down 40%**. The new reasoning methods — RLM, Lambda-RLM and Mixture of Judges — lifted benchmark accuracy by roughly **20%** over calling a model directly.
 
 ## Stack
 

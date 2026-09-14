@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
+import { asset } from "@/lib/paths";
 import SmoothLink from "./SmoothLink";
 import ThemeToggle from "./ThemeToggle";
 
-// one page: these are anchors, in the order the sections appear
+// one page: these are anchors on the home page, so they still work from a case study
 const nav = [
-  { href: "#work", label: "Work" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#about", label: "About" },
+  { href: asset("/#work"), label: "Work" },
+  { href: asset("/#experience"), label: "Experience" },
+  { href: asset("/#projects"), label: "Projects" },
+  { href: asset("/#about"), label: "About" },
 ];
 
 /**
@@ -50,7 +51,7 @@ export default function SiteHeader() {
   return (
     <header className={stuck ? "nav nav--stuck spot" : "nav spot"} data-spot="after">
       <div className="container nav-inner">
-        <SmoothLink href="#main" className="nav-name" aria-label={`${site.name}, back to top`}>
+        <SmoothLink href={asset("/#main")} className="nav-name" aria-label={`${site.name}, back to top`}>
           LYNN
         </SmoothLink>
         <nav className="nav-links">
