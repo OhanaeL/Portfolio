@@ -72,8 +72,12 @@ html {
 ::-webkit-scrollbar-thumb:active { background: var(--accent); background-clip: padding-box; }
 ::-webkit-scrollbar-corner { background: transparent; }
 
+/* clip, not hidden: nothing can widen the page sideways, even zoomed in on a phone */
+html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
+}
+body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
@@ -1332,8 +1336,9 @@ main > section.spot::after,
   /* four items + a pill don't fit in 360px: the pill goes (email is in the
      hero, About and the footer); the three anchors tighten up */
   .nav-cta { display: none; }
-  .nav-inner { height: 60px; gap: 0.75rem; padding-left: 2rem; padding-right: 2rem; }
-  .nav-links { gap: 1rem; }
+  .nav-inner { min-height: 60px; height: auto; gap: 0.75rem; padding: 0.5rem 2rem; }
+  /* the links may wrap onto a second row when there is no room (a 150% zoom leaves ~290px) */
+  .nav-links { gap: 0.4rem 1rem; flex-wrap: wrap; justify-content: flex-end; }
   .nav-links a { font-size: 0.68rem; letter-spacing: 0.07em; }
   .nav-name { font-size: 0.82rem; letter-spacing: 0.16em; }
   /* the island keeps a little air from the screen edge instead of running edge to edge */
@@ -1371,6 +1376,11 @@ main > section.spot::after,
   .about-side { flex-direction: row; flex-wrap: wrap; align-items: center; }
   .about-side img { width: 96px; height: 96px; }
   .about-actions { flex-basis: 100%; }
+}
+
+@media (max-width: 400px) {
+  .nav-links { gap: 0.3rem 0.7rem; }
+  .nav-links a { font-size: 0.64rem; letter-spacing: 0.05em; }
 }
 
 @media (max-width: 640px) {
