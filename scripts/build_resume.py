@@ -48,9 +48,9 @@ EXPERIENCE = [
         "org": [("link", "General Magick Industries", "https://generalmagickindustries.com/"), " (", ("link", "MagickMind", "https://magickmind.ai/"), ")"],
         "tail": "Full-time | Apr 2026 - Present",
         "bullets": [
-            ["Top committer since joining on the reasoning, memory and supervisor services. Contributor to Mindroid, the open-source Rust agent runtime."],
-            ["Built the agent supervisor: it mints credentials for each agent and runs it as an isolated process that joins workspaces over pub/sub. Added caching to its execution loop, cutting agent turn latency from 4s to 2.5s."],
-            ["Refactored the reasoning service, cutting fast-path latency 40%. Implemented RLM, Lambda-RLM, Mixture of Judges and MCTS; on GPQA they score 22–34 points above a direct call with the same model."],
+            [("bold", "Top committer"), " since joining on the reasoning, memory and supervisor services. Contributor to Mindroid, the open-source Rust agent runtime."],
+            ["Built the agent supervisor: it mints credentials for each agent and runs it as an isolated process that joins workspaces over pub/sub. Added caching to its execution loop, cutting agent turn latency from ", ("bold", "4s to 2.5s"), "."],
+            ["Refactored the reasoning service, cutting fast-path latency ", ("bold", "40%"), ". Implemented RLM, Lambda-RLM, Mixture of Judges and MCTS; on GPQA they score ", ("bold", "22–34 points"), " above a direct call with the same model."],
             ["Shipped native tool calling and mid-turn escalation from a fast model to a frontier model across the gateway, reasoning service and supervisor, plus an OpenAI-compatible chat-completions route with tool and image support."],
         ],
     },
@@ -62,7 +62,7 @@ EXPERIENCE = [
             ["Owned two Python microservices and built document processing & web crawling pipelines."],
             ["Built FastAPI services using RAG, MCP servers and AI-driven UI widgets."],
             ["Built the shared CRM integration service (Zoho, Chatwoot, Zendesk) used by several products."],
-            ["Cut container build and startup time by 30% with Docker changes, and added OpenTelemetry and Grafana."],
+            ["Cut container build and startup time by ", ("bold", "30%"), " with Docker changes, and added OpenTelemetry and Grafana."],
             ["Maintained pytest suites in CI/CD for stable weekly releases and reviewed microservice integrations."],
         ],
     },
@@ -71,9 +71,9 @@ EXPERIENCE = [
         "org": [("link", "Rangsit International College", "https://rsuip.org/")],
         "tail": "Thailand | Aug 2024 - Dec 2025 | Part-time from May 2025",
         "bullets": [
-            ["Built a QR-based attendance system (Next.js/Express) saving 15 minutes per class per staff."],
-            ["Led Express backend & React frontend for a job fair platform used by 300+ students and 100+ companies."],
-            ["Built a Python/Django course recommendation system used by 100+ students."],
+            ["Built a QR-based attendance system (Next.js/Express) saving ", ("bold", "15 minutes"), " per class per staff."],
+            ["Led Express backend & React frontend for a job fair platform used by ", ("bold", "300+ students and 100+ companies"), "."],
+            ["Built a Python/Django course recommendation system used by ", ("bold", "100+ students"), "."],
         ],
     },
     {
@@ -90,7 +90,7 @@ ACHIEVEMENTS = [
     [("bold", "3rd Place, Hack the Zodiac Hackathon (Apr 2024)"), " – Built NextThai and EcoMart, two AI consumer apps."],
 ]
 DEGREE = "Bachelor of Science (Information and Communication Technology)"
-SCHOOL = "Rangsit University | Pathum Thani, Thailand | 2022-2025 | GPA: 3.96/4 | First Class Honours"
+SCHOOL = ["Rangsit University | Pathum Thani, Thailand | 2022-2025 | ", ("bold", "GPA: 3.96/4"), " | ", ("bold", "First Class Honours")]
 EDU_BULLETS = [["Mentored classmates and foreign students in programming fundamentals."]]
 
 # ---------------------------------------------------------------- docx
@@ -208,7 +208,7 @@ def build_docx():
 
     _heading(doc, "EDUCATION")
     _run(_para(doc, after=0), DEGREE, bold=True)
-    _run(_para(doc, after=1), SCHOOL, italic=True)
+    _parts(_para(doc, after=1), SCHOOL, italic=True)
     for b in EDU_BULLETS:
         _bullet(doc, b)
 
@@ -262,7 +262,7 @@ def build_html():
 <h2>EXPERIENCE</h2>{exp}
 <h2>SKILLS</h2>{skills}
 <h2>PROJECTS &amp; ACHIEVEMENTS</h2>{_ul(ACHIEVEMENTS)}
-<h2>EDUCATION</h2><p><b>{html.escape(DEGREE)}</b></p><p class="school"><em>{html.escape(SCHOOL)}</em></p>{_ul(EDU_BULLETS)}
+<h2>EDUCATION</h2><p><b>{html.escape(DEGREE)}</b></p><p class="school">{_h(SCHOOL, italic=True)}</p>{_ul(EDU_BULLETS)}
 </body></html>"""
     HTML.write_text(doc, encoding="utf-8")
 
