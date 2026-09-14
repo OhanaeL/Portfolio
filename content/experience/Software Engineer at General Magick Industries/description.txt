@@ -1,30 +1,12 @@
 I work on **MagickMind**, General Magick Industries' AI agent infrastructure platform, where I own the agent runtime: not a single service, but the whole vertical slice a request travels through.
 
-## What I own
-
-### Agent supervisor
-I built the supervisor that runs each agent as an isolated process with its own minted credentials, so agents join a workspace as real participants and every action is attributable to a specific agent rather than to one shared orchestrator.
-
-### Reasoning service
-I refactored the reasoning service and implemented frontier reasoning methods — RLM, Lambda-RLM and Mixture of Judges — which lifted benchmark accuracy by roughly 20% over calling a model directly.
-
-### Reasoning path
-I shipped native tool calling and mid-turn escalation from a fast model to a frontier model, replacing brittle text-parsed tool calls across the gateway, the reasoning service and the supervisor. The same work added an OpenAI-compatible chat-completions route on the gateway, so tools, tool results and image inputs reach the reasoning service from any OpenAI client.
-
-### Agent memory
-I refactored the episodic memory flow that gives agents recall across conversations.
-
-## Performance work
-
-Two numbers I care about:
-
-- **Agent turn latency: 4s to 2.5s.** I engineered the execution loop to cache and persist only where it actually pays off.
-- **Fast-path response latency: down 40%.** Achieved by reworking how the reasoning service assembles and dispatches requests.
-
-## Open source
-
-I contribute to **Mindroid**, the company's open-source Rust agent runtime, which is published on GitHub alongside the Python SDK.
-
-## Stack
+- Built the **agent supervisor** that runs each agent as an isolated process with its own minted credentials, so agents join a workspace as real participants and every action is attributable to a specific agent rather than to one shared orchestrator.
+- Engineered the supervisor's execution loop to cache and persist only where it pays off, cutting **agent turn latency from 4s to 2.5s**.
+- Refactored the **reasoning service** and reworked how it assembles and dispatches requests, bringing **fast-path latency down 40%**.
+- Implemented frontier reasoning methods — **RLM, Lambda-RLM and Mixture of Judges** — which lifted benchmark accuracy by roughly **20%** over calling a model directly.
+- Shipped **native tool calling** and **mid-turn escalation** from a fast model to a frontier model, replacing brittle text-parsed tool calls across the gateway, the reasoning service and the supervisor.
+- Added an **OpenAI-compatible chat-completions route** on the gateway, so tools, tool results and image inputs reach the reasoning service from any OpenAI client.
+- Refactored the **episodic memory** flow that gives agents recall across conversations.
+- Top committer since joining on the reasoning, memory and supervisor services; contributor to **Mindroid**, the company's open-source Rust agent runtime, published alongside the Python SDK.
 
 Rust, Go, Python and TypeScript in the same week — proto changes, gateway routes, supervisor pinning and runtime stages often land as a single stack of pull requests. Everything deploys to Kubernetes, with services discovering each other through etcd and streaming to clients over Centrifugo.

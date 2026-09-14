@@ -1,37 +1,6 @@
-I served as a Teaching Assistant and Software Developer Intern at Rangsit International College, Rangsit University from August 2024 to December 2025. This role was a significant part of my academic and professional development journey.
+Software Developer Intern and Teaching Assistant at Rangsit International College, part-time from May 2025 alongside my full-time role. I received [image:teaching_assistant.png:recognition] for outstanding contribution as a teaching assistant and software engineer.
 
-I received [image:teaching_assistant.png:recognition] for my outstanding contribution as a teaching assistant and software engineer. During this time, I worked for an additional 4 months as part of my Co-Op Education process for RIC.
-
-## Key Responsibilities
-
-- Built backend services for internal systems, including a QR-based attendance system, job fair platform, and an alumni website (demo phase)
-- Assisted in teaching and supporting students in computer science courses
-- Collaborated with faculty and students on various software projects
-- Provided technical guidance and mentorship to fellow students
-
-## Projects Developed
-
-I developed [image:jobfair_homepage.png:the RSU Jobfair System], [image:attendence_system.png:RIC Attendance System], and [image:ICT_courseplanner.png:the ICT Course Planner].
-
-### RIC Attendance System
-
-Implemented QR attendance with location verification, saving approximately 15 minutes per staff member per class by reducing manual tracking.
-
-### RSU Jobfair System
-
-Developed a job fair system used by 300+ students and 100+ participating companies during a live event and designed for reuse.
-
-### ICT Course Planner
-
-Built a course recommendation system adopted by ~100 students to support data-driven course selection.
-
-## Technologies & Skills
-
-- Python (FastAPI, Django)
-- JavaScript (Node.js, Express, React)
-- REST APIs
-- MongoDB, MySQL
-- Git
-
-This experience provided valuable insights into software development in an academic environment and strengthened my skills in both development and teaching.
-
+- Built a **QR-based attendance system** (Next.js/Express) with location verification, saving about 15 minutes per class per staff member — see [website_link:RIC Attendance System].
+- Led the Express backend and React frontend of a **job fair platform** used by 300+ students and 100+ companies during a live event, designed for reuse — see [website_link:RSU Jobfair System].
+- Developed a **Python/Django course recommendation system** adopted by 100+ students — see [website_link:ICT Automated Course Planner].
+- Mentored students in computer science courses and provided technical guidance on their projects.
