@@ -106,14 +106,16 @@ img { max-width: 100%; display: block; }
   border: 0;
   border-bottom: 1px solid var(--border);
 }
-/* .nav-inner is also .container, so its 1.5rem padding lines the nav text
-   up exactly with the hero and the card grid below. */
+/* .nav-inner is also .container; the extra inline padding keeps the bar's
+   text a step in from the hero's edge instead of flush with it. */
 .nav-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   height: 74px;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
   border-radius: 0;
   position: relative;
 }
@@ -1026,7 +1028,6 @@ a.card:hover::before { background: var(--accent-line); }
 @media (max-width: 960px) {
   /* stacked: copy takes the flexible row, stats sit under it, hairline last */
   .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; row-gap: 2rem; padding-bottom: 2rem; }
-  .stack { max-width: 520px; }
   .bento.bento--stats { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 480px) {
@@ -1237,7 +1238,7 @@ main > section.spot::after,
   /* four items + a pill don't fit in 360px: the pill goes (email is in the
      hero, About and the footer); the three anchors tighten up */
   .nav-cta { display: none; }
-  .nav-inner { height: 60px; gap: 0.75rem; }
+  .nav-inner { height: 60px; gap: 0.75rem; padding-left: 2rem; padding-right: 2rem; }
   .nav-links { gap: 1rem; }
   .nav-links a { font-size: 0.68rem; letter-spacing: 0.07em; }
   .nav-name { font-size: 0.82rem; letter-spacing: 0.16em; }
@@ -1280,6 +1281,7 @@ main > section.spot::after,
 
 @media (max-width: 640px) {
   .container { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .nav-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
   main > section::after, .hero::after { left: 1.25rem; right: 1.25rem; }
   .section-head h2 { font-size: 1.2rem; }
   :root { --block-gap: 3rem; }
