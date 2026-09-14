@@ -30,9 +30,9 @@ CONTACT = [
     ("link", "Portfolio", "https://ohanael.github.io/Portfolio/"),
 ]
 SUMMARY = (
-    "Python-first Software Engineer building production backend and AI services: REST and gRPC APIs, "
-    "MCP servers and LLM integrations, deployed on Kubernetes with CI/CD and automated testing. Currently "
-    "building the runtime AI agents run on, across Python, Rust and Go."
+    "Software engineer, Python first. I build production backend and AI services: REST and gRPC APIs, "
+    "MCP servers and LLM integrations, deployed on Kubernetes with CI/CD and automated tests. Currently "
+    "building the runtime that AI agents run on, in Python, Rust and Go."
 )
 LANGUAGES = "English (IELTS 8.0), Burmese (Native), Thai (Basic), Japanese (JLPT N4)"
 SKILLS = [
@@ -48,10 +48,10 @@ EXPERIENCE = [
         "org": [("link", "General Magick Industries", "https://generalmagickindustries.com/"), " (", ("link", "MagickMind", "https://magickmind.ai/"), ")"],
         "tail": "Full-time | Apr 2026 - Present",
         "bullets": [
-            ["Top committer since joining on the reasoning, agent-memory and supervisor services; contributor to Mindroid, the open-source Rust agent runtime."],
-            ["Built the agent supervisor that mints per-agent credentials and runs each agent as an isolated process joining workspaces over pub/sub as a first-class participant; engineered its execution loop with caching, cutting agent turn latency from 4s to 2.5s."],
-            ["Refactored the reasoning service, cutting fast-path latency 40%, and implemented frontier methods (RLM, Lambda-RLM, Mixture of Judges, MCTS) that lifted GPQA accuracy by 22–34 points over a direct call with the same model."],
-            ["Shipped native tool calling and mid-turn dual-model escalation across the gateway, reasoning service and supervisor, plus an OpenAI-compatible chat-completions route with tool and image support."],
+            ["Top committer since joining on the reasoning, memory and supervisor services. Contributor to Mindroid, the open-source Rust agent runtime."],
+            ["Built the agent supervisor: it mints credentials for each agent and runs it as an isolated process that joins workspaces over pub/sub. Added caching to its execution loop, cutting agent turn latency from 4s to 2.5s."],
+            ["Refactored the reasoning service, cutting fast-path latency 40%. Implemented RLM, Lambda-RLM, Mixture of Judges and MCTS; on GPQA they score 22–34 points above a direct call with the same model."],
+            ["Shipped native tool calling and mid-turn escalation from a fast model to a frontier model across the gateway, reasoning service and supervisor, plus an OpenAI-compatible chat-completions route with tool and image support."],
         ],
     },
     {
@@ -60,9 +60,9 @@ EXPERIENCE = [
         "tail": "Singapore (Remote) | May 2025 - Apr 2026",
         "bullets": [
             ["Owned two Python microservices and built document processing & web crawling pipelines."],
-            ["Developed AI-powered services (FastAPI) using RAG, MCP servers, and AI-driven UI widgets."],
-            ["Created a shared CRM integration service (Zoho, Chatwoot, Zendesk) used across multiple products."],
-            ["Cut container build/startup time by 30% via Docker optimization and added OpenTelemetry + Grafana."],
+            ["Built FastAPI services using RAG, MCP servers and AI-driven UI widgets."],
+            ["Built the shared CRM integration service (Zoho, Chatwoot, Zendesk) used by several products."],
+            ["Cut container build and startup time by 30% with Docker changes, and added OpenTelemetry and Grafana."],
             ["Maintained pytest suites in CI/CD for stable weekly releases and reviewed microservice integrations."],
         ],
     },
@@ -73,7 +73,7 @@ EXPERIENCE = [
         "bullets": [
             ["Built a QR-based attendance system (Next.js/Express) saving 15 minutes per class per staff."],
             ["Led Express backend & React frontend for a job fair platform used by 300+ students and 100+ companies."],
-            ["Developed a Python/Django course recommendation system adopted by 100+ students."],
+            ["Built a Python/Django course recommendation system used by 100+ students."],
         ],
     },
     {
