@@ -1026,8 +1026,12 @@ a.card:hover::before { background: var(--accent-line); }
 }
 
 @media (max-width: 960px) {
-  /* stacked: copy takes the flexible row, stats sit under it, hairline last */
-  .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; row-gap: 2rem; padding-bottom: 2rem; }
+  /* stacked: copy takes the flexible row, stats sit under it, hairline last.
+     No screen-per-block here, so the hero is only as tall as its content and
+     the page ends right after the last block. */
+  .hero { grid-template-columns: 1fr; grid-template-rows: auto auto auto; row-gap: 2rem; padding-bottom: 2rem; min-height: 0; }
+  main { padding-bottom: 0; }
+  footer { margin-top: 1rem; padding: 2rem 0; }
   .bento.bento--stats { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 480px) {
