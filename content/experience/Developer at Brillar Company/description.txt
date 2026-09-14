@@ -1,15 +1,15 @@
-At Brillar (Atenxion) I was an Associate Fullstack Engineer on a remote team in Singapore, owning AI-focused Python microservices end to end: architecture, implementation and production operations.
+At Brillar (Atenxion) I was an Associate Fullstack Engineer on a remote team in Singapore. I owned AI-focused Python microservices end to end: architecture, implementation and production operations.
 
 ## My responsibilities
 
-- **Two Python microservices**, owned end to end, built with FastAPI.
+- **Two Python microservices**, built with FastAPI and owned end to end.
 - **Document processing and web crawling pipelines** that turn files and pages into text for LLM workflows, using Docling for extraction.
-- **The CRM integration service**, one backend that connects SalesIQ, Chatwoot and Zoho so every product shares the same integration instead of writing its own.
+- **The CRM integration service**: one backend that connects SalesIQ, Chatwoot and Zoho, shared by every product instead of each writing its own integration.
 
 ## Getting documents into the model
 
-Most of the product's value came from what the model could read. The ingestion service takes uploads and crawled pages, extracts text with Docling, and hands clean chunks to the RAG and MCP-server services that the AI-driven UI widgets sit on top of.
+The product depended on what the model could read. The ingestion service takes uploads and crawled pages, extracts text with Docling, and hands clean chunks to the RAG and MCP-server services behind the AI-driven UI widgets.
 
 ## Operating it
 
-Container build and startup time dropped **30%** after Docker optimisation, which mattered for weekly releases. I added **OpenTelemetry and Grafana** so every service reports latency and memory, and kept the **pytest** suites in CI/CD green so those releases stayed stable. Reviewing other teams' integrations against the shared CRM service was part of the job.
+Docker optimisation cut container build and startup time by **30%**, which mattered for weekly releases. I added OpenTelemetry and Grafana so every service reports latency and memory, and kept the pytest suites in CI/CD green so releases stayed stable. I also reviewed other teams' integrations against the shared CRM service.

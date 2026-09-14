@@ -1,62 +1,60 @@
-I work on **MagickMind**, General Magick Industries' AI agent infrastructure platform: a set of services that let a product give its users AI agents that remember, reason and act inside a shared workspace. I own the agent runtime — not one service, but the whole vertical slice a request travels through: the supervisor that launches agents, the reasoning service they call, and the memory they read from and write to.
+I work on MagickMind, General Magick Industries' AI agent platform. Products use it to give their users AI agents that remember, reason and act inside a shared workspace. I own the agent runtime: the supervisor that launches agents, the reasoning service they call, and the memory they read and write.
 
 ## My responsibilities
 
-- **Agent supervisor.** I built the control plane that mints each agent's credentials and runs it as an isolated OS process, so agents join a workspace as real participants and every action is attributable to a specific agent rather than to one shared orchestrator.
-- **Reasoning path.** I shipped native tool calling and mid-turn escalation between a fast and a frontier model across the gateway, the reasoning service and the supervisor, plus the OpenAI-compatible route that exposes it to any client.
-- **Reasoning methods.** I refactored the reasoning service, implemented frontier methods — RLM, Lambda-RLM, a Mixture-of-Judges panel and tree search — and benchmarked where each one pays for itself.
+- **Agent supervisor.** I built the control plane that mints each agent's credentials and runs it as an isolated OS process. Agents join a workspace as participants, and every message an agent sends is attributed to that agent.
+- **Reasoning path.** I shipped native tool calling and mid-turn escalation from a fast model to a frontier model, across the gateway, the reasoning service and the supervisor, plus the OpenAI-compatible route that exposes it.
+- **Reasoning methods.** I refactored the reasoning service, implemented RLM, Lambda-RLM, a Mixture-of-Judges panel and tree search, and benchmarked them.
 - **Agent memory.** I refactored the episodic memory flow that gives agents recall across conversations.
-- **Runtime.** I contribute to **Mindroid**, the company's open-source Rust agent SDK that every agent runs on, and to the Python SDK.
+- **Runtime.** I contribute to Mindroid, the company's open-source Rust agent SDK that every agent runs on, and to the Python SDK.
 
 Since joining I have been the top committer on the reasoning, memory and supervisor services.
 
 ## Where it started
 
-The platform already had a chat orchestrator: one service that received every message, called the model, and posted the reply as "the assistant". That worked for one assistant per workspace and broke the moment we wanted several agents in the same room. The orchestrator hard-coded the sender, so nothing an agent said could be traced back to it, and every agent shared one identity and one set of permissions.
+The platform had a chat orchestrator: one service received every message, called the model, and posted the reply as "the assistant". It supported one assistant per workspace. The sender was hard-coded, so an agent's messages could not be traced back to it, and all agents shared one identity and one set of permissions. We wanted several agents in the same workspace, each accountable for what it said.
 
-## Agents as real participants
-
-The fix was to stop having a service speak for agents and let each agent speak for itself.
+## Agents as participants
 
 [figure:before-after]
 
-The supervisor is a small control plane with one job: given an agent definition, mint that agent credentials of its own — it becomes an end-user of the workspace, scoped to one tenant — and run it as its own OS process. Each process is a Mindroid agent: it subscribes to the workspace's real-time channel exactly like a person's client does, and it replies through the same send-message endpoint a person would use. Fan-out to the other members is the workspace's job, not the agent's. The orchestrator hop disappears, and attribution falls out for free: a message from an agent is signed by that agent.
+The supervisor has one job. Given an agent definition, it mints credentials for that agent, scoped to one tenant, and runs the agent as its own OS process. Each process is a Mindroid agent. It subscribes to the workspace's real-time channel the same way a person's client does, and it replies through the same send-message endpoint. Fan-out to the other members is done by the workspace, not by the agent. There is no orchestrator hop, and a message from an agent is signed by that agent.
 
-Isolation is the point of the process-per-agent design. A misbehaving agent can be killed and restarted without touching its neighbours, its credentials never leave its process, and the supervisor enforces the tenant boundary on every request that asks it to act on someone's behalf.
+One process per agent gives isolation. A misbehaving agent can be killed and restarted without affecting the others, its credentials stay in its own process, and the supervisor checks the tenant boundary on every request that asks it to act for someone.
 
-The execution loop was the first thing I measured once agents were real. Persisting and caching only where it pays off — and not re-fetching what the runtime already holds — cut **agent turn latency from 4s to 2.5s**.
+Once agents were running this way I measured the execution loop. Caching and persisting only where it made a difference, and not re-fetching what the runtime already held, cut **agent turn latency from 4s to 2.5s**.
 
-## Reasoning that escalates mid-turn
+## Native tool calling and mid-turn escalation
 
-Tool calls used to be parsed out of model text with XML markers. It worked until it didn't: a stray tag, a model that decided to explain its tool call, and the turn fell apart. I shipped **native tool calling** end to end. The gateway's OpenAI-compatible chat-completions route accepts `tools` and `tool_choice`, returns real `tool_calls` with the matching finish reason, and accepts `role: "tool"` results back; the reasoning service carries the tool configuration natively; Mindroid's tool-executor stage consumes the structured calls. Image inputs ride the same route, so multimodal turns reach the reasoning service from any OpenAI client without a custom SDK.
+Tool calls used to be parsed out of model text with XML markers. A stray tag or a model that explained its tool call instead of making it would break the turn. I shipped native tool calling end to end. The gateway's OpenAI-compatible chat-completions route accepts `tools` and `tool_choice`, returns `tool_calls` with the matching finish reason, and accepts `role: "tool"` results. The reasoning service carries the tool configuration natively, and Mindroid's tool-executor stage consumes the structured calls. Image inputs go through the same route, so multimodal turns reach the reasoning service from any OpenAI client.
 
 [figure:escalation]
 
-The second half is **mid-turn escalation**, which came out of a personal prototype. A cheap, fast model answers most turns; when it isn't confident, it hands the turn to a frontier model — within the same turn, with the same context — so the agent never has to choose a model up front. The prototype's raw-JSON "is this final?" protocol became a mandatory tool call carrying the same fields, so there is only one output format and a small model cannot get it wrong. It is a single configuration key: without a fast model configured, the agent resolves one model and runs exactly as before.
+Mid-turn escalation came from a personal prototype. A cheap, fast model answers most turns. When it is not confident, it hands the turn to a frontier model with the same context, inside the same turn, so the agent does not have to choose a model up front. The prototype used a raw-JSON "is this final?" reply. In the runtime this became a mandatory tool call carrying the same fields, so there is one output format and the small model cannot produce the wrong one. It is a single configuration key. Without a fast model configured, the agent resolves one model and runs as before.
 
-Reworking how the reasoning service assembles and dispatches requests — one system turn instead of several, no duplicated history, reasoning effort threaded through instead of silently dropped — brought **fast-path latency down 40%**.
+I also reworked how the reasoning service assembles and dispatches requests: one system turn instead of several, no duplicated history, and the reasoning-effort setting passed through instead of dropped. This brought **fast-path latency down 40%**.
 
-## Reasoning methods, measured
+## Reasoning methods
 
-Beyond a single model call, the reasoning service offers several strategies, and I implemented the newer ones and benchmarked them on AIME, GPQA, MATH500 and LongCoT:
+The reasoning service offers several strategies beyond a single model call. I implemented the newer ones and benchmarked them on AIME, GPQA, MATH500 and LongCoT.
 
-- **RLM** hands the question to a model that drives a REPL loop: it can run code, call sub-models and keep iterating until it decides it is done. It is exact where a plain call is wrong on computation-heavy questions; the price is a fixed cold start of roughly 12–14 seconds per run and a cost that is unbounded unless capped, so it needs an iteration limit and is not the default.
-- **Lambda-RLM** splits the context programmatically and answers each piece with a sub-model in parallel — always two calls, fixed cost. I validated our node against the paper's reference code (identical accuracy on every benchmark). It works as a tool for short-horizon questions and breaks on chained reasoning, where it degrades to a plain call with less context.
-- **Mixture of Judges** — a panel of candidate answers scored by judges, with a first-come fast path for easy questions, tool use available to panellists, an early-accept threshold so the panel stops as soon as a candidate clears the bar, and tool cost counted against each candidate.
-- **Monte-Carlo tree search** with parallel expansion and an optional aggregator that combines the best branches into a new candidate.
+- **RLM.** The model drives a REPL loop: it can run code, call sub-models and keep iterating until it decides it is done. On computation-heavy questions it is exact where a plain call is wrong. Each run has a fixed cold start of about 12–14 seconds, and cost is unbounded unless capped, so it needs an iteration limit and is not the default.
+- **Lambda-RLM.** The context is split programmatically and each piece is answered by a sub-model in parallel: always two calls, fixed cost. I validated our implementation against the paper's reference code and got identical accuracy on every benchmark. It works for short-horizon questions. On chained reasoning it degrades to a plain call with less context.
+- **Mixture of Judges.** A panel of candidate answers scored by judges, with a first-come fast path for easy questions, tool use available to panellists, an early-accept threshold so the panel stops once a candidate clears the bar, and tool cost counted against each candidate.
+- **Monte-Carlo tree search.** Parallel expansion, with an optional aggregator that combines the best branches into a new candidate.
 
 [figure:gpqa-chart]
 
-The cleanest comparison is GPQA with the same model behind every strategy. A direct call answers **40.2%**; MCTS lifts that to **62.4%** and RLM to **73.8%** — 22 to 34 points from the strategy alone. The more useful findings were the negative ones. On AIME the base model's generation mattered more than any strategy. Tree search on top of RLM was strictly worse than RLM alone, at two to four times the latency. And for simple requests, latency and cost dominate and a single call wins — which is why the panel has a fast path and why the escalation design above exists at all.
+The cleanest comparison is GPQA with the same model behind every strategy. A direct call scores **40.2%**. MCTS scores **62.4%** and RLM **73.8%**, so the strategy alone is worth 22 to 34 points. Three results were negative and shaped what we shipped. On AIME the model's generation mattered more than the strategy. Tree search on top of RLM was worse than RLM alone, at two to four times the latency. For simple requests a single call wins on latency and cost, so the panel has a fast path and the runtime escalates instead of always using a heavy strategy.
 
 ## Memory
 
-Agents recall across conversations through an episodic memory service. I refactored its write and retrieval flow, fixed the case where the reasoning service took its query from the wrong turn, and kept episode identifiers in the summaries so an episode can be found again by id rather than by fuzzy match. Most of the work was in making memory reliable rather than clever: what gets written, when, and what the agent actually sees back.
+Agents recall across conversations through an episodic memory service. I refactored its write and retrieval flow, fixed a bug where the reasoning service took its query from the wrong turn, and kept episode identifiers in summaries so an episode can be found again by id. Most of this work was about reliability: what gets written, when, and what the agent sees back.
 
 ## Operating it
 
-Everything deploys to Kubernetes. Services discover each other through etcd, clients receive messages over Centrifugo pub/sub, and usage events flow over a message queue. Two lessons that only show up in production: a Redis cluster rejects multi-key operations that a single-node dev instance happily runs, so every hot path is single-key; and a code-quality gate on new code is worth keeping green even when it blocks a merge, because the issues it raised on the panel strategy were real.
+Everything deploys to Kubernetes. Services find each other through etcd, clients receive messages over Centrifugo pub/sub, and usage events go over a message queue. Two things only showed up in production. A Redis cluster rejects multi-key operations that a single-node dev instance accepts, so every hot path is single-key. And the code-quality gate on new code caught real issues in the panel strategy, so we keep it green even when it blocks a merge.
 
 ## Stack
 
-Rust, Go, Python and TypeScript in the same week — proto changes, gateway routes, supervisor pinning and runtime stages often land as a single stack of pull requests, one per repository, each reviewed on its own.
+Rust, Go, Python and TypeScript, often in the same week. Proto changes, gateway routes, supervisor pinning and runtime stages usually land as one stack of pull requests, one per repository, each reviewed on its own.

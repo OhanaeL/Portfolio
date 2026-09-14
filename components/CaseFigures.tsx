@@ -127,15 +127,15 @@ function GpqaChart() {
 const FIGURES: Record<string, { el: React.ReactNode; caption: string }> = {
   "before-after": {
     el: <BeforeAfter />,
-    caption: "One orchestrator speaking for every agent, versus one process and one identity per agent.",
+    caption: "Before: one orchestrator replies for every agent. After: one process and one identity per agent.",
   },
   escalation: {
     el: <Escalation />,
-    caption: "Mid-turn escalation. The fast model must answer through one tool call that says whether it is final; if not, the frontier model takes the same turn.",
+    caption: "Mid-turn escalation. The fast model answers through one tool call that says whether the answer is final. If it is not, the frontier model takes the same turn.",
   },
   "gpqa-chart": {
     el: <GpqaChart />,
-    caption: "Graduate-level science questions, one model, three strategies. The gap is the strategy, not the model.",
+    caption: "Graduate-level science questions, one model, three strategies.",
   },
 };
 
