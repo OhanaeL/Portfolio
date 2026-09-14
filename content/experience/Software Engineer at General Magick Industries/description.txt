@@ -1,23 +1,55 @@
-I work on **MagickMind**, General Magick Industries' AI agent infrastructure platform, where I own the agent runtime: not a single service, but the whole vertical slice a request travels through — the supervisor that launches agents, the reasoning service they call, and the memory they read from and write to.
+I work on **MagickMind**, General Magick Industries' AI agent infrastructure platform: a set of services that let a product give its users AI agents that remember, reason and act inside a shared workspace. I own the agent runtime — not one service, but the whole vertical slice a request travels through: the supervisor that launches agents, the reasoning service they call, and the memory they read from and write to.
 
 ## My responsibilities
 
 - **Agent supervisor.** I built the control plane that mints each agent's credentials and runs it as an isolated OS process, so agents join a workspace as real participants and every action is attributable to a specific agent rather than to one shared orchestrator.
-- **Reasoning service.** I refactored the service and implemented the frontier reasoning methods it offers — RLM, Lambda-RLM and Mixture of Judges — and the OpenAI-compatible route that exposes them.
+- **Reasoning path.** I shipped native tool calling and mid-turn escalation between a fast and a frontier model across the gateway, the reasoning service and the supervisor, plus the OpenAI-compatible route that exposes it to any client.
+- **Reasoning methods.** I refactored the reasoning service and implemented frontier methods — RLM, Lambda-RLM and a Mixture-of-Judges panel — and measured where each one pays for itself.
 - **Agent memory.** I refactored the episodic memory flow that gives agents recall across conversations.
+- **Runtime.** I contribute to **Mindroid**, the company's open-source Rust agent SDK that every agent runs on, and to the Python SDK.
+
+Since joining I have been the top committer on the reasoning, memory and supervisor services.
+
+## Where it started
+
+The platform already had a chat orchestrator: one service that received every message, called the model, and posted the reply as "the assistant". That worked for one assistant per workspace and broke the moment we wanted several agents in the same room. The orchestrator hard-coded the sender, so nothing an agent said could be traced back to it, and every agent shared one identity and one set of permissions.
 
 ## Agents as real participants
 
-Before the supervisor, one orchestrator spoke for every agent, so nothing an agent did could be traced back to it. The supervisor runs one process per agent with credentials minted for that agent alone; the agent subscribes to its workspace like any other member and replies through the same endpoint a person would. The runtime itself is **Mindroid**, the company's open-source Rust agent SDK, which I contribute to alongside the Python SDK.
+The fix was to stop having a service speak for agents and let each agent speak for itself.
 
-The execution loop was the first thing I measured. Caching and persisting only where it pays off cut **agent turn latency from 4s to 2.5s**.
+The supervisor is a small control plane with one job: given an agent definition, mint that agent credentials of its own — it becomes an end-user of the workspace, scoped to one tenant — and run it as its own OS process. Each process is a Mindroid agent: it subscribes to the workspace's real-time channel exactly like a person's client does, and it replies through the same send-message endpoint a person would use. Fan-out to the other members is the workspace's job, not the agent's. The orchestrator hop disappears, and attribution falls out for free: a message from an agent is signed by that agent.
+
+Isolation is the point of the process-per-agent design. A misbehaving agent can be killed and restarted without touching its neighbours, its credentials never leave its process, and the supervisor enforces the tenant boundary on every request that asks it to act on someone's behalf.
+
+The execution loop was the first thing I measured once agents were real. Persisting and caching only where it pays off — and not re-fetching what the runtime already holds — cut **agent turn latency from 4s to 2.5s**.
 
 ## Reasoning that escalates mid-turn
 
-Tool calls used to be parsed out of model text, which broke in small ways constantly. I shipped **native tool calling** end to end — gateway, reasoning service and supervisor — and **mid-turn escalation**: a fast model answers when it can and hands the turn to a frontier model when it can't, within the same turn, so the agent never has to pick a model up front.
+Tool calls used to be parsed out of model text with XML markers. It worked until it didn't: a stray tag, a model that decided to explain its tool call, and the turn fell apart. I shipped **native tool calling** end to end. The gateway's OpenAI-compatible chat-completions route accepts `tools` and `tool_choice`, returns real `tool_calls` with the matching finish reason, and accepts `role: "tool"` results back; the reasoning service carries the tool configuration natively; Mindroid's tool-executor stage consumes the structured calls. Image inputs ride the same route, so multimodal turns reach the reasoning service from any OpenAI client without a custom SDK.
 
-Reworking how the reasoning service assembles and dispatches requests brought **fast-path latency down 40%**. The new reasoning methods — RLM, Lambda-RLM and Mixture of Judges — lifted benchmark accuracy by roughly **20%** over calling a model directly.
+The second half is **mid-turn escalation**, which came out of a personal prototype. A cheap, fast model answers most turns; when it isn't confident, it hands the turn to a frontier model — within the same turn, with the same context — so the agent never has to choose a model up front. The prototype's raw-JSON "is this final?" protocol became a mandatory tool call carrying the same fields, so there is only one output format and a small model cannot get it wrong. It is a single configuration key: without a fast model configured, the agent resolves one model and runs exactly as before.
+
+Reworking how the reasoning service assembles and dispatches requests — one system turn instead of several, no duplicated history, reasoning effort threaded through instead of silently dropped — brought **fast-path latency down 40%**.
+
+## Reasoning methods, measured
+
+Beyond a single model call, the reasoning service offers several strategies, and I implemented the newer ones:
+
+- **RLM and Lambda-RLM** run the model's reasoning as code in a sandbox, so it computes rather than guesses. On computation-heavy questions it is exact where a plain frontier call is wrong; the price is a fixed cold-start of roughly 12–14 seconds per run, so it needs an iteration cap and is not a default.
+- **Mixture of Judges** — a panel of candidate answers scored by judges, with a first-come fast path for easy questions, tool use available to panellists, an early-accept threshold so the panel stops as soon as a candidate clears the bar, and tool cost counted against each candidate.
+- **Monte-Carlo tree search** with parallel expansion and an optional aggregator that combines the best branches into a new candidate.
+
+Across the internal benchmarks these methods lifted accuracy by roughly **20%** over calling a model directly. The more useful finding was where they don't help: for simple requests, latency and cost dominate and a single call wins, which is why the panel's fast path and the escalation design above exist.
+
+## Memory
+
+Agents recall across conversations through an episodic memory service. I refactored its write and retrieval flow, fixed the case where the reasoning service took its query from the wrong turn, and kept episode identifiers in the summaries so an episode can be found again by id rather than by fuzzy match. Most of the work was in making memory reliable rather than clever: what gets written, when, and what the agent actually sees back.
+
+## Operating it
+
+Everything deploys to Kubernetes. Services discover each other through etcd, clients receive messages over Centrifugo pub/sub, and usage events flow over a message queue. Two lessons that only show up in production: a Redis cluster rejects multi-key operations that a single-node dev instance happily runs, so every hot path is single-key; and a code-quality gate on new code is worth keeping green even when it blocks a merge, because the issues it raised on the panel strategy were real.
 
 ## Stack
 
-Rust, Go, Python and TypeScript in the same week — proto changes, gateway routes, supervisor pinning and runtime stages often land as a single stack of pull requests. Everything deploys to Kubernetes, with services discovering each other through etcd and streaming to clients over Centrifugo.
+Rust, Go, Python and TypeScript in the same week — proto changes, gateway routes, supervisor pinning and runtime stages often land as a single stack of pull requests, one per repository, each reviewed on its own.
