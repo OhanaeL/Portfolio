@@ -17,7 +17,7 @@
   --accent-line: rgba(47, 95, 208, 0.22);
   --shadow-sm: 0 1px 2px rgba(30, 40, 70, 0.06);
   --shadow-md: 0 6px 20px rgba(30, 40, 70, 0.10);
-  --radius: 0;
+  --radius: 4px;
   --maxw: 1240px;
   --sb-thumb: rgba(24, 24, 27, 0.20);
   --sb-thumb-hover: rgba(47, 95, 208, 0.45);
@@ -59,7 +59,7 @@ html {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: var(--sb-thumb);
-  border-radius: 0;
+  border-radius: var(--radius);
   /* transparent border + padding-box clip leaves breathing room round the thumb */
   border: 3px solid transparent;
   background-clip: padding-box;
@@ -137,7 +137,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   gap: 0.45rem;
   padding: 0.5rem 1rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--surface) 58%, transparent);
   color: var(--text) !important;
@@ -208,7 +208,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 1.1rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   font-size: 0.93rem;
   font-weight: 550;
   border: 1px solid var(--border);
@@ -263,7 +263,7 @@ main > section:last-of-type::after { display: none; }
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius);
   padding: 1.7rem 1.75rem;
   box-shadow: var(--shadow-sm);
   transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
@@ -285,7 +285,7 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
   color: var(--muted);
   background: var(--surface-2);
   border: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius);
   padding: 0.2rem 0.45rem;
 }
 
@@ -293,7 +293,7 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
 .now {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius);
   padding: 2.1rem 2.2rem;
 }
 .now h2 { margin: 0 0 0.5rem; font-size: 1.06rem; font-weight: 620; letter-spacing: -0.01em; }
@@ -308,7 +308,7 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
 .stat {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius);
   padding: 1.5rem 1.6rem;
 }
 .stat .figure {
@@ -332,13 +332,13 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
   font-size: 0.87em;
   background: var(--surface-2);
   border: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius);
   padding: 0.1rem 0.32rem;
 }
 .prose pre {
   background: var(--surface-2);
   border: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius);
   padding: 1rem;
   overflow-x: auto;
 }
@@ -365,7 +365,7 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
   top: 1.7em;
   z-index: 40;
   width: min(420px, 70vw);
-  border-radius: 0;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-md);
   opacity: 0;
@@ -400,14 +400,14 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
   gap: 1rem;
   margin: 2rem 0;
 }
-.gallery img { border-radius: 0; border: 1px solid var(--border); }
+.gallery img { border-radius: var(--radius); border: 1px solid var(--border); }
 .embed { margin: 2rem 0; }
-.embed video { width: 100%; border-radius: 0; border: 1px solid var(--border); }
+.embed video { width: 100%; border-radius: var(--radius); border: 1px solid var(--border); }
 
 .notice {
   background: var(--accent-soft);
   border: 1px solid var(--accent-line);
-  border-radius: 0;
+  border-radius: var(--radius);
   padding: 0.9rem 1.1rem;
   color: var(--muted);
   font-size: 0.92rem;
@@ -419,15 +419,15 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
 .about-head img {
   width: 132px;
   height: 132px;
-  border-radius: 0;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   object-fit: cover;
 }
 .skill { margin-bottom: 0.9rem; }
 .skill-top { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.3rem; }
 .skill-top span:last-child { color: var(--faint); font-size: 0.82rem; }
-.bar { height: 5px; background: var(--surface-2); border-radius: 0; overflow: hidden; }
-.bar i { display: block; height: 100%; background: var(--accent); border-radius: 0; }
+.bar { height: 5px; background: var(--surface-2); border-radius: var(--radius); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: var(--radius); }
 
 /* ---------- footer ---------- */
 footer {
@@ -564,7 +564,7 @@ a.card:hover::before { background: var(--accent-line); }
   bottom: 6px;
   left: max(0px, calc((100% - var(--maxw)) / 2));
   right: max(0px, calc((100% - var(--maxw)) / 2));
-  border-radius: 0;
+  border-radius: var(--radius);
   background: color-mix(in srgb, var(--surface) 42%, transparent);
   box-shadow: var(--shadow-md), inset 0 1px 0 var(--facet);
 }
@@ -603,7 +603,7 @@ a.card:hover::before { background: var(--accent-line); }
   bottom: 6px;
   left: max(0px, calc((100% - var(--maxw)) / 2));
   right: max(0px, calc((100% - var(--maxw)) / 2));
-  border-radius: 0;
+  border-radius: var(--radius);
   background: var(--border);
 }
 
@@ -707,7 +707,7 @@ a.card:hover::before { background: var(--accent-line); }
   font-size: 0.72rem;
   color: var(--muted);
   padding: 0.3rem 0.6rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--surface) 70%, transparent);
 }
@@ -722,7 +722,7 @@ a.card:hover::before { background: var(--accent-line); }
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(0, 1fr);
   gap: 1px;
-  border-radius: 0;
+  border-radius: var(--radius);
   overflow: hidden;
   position: relative;
   background: var(--border);
@@ -815,7 +815,7 @@ a.card:hover::before { background: var(--accent-line); }
   top: 0.6rem;
   width: 9px;
   height: 9px;
-  border-radius: 0;
+  border-radius: var(--radius);
   transform: translate(-50%, -50%);
   background: var(--surface-2);
   border: 1px solid var(--faint);
@@ -845,7 +845,7 @@ a.card:hover::before { background: var(--accent-line); }
   width: 320px;
   display: flex;
   flex-direction: column;
-  border-radius: 0;
+  border-radius: var(--radius);
   overflow: hidden;
   position: relative;
   background: color-mix(in srgb, var(--surface) 96%, var(--bg));
@@ -908,7 +908,7 @@ a.card:hover::before { background: var(--accent-line); }
 .about-side img {
   width: 132px;
   height: 132px;
-  border-radius: 0;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   object-fit: cover;
 }
@@ -957,7 +957,7 @@ a.card:hover::before { background: var(--accent-line); }
   font-size: 0.82rem;
   color: var(--muted);
   padding: 0.35rem 0.75rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--surface) 80%, transparent);
 }
@@ -995,7 +995,7 @@ a.card:hover::before { background: var(--accent-line); }
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 0;
+  border-radius: var(--radius);
 }
 .btn:focus-visible, .nav-cta:focus-visible, .cert:focus-visible { border-radius: inherit; }
 
@@ -1005,7 +1005,7 @@ a.card:hover::before { background: var(--accent-line); }
   top: -100%;
   z-index: 100;
   padding: 0.6rem 0.9rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   background: var(--accent);
   color: #fff;
   font-weight: 600;
@@ -1051,7 +1051,7 @@ a.card:hover::before { background: var(--accent-line); }
 .stack-layer {
   position: relative;
   padding: 0.95rem 1.1rem 1rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   background: color-mix(in srgb, var(--surface) 96%, var(--bg));
 }
 .stack-layer::before {
@@ -1074,7 +1074,7 @@ a.card:hover::before { background: var(--accent-line); }
   font-size: 0.7rem;
   color: var(--muted);
   padding: 0.28rem 0.55rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--surface) 70%, transparent);
 }
@@ -1137,7 +1137,7 @@ a.card:hover::before { background: var(--accent-line); }
   align-items: center;
   gap: 0.45rem;
   padding: 0.42rem 0.7rem;
-  border-radius: 0;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   background: transparent;
   color: var(--muted);
@@ -1152,7 +1152,7 @@ a.card:hover::before { background: var(--accent-line); }
 .theme-toggle i {
   width: 8px;
   height: 8px;
-  border-radius: 0;
+  border-radius: var(--radius);
   background: var(--text);
   box-shadow: inset 0 0 0 1.5px var(--bg), 0 0 0 1px var(--faint);
 }
@@ -1247,6 +1247,7 @@ main > section.spot::after,
 .work-art {
   background: var(--surface-2);
   border: 1px solid var(--border);
+  border-radius: var(--radius);
   padding: 0.5rem;
   margin-bottom: 1rem;
 }
@@ -1263,7 +1264,7 @@ main > section.spot::after,
   letter-spacing: 0.16em;
   fill: var(--faint);
 }
-.dg-box rect { fill: var(--surface); stroke: var(--faint); stroke-width: 1; }
+.dg-box rect { fill: var(--surface); stroke: var(--faint); stroke-width: 1; rx: 3px; }
 .dg-box text { fill: var(--text); font-weight: 500; }
 .dg-box .dg-sub { fill: var(--muted); font-size: 9.5px; font-weight: 400; }
 .dg-box--accent rect { fill: var(--accent); stroke: var(--accent); }
@@ -1311,7 +1312,7 @@ main > section.spot::after,
 .dg-lane { fill: var(--accent-soft); stroke: var(--accent-line); }
 .dg-vert { font-size: 9px; letter-spacing: 0.08em; }
 .dg-chart .dg-grid { stroke: var(--border); stroke-width: 1; }
-.dg-chart .dg-bar { fill: var(--accent); }
+.dg-chart .dg-bar { fill: var(--accent); rx: 2px; }
 .dg-chart .dg-label { fill: var(--text); font-size: 12px; }
 .dg-chart .dg-label .dg-sub { fill: var(--muted); }
 .case-figure figcaption { font-size: 0.85rem; color: var(--faint); padding: 0.6rem 0.25rem 0.2rem; }
