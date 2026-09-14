@@ -21,7 +21,9 @@ function Box({ x, y, w, h, label, sub, accent }: { x: number; y: number; w: numb
   );
 }
 
-const Arrow = ({ d }: { d: string }) => <path className="dg-arrow" d={d} markerEnd="url(#dg-head)" />;
+const Arrow = ({ d, both }: { d: string; both?: boolean }) => (
+  <path className="dg-arrow" d={d} markerEnd="url(#dg-head)" markerStart={both ? "url(#dg-head)" : undefined} />
+);
 
 function Defs() {
   return (
@@ -35,24 +37,29 @@ function Defs() {
 
 function Runtime() {
   return (
-    <svg className="dg" viewBox="0 0 560 250" role="img" aria-label="A workspace message reaches the supervisor, which runs each agent as its own process; agents call the reasoning service, which escalates from a fast model to a frontier model, and read and write agent memory.">
+    <svg className="dg" viewBox="0 0 560 250" role="img" aria-label="The supervisor launches one process per agent with its own credentials. Each agent receives workspace messages over pub/sub and replies the same way, and calls the reasoning service and episodic memory through the gateway.">
       <Defs />
-      <text className="dg-caption" x="24" y="30">SPAWN · REASON · REMEMBER</text>
-      <Box x={24} y={104} w={96} h={44} label="Workspace" sub="message" />
-      <Arrow d="M120 126 H164" />
-      <Box x={166} y={104} w={100} h={44} label="Supervisor" accent />
-      <Arrow d="M266 126 C 290 126, 290 62, 314 62" />
-      <Arrow d="M266 126 H314" />
-      <Arrow d="M266 126 C 290 126, 290 190, 314 190" />
-      <Box x={316} y={42} w={78} h={40} label="Agent" sub="process" />
-      <Box x={316} y={106} w={78} h={40} label="Agent" sub="process" />
-      <Box x={316} y={170} w={78} h={40} label="Agent" sub="process" />
-      <Arrow d="M394 62 C 420 62, 420 84, 446 84" />
-      <Arrow d="M394 126 C 420 126, 420 84, 446 84" />
-      <Arrow d="M394 190 C 420 190, 420 84, 446 84" />
-      <Box x={448} y={62} w={92} h={44} label="Reasoning" sub="fast → frontier" accent />
-      <Arrow d="M494 106 V150" />
-      <Box x={448} y={152} w={92} h={44} label="Memory" sub="episodic recall" accent />
+      <text className="dg-caption" x="24" y="24">SPAWN · REASON · REMEMBER</text>
+      <Box x={24} y={104} w={90} h={44} label="Workspace" sub="pub/sub fan-out" />
+      <g className="dg-box dg-box--dashed">
+        <rect x={146} y={36} width={112} height={206} />
+        <text className="dg-caption" x={202} y={50} textAnchor="middle">SUPERVISOR</text>
+        <text className="dg-sub" x={202} y={232} textAnchor="middle" dominantBaseline="middle">one process each</text>
+      </g>
+      <Box x={164} y={62} w={78} h={40} label="Agent" sub="own creds" />
+      <Box x={164} y={120} w={78} h={40} label="Agent" sub="own creds" />
+      <Box x={164} y={178} w={78} h={40} label="Agent" sub="own creds" />
+      <Arrow d="M114 126 C 140 126, 140 82, 164 82" both />
+      <Arrow d="M114 126 C 140 126, 140 140, 164 140" both />
+      <Arrow d="M114 126 C 140 126, 140 198, 164 198" both />
+      <Arrow d="M242 82 C 270 82, 270 126, 298 126" />
+      <Arrow d="M242 140 C 270 140, 270 126, 298 126" />
+      <Arrow d="M242 198 C 270 198, 270 126, 298 126" />
+      <Box x={300} y={104} w={84} h={44} label="Gateway" sub="one API" />
+      <Arrow d="M384 126 C 404 126, 404 84, 424 84" />
+      <Arrow d="M384 126 C 404 126, 404 172, 424 172" />
+      <Box x={426} y={62} w={110} h={44} label="Reasoning" sub="fast + frontier" accent />
+      <Box x={426} y={150} w={110} h={44} label="Memory" sub="episodic search" accent />
     </svg>
   );
 }
