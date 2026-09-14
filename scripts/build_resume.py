@@ -127,6 +127,37 @@ VARIANTS = {
         ],
         "ROLE": "Software Engineer (Rust / Python / Go)",
     },
+    # Forward-deployed / solutions roles: the whole stack, reuse of building
+    # blocks, security and compliance practice named, documentation.
+    "fde": {
+        "SUMMARY": (
+            "Software engineer shipping production code across backend, frontend, data and ops, in Rust, Go, Python "
+            "and TypeScript. I build and operate the runtime AI agents run on: an agent supervisor, a reasoning service "
+            "and agent memory, on Kubernetes with CI/CD, tests and observability. Comfortable in unfamiliar codebases "
+            "(17 services, four languages), and I write things down so the next team can reuse them."
+        ),
+        "SKILLS": [
+            ("Programming", "Python, Rust, Go, TypeScript/JavaScript, Java, C#, Bash"),
+            ("AI stack", "LLM APIs (OpenAI, Gemini, Claude), agent runtimes, tool calling, LangGraph, RAG, MCP"),
+            ("Backend & data", "FastAPI, gRPC/Protobuf, REST, SQL (PostgreSQL, MySQL), MongoDB, Redis, RabbitMQ"),
+            ("Frontend", "React, Next.js, Tailwind, TypeScript"),
+            ("Ops & security", "Docker, Kubernetes, GitHub Actions, OpenTelemetry, Grafana, pytest, SonarQube gates; per-service credentials, tenant isolation, host validation, CVE remediation"),
+        ],
+        "GMI_BULLETS": [
+            ["Built the agent supervisor in Rust: it mints per-agent credentials, runs one isolated process per agent and enforces a ", ("bold", "tenant boundary"), " on every request. Agents join workspaces as participants, so several share a room and every message is attributed."],
+            ["Shipped native tool calling and mid-turn escalation from a fast model to a frontier model across the gateway (Go), reasoning service (Python) and runtime (Rust), through an OpenAI-compatible route with request-size caps and host validation on user-supplied URLs."],
+            ["Reused and extended building blocks: Mindroid, the company's open-source Rust agent SDK, is the generic runtime and the supervisor the product layer; generic stages and tools go back into the SDK."],
+            ["Implemented and benchmarked reasoning strategies (RLM, Lambda-RLM, Mixture of Judges, MCTS): ", ("bold", "22–34 points"), " above a direct call on GPQA with the same model. Cut agent turn latency from ", ("bold", "4s to 2.5s"), " and fast-path latency ", ("bold", "40%"), "."],
+            [("bold", "Top committer"), " since joining on three production services; wrote the case studies and diagrams that explain the runtime to non-engineers."],
+        ],
+        "BRILLAR_BULLETS": [
+            ["Owned two Python (FastAPI) microservices end to end on a remote team, from design to production operations."],
+            ["Built the shared CRM integration service (Zoho, Chatwoot, Zendesk) used by several products, and the document ingestion pipeline that turns uploads and crawled pages into text for LLM workflows."],
+            ["Built FastAPI services using LangGraph agents, RAG, MCP servers and AI-driven UI widgets; cut container build and startup time by ", ("bold", "30%"), "; added OpenTelemetry and Grafana."],
+        ],
+        "ROLE": "Software Engineer",
+        "FREELANCE_BULLETS": [["Built a Python/Bootstrap restaurant ordering system (order time down ", ("bold", "~3 minutes"), ") and Shopee inventory sync."]],
+    },
 }
 
 
@@ -136,6 +167,8 @@ def apply_variant(name):
     SUMMARY, SKILLS, ROLE = v["SUMMARY"], v["SKILLS"], v["ROLE"]
     EXPERIENCE[0]["bullets"] = v["GMI_BULLETS"]
     EXPERIENCE[1]["bullets"] = v["BRILLAR_BULLETS"]
+    if "FREELANCE_BULLETS" in v:
+        EXPERIENCE[3]["bullets"] = v["FREELANCE_BULLETS"]
     DOCX = REPO / f"content/about/resume-{name}.docx"
     PDF = REPO / f"content/about/resume-{name}.pdf"
     HTML = REPO / f"content/about/resume-{name}.html"
