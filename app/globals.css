@@ -1297,6 +1297,21 @@ main > section.spot::after,
 .work-stats li:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
 .work-stats b { color: var(--accent); font-weight: 650; }
 .work-more { color: var(--accent); font-weight: 550; }
+
+/* case study page */
+.case .detail-head { padding-top: 3rem; margin-bottom: 2rem; }
+.case .detail-head h1 { margin-top: 1.25rem; }
+.case .meta-row { margin: 0 0 1rem; }
+.case .meta-row div { display: flex; gap: 0.4rem; }
+.case .meta-row dt { font-weight: 600; color: var(--muted); }
+.case .meta-row dd { margin: 0; }
+.case .work-stats { margin: 0.25rem 0 0; }
+.case-figure { max-width: 720px; margin: 0 0 2.5rem; }
+.case-figure figcaption { font-size: 0.85rem; color: var(--faint); padding: 0.6rem 0.25rem 0.2rem; }
+.case .prose { max-width: 78ch; }
+.case .prose > p:first-child { color: var(--text); font-size: 1.05rem; }
+.case-foot { margin-top: 2.5rem; }
+.case-next { margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
 @media (max-width: 900px) {
   .work-grid { grid-template-columns: 1fr; }
 }

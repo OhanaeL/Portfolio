@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site, work } from "@/lib/site";
 import { getProjects, getExperience } from "@/lib/content";
 import ToolStrip from "@/components/ToolStrip";
@@ -64,9 +65,9 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <SmoothLink className="work-more" href="#experience">
+              <Link className="work-more" href={`/work/${w.slug}/`}>
                 Read case study <span aria-hidden="true">→</span>
-              </SmoothLink>
+              </Link>
             </article>
           ))}
         </div>

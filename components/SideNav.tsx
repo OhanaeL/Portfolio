@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import SmoothLink from "./SmoothLink";
+import { asset } from "@/lib/paths";
 
 const SECTIONS = [
   { id: "top", label: "Top" },
@@ -60,7 +61,7 @@ export default function SideNav() {
         {SECTIONS.map((s, i) => (
           <SmoothLink
             key={s.id}
-            href={s.id === "top" ? "#main" : `#${s.id}`}
+            href={asset(s.id === "top" ? "/#main" : `/#${s.id}`)}
             className={active === s.id ? "sidenav-item is-active" : "sidenav-item"}
             data-d={Math.min(3, Math.abs(i - activeIndex))}
             aria-current={active === s.id ? "true" : undefined}

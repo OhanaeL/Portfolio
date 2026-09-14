@@ -48,6 +48,7 @@ export const work = [
       ["~20%", "accuracy gain from new reasoning methods"],
     ],
     diagram: "runtime",
+    caption: "A workspace message reaches the supervisor, which runs each agent as its own process; agents reason through the reasoning service and recall through memory.",
   },
   {
     slug: "developer-at-brillar-company",
@@ -60,5 +61,6 @@ export const work = [
       ["3", "CRM platforms behind one service"],
     ],
     diagram: "pipeline",
+    caption: "Three CRMs behind one integration service; documents and crawled pages go through ingestion to the LLM workflows, with Grafana and OpenTelemetry on every service.",
   },
 ] as const;
