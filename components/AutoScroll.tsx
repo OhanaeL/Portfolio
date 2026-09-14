@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 const SPEED = 28; // px per second
-const RESUME_AFTER = 1600; // ms of no interaction before drifting again
+const RESUME_AFTER = 600; // ms of no interaction before drifting again
 const FRICTION = 0.92; // per-frame velocity keep after a fling: a hard fling glides ~600px
 
 /**
