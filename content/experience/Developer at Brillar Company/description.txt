@@ -2,7 +2,7 @@ At Brillar (Atenxion) I was an Associate Fullstack Engineer on a remote team in 
 
 ## My responsibilities
 
-- **Two Python microservices**, built with FastAPI and owned end to end.
+- **Two Python microservices**, built with FastAPI and owned end to end, with LangGraph agents behind the AI features.
 - **Document processing and web crawling pipelines** that turn files and pages into text for LLM workflows, using Docling for extraction.
 - **The CRM integration service**: one backend that connects Zoho, Chatwoot and Zendesk, shared by every product instead of each writing its own integration.
 
