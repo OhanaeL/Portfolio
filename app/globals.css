@@ -1237,6 +1237,73 @@ main > section.spot::after,
     var(--border);
 }
 
+/* ---------- work: case-study cards ---------- */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+.work { position: relative; }
+.work-art {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+.dg {
+  width: 100%;
+  height: auto;
+  display: block;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 12px;
+}
+.dg-caption {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  fill: var(--faint);
+}
+.dg-box rect { fill: var(--surface); stroke: var(--faint); stroke-width: 1; }
+.dg-box text { fill: var(--text); font-weight: 500; }
+.dg-box .dg-sub { fill: var(--muted); font-size: 9.5px; font-weight: 400; }
+.dg-box--accent rect { fill: var(--accent); stroke: var(--accent); }
+.dg-box--accent text { fill: #fff; }
+.dg-box--accent .dg-sub { fill: rgba(255, 255, 255, 0.78); }
+.dg-box--dashed rect { stroke-dasharray: 3 3; fill: transparent; }
+.dg-box--dashed text { fill: var(--muted); font-size: 10.5px; }
+.dg-arrow { fill: none; stroke: var(--faint); stroke-width: 1.1; }
+#dg-head path { fill: var(--faint); }
+.work-eyebrow { font-size: 0.82rem; font-weight: 600; color: var(--muted); margin: 0 0 0.25rem; }
+.work h3 { font-size: 1.3rem; margin: 0 0 0.4rem; letter-spacing: -0.01em; }
+.work-blurb { color: var(--muted); margin: 0; }
+.work-stats {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0;
+  margin: 0.9rem 0 1rem;
+  padding: 0;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+.work-stats li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding-right: 0.9rem;
+  margin-right: 0.9rem;
+  border-right: 1px solid var(--border);
+}
+.work-stats li:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
+.work-stats b { color: var(--accent); font-weight: 650; }
+.work-more { color: var(--accent); font-weight: 550; }
+@media (max-width: 900px) {
+  .work-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .work-stats li { border-right: 0; margin-right: 0; padding-right: 0; width: 100%; }
+}
+
 /* ---------- phones ---------- */
 @media (max-width: 720px) {
   /* four items + a pill don't fit in 360px: the pill goes (email is in the
