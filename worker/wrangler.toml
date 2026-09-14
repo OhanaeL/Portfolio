@@ -1,0 +1,9 @@
+name = "portfolio-pilot"
+main = "src/index.ts"
+compatibility_date = "2025-09-01"
+
+# Secrets:  npx wrangler secret put PILOT_API_KEY
+[vars]
+PILOT_BASE_URL = "https://api.openai.com/v1"
+PILOT_MODEL = "gpt-4o-mini"
+ALLOW_ORIGINS = "https://ohanael.github.io,http://localhost:3000,http://localhost:3010"

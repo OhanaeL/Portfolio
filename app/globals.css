@@ -1424,3 +1424,13 @@ main > section.spot::after,
   .rail { padding-block: 0.25rem; }
   main { padding-bottom: 0; }
 }
+
+/* sitepilot widget: follow the site's tokens */
+:root {
+  --sitepilot-accent: var(--accent, #2563eb);
+  --sitepilot-bg: var(--surface, #fff);
+  --sitepilot-fg: var(--text, #111);
+  --sitepilot-muted: var(--muted, #6b7280);
+  --sitepilot-border: var(--border, #e5e7eb);
+  --sitepilot-radius: 14px;
+}
