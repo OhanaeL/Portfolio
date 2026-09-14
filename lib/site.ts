@@ -41,26 +41,26 @@ export const work = [
     eyebrow: "Software Engineer · General Magick Industries",
     title: "MagickMind agent runtime",
     blurb:
-      "The supervisor that runs each AI agent as an isolated, credentialed process, the reasoning service behind it, and the memory that gives agents recall across conversations.",
+      "The supervisor that runs each agent as its own credentialed process, the reasoning service agents call, and the episodic memory they recall from.",
     stats: [
       ["40%", "faster fast-path responses"],
       ["4s → 2.5s", "per agent turn"],
       ["+22–34 pts", "GPQA accuracy from reasoning strategies"],
     ],
     diagram: "runtime",
-    caption: "The supervisor mints each agent's credentials and runs it as its own process, then stays out of the way: agents receive workspace messages over pub/sub and reply the same way, and call the reasoning service and episodic memory through the gateway. Escalating from the fast model to the frontier model is the agent's own decision.",
+    caption: "The supervisor mints each agent's credentials and runs it as its own process. Agents receive workspace messages over pub/sub, reply the same way, and call the reasoning service and episodic memory through the gateway. The agent decides when to escalate from the fast model to the frontier model.",
   },
   {
     slug: "developer-at-brillar-company",
     eyebrow: "Associate Fullstack Engineer · Brillar (Atenxion)",
     title: "AI microservices and CRM integrations",
     blurb:
-      "Python services that turn documents and crawled pages into LLM-ready text, and one integration service that connects SalesIQ, Chatwoot and Zoho for every product.",
+      "Python services that turn documents and crawled pages into text for LLM workflows, and one integration service that connects SalesIQ, Chatwoot and Zoho for every product.",
     stats: [
       ["30%", "faster container build and startup"],
       ["3", "CRM platforms behind one service"],
     ],
     diagram: "pipeline",
-    caption: "Three CRMs behind one integration service; documents and crawled pages go through ingestion to the LLM workflows, with Grafana and OpenTelemetry on every service.",
+    caption: "Three CRMs behind one integration service. Documents and crawled pages go through ingestion to the LLM workflows. Grafana and OpenTelemetry cover every service.",
   },
 ] as const;
