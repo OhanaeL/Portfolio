@@ -1,12 +1,12 @@
-MagickMind is General Magick Industries' platform for AI agents. A product built on it can give its users agents that take part in shared chat rooms (we call them workspaces), remember past conversations, and act on what they are told. When I joined, an agent was mostly an illusion: one backend service answered on behalf of every agent, and the only memory an agent had was the memory of the person it was talking to. This case study is about turning that into something closer to a mind: an agent with its own identity, its own personality, its own memory and its own running process.
+MagickMind is General Magick Industries' platform for AI agents. A product built on it can give its users agents that take part in shared chat rooms, remember past conversations, and act on what they are told. When I joined, agents were served by one shared backend: it answered on behalf of every agent, and an agent's only context was the memory of the person it was talking to. This case study is about turning that into something closer to a mind: an agent with its own identity, its own personality, its own memory and its own running process.
 
 ## The problem
 
 - **One service answered for every agent.** It received each message, called the model, and posted the reply as "the assistant". A workspace could hold one agent, never several, and nothing an agent said could be traced to a specific agent.
 - **Agents remembered nothing of their own.** When an agent needed context, the platform looked up the *human's* memories and the model played a character on top of them. Talk to the same agent in two rooms and it had no idea it had met you before.
-- **The room owned the memories.** Memories were filed per workspace, summaries described the room's history from no one's point of view, and deleting a workspace deleted every memory formed in it. A one-person "private space" existed as a workaround for agents that could not remember.
+- **The room owned the memories.** Memories were filed per workspace, and summaries described the room's history from no one's point of view.
 
-The direction from the founder, in July: the basic unit should be the agent, not the room. An agent owns its memories, its personality and its history, and that bundle can walk into a workspace. His phrase for it was "minds, not group spaces".
+The principle I worked from: the basic unit should be the agent, not the room. An agent owns its memories, its personality and its history, and that bundle can walk into any workspace.
 
 [figure:bundle]
 
@@ -14,11 +14,11 @@ The direction from the founder, in July: the basic unit should be the agent, not
 
 Where should an agent live? Three shapes were considered.
 
-1. **In a library on the customer's side.** Agents could connect to any platform, but our reasoning and memory code would have to leave our servers.
+1. **In a library on the customer's side.** Agents could connect to any platform, but the reasoning and memory code would have to leave our servers.
 2. **Inside the existing service.** Nothing to deploy, but the one-agent, one-sender limits stay.
-3. **As a real participant.** Each agent gets its own connection and identity and calls our backend for thinking and remembering. This is what we built.
+3. **As a real participant.** Each agent gets its own connection and identity and calls the backend for thinking and remembering. This is what we built.
 
-Memory had its own ladder of options. The small step: file an agent's memories under the agent's own name instead of "assistant", and look them up as the agent as well as the user. The medium step: give each memory a point of view, so an agent's summary of a conversation is its own, not the room's. The large step: an agent that runs on its own and does its own remembering. The memory service took the small and medium steps; the supervisor took the large one.
+Memory had its own ladder: first file an agent's memories under the agent's own name instead of "assistant"; then give each memory a point of view, so an agent's summary of a conversation is its own, not the room's; finally, an agent that runs on its own and does its own remembering. I took all three steps, the first two in the memory service and the last in the supervisor.
 
 ## What I built
 
@@ -30,11 +30,11 @@ The supervisor is the part of the platform that runs agents. Given an agent's de
 
 ### Personality
 
-Each agent loads its personality from the persona service, which my teammates built: a versioned set of traits that evolves per person the agent meets. The supervisor loads it when the agent starts and keeps it for the life of the process, so personality belongs to the agent, not to whichever room it is in.
+Each agent loads its personality from a system my teammates built: a versioned set of traits that evolves per person the agent meets. The supervisor loads it when the agent starts and keeps it for the life of the process, so personality belongs to the agent, not to whichever room it is in.
 
 ### Memory
 
-In the memory service I gave agents their own point of view. Each memory now records whose memory it is. An agent can look back through its own memories as well as the user's, and can ask what happened in a given period across every room it has been in. Every lookup is limited to one customer account, so an agent that serves several customers keeps their memories apart. Summaries of one-to-one conversations name who said what, and the same message can no longer be filed twice. When a turn starts, the agent remembers twice: what it knows about this person, and what it learned the last time it was here.
+I gave agents their own point of view. Each memory now records whose memory it is. An agent can look back through its own memories as well as the user's, and can ask what happened in a given period across every room it has been in. Every lookup is limited to one customer account, so an agent that serves several customers keeps their memories apart. Summaries of one-to-one conversations name who said what. When a turn starts, the agent remembers twice: what it knows about this person, and what it learned the last time it was here.
 
 ### The turn
 
@@ -49,10 +49,6 @@ With identity, personality and memory in place, each conversation turn is the ag
 - A turn takes 2.5 seconds instead of 4 after caching in the execution loop. The fastest path through the reasoning service is 40% quicker after I reworked how requests are put together.
 - The reasoning strategies I added on that path (RLM, Lambda-RLM, a panel of judges and tree search) score 22 to 34 points above a plain model call on GPQA, a graduate-level science benchmark, with the same model.
 - Since joining I have been the top committer on the memory, reasoning and supervisor services, and a contributor to Mindroid and the Python SDK.
-
-## What is not done
-
-The room still owns the timeline. An agent's memories carry its name, but they are not yet linked into one life story across rooms, and deleting a workspace still deletes what happened in it. The next steps in the design are to separate memory from the room's lifecycle, keep one timeline per agent, make the agent's own point of view the default when summarising, and record what an agent has read. The interface those steps need, "as agent X: remember, recall, reflect, read", is the same one a self-hosted Mindroid agent already uses, so the platform and the open-source runtime are converging on one design.
 
 ## Looking back
 
