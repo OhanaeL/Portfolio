@@ -4,3 +4,4 @@ company: Brillar
 links:
 - Brillar|https://www.brillar.io/
 - Atenxion|https://www.atenxion.ai/
+title: Associate Fullstack Engineer
