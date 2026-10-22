@@ -2,7 +2,7 @@
 
 import type { PilotManifest } from "@sitepilot/core";
 import { openaiTransport } from "@sitepilot/core";
-import { defineTool, SitepilotProvider, SitepilotWidget } from "@sitepilot/react";
+import { defineTool, SitepilotProvider, SitepilotWidget, useSitepilot } from "@sitepilot/react";
 import { useMemo, useState } from "react";
 import type { CatalogEntry } from "@/lib/pilot";
 import { basePath } from "@/lib/paths";
@@ -22,6 +22,23 @@ function saveHistory(history: unknown[]) {
   try {
     localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
   } catch {}
+}
+
+const SUGGESTIONS = ["Show me his MagickMind work", "What did he do at Brillar?", "Show me his projects", "How can I contact him?"];
+
+/** One-click starter questions, shown only while the chat is empty. */
+function Suggestions() {
+  const { messages, status, send } = useSitepilot();
+  if (messages.length || status !== "idle") return null;
+  return (
+    <div className="pilot-suggest">
+      {SUGGESTIONS.map((q) => (
+        <button key={q} type="button" onClick={() => void send(q)}>
+          {q}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 const norm = (s: string) => s.toLowerCase();
@@ -79,6 +96,7 @@ export default function Pilot({ manifest, catalog, url }: { manifest: PilotManif
         showToolToggles={false}
         footer={
           <>
+            <Suggestions />
             Powered by{" "}
             <a href="https://github.com/OhanaeL/sitepilot" target="_blank" rel="noopener noreferrer">
               sitepilot
