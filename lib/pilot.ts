@@ -63,10 +63,10 @@ export function buildPilotManifest(): PilotManifest {
   hints["Résumé (PDF) link"] = "Opens the PDF résumé in a new tab.";
   hints["Get in touch link"] = `Opens the visitor's mail client addressed to ${site.email}.`;
   hints["Theme toggle button"] = "Switches between light and dark mode.";
-  hints["Professional Work section"] = "Heading of the case studies of his professional roles. Highlight it for 'show me his work'.";
-  hints["Experience section"] = "Heading of the timeline of every role he has held. Highlight it for 'show me his experience'.";
-  hints["Selected Projects section"] = "Heading of the rail of all his projects. Highlight it for 'show me his projects'.";
-  hints["About section"] = "Heading of his intro, facts, résumé and contact buttons. Highlight it for 'tell me about him on the page'.";
+  hints["Professional Work section"] = "The case studies of his professional roles. Highlight it for 'show me his work'.";
+  hints["Experience section"] = "The timeline of every role he has held. Highlight it for 'show me his experience'.";
+  hints["Selected Projects section"] = "The rail of all his projects. Highlight it for 'show me his projects'.";
+  hints["About section"] = "His intro, facts, résumé and contact buttons. Highlight it for 'tell me about him on the page'.";
 
   return {
     elements: [
@@ -75,7 +75,7 @@ export function buildPilotManifest(): PilotManifest {
       { selector: ".nav-cta", label: "Get in touch link" },
       { selector: ".theme-toggle", label: "Theme toggle button" },
       { selector: ".sidenav-item", label: "{text} section link" },
-      { selector: "main > section[id] > .section-head h2", label: "{text} section" },
+      { selector: "main > section[id]", label: "{text:.section-head h2} section" },
       { selector: ".hero .btn-primary", label: "View projects button" },
       { selector: ".hero .btn:not(.btn-primary), .about-actions .btn[href$='.pdf']", label: "Résumé (PDF) link" },
       { selector: ".about-actions .btn:not([href$='.pdf'])", label: "{text} link (about)" },
