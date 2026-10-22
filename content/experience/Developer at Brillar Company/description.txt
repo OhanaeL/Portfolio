@@ -1,15 +1,19 @@
-At Brillar (Atenxion) I was an Associate Fullstack Engineer on a remote team in Singapore. I owned AI-focused Python microservices end to end: architecture, implementation and production operations.
+At Brillar (Atenxion) I was an Associate Fullstack Engineer on a remote team in Singapore. I owned two AI-focused Python (FastAPI) microservices end to end: architecture, implementation and production operations.
 
 ## My responsibilities
 
-- **Two Python microservices**, built with FastAPI and owned end to end, with Google ADK agents behind the AI features.
-- **Document processing and web crawling pipelines** that turn files and pages into text for LLM workflows, using Docling for extraction.
-- **The CRM integration service**: one backend that connects Zoho, Chatwoot and Zendesk, shared by every product instead of each writing its own integration.
+- **A multi-agent workflow platform** on Google ADK: teams build their own workflows by connecting agent and tool nodes, in the style of n8n.
+- **The CRM integration service**: one backend that connects the agents to Zoho CRM, Zoho SalesIQ, Chatwoot and Zendesk. Agents create support tickets and hand a conversation off to a human agent the user can keep messaging.
+- **RAG retrieval and the fetch layer behind it**: a Crawl4AI web crawler, and the document front end for a hosted Docling OCR service.
 
 ## Getting documents into the model
 
-The product depended on what the model could read. The ingestion service takes uploads and crawled pages, extracts text with Docling, and hands clean chunks to the RAG and MCP-server services behind the AI-driven UI widgets.
+The agents were only as good as what they could read. The crawler runs on Crawl4AI with a semaphore capping how many pages it fetches at once. Uploaded files go through my service first: it detects the file and image type, queues the work and sets the OCR language, then forwards each file to the Docling service, which another team hosted. At answer time the RAG retrieval pulls the relevant documents back up for the agent.
+
+## Tools and interface
+
+Agents reach Tricentis, Jira and Airtable through MCP servers, and AI-driven UI widgets let them show results in the interface instead of only in text.
 
 ## Operating it
 
-Docker optimisation cut container build and startup time by **30%**, which mattered for weekly releases. I added OpenTelemetry and Grafana so every service reports latency and memory, and kept the pytest suites in CI/CD green so releases stayed stable. I also reviewed other teams' integrations against the shared CRM service.
+Docker changes cut container build and startup time by **30%**. I added OpenTelemetry and Grafana so every service reports latency and memory, and ran the pytest suites in pre-commit hooks.

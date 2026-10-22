@@ -38,15 +38,24 @@ LANGUAGES = "English (IELTS 8.0), Burmese (Native), Thai (Basic), Japanese (JLPT
 SKILLS = [
     ("Programming", "Python, TypeScript/JavaScript, Rust, Go, Java, C#, HTML/CSS"),
     ("Frameworks", "FastAPI, Django, Node.js, Express, React, Next.js"),
-    ("AI/ML", "LLM APIs, agent runtimes & native tool calling, LangGraph, LangChain, RAG, MCP, Gemini, OCR, Computer Vision (OpenCV, MediaPipe)"),
+    ("AI/ML", "LLM APIs, agent runtimes & native tool calling, Google ADK, LangChain, RAG, MCP, Gemini, OCR, Computer Vision (OpenCV, MediaPipe)"),
     ("Backend & APIs", "gRPC/Protobuf, RESTful design, async programming, SQL (PostgreSQL, MySQL), MongoDB, Redis"),
     ("DevOps & Tools", "Docker, Kubernetes, CI/CD (GitHub Actions), Git, Grafana, OpenTelemetry, pytest, Jira, AWS"),
+]
+BRILLAR = [
+    ["Built a ", ("bold", "Google ADK"), " multi-agent platform where teams compose n8n-style workflows from agent and tool nodes, with MCP links to Tricentis, Jira and Airtable, and AI-driven UI widgets."],
+    ["Built the CRM integration service (Zoho CRM, SalesIQ, Chatwoot, Zendesk) where agents open tickets and hand off to humans, and ", ("bold", "RAG"), " retrieval over a Crawl4AI crawler and Docling OCR pre-processing."],
+    ["Owned two FastAPI services end to end: build and startup time down ", ("bold", "30%"), ", OpenTelemetry and Grafana, pytest in pre-commit hooks."],
+]
+BRILLAR_SHORT = [
+    ["Built a ", ("bold", "Google ADK"), " multi-agent workflow platform, the CRM integration service (Zoho, SalesIQ, Chatwoot, Zendesk) and RAG retrieval over Crawl4AI and Docling."],
+    BRILLAR[2],
 ]
 EXPERIENCE = [
     {
         "title": "Software Engineer",
         "org": [("link", "General Magick Industries", "https://generalmagickindustries.com/"), " (", ("link", "MagickMind", "https://magickmind.ai/"), ")"],
-        "tail": "Full-time | Apr 2026 - Present",
+        "tail": "Bangkok, Thailand | Full-time | Apr 2026 - Present",
         "bullets": [
             [("bold", "Top committer"), " since joining on the reasoning, memory and supervisor services. Contributor to Mindroid, the open-source Rust agent runtime."],
             ["Built the agent supervisor: it mints credentials for each agent and runs it as an isolated process that joins workspaces over pub/sub. Added caching to its execution loop, cutting agent turn latency from ", ("bold", "4s to 2.5s"), "."],
@@ -57,19 +66,15 @@ EXPERIENCE = [
     {
         "title": "Associate Fullstack Engineer",
         "org": [("link", "Brillar", "https://www.brillar.io/"), " (", ("link", "Atenxion", "https://www.atenxion.ai/"), ")"],
-        "tail": "Singapore (Remote) | May 2025 - Apr 2026",
-        "bullets": [
-            ["Owned two Python microservices and built document processing & web crawling pipelines."],
-            ["Built FastAPI services using LangGraph agents, RAG, MCP servers and AI-driven UI widgets."],
-            ["Built the shared CRM integration service (Zoho, Chatwoot, Zendesk) used by several products."],
-            ["Cut container build and startup time by ", ("bold", "30%"), " with Docker changes, and added OpenTelemetry and Grafana."],
-            ["Maintained pytest suites in CI/CD for stable weekly releases and reviewed microservice integrations."],
-        ],
+        "tail": "Singapore (Remote) | Full-time | May 2025 - Apr 2026",
+        "bullets": BRILLAR,
     },
+]
+EARLIER = [
     {
         "title": "Software Developer Intern",
         "org": [("link", "Rangsit International College", "https://rsuip.org/")],
-        "tail": "Thailand | Aug 2024 - Dec 2025 | Part-time from May 2025",
+        "tail": "Full-time Aug 2024 - May 2025, part-time to Dec 2025",
         "bullets": [
             ["Built a QR-based attendance system (Next.js/Express) saving ", ("bold", "15 minutes"), " per class per staff."],
             ["Led Express backend & React frontend for a job fair platform used by ", ("bold", "300+ students and 100+ companies"), "."],
@@ -110,7 +115,7 @@ VARIANTS = {
             ("Systems & platform", "Linux containers, Docker, Kubernetes, etcd service discovery, gRPC/Protobuf, Redis (clustered), PostgreSQL, MySQL, MongoDB, RabbitMQ, Centrifugo pub/sub"),
             ("Security practice", "per-service credentials, tenant isolation, input and host validation on user-supplied URLs, secrets kept out of repositories, dependency CVE remediation, SonarQube quality gates"),
             ("CI/CD & testing", "GitHub Actions, cargo test/clippy, pytest, multi-stage Docker builds, OpenTelemetry, Grafana"),
-            ("AI (secondary)", "LLM APIs, agent runtimes, LangGraph, RAG, MCP"),
+            ("AI (secondary)", "LLM APIs, agent runtimes, Google ADK, RAG, MCP"),
         ],
         "GMI_BULLETS": [
             ["Built the agent supervisor in ", ("bold", "Rust"), ": a control plane that mints per-agent credentials and runs one isolated OS process per agent, enforcing a ", ("bold", "tenant boundary"), " on every request that acts on someone's behalf."],
@@ -119,12 +124,7 @@ VARIANTS = {
             ["Cut agent turn latency from ", ("bold", "4s to 2.5s"), " and the reasoning service's fast path by ", ("bold", "40%"), " with targeted caching, measured before and after."],
             [("bold", "Top committer"), " since joining on three production services; every change ships with tests through CI to Kubernetes. Contributor to Mindroid, the company's open-source Rust runtime."],
         ],
-        "BRILLAR_BULLETS": [
-            ["Owned two Python (FastAPI) microservices end to end: design, implementation and production operations."],
-            ["Cut container build and startup time by ", ("bold", "30%"), " with Docker changes; added OpenTelemetry and Grafana."],
-            ["Maintained pytest suites in CI/CD for stable weekly releases; reviewed other teams' integrations against the shared CRM integration service (Zoho, Chatwoot, Zendesk)."],
-            ["Built the document ingestion pipeline that turns uploads and crawled pages into text for downstream services."],
-        ],
+        "BRILLAR_BULLETS": BRILLAR_SHORT,
         "ROLE": "Software Engineer (Rust / Python / Go)",
     },
     # Forward-deployed / solutions roles: the whole stack, reuse of building
@@ -138,7 +138,7 @@ VARIANTS = {
         ),
         "SKILLS": [
             ("Programming", "Python, Rust, Go, TypeScript/JavaScript, Java, C#, Bash"),
-            ("AI stack", "LLM APIs (OpenAI, Gemini, Claude), agent runtimes, tool calling, LangGraph, RAG, MCP"),
+            ("AI stack", "LLM APIs (OpenAI, Gemini, Claude), agent runtimes, tool calling, Google ADK, RAG, MCP"),
             ("Backend & data", "FastAPI, gRPC/Protobuf, REST, SQL (PostgreSQL, MySQL), MongoDB, Redis, RabbitMQ"),
             ("Frontend", "React, Next.js, Tailwind, TypeScript"),
             ("Ops & security", "Docker, Kubernetes, GitHub Actions, OpenTelemetry, Grafana, pytest, SonarQube gates; per-service credentials, tenant isolation, host validation, CVE remediation"),
@@ -150,14 +150,133 @@ VARIANTS = {
             ["Implemented and benchmarked reasoning strategies (RLM, Lambda-RLM, Mixture of Judges, MCTS): ", ("bold", "22–34 points"), " above a direct call on GPQA with the same model. Cut agent turn latency from ", ("bold", "4s to 2.5s"), " and fast-path latency ", ("bold", "40%"), "."],
             [("bold", "Top committer"), " since joining on three production services; wrote the case studies and diagrams that explain the runtime to non-engineers."],
         ],
-        "BRILLAR_BULLETS": [
-            ["Owned two Python (FastAPI) microservices end to end on a remote team, from design to production operations."],
-            ["Built the shared CRM integration service (Zoho, Chatwoot, Zendesk) used by several products, and the document ingestion pipeline that turns uploads and crawled pages into text for LLM workflows."],
-            ["Built FastAPI services using LangGraph agents, RAG, MCP servers and AI-driven UI widgets; cut container build and startup time by ", ("bold", "30%"), "; added OpenTelemetry and Grafana."],
-        ],
+        "BRILLAR_BULLETS": BRILLAR_SHORT,
         "ROLE": "Software Engineer",
         "FREELANCE_BULLETS": [["Built a Python/Bootstrap restaurant ordering system (order time down ", ("bold", "~3 minutes"), ") and Shopee inventory sync."]],
     },
+    # Backend roles that key on Go, Python, SQL and running services reliably in
+    # production (Garena "Engineer, Backend Engineering"). No freelance entry.
+    "backend": {
+        "SUMMARY": (
+            "Backend engineer working in Go, Python and Rust on services that run in production on Kubernetes: "
+            "REST and gRPC APIs shipped with tests, CI/CD and observability. Currently building the runtime AI "
+            "agents run on (a Go gateway, a Python reasoning service, a Rust supervisor), where I own latency, "
+            "stability and the hardening of public routes. Comfortable in large codebases (17 services, four languages)."
+        ),
+        "SKILLS": [
+            ("Programming", "Go, Python, SQL, Rust, TypeScript/JavaScript, Java, C#"),
+            ("Backend & APIs", "gRPC/Protobuf, REST, go-zero, FastAPI, Django, async programming, etcd service discovery, RabbitMQ, Centrifugo pub/sub"),
+            ("Data", "PostgreSQL, MySQL, MongoDB, Redis (clustered), S3"),
+            ("Reliability & ops", "Docker, Kubernetes, GitHub Actions CI/CD, OpenTelemetry, Grafana, SonarQube quality gates, pytest, cargo test/clippy; idempotent ingest, tenant isolation, CVE remediation"),
+            ("AI tooling", "Claude Code, Codex and ast-grep in the daily workflow; LLM APIs, agent runtimes, native tool calling, RAG, MCP"),
+        ],
+        "GMI_BULLETS": [
+            ["Develop and maintain the ", ("bold", "Go"), " (go-zero) API gateway fronting 17 services over gRPC: shipped an OpenAI-compatible chat route with native tool calling, a request-size cap and ", ("bold", "host validation"), " on user-supplied URLs."],
+            ["Refactored the ", ("bold", "Python"), " reasoning service, cutting fast-path latency ", ("bold", "40%"), "; implemented and benchmarked RLM, Mixture of Judges and MCTS strategies, ", ("bold", "22–34 points"), " above a direct call on GPQA with the same model."],
+            ["Built the agent supervisor in ", ("bold", "Rust"), ": mints per-agent credentials, runs one isolated process per agent and enforces a ", ("bold", "tenant boundary"), " on every request. Caching in its execution loop cut agent turn latency from ", ("bold", "4s to 2.5s"), "."],
+            ["Production maintenance across three services: made message ingest ", ("bold", "idempotent"), " so retries cannot duplicate records, namespaced Redis keys per service, and remediated ", ("bold", "vendored CVEs"), " in container images."],
+            [("bold", "Top committer"), " since joining; every change ships with tests through CI to Kubernetes, and I troubleshoot production from pod logs and traces. Contributor to Mindroid, the open-source Rust agent runtime."],
+        ],
+        "ROLE": "Backend Engineer (Go / Python)",
+        "EARLIER": [EARLIER[0]],
+        "FILE": "HL-Resume",
+    },
+    # AI engineer roles: agents, tool calling, RAG, memory, evaluation, shipped
+    # to production. Same facts, AI work first, Go still visible.
+    "ai": {
+        "SUMMARY": (
+            "AI engineer building AI agents that run in production: the runtime they execute in, the LLM reasoning "
+            "service behind them, their memory, and the evaluation that shows they work. Python first, with Rust "
+            "and Go, on Kubernetes with CI/CD, tests and observability."
+        ),
+        "SKILLS": [
+            ("Programming", "Python, Rust, Go, TypeScript/JavaScript, SQL, Java, C#"),
+            ("AI systems", "Agent runtimes, native tool calling, MCP, RAG, Google ADK, LangChain, LLM APIs (OpenAI, Gemini, Claude), reasoning strategies (MCTS, Mixture of Judges, RLM), evaluation & benchmarking (GPQA)"),
+            ("Backend & data", "FastAPI, gRPC/Protobuf, REST, async programming, PostgreSQL, MySQL, MongoDB, Redis, RabbitMQ, Centrifugo pub/sub"),
+            ("Ops & quality", "Docker, Kubernetes, GitHub Actions CI/CD, OpenTelemetry, Grafana, SonarQube quality gates, pytest, cargo test/clippy"),
+            ("Practices", "AI-assisted development (Claude Code, Codex), code review, design docs, tenant isolation and secrets hygiene"),
+        ],
+        "GMI_BULLETS": [
+            ["Built the agent supervisor (", ("bold", "Rust"), "): a control plane that lets each customer spawn their own customized agents on our infrastructure, running each one as a ", ("bold", "lightweight isolated process"), " with its own credentials and a ", ("bold", "tenant boundary"), " on every request."],
+            ["Shipped ", ("bold", "native tool calling"), " and mid-turn escalation from a fast model to a frontier model across the Go gateway, Python reasoning service and Rust runtime, through one OpenAI-compatible route with tool and image support."],
+            ["Implemented and benchmarked four LLM reasoning strategies: ", ("bold", "22–34 points"), " above a direct call on GPQA with the same model."],
+            ["Gave agents ", ("bold", "memory"), ": each memory records whose it is, lookups are scoped to one customer, and an agent recalls what it knows about a person and what happened last time before it answers."],
+            ["Cut agent turn latency from ", ("bold", "4s to 2.5s"), " and the reasoning fast path by ", ("bold", "40%"), ", measured before and after. ", ("bold", "Top committer"), " since joining on three production services; contributor to Mindroid, the open-source Rust agent SDK."],
+        ],
+        "ROLE": "AI Engineer",
+        "TITLES": ["AI Engineer", "Associate Fullstack Engineer (AI-Focus)"],
+        "EARLIER": [{**EARLIER[0], "bullets": [
+            ["Built a QR-based attendance system (Next.js/Express) saving ", ("bold", "15 minutes"), " per class per staff, and an AI-based Python/Django course recommendation system used by ", ("bold", "100+ students"), "."],
+            ["Led Express backend & React frontend for a job fair platform used by ", ("bold", "300+ students and 100+ companies"), "."],
+        ]}],
+        "FILE": "HL-Resume-AI",
+    },
+}
+
+# Software Engineer at Proalpha (Phuket): the "ai" variant's facts under the
+# real job titles, backend skills listed before AI ones, header says the move.
+VARIANTS["proalpha"] = {
+    **{k: v for k, v in VARIANTS["ai"].items() if k != "TITLES"},
+    "ROLE": "Software Engineer",
+    "CONTACT": [
+        "Burmese | Bangkok (relocating to Phuket) | +66 65 556 6035 | ",
+        *CONTACT[1:],
+    ],
+    "SUMMARY": (
+        "Software engineer working in Python, Go and Rust on backend services that run in production: "
+        "REST and gRPC APIs over PostgreSQL, MySQL and MongoDB, shipped with tests, CI/CD and "
+        "observability. Currently I build the runtime AI agents run on, from the supervisor they "
+        "execute in to the LLM reasoning service behind them."
+    ),
+    "SKILLS": [
+        ("Programming", "Python, Go, SQL, Java, C#, Rust, TypeScript/JavaScript"),
+        VARIANTS["ai"]["SKILLS"][2],
+        VARIANTS["ai"]["SKILLS"][1],
+        VARIANTS["ai"]["SKILLS"][3],
+        VARIANTS["ai"]["SKILLS"][4],
+    ],
+    "TAILS": ["Indonesia (Remote) | Full-time | Apr 2026 - Present"],
+    "FILE": "HL-Software-Dev",
+}
+
+# Full-stack product roles (Manatal): facts from scratch/cv, frontend and REST first.
+VARIANTS["fullstack"] = {
+    "ROLE": "Software Engineer (Full Stack)",
+    "SUMMARY": (
+        "Full-stack software engineer, Python first. I build REST and gRPC APIs and the React/Next.js front "
+        "ends that use them, shipped to Kubernetes with automated tests, CI/CD and code review. Currently "
+        "building an AI agent platform end to end, from the Python AI inference service to the dashboard "
+        "customers manage their agents in."
+    ),
+    "SKILLS": [
+        ("Programming", "Python, TypeScript/JavaScript, SQL, Go, Rust, Java, C#, HTML/CSS"),
+        ("Frontend", "React, Next.js, Tailwind"),
+        ("Backend & data", "Django, FastAPI, Express, Node.js, REST, gRPC, RabbitMQ, PostgreSQL, MySQL, MongoDB, Redis"),
+        ("DevOps & quality", "Docker, Kubernetes, GitHub Actions CI/CD, AWS, pytest, OpenTelemetry, Grafana, SonarQube"),
+        ("AI", "LLM APIs, native tool calling, MCP, RAG, Google ADK, agent runtimes"),
+    ],
+    "GMI_BULLETS": [
+        ["Built agent management in the ", ("bold", "Next.js"), " dashboard: live agent status, reasoning settings, role templates, server-side search and sort, an onboarding tour, and an in-app assistant that clicks and fills the page for the user."],
+        ["Built the OpenAI-compatible chat-completions ", ("bold", "REST"), " route in the Go gateway (tool calling, image input, SSE streaming, OpenAI-style errors) and made retried message sends ", ("bold", "idempotent"), " end to end."],
+        ["Refactored the ", ("bold", "Python"), " AI inference service (gRPC), cutting fast-path latency ", ("bold", "40%"), "; implemented and benchmarked four LLM reasoning strategies, ", ("bold", "22–34 points"), " above a direct call on GPQA with the same model."],
+        ["Built the Rust agent supervisor that runs each agent as an isolated process with its own credentials; caching in its loop cut agent turn latency from ", ("bold", "4s to 2.5s"), "."],
+        ["Closed tenant-ownership (IDOR) gaps across services and kept SonarQube gates green. ", ("bold", "181 PRs"), " merged into develop across 12 repositories; top committer on develop in six."],
+    ],
+    "TAILS": ["Indonesia (Remote) | Full-time | Apr 2026 - Present"],
+    "EARLIER": [
+        {
+            **EARLIER[0],
+            "title": "Software Developer (Teaching Assistant program)",
+            "tail": "Pathum Thani, Thailand | Full-time Aug 2024 - May 2025, part-time to Dec 2025",
+            "bullets": [
+                ["Led the Express backend and React frontend of a job fair platform used by ", ("bold", "300+ students and 100+ companies"), "."],
+                ["Built a QR-based attendance system (Next.js/Express) saving ", ("bold", "15 minutes"), " per class per staff member, and a Python/Django course recommendation system used by ", ("bold", "100+ students"), "."],
+                ["Worked an additional 4 months in the role as my Co-op Education placement for the degree."],
+            ],
+        },
+        {**EARLIER[1], "bullets": VARIANTS["fde"]["FREELANCE_BULLETS"]},
+    ],
+    "FILE": "HL-Resume-Fullstack",
 }
 
 
@@ -166,12 +285,23 @@ def apply_variant(name):
     v = VARIANTS[name]
     SUMMARY, SKILLS, ROLE = v["SUMMARY"], v["SKILLS"], v["ROLE"]
     EXPERIENCE[0]["bullets"] = v["GMI_BULLETS"]
-    EXPERIENCE[1]["bullets"] = v["BRILLAR_BULLETS"]
+    EXPERIENCE[1]["bullets"] = v.get("BRILLAR_BULLETS", BRILLAR)
     if "FREELANCE_BULLETS" in v:
-        EXPERIENCE[3]["bullets"] = v["FREELANCE_BULLETS"]
-    DOCX = REPO / f"content/about/resume-{name}.docx"
-    PDF = REPO / f"content/about/resume-{name}.pdf"
-    HTML = REPO / f"content/about/resume-{name}.html"
+        EARLIER[1]["bullets"] = v["FREELANCE_BULLETS"]
+    for job, title in zip(EXPERIENCE, v.get("TITLES", [])):
+        job["title"] = title
+    for job, tail in zip(EXPERIENCE, v.get("TAILS", [])):
+        job["tail"] = tail
+    if "EARLIER" in v:
+        EARLIER[:] = v["EARLIER"]
+    if "CONTACT" in v:
+        CONTACT[:] = v["CONTACT"]
+    if "ACHIEVEMENTS" in v:
+        ACHIEVEMENTS[:] = v["ACHIEVEMENTS"]
+    stem = v.get("FILE", f"resume-{name}")
+    DOCX = REPO / f"content/about/{stem}.docx"
+    PDF = REPO / f"content/about/{stem}.pdf"
+    HTML = REPO / f"content/about/{stem}.html"
 
 
 # ---------------------------------------------------------------- docx
@@ -235,7 +365,7 @@ def _para(doc, before=0, after=2):
 
 
 def _heading(doc, text):
-    _run(_para(doc, before=8, after=2), text, bold=True, size=12, color=BLUE)
+    _run(_para(doc, before=10, after=3), text, bold=True, size=12, color=BLUE)
 
 
 def _bullet(doc, parts):
@@ -248,6 +378,18 @@ def _labelled(doc, label, text):
     p = _para(doc, after=1)
     _run(p, label + ": ", bold=True)
     _run(p, text)
+
+
+def _jobs(doc, heading, jobs):
+    _heading(doc, heading)
+    for job in jobs:
+        p = _para(doc, before=6, after=2)
+        _run(p, job["title"], bold=True)
+        _run(p, " | ")
+        _parts(p, job["org"], italic=True)
+        _run(p, " | " + job["tail"], italic=True)
+        for b in job["bullets"]:
+            _bullet(doc, b)
 
 
 def build_docx():
@@ -269,15 +411,8 @@ def build_docx():
     _run(_para(doc, after=1), SUMMARY)
     _labelled(doc, "Languages", LANGUAGES)
 
-    _heading(doc, "EXPERIENCE")
-    for job in EXPERIENCE:
-        p = _para(doc, before=6, after=2)
-        _run(p, job["title"], bold=True)
-        _run(p, " | ")
-        _parts(p, job["org"], italic=True)
-        _run(p, " | " + job["tail"], italic=True)
-        for b in job["bullets"]:
-            _bullet(doc, b)
+    _jobs(doc, "EXPERIENCE", EXPERIENCE)
+    _jobs(doc, "EARLIER EXPERIENCE", EARLIER)
 
     _heading(doc, "SKILLS")
     for label, text in SKILLS:
@@ -300,17 +435,17 @@ def build_docx():
 
 # ---------------------------------------------------------------- html -> pdf
 CSS = """
-@page { size: A4; margin: 13mm 16mm; }
+@page { size: A4; margin: 11mm 16mm; }
 body { font-family: "Times New Roman", Times, serif; font-size: 10pt; line-height: 1.25; color: #000; margin: 0; }
 a { color: #0563C1; text-decoration: underline; }
 .name { font-size: 24pt; font-weight: bold; line-height: 1.05; }
 .role { font-size: 15pt; margin: 2pt 0 4pt; }
 .contact { font-size: 10pt; }
-h2 { color: #2E74B5; font-size: 12pt; margin: 8pt 0 2pt; }
+h2 { color: #2E74B5; font-size: 12pt; margin: 9pt 0 3pt; }
 p { margin: 0 0 1.5pt; }
 ul { margin: 0 0 1pt; padding-left: 16pt; }
 li { margin: 0 0 1pt; }
-.job { margin-top: 5pt; margin-bottom: 1pt; }
+.job { margin-top: 4pt; margin-bottom: 1pt; }
 .job em, .school em { font-style: italic; }
 """
 
@@ -332,17 +467,21 @@ def _ul(items):
     return "<ul>" + "".join(f"<li>{_h(b)}</li>" for b in items) + "</ul>"
 
 
-def build_html():
-    exp = "".join(
+def _jobs_html(jobs):
+    return "".join(
         f'<p class="job"><b>{html.escape(j["title"])}</b> | {_h(j["org"], italic=True)} | <em>{html.escape(j["tail"])}</em></p>'
         + _ul(j["bullets"])
-        for j in EXPERIENCE
+        for j in jobs
     )
+
+
+def build_html():
     skills = "".join(f"<p><b>{html.escape(k)}:</b> {html.escape(v)}</p>" for k, v in SKILLS)
     doc = f"""<!doctype html><html><head><meta charset="utf-8"><title>{NAME.title()} | {ROLE}</title><style>{CSS}</style></head><body>
 <div class="name">{NAME}</div><div class="role">{ROLE}</div><div class="contact">{_h(CONTACT)}</div>
 <h2>SUMMARY</h2><p>{html.escape(SUMMARY)}</p><p><b>Languages:</b> {html.escape(LANGUAGES)}</p>
-<h2>EXPERIENCE</h2>{exp}
+<h2>EXPERIENCE</h2>{_jobs_html(EXPERIENCE)}
+<h2>EARLIER EXPERIENCE</h2>{_jobs_html(EARLIER)}
 <h2>SKILLS</h2>{skills}
 <h2>PROJECTS &amp; ACHIEVEMENTS</h2>{_ul(ACHIEVEMENTS)}
 <h2>EDUCATION</h2><p><b>{html.escape(DEGREE)}</b></p><p class="school">{_h(SCHOOL, italic=True)}</p>{_ul(EDU_BULLETS)}
