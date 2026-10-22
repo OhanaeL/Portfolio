@@ -157,7 +157,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---------- hero ---------- */
-/* vertical only — the shorthand would wipe .container's horizontal padding
+/* vertical only: the shorthand would wipe .container's horizontal padding
    and pull the hero 24px left of everything else on the page. */
 /* The landing fills the first screen: viewport height minus the 74px bar.
    Copy and stats centre in the 1fr row; the hairline sits in the auto row
@@ -371,7 +371,7 @@ footer {
 .footer-inner a:hover { color: var(--accent); }
 
 /* ============================================================
-   Crystalline layer — prismatic ambient light, a fine film
+   Crystalline layer: prismatic ambient light, a fine film
    grain, and frosted glass surfaces. Pure CSS, no dependency,
    no WebGL, nothing to load.
    ============================================================ */
@@ -398,7 +398,7 @@ footer {
   --glass: 58%;
 }
 
-/* film grain — feTurbulence inlined, so no image request */
+/* film grain: feTurbulence inlined, so no image request */
 body::before {
   content: "";
   position: fixed;
@@ -410,7 +410,7 @@ body::before {
 }
 
 /* keep content above the grain.
-   NOTE: do not set position here on .nav — it would override
+   NOTE: do not set position here on .nav; it would override
    position:sticky and the header would scroll away. */
 main, footer { position: relative; z-index: 1; }
 
@@ -492,7 +492,7 @@ main, footer { position: relative; z-index: 1; }
    moves scrollY, which re-crosses the threshold and makes the header flicker.
    The pill looks shorter because the glass layer insets vertically instead. */
 /* The prismatic edge lives on .nav::after, which animates exactly the same
-   left/right/border-radius as the glass in ::before — so the border and the
+   left/right/border-radius as the glass in ::before, so the border and the
    background are one moving surface rather than two that drift apart. */
 .nav::after {
   content: "";
@@ -546,14 +546,14 @@ main, footer { position: relative; z-index: 1; }
 }
 
 @media (max-width: 640px) {
-  /* blur is expensive on mobile GPUs — drop it, keep the tint */
+  /* blur is expensive on mobile GPUs: drop it, keep the tint */
   .stat { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
 /* ---------- rails ---------- */
 .section-note { color: var(--faint); font-size: 0.88rem; }
 
-/* soften the rail at both edges — a faint dip, not a full fade to black */
+/* soften the rail at both edges: a faint dip, not a full fade to black */
 .rail-wrap {
   position: relative;
   overflow: hidden;
@@ -634,7 +634,7 @@ main, footer { position: relative; z-index: 1; }
 
 /* ---------- bento ---------- */
 /* One card, no gutters. The 1px grid gap exposes the shell's background,
-   which is the divider colour — so every seam between tiles is a hairline
+   which is the divider colour, so every seam between tiles is a hairline
    and the tiles read as compartments of the same card. */
 .bento {
   display: grid;
