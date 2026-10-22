@@ -1449,3 +1449,9 @@ main > section.spot::after,
   --sitepilot-font: var(--font-sans), system-ui, sans-serif;
   --sitepilot-radius: 18px;
 }
+
+/* smaller than sitepilot's defaults; `html` outranks its stylesheet, which loads after this one */
+html .sp-panel { width: min(340px, calc(100vw - 32px)); height: min(500px, calc(100vh - 48px)); }
+html .sp-msg { font-size: 13px; padding: 8px 12px; }
+html .sp-launch { width: 46px; height: 46px; }
+html .sp-launch svg { width: 21px; height: 21px; }
