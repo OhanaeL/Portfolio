@@ -55,12 +55,12 @@ EXPERIENCE = [
     {
         "title": "Software Engineer",
         "org": [("link", "General Magick Industries", "https://generalmagickindustries.com/"), " (", ("link", "MagickMind", "https://magickmind.ai/"), ")"],
-        "tail": "Bangkok, Thailand | Full-time | Apr 2026 - Present",
+        "tail": "Indonesia (Remote) | Full-time | Apr 2026 - Present",
         "bullets": [
-            [("bold", "Top committer"), " since joining on the reasoning, memory and supervisor services. Contributor to Mindroid, the open-source Rust agent runtime."],
+            [("bold", "Top committer"), " since joining on the AI inference, AI memory and agent supervisor services. Contributor to Mindroid, the open-source Rust agent runtime."],
             ["Built the agent supervisor: it mints credentials for each agent and runs it as an isolated process that joins workspaces over pub/sub. Added caching to its execution loop, cutting agent turn latency from ", ("bold", "4s to 2.5s"), "."],
-            ["Refactored the reasoning service, cutting fast-path latency ", ("bold", "40%"), ". Implemented RLM, Lambda-RLM, Mixture of Judges and MCTS; on GPQA they score ", ("bold", "22–34 points"), " above a direct call with the same model."],
-            ["Shipped native tool calling and mid-turn escalation from a fast model to a frontier model across the gateway, reasoning service and supervisor, plus an OpenAI-compatible chat-completions route with tool and image support."],
+            ["Refactored the AI inference service, cutting fast-path latency ", ("bold", "40%"), ". Implemented RLM, Lambda-RLM, Mixture of Judges and MCTS; on GPQA they score ", ("bold", "22–34 points"), " above a direct call with the same model."],
+            ["Shipped native tool calling and mid-turn escalation from a fast model to a frontier model across the gateway, AI inference service and supervisor, plus an OpenAI-compatible chat-completions route with tool and image support."],
         ],
     },
     {
