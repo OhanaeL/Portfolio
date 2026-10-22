@@ -80,7 +80,7 @@ export function portfolioRouter(apiKey: string): PilotRouter {
         target: {
           type: "choice",
           instructions: "Which element in `screen.elements` is `user_request` about?",
-          criteria: Object.fromEntries(elements.map((e) => [e.key, e.hint ? `${e.description} — ${e.hint}` : e.description])),
+          criteria: Object.fromEntries(elements.map((e) => [e.key, e.hint ? `${e.description}. ${e.hint}` : e.description])),
         },
       }),
     };

@@ -44,7 +44,7 @@ const norm = (s: string) => s.toLowerCase();
 
 /**
  * The site assistant. Renders nothing unless a pilot endpoint is configured
- * (NEXT_PUBLIC_PILOT_URL, set by the deploy workflow) — the site is unchanged
+ * (NEXT_PUBLIC_PILOT_URL, set by the deploy workflow); the site is unchanged
  * without it. The persona and any private guidance live in worker/, not here.
  */
 export default function Pilot({ manifest, catalog, url }: { manifest: PilotManifest; catalog: CatalogEntry[]; url: string }) {
@@ -55,7 +55,7 @@ export default function Pilot({ manifest, catalog, url }: { manifest: PilotManif
       defineTool<{ query: string }>({
         name: "search_portfolio",
         description:
-          "Search everything on this site — projects, roles and case studies — by keyword (a technology, a company, a topic). Returns matches with the element key you can highlight to show the visitor. Use it whenever the visitor asks what was built with X, or about a role, before scrolling.",
+          "Search everything on this site (projects, roles and case studies) by keyword (a technology, a company, a topic). Returns matches with the element key you can highlight to show the visitor. Use it whenever the visitor asks what was built with X, or about a role, before scrolling.",
         parameters: { type: "object", properties: { query: { type: "string" } }, required: ["query"] },
         kind: "utility",
         execute: ({ query }) => {
@@ -89,7 +89,7 @@ export default function Pilot({ manifest, catalog, url }: { manifest: PilotManif
         subtitle="Knows what is on this page"
         welcome={[
           "Hi, I'm the site guide.",
-          "Ask me where anything is and I'll point at it, or ask what Lynn built with a given tool — try “which projects used Python?” or “open the résumé”.",
+          "Ask me where anything is and I'll point at it, or ask what Lynn built with a given tool. Try “which projects used Python?” or “open the résumé”.",
         ].join("\n\n")}
         placeholder="Ask about his work or this page…"
         showToolToggles={false}
