@@ -1,22 +1,11 @@
-import { str, list, type Entry } from "@/lib/content";
-
-/** "Software Engineer at Foo" -> ["Software Engineer", "Foo"]; no " at " -> [name, company meta]. */
-function split(e: Entry) {
-  const i = e.name.indexOf(" at ");
-  // `title:` in metadata wins over the folder name
-  const title = str(e.meta, "title") || (i > 0 ? e.name.slice(0, i) : e.name);
-  const company = str(e.meta, "company") || (i > 0 ? e.name.slice(i + 4) : "");
-  return { title, company };
-}
+import { linksOf, roleOf, str, type Entry } from "@/lib/content";
 
 /**
  * `links:` in metadata is a list of "Name|https://..." lines. When present the
  * company reads as those names, each linking out; otherwise plain `company:` text.
  */
 function companyLinks(e: Entry) {
-  const items = list(e.meta, "links")
-    .map((l) => l.split("|").map((x) => x.trim()))
-    .filter((p) => p.length === 2 && p[1]);
+  const items = linksOf(e);
   if (!items.length) return null;
   return items.map(([name, href], i) => (
     <span key={href}>
@@ -43,7 +32,7 @@ const compact = (d: string) => d.replace(MONTH, "$1");
 const isEarlier = (e: Entry) => str(e.meta, "group") === "earlier";
 
 function Item({ e }: { e: Entry }) {
-  const { title, company } = split(e);
+  const { title, company } = roleOf(e);
   const date = str(e.meta, "date");
   const current = /current|present/i.test(date);
   return (

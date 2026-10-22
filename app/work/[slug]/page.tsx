@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getEntry, list, str } from "@/lib/content";
+import { getEntry, linksOf, roleOf, str } from "@/lib/content";
 import { work } from "@/lib/site";
 import { asset } from "@/lib/paths";
 import WorkDiagram from "@/components/WorkDiagram";
@@ -19,21 +19,13 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   return { title: w?.title ?? "Case study", description: w?.blurb };
 }
 
-/** "Software Engineer at Foo" -> "Software Engineer"; `title:` in metadata wins. */
-function roleTitle(name: string, title: string) {
-  const i = name.indexOf(" at ");
-  return title || (i > 0 ? name.slice(0, i) : name);
-}
-
 export default async function CaseStudy({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   const w = work.find((x) => x.slug === slug);
   const e = getEntry("experience", slug);
   if (!w || !e) notFound();
 
-  const companies = list(e.meta, "links")
-    .map((l) => l.split("|").map((x) => x.trim()))
-    .filter((p) => p.length === 2 && p[1]);
+  const companies = linksOf(e);
   const next = work[(work.indexOf(w) + 1) % work.length];
 
   return (
@@ -62,7 +54,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
           </div>
           <div>
             <dt>Role</dt>
-            <dd>{roleTitle(e.name, str(e.meta, "title"))}</dd>
+            <dd>{roleOf(e).title}</dd>
           </div>
           <div>
             <dt>Period</dt>

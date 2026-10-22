@@ -72,3 +72,11 @@ export const work = [
     caption: "Zoho CRM, SalesIQ, Chatwoot and Zendesk sit behind one integration service, so agents can open tickets and hand users to a human. A Crawl4AI crawler and a middle service that prepares uploads for Docling OCR feed RAG retrieval. Grafana and OpenTelemetry cover every service.",
   },
 ] as const;
+
+/** The home page's sections, in order: the header links and the side rail both list these. */
+export const sections = [
+  { id: "work", label: "Work" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "about", label: "About" },
+];

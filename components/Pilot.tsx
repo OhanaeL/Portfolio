@@ -10,7 +10,6 @@ import { basePath } from "@/lib/paths";
 const HISTORY_KEY = "pilot-chat";
 
 function savedHistory() {
-  if (typeof window === "undefined") return [];
   try {
     return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]");
   } catch {
