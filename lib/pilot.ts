@@ -1,5 +1,5 @@
 import type { PilotManifest } from "@sitepilot/core";
-import { getExperience, getProjects, list, str } from "./content";
+import { getExperience, getProjects, list, roleOf, str } from "./content";
 import { site, work } from "./site";
 
 /** One searchable line per thing on the site, for the assistant's `search_portfolio` tool. */
@@ -14,11 +14,6 @@ export interface CatalogEntry {
   href?: string;
 }
 
-const roleTitle = (name: string, title: string) => {
-  const i = name.indexOf(" at ");
-  return title || (i > 0 ? name.slice(0, i) : name);
-};
-
 export function buildCatalog(): CatalogEntry[] {
   const projects = getProjects().map<CatalogEntry>((p) => ({
     kind: "project",
@@ -29,15 +24,22 @@ export function buildCatalog(): CatalogEntry[] {
     key: `Project card: ${p.name}`,
     href: str(p.meta, "github") || str(p.meta, "demo") || undefined,
   }));
-  const experience = getExperience().map<CatalogEntry>((e) => ({
-    kind: "experience",
-    name: `${roleTitle(e.name, str(e.meta, "title"))} · ${str(e.meta, "company") || e.name.split(" at ")[1] || ""}`,
-    summary: str(e.meta, "description"),
-    tags: [],
-    date: str(e.meta, "date"),
-    key: `Experience: ${roleTitle(e.name, str(e.meta, "title"))}`,
-  }));
-  const companyOf = (slug: string) => str(getExperience().find((e) => e.slug === slug)?.meta ?? {}, "company");
+  const roles = getExperience();
+  const experience = roles.map<CatalogEntry>((e) => {
+    const { title, company } = roleOf(e);
+    return {
+      kind: "experience",
+      name: `${title} · ${company}`,
+      summary: str(e.meta, "description"),
+      tags: [],
+      date: str(e.meta, "date"),
+      key: `Experience: ${title}`,
+    };
+  });
+  const companyOf = (slug: string) => {
+    const role = roles.find((e) => e.slug === slug);
+    return role ? roleOf(role).company : "";
+  };
   const studies = work.map<CatalogEntry>((w) => ({
     kind: "case study",
     name: w.title,
@@ -54,8 +56,7 @@ export function buildCatalog(): CatalogEntry[] {
  * The assistant's map of the page, generated from the same content that
  * renders it, so labels and hints can never drift from what is on screen.
  */
-export function buildPilotManifest(): PilotManifest {
-  const catalog = buildCatalog();
+export function buildPilotManifest(catalog: CatalogEntry[]): PilotManifest {
   const hints: Record<string, string> = {};
   for (const c of catalog) {
     const bits = [c.summary, c.tags.length ? `Tags: ${c.tags.join(", ")}.` : "", c.date ? `(${c.date})` : ""].filter(Boolean);

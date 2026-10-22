@@ -1,18 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { site } from "@/lib/site";
+import { sections, site } from "@/lib/site";
 import { asset } from "@/lib/paths";
 import SmoothLink from "./SmoothLink";
 import ThemeToggle from "./ThemeToggle";
 
 // one page: these are anchors on the home page, so they still work from a case study
-const nav = [
-  { href: asset("/#work"), label: "Work" },
-  { href: asset("/#experience"), label: "Experience" },
-  { href: asset("/#projects"), label: "Projects" },
-  { href: asset("/#about"), label: "About" },
-];
+const nav = sections.map((s) => ({ href: asset(`/#${s.id}`), label: s.label }));
 
 /**
  * Starts as an inset glass island. Past the threshold it rises to the top,
