@@ -4,3 +4,4 @@ company: Rangsit International College, Rangsit University
 links:
 - Rangsit International College|https://www.rsu.ac.th/ric
 title: Software Developer Intern
+group: earlier
