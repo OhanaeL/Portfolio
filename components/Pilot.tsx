@@ -75,7 +75,7 @@ export default function Pilot({ manifest, catalog, url }: { manifest: PilotManif
           "Hi, I'm the site guide.",
           "Ask me where anything is and I'll point at it, or ask what Lynn built with a given tool — try “which projects used Python?” or “open the résumé”.",
         ].join("\n\n")}
-        placeholder="Ask about projects, roles, or where things are…"
+        placeholder="Ask about his work or this page…"
         showToolToggles={false}
         footer={
           <>
