@@ -37,10 +37,11 @@ export function buildCatalog(): CatalogEntry[] {
     date: str(e.meta, "date"),
     key: `Experience: ${roleTitle(e.name, str(e.meta, "title"))}`,
   }));
+  const companyOf = (slug: string) => str(getExperience().find((e) => e.slug === slug)?.meta ?? {}, "company");
   const studies = work.map<CatalogEntry>((w) => ({
     kind: "case study",
     name: w.title,
-    summary: w.blurb,
+    summary: [w.eyebrow, companyOf(w.slug), w.blurb].filter(Boolean).join(". "),
     tags: w.stats.map(([figure, label]) => `${figure} ${label}`),
     date: "",
     key: `Case study: ${w.title}`,

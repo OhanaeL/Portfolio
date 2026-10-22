@@ -125,14 +125,12 @@ export function portfolioRouter(apiKey: string): PilotRouter {
     const act = answers["act"];
     const tool = choice("tool");
     const target = choice("target");
-    if (
-      act?.type === "noul" &&
-      act.noul >= ACT_THRESHOLD &&
-      tool &&
-      target &&
-      sure(answers["tool"]) >= ACT_THRESHOLD &&
-      sure(answers["target"]) >= ACT_THRESHOLD
-    ) {
+    const actScore = act?.type === "noul" ? act.noul : 0;
+    const toolSure = sure(answers["tool"]);
+    const targetSure = sure(answers["target"]);
+    const clearAction = actScore >= ACT_THRESHOLD && toolSure >= ACT_THRESHOLD && targetSure >= ACT_THRESHOLD;
+    const clearTarget = actScore >= 1 - THRESHOLD && toolSure >= THRESHOLD && targetSure >= THRESHOLD;
+    if (tool && target && (clearAction || clearTarget)) {
       return { route: "self", content: null, toolCalls: [{ id: `${JEV_CALL_PREFIX}${crypto.randomUUID()}`, name: tool, args: { target } }], model: "jev" };
     }
     return llm;
