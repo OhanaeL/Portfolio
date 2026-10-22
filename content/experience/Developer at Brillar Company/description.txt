@@ -4,11 +4,11 @@ At Brillar (Atenxion) I was an Associate Fullstack Engineer on a remote team in 
 
 - **A multi-agent workflow platform** on Google ADK: teams build their own workflows by connecting agent and tool nodes, in the style of n8n.
 - **The CRM integration service**: one backend that connects the agents to Zoho CRM, Zoho SalesIQ, Chatwoot and Zendesk. Agents create support tickets and hand a conversation off to a human agent the user can keep messaging.
-- **RAG retrieval and the fetch layer behind it**: a Crawl4AI web crawler, and the document front end for a hosted Docling OCR service.
+- **RAG retrieval and the fetch layer behind it**: a Crawl4AI web crawler, and the service in the middle that prepares uploaded files for a hosted Docling OCR service.
 
 ## Getting documents into the model
 
-The agents were only as good as what they could read. The crawler runs on Crawl4AI with a semaphore capping how many pages it fetches at once. Uploaded files go through my service first: it detects the file and image type, queues the work and sets the OCR language, then forwards each file to the Docling service, which another team hosted. At answer time the RAG retrieval pulls the relevant documents back up for the agent.
+The agents were only as good as what they could read. The crawler runs on Crawl4AI with a semaphore capping how many pages it fetches at once. The app's frontend sends uploaded files to my service, which sits between it and Docling: it detects the file and image type, queues the work and sets the OCR language, then forwards each file to the Docling service, which another team hosted. At answer time the RAG retrieval pulls the relevant documents back up for the agent.
 
 ## Tools and interface
 
