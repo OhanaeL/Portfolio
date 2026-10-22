@@ -46,7 +46,7 @@ With identity, personality and memory in place, each conversation turn is the ag
 
 - Several agents can share a workspace, each with its own identity, and every message is attributed to the agent that sent it. Group rooms with people and several agents now make sense: an agent can answer a person, answer another agent, or stay quiet, and everyone in the room can see who said what.
 - An agent remembers the people it has met across rooms. Its own memory and the user's memory are looked up on the same system.
-- A turn takes 2.5 seconds instead of 4 after caching in the execution loop. The fastest path through the reasoning service is 40% quicker after I reworked how requests are put together.
+- A turn takes 2.5 seconds instead of 4 after caching in the execution loop. The fastest path through the AI inference service is 40% quicker after I reworked how requests are put together.
 - The reasoning strategies I added on that path (RLM, Lambda-RLM, a panel of judges and tree search) score 22 to 34 points above a plain model call on GPQA, a graduate-level science benchmark, with the same model.
 - Since joining I have been the top committer on the memory, reasoning and supervisor services, and a contributor to Mindroid and the Python SDK.
 
