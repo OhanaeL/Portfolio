@@ -790,6 +790,22 @@ a.card:hover::before { background: var(--accent-line); }
   padding-bottom: 1.4rem;
 }
 .tl-item:last-child { padding-bottom: 0; }
+/* the "Earlier" label sits in the body column; the rail runs on through it */
+.tl-group {
+  display: grid;
+  grid-template-columns: 10.5rem 1.25rem 1fr;
+  column-gap: 1.25rem;
+  padding-bottom: 0.9rem;
+}
+.tl-group .tl-rail { grid-column: 2; }
+.tl-group-label {
+  grid-column: 3;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
 .tl-date {
   font-family: var(--font-mono), monospace;
   font-size: 0.78rem;
@@ -968,7 +984,9 @@ a.card:hover::before { background: var(--accent-line); }
 .cert:hover { color: var(--accent); border-color: var(--accent-line); }
 
 @media (max-width: 760px) {
-  .tl-item { grid-template-columns: 1.25rem 1fr; }
+  .tl-item, .tl-group { grid-template-columns: 1.25rem 1fr; }
+  .tl-group .tl-rail { grid-column: 1; }
+  .tl-group-label { grid-column: 2; }
   .tl-date { grid-column: 2; order: -1; padding-top: 0; margin-bottom: 0.2rem; }
   .tl-rail { grid-row: 1 / span 2; }
   .about { grid-template-columns: 1fr; gap: 2rem; }
@@ -1392,17 +1410,12 @@ main > section.spot::after,
   .hero { padding-top: 1.5rem; }
 }
 
-/* ---------- one screen per block (kept last so it wins) ---------- */
-/* Desktop: every block is one screen under the 74px bar (no snapping, plain
-   scroll). Phones and short windows flow naturally, because the content is
-   taller than the screen there. */
+/* ---------- desktop density (kept last so it wins) ---------- */
+/* Sections size to their content; only the hero fills a screen. */
 @media (min-width: 960px) and (min-height: 560px) {
   html { scroll-padding-top: 74px; }
-  main > section { min-height: calc(100dvh - 74px); display: flex; flex-direction: column; padding-top: 2rem; padding-bottom: 2rem; }
-  main > section > .section-head { flex: 0 0 auto; margin-bottom: 1.5rem; }
-  /* the last block only needs to be as tall as its content; the footer follows */
-  main > section:last-of-type { min-height: 0; }
-  /* keep each block inside its screen: tighter timeline rows, shorter cards */
+  main > section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+  main > section > .section-head { margin-bottom: 1.5rem; }
   .tl-item { padding-bottom: 0.9rem; }
   .tl-rail::before { bottom: -0.9rem; }
   .tl-desc { font-size: 0.88rem; line-height: 1.5; }

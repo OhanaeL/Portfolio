@@ -1,3 +1,5 @@
-description: Freelance full-stack web developer creating responsive websites for small businesses. Developed full-stack web applications using Python backend and Bootstrap frontend, including a restaurant website with modern UI/UX, mobile-responsive design, and interactive features.
+description: Freelance full-stack developer for small businesses in Myanmar. Built a Python/Bootstrap online ordering system for a local restaurant that cut average order time by about 3 minutes, plus Shopee inventory-sync integrations.
 date: January 2021 - February 2022
-company: Freelance (Myanmar)
+company: Self-employed, Myanmar
+title: Freelance Software Developer
+group: earlier
