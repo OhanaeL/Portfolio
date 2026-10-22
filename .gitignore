@@ -66,3 +66,8 @@ next-env.d.ts
 .agents/
 .claude/skills/
 skills-lock.json
+
+# sitepilot worker
+worker/node_modules/
+worker/.dev.vars
+worker/.wrangler/

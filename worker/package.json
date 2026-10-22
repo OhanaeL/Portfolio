@@ -1,0 +1,17 @@
+{
+  "name": "portfolio-pilot-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@sitepilot/server": "^0.1.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250101.0",
+    "typescript": "^5",
+    "wrangler": "^4.0.0"
+  }
+}
