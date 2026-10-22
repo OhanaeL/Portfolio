@@ -1,4 +1,4 @@
-description: Associate Fullstack Engineer on a remote team at Brillar (Atenxion), Singapore. Owned end-to-end development of AI-focused Python microservices, led backend development for the CRM integration service, built the document ingestion pipeline, and optimised Dockerized deployments for performance and observability.
+description: Associate Fullstack Engineer on a remote team at Brillar (Atenxion), Singapore. Built a Google ADK multi-agent workflow platform where teams connect agent and tool nodes, the CRM integration service behind it (Zoho, SalesIQ, Chatwoot, Zendesk), and its RAG retrieval with a Crawl4AI crawler and a Docling OCR front end.
 date: May 2025 - Apr 2026
 company: Brillar
 links:
