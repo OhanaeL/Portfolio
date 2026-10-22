@@ -98,7 +98,6 @@ img { max-width: 100%; display: block; }
   padding-left: 2rem;
   padding-right: 2rem;
 }
-.mono { font-family: var(--font-mono), ui-monospace, monospace; }
 
 /* ---------- nav: opens as a full-width bar, condenses into a
    floating glass island once you scroll ---------- */
@@ -259,29 +258,6 @@ main > section:last-of-type::after { display: none; }
 }
 .section-head a { color: var(--accent); font-size: 0.9rem; font-weight: 550; }
 
-/* ---------- cards ---------- */
-.grid { display: grid; gap: 1.35rem; }
-.grid-3 { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-.grid-2 { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.7rem 1.75rem;
-  box-shadow: var(--shadow-sm);
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  height: 100%;
-}
-a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.card h3 { margin: 0; font-size: 1.02rem; font-weight: 620; letter-spacing: -0.01em; }
-.card p { margin: 0; color: var(--muted); font-size: 0.92rem; }
-.card-meta { color: var(--faint); font-size: 0.8rem; }
-
-.tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; padding-top: 0.5rem; }
 .tag {
   font-family: var(--font-mono), monospace;
   font-size: 0.7rem;
@@ -293,22 +269,7 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
   padding: 0.2rem 0.45rem;
 }
 
-/* ---------- now + stats ---------- */
-.now {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 2.1rem 2.2rem;
-}
-.now h2 { margin: 0 0 0.5rem; font-size: 1.06rem; font-weight: 620; letter-spacing: -0.01em; }
-.now p { margin: 0 0 1.1rem; color: var(--muted); font-size: 0.95rem; }
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 1.35rem;
-  margin-top: 1.75rem;
-}
+/* ---------- stats ---------- */
 .stat {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -398,41 +359,6 @@ a.card:hover { border-color: var(--accent-line); box-shadow: var(--shadow-md); t
 .back { color: var(--muted); font-size: 0.9rem; }
 .back:hover { color: var(--accent); }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-.gallery img { border-radius: var(--radius); border: 1px solid var(--border); }
-.embed { margin: 2rem 0; }
-.embed video { width: 100%; border-radius: var(--radius); border: 1px solid var(--border); }
-
-.notice {
-  background: var(--accent-soft);
-  border: 1px solid var(--accent-line);
-  border-radius: var(--radius);
-  padding: 0.9rem 1.1rem;
-  color: var(--muted);
-  font-size: 0.92rem;
-  margin: 1.5rem 0;
-}
-
-/* ---------- about ---------- */
-.about-head { display: flex; gap: 1.75rem; align-items: center; flex-wrap: wrap; }
-.about-head img {
-  width: 132px;
-  height: 132px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  object-fit: cover;
-}
-.skill { margin-bottom: 0.9rem; }
-.skill-top { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 0.3rem; }
-.skill-top span:last-child { color: var(--faint); font-size: 0.82rem; }
-.bar { height: 5px; background: var(--surface-2); border-radius: var(--radius); overflow: hidden; }
-.bar i { display: block; height: 100%; background: var(--accent); border-radius: var(--radius); }
-
 /* ---------- footer ---------- */
 footer {
   border-top: 1px solid var(--border);
@@ -489,10 +415,7 @@ body::before {
 main, footer { position: relative; z-index: 1; }
 
 /* frosted, faceted surfaces */
-.card,
-.now,
-.stat,
-.notice {
+.stat {
   position: relative;
   background: color-mix(in srgb, var(--surface) var(--glass), transparent);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
@@ -501,10 +424,7 @@ main, footer { position: relative; z-index: 1; }
 }
 
 /* a uniform 1px hairline, drawn as a masked ring so it follows the radius */
-.card::before,
-.now::before,
-.stat::before,
-.notice::before {
+.stat::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -518,10 +438,6 @@ main, footer { position: relative; z-index: 1; }
   mask-composite: exclude;
 }
 
-a.card:hover {
-  box-shadow: var(--shadow-md), inset 0 1px 0 var(--facet);
-}
-a.card:hover::before { background: var(--accent-line); }
 
 /* ---- header morph: ONE glass layer that changes its own bounds ----
    Previously the bar and the pill each painted a background, so mid-morph
@@ -630,9 +546,8 @@ a.card:hover::before { background: var(--accent-line); }
 }
 
 @media (max-width: 640px) {
-  .about-head img { width: 104px; height: 104px; }
   /* blur is expensive on mobile GPUs — drop it, keep the tint */
-  .card, .now, .stat, .notice { backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .stat { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
 /* ---------- rails ---------- */
@@ -747,7 +662,6 @@ a.card:hover::before { background: var(--accent-line); }
   mask-composite: exclude;
 }
 /* tiles: flat, square, opaque enough that only the gaps show the divider */
-.bento > .now,
 .bento > .stat {
   margin: 0;
   border: 0;
@@ -757,10 +671,7 @@ a.card:hover::before { background: var(--accent-line); }
   backdrop-filter: none;
   box-shadow: none;
 }
-.bento > .now::before,
 .bento > .stat::before { display: none; }
-/* the "currently" panel anchors the grid at 2x2 */
-.bento-main { grid-column: span 2; grid-row: span 2; }
 .bento .stat {
   display: flex;
   flex-direction: column;
@@ -771,10 +682,8 @@ a.card:hover::before { background: var(--accent-line); }
 .bento .stat .figure { font-size: 1.6rem; }
 
 @media (max-width: 900px) {
-  /* rows size to content once the "currently" panel spans the full width;
-     1fr rows would stretch every stat to its height */
+  /* 1fr rows would stretch every stat to the tallest one's height */
   .bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
-  .bento-main { grid-column: 1 / -1; grid-row: auto; }
 }
 @media (max-width: 560px) {
   .bento { grid-template-columns: 1fr; }
@@ -963,26 +872,6 @@ a.card:hover::before { background: var(--accent-line); }
 .fact dd { margin: 0; color: var(--text); }
 @media (max-width: 480px) { .fact { grid-template-columns: 1fr; gap: 0.15rem; } }
 
-.certs { margin-top: 1.75rem; }
-.certs-label {
-  display: block;
-  font-size: 0.74rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 0.6rem;
-}
-.certs-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.cert {
-  font-size: 0.82rem;
-  color: var(--muted);
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--surface) 80%, transparent);
-}
-.cert:hover { color: var(--accent); border-color: var(--accent-line); }
-
 @media (max-width: 760px) {
   .tl-item, .tl-group { grid-template-columns: 1.25rem 1fr; }
   .tl-group .tl-rail { grid-column: 1; }
@@ -993,25 +882,16 @@ a.card:hover::before { background: var(--accent-line); }
 }
 
 /* ---------- states, a11y, motion ---------- */
-.hero .lede, .tl-desc, .proj-desc, .now p, .prose p { text-wrap: pretty; }
-
-/* the "currently" label is a quiet sentence-case tag, not a second eyebrow */
-.now-label {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 550;
-  color: var(--accent);
-  margin-bottom: 0.6rem;
-}
+.hero .lede, .tl-desc, .proj-desc, .prose p { text-wrap: pretty; }
 
 /* physical press on anything clickable */
-.btn, .nav-cta, .cert, .proj-links a, .nav-links a, .footer-links a {
+.btn, .nav-cta, .proj-links a, .nav-links a, .footer-links a {
   transition: color 0.2s cubic-bezier(0.32, 0.72, 0, 1),
     border-color 0.2s cubic-bezier(0.32, 0.72, 0, 1),
     background-color 0.2s cubic-bezier(0.32, 0.72, 0, 1),
     transform 0.2s cubic-bezier(0.32, 0.72, 0, 1);
 }
-.btn:active, .nav-cta:active, .cert:active { transform: translateY(1px) scale(0.98); }
+.btn:active, .nav-cta:active { transform: translateY(1px) scale(0.98); }
 
 /* keyboard focus is always visible and follows the element's own shape */
 :focus-visible {
@@ -1019,7 +899,7 @@ a.card:hover::before { background: var(--accent-line); }
   outline-offset: 3px;
   border-radius: var(--radius);
 }
-.btn:focus-visible, .nav-cta:focus-visible, .cert:focus-visible { border-radius: inherit; }
+.btn:focus-visible, .nav-cta:focus-visible { border-radius: inherit; }
 
 .skip {
   position: absolute;
@@ -1137,12 +1017,10 @@ a.card:hover::before { background: var(--accent-line); }
 .section-note,
 .proj-date,
 .proj-links a,
-.certs-label,
 .fact dt,
 .about-who span,
 .footer-inner,
-.stat .label,
-.now-label {
+.stat .label {
   font-family: var(--font-mono), monospace;
 }
 .section-note { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -1370,7 +1248,6 @@ main > section.spot::after,
   .hero .lede { font-size: 1rem; }
   .btn-row { gap: 0.5rem; }
 
-  .now { padding: 1.5rem 1.35rem; }
   .bento .stat { padding: 1.15rem 1.35rem; }
   .bento .stat .figure { font-size: 1.4rem; }
 
@@ -1425,7 +1302,6 @@ main > section.spot::after,
   .tool-chip img { width: 12px; height: 12px; }
   .tools-list { gap: 0.25rem; }
   .fact { padding: 0.45rem 0; }
-  .certs { margin-top: 1.1rem; }
   .about { gap: 2.25rem; }
   .proj-thumb { height: 150px; }
   .proj-desc {
