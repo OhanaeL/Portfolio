@@ -2,20 +2,43 @@
 
 import type { PilotManifest } from "@sitepilot/core";
 import { openaiTransport } from "@sitepilot/core";
-import { defineTool, SitepilotProvider, SitepilotWidget } from "@sitepilot/react";
-import { useMemo } from "react";
+import { defineTool, SitepilotProvider, SitepilotWidget, useSitepilot } from "@sitepilot/react";
+import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CatalogEntry } from "@/lib/pilot";
 import { basePath } from "@/lib/paths";
 
 const HISTORY_KEY = "pilot-history";
 
-function savedHistory() {
+const pageOf = (path: string) => path.replace(/\/+$/, "") || "/";
+
+function savedHistory(page: string) {
   if (typeof window === "undefined") return [];
   try {
-    return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]");
+    return JSON.parse(localStorage.getItem(`${HISTORY_KEY}:${page}`) ?? "[]");
   } catch {
     return [];
   }
+}
+
+function saveHistory(page: string, history: unknown[]) {
+  try {
+    localStorage.setItem(`${HISTORY_KEY}:${page}`, JSON.stringify(history));
+  } catch {}
+}
+
+/** Swaps in the current page's chat once the assistant is idle, so a turn that navigates finishes on the page it started on. */
+function PageHistory({ onPage }: { onPage: (page: string) => void }) {
+  const path = pageOf(usePathname());
+  const { status, loadHistory } = useSitepilot();
+  const loaded = useRef(path);
+  useEffect(() => {
+    if (status !== "idle" || path === loaded.current) return;
+    loaded.current = path;
+    onPage(path);
+    loadHistory(savedHistory(path));
+  }, [path, status, loadHistory, onPage]);
+  return null;
 }
 
 const norm = (s: string) => s.toLowerCase();
@@ -27,6 +50,12 @@ const norm = (s: string) => s.toLowerCase();
  */
 export default function Pilot({ manifest, catalog, url }: { manifest: PilotManifest; catalog: CatalogEntry[]; url: string }) {
   const transport = useMemo(() => openaiTransport({ url }), [url]);
+  const firstPage = pageOf(usePathname());
+  const page = useRef(firstPage);
+  const [initial] = useState(() => savedHistory(firstPage));
+  const onPage = useCallback((next: string) => {
+    page.current = next;
+  }, []);
   const tools = useMemo(
     () => [
       defineTool<{ query: string }>({
@@ -59,8 +88,9 @@ export default function Pilot({ manifest, catalog, url }: { manifest: PilotManif
       prompt="server"
       builtinTools={{ fill_field: false }}
       getPath={() => (typeof location === "undefined" ? "/" : location.pathname.replace(basePath, "") || "/")}
-      history={{ initial: savedHistory(), onChange: (h) => localStorage.setItem(HISTORY_KEY, JSON.stringify(h)) }}
+      history={{ initial, onChange: (h) => saveHistory(page.current, h) }}
     >
+      <PageHistory onPage={onPage} />
       <SitepilotWidget
         title="Ask about this site"
         subtitle="Knows what is on this page"

@@ -2,8 +2,9 @@ name = "portfolio-pilot"
 main = "src/index.ts"
 compatibility_date = "2025-09-01"
 
-# Secrets:  npx wrangler secret put PILOT_API_KEY
+# Secrets:  npx wrangler secret put PILOT_API_KEY      (Gemini API key)
+#           npx wrangler secret put TYPESAFE_API_KEY   (optional: Jev answers simple on-page actions)
 [vars]
-PILOT_BASE_URL = "https://api.openai.com/v1"
-PILOT_MODEL = "gpt-4o-mini"
+PILOT_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai"
+PILOT_MODEL = "gemini-3.7-flash"
 ALLOW_ORIGINS = "https://ohanael.github.io,http://localhost:3000,http://localhost:3010"
