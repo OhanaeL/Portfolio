@@ -1455,3 +1455,15 @@ html .sp-panel { width: min(340px, calc(100vw - 32px)); height: min(500px, calc(
 html .sp-msg { font-size: 13px; padding: 8px 12px; }
 html .sp-launch { width: 46px; height: 46px; }
 html .sp-launch svg { width: 21px; height: 21px; }
+.pilot-suggest { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 0 0 10px; }
+.pilot-suggest button {
+  padding: 5px 11px;
+  border: 1px solid var(--sitepilot-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sitepilot-fg);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.pilot-suggest button:hover { border-color: var(--sitepilot-accent); color: var(--sitepilot-accent); }
