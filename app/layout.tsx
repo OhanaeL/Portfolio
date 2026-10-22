@@ -37,7 +37,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const pilot = site.pilot.enabled && site.pilot.url ? { manifest: buildPilotManifest(), catalog: buildCatalog(), url: site.pilot.url } : null;
+  const catalog = site.pilot.enabled && site.pilot.url ? buildCatalog() : null;
+  const pilot = catalog && { manifest: buildPilotManifest(catalog), catalog, url: site.pilot.url };
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body>

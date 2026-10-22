@@ -64,7 +64,22 @@ export interface Entry {
   mediaBase: string;
 }
 
-type Section = "projects" | "experience" | "accomplishments";
+/** Folder names read "Software Engineer at Foo"; `title:` and `company:` in metadata win. */
+export function roleOf(e: Entry) {
+  const i = e.name.indexOf(" at ");
+  return {
+    title: str(e.meta, "title") || (i > 0 ? e.name.slice(0, i) : e.name),
+    company: str(e.meta, "company") || (i > 0 ? e.name.slice(i + 4) : ""),
+  };
+}
+
+/** `links:` in metadata: "Name|https://..." lines, as [name, href] pairs. */
+export const linksOf = (e: Entry) =>
+  list(e.meta, "links")
+    .map((l) => l.split("|").map((x) => x.trim()))
+    .filter((p) => p.length === 2 && p[1]);
+
+type Section = "projects" | "experience";
 
 function mediaFiles(section: Section, slug: string, kind: "images" | "embeds"): string[] {
   const dir = path.join(process.cwd(), "public", "media", section, slug, kind);
@@ -161,7 +176,6 @@ export function getSection(section: Section): Entry[] {
 
 export const getProjects = () => getSection("projects");
 export const getExperience = () => getSection("experience");
-export const getAccomplishments = () => getSection("accomplishments");
 
 export function getEntry(section: Section, slug: string): Entry | undefined {
   return getSection(section).find((e) => e.slug === slug);
@@ -170,8 +184,6 @@ export function getEntry(section: Section, slug: string): Entry | undefined {
 export interface About {
   info: Meta;
   sections: { key: string; title: string; html: string }[];
-  skills: { name: string; score: number; label: string; year: string; usage: string }[];
-  certificates: string[];
 }
 
 export function getAbout(): About {
@@ -191,21 +203,5 @@ export function getAbout(): About {
     }))
     .filter((s) => s.html.trim());
 
-  const csv = read("skills.csv").split(/\r?\n/).filter(Boolean);
-  const skills = csv.slice(1).map((line) => {
-    // usage is free text and may contain commas — keep the tail intact
-    const p = line.split(",");
-    return {
-      name: p[0], score: Number(p[3] || 0), label: p[4] || "",
-      year: p[5] || "", usage: p.slice(6).join(",").trim(),
-    };
-  }).filter((s) => s.name);
-
-  const certDir = path.join(process.cwd(), "public", "media", "about", "certificates");
-  // only the certificates themselves — the folder also carries a README and a notes file
-  const certificates = fs.existsSync(certDir)
-    ? fs.readdirSync(certDir).filter((f) => /\.(pdf|png|jpe?g|webp)$/i.test(f)).sort()
-    : [];
-
-  return { info, sections, skills, certificates };
+  return { info, sections };
 }

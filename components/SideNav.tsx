@@ -3,14 +3,9 @@
 import { useEffect, useState } from "react";
 import SmoothLink from "./SmoothLink";
 import { asset } from "@/lib/paths";
+import { sections } from "@/lib/site";
 
-const SECTIONS = [
-  { id: "top", label: "Top" },
-  { id: "work", label: "Work" },
-  { id: "experience", label: "Experience" },
-  { id: "projects", label: "Projects" },
-  { id: "about", label: "About" },
-];
+const SECTIONS = [{ id: "top", label: "Top" }, ...sections];
 
 /**
  * Fixed rail in the left gutter (wide screens only, see CSS), built like a
