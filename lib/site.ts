@@ -32,6 +32,14 @@ export const site = {
   ],
 
   resume: asset("/media/about/resume.pdf"),
+
+  // The site assistant (sitepilot). `enabled` is the editorial switch; the
+  // endpoint comes from NEXT_PUBLIC_PILOT_URL at build time (see worker/ and
+  // the deploy workflow). The widget renders only when both are set.
+  pilot: {
+    enabled: true,
+    url: process.env.NEXT_PUBLIC_PILOT_URL ?? "",
+  },
 } as const;
 
 /** The case studies in the Work section; `slug` names the experience entry each one opens. */

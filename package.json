@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@sitepilot/core": "file:vendor/sitepilot/sitepilot-core-0.1.0.tgz",
+    "@sitepilot/react": "file:vendor/sitepilot/sitepilot-react-0.1.0.tgz",
     "marked": "^18.0.12",
     "next": "16.3.4",
     "react": "19.2.8",
