@@ -48,19 +48,19 @@ export const work = [
       ["+22–34 pts", "GPQA accuracy from reasoning strategies"],
     ],
     diagram: "runtime",
-    caption: "The supervisor mints each agent's credentials and runs it as its own process. Agents receive workspace messages over pub/sub, reply the same way, and call the reasoning service and episodic memory through the gateway. The agent decides when to escalate from the fast model to the frontier model.",
+    caption: "The supervisor mints each agent's credentials and runs it as its own process. Agents receive workspace messages over pub/sub, reply the same way, and call the AI inference service and the AI memory service through the gateway. The agent decides when to escalate from the fast model to the frontier model.",
   },
   {
     slug: "developer-at-brillar-company",
     eyebrow: "Associate Fullstack Engineer · Brillar (Atenxion)",
-    title: "AI microservices and CRM integrations",
+    title: "Multi-agent workflows and CRM integrations",
     blurb:
-      "Python services that turn documents and crawled pages into text for LLM workflows, and one integration service that connects Zoho, Chatwoot and Zendesk for every product.",
+      "A Google ADK multi-agent platform where teams build their own workflows from agent and tool nodes, the integration service that connects it to Zoho CRM, SalesIQ, Chatwoot and Zendesk, and its RAG retrieval.",
     stats: [
       ["30%", "faster container build and startup"],
-      ["3", "CRM platforms behind one service"],
+      ["4", "platforms behind one integration service"],
     ],
     diagram: "pipeline",
-    caption: "Three CRMs behind one integration service. Documents and crawled pages go through ingestion to the LLM workflows. Grafana and OpenTelemetry cover every service.",
+    caption: "Zoho CRM, SalesIQ, Chatwoot and Zendesk sit behind one integration service, so agents can open tickets and hand users to a human. A Crawl4AI crawler and a middle service that prepares uploads for Docling OCR feed RAG retrieval. Grafana and OpenTelemetry cover every service.",
   },
 ] as const;
