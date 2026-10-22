@@ -51,7 +51,7 @@ export const toolbox: ToolGroup[] = [
     blurb: "Agent runtimes, tool calling and retrieval.",
     tools: [
       { name: "LLM APIs" },
-      { name: "LangGraph" },
+      { name: "Google ADK" },
       { name: "LangChain" },
       { name: "RAG" },
       { name: "MCP" },
