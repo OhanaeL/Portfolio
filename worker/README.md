@@ -1,15 +1,15 @@
 # Portfolio assistant backend
 
-The site is static; this Worker is the one thing it can't do itself — hold the API keys. It is [`@sitepilot/server`](https://github.com/OhanaeL/sitepilot) on Cloudflare's free tier, locked to the site's origin.
+The site is static; this Worker does the one thing it can't do itself: hold the API keys. It is [`@sitepilot/server`](https://github.com/OhanaeL/sitepilot) on Cloudflare's free tier, locked to the site's origin.
 
-Every chat message goes to TypeSafe's Jev first (`src/router.ts`):
+Each visitor message gets one call to TypeSafe's Jev (`src/router.ts`), which answers every judgment at once:
 
 1. Off-topic requests get a fixed reply.
 2. Questions a prepared answer covers (`src/faq.ts`) get that answer.
-3. On-page actions (highlight, open) are run by sitepilot's Jev router.
+3. A clear on-page action (highlight or open one element) runs straight away, and the turn closes once it lands, without asking Jev again.
 4. Everything else goes to Gemini, through its OpenAI-compatible endpoint. If Gemini is out of quota or busy, the visitor gets a friendly fallback instead of an error.
 
-Each Jev decision is logged as a `jev` line (Cloudflare dashboard → portfolio-pilot → Logs, or `npx wrangler tail portfolio-pilot`).
+Each message's Jev scores are logged as a `jev` line (Cloudflare dashboard → portfolio-pilot → Logs, or `npx wrangler tail portfolio-pilot`).
 
 ```bash
 cd worker
