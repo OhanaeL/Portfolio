@@ -23,13 +23,14 @@ Developed a job fair system used by 300+ students and 100+ participating compani
 
 ### ICT Course Planner
 
-Built a course recommendation system adopted by ~100 students to support data-driven course selection.
+Built an AI course recommendation system adopted by ~100 students to support data-driven course selection, starting on the Gemini SDK and later migrating to Google ADK.
 
 ## Technologies & Skills
 
 - Python (FastAPI, Django)
 - JavaScript (Node.js, Express, React)
 - REST APIs
+- AI: Gemini SDK, Google ADK
 - MongoDB, MySQL
 - Git
 

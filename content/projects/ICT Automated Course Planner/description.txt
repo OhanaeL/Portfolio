@@ -1,6 +1,7 @@
-ICT Automated Course Planner is a course recommendation system I developed for Rangsit International College. It was adopted by 100+ ICT students to support data-driven course selection.
+ICT Automated Course Planner is an AI course recommendation system I developed for Rangsit International College. It was adopted by 100+ ICT students to support data-driven course selection. It was a long project: the recommendations started on the Gemini SDK, and I later migrated them to Google ADK.
 
 ## Technologies & Skills
 
 - Python (Django)
+- Gemini SDK, then Google ADK
 - REST APIs
