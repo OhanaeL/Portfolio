@@ -6,5 +6,6 @@ compatibility_date = "2025-09-01"
 #           npx wrangler secret put TYPESAFE_API_KEY   (optional: Jev answers simple on-page actions)
 [vars]
 PILOT_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai"
-PILOT_MODEL = "gemini-3.7-flash"
+PILOT_MODEL = "gemini-flash-lite-latest"
+PILOT_EXTRA_BODY = '{}'
 ALLOW_ORIGINS = "https://ohanael.github.io,http://localhost:3000,http://localhost:3010"

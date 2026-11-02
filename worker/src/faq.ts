@@ -51,11 +51,11 @@ export const FAQ: Record<string, { question: string; answer: string }> = {
   results: {
     question: "His biggest results, impact or numbers.",
     answer:
-      "He cut hot-path latency 40% on a production AI service and per-turn agent latency from 4s to 2.5s, and the reasoning methods he built scored up to 34 points higher on GPQA than a direct call to the same model.",
+      "He cut end-to-end model turn time 40% on a production AI service and per-turn agent latency from 4s to 2.5s, and his native tool calling raised correct tool calls from 61% to 100%. Each agent he runs uses about 5 MB of memory.",
   },
   this_chat: {
     question: "How this chat or assistant works, or what powers it.",
-    answer: "This guide runs on sitepilot, Lynn's open-source library. TypeSafe's Jev handles quick requests and prepared answers, and Gemini answers the open questions.",
+    answer: "This guide runs on sitepilot, Lynn's open-source library. TypeSafe's Jev handles quick requests and prepared answers, and Gemini Flash-Lite answers the open questions.",
   },
 };
 

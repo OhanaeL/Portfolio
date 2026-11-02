@@ -120,7 +120,8 @@ export function portfolioRouter(apiKey: string): PilotRouter {
     if (onTopic?.type === "noul" && onTopic.noul <= 1 - THRESHOLD) return say(OFF_TOPIC);
 
     const faq = choice("answer");
-    if (faq && faq !== "none" && FAQ[faq] && sure(answers["answer"]) >= THRESHOLD) return say(FAQ[faq].answer);
+    const given = (text: string) => messages.slice(0, start).some((m) => m["role"] === "assistant" && m["content"] === text);
+    if (faq && faq !== "none" && FAQ[faq] && sure(answers["answer"]) >= THRESHOLD && !given(FAQ[faq].answer)) return say(FAQ[faq].answer);
 
     const act = answers["act"];
     const tool = choice("tool");

@@ -2,10 +2,11 @@
 
 import type { PilotManifest } from "@sitepilot/core";
 import { openaiTransport } from "@sitepilot/core";
-import { defineTool, SitepilotProvider, SitepilotWidget, useSitepilot } from "@sitepilot/react";
-import { useMemo, useState } from "react";
+import { defineTool, SitepilotProvider, SitepilotWidget, usePilot, useSitepilot } from "@sitepilot/react";
+import { useEffect, useMemo, useState } from "react";
 import type { CatalogEntry } from "@/lib/pilot";
 import { basePath } from "@/lib/paths";
+import { SEEN_EVENT, SEEN_READY, SEEN_STATE, type SeenCommand } from "@/lib/seen";
 
 const HISTORY_KEY = "pilot-chat";
 
@@ -38,6 +39,37 @@ function Suggestions() {
       ))}
     </div>
   );
+}
+
+/** Lets the case-study demo button drive the eye view, which only the provider can reach. */
+function SeenBridge() {
+  const pilot = usePilot();
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.pilot = "on";
+    window.dispatchEvent(new Event(SEEN_READY));
+    let hide: (() => void) | null = null;
+    const set = (on: boolean) => window.dispatchEvent(new CustomEvent(SEEN_STATE, { detail: on }));
+    const onCommand = (e: Event) => {
+      const command = (e as CustomEvent<SeenCommand>).detail;
+      if (hide) {
+        hide();
+        hide = null;
+        set(false);
+      } else if (command === "toggle") {
+        hide = pilot.showSeen();
+        set(true);
+      }
+    };
+    window.addEventListener(SEEN_EVENT, onCommand);
+    return () => {
+      window.removeEventListener(SEEN_EVENT, onCommand);
+      hide?.();
+      delete root.dataset.pilot;
+      window.dispatchEvent(new Event(SEEN_READY));
+    };
+  }, [pilot]);
+  return null;
 }
 
 const norm = (s: string) => s.toLowerCase();
@@ -80,19 +112,22 @@ export default function Pilot({ manifest, catalog, url }: { manifest: PilotManif
       manifest={manifest}
       tools={tools}
       prompt="server"
+      scan={{ maxElements: 40 }}
       builtinTools={{ fill_field: false }}
       getPath={() => (typeof location === "undefined" ? "/" : location.pathname.replace(basePath, "") || "/")}
       history={{ initial, onChange: saveHistory }}
     >
+      <SeenBridge />
       <SitepilotWidget
-        title="Ask about this site"
-        subtitle="Knows what is on this page"
+        title="Ask about Lynn"
+        subtitle=""
         welcome={[
           "Hi, I'm the site guide.",
           "Ask me where anything is and I'll point at it, or ask what Lynn built with a given tool. Try “which projects used Python?” or “open the résumé”.",
         ].join("\n\n")}
         placeholder="Ask about his work or this page…"
         showToolToggles={false}
+        modelLabel={(model) => (model === "jev" ? <b>Jev</b> : `LLM · ${model}`)}
         footer={
           <>
             <Suggestions />
