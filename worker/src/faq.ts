@@ -29,7 +29,7 @@ export const FAQ: Record<string, { question: string; answer: string }> = {
   brillar: {
     question: "His job at Brillar or Atenxion.",
     answer:
-      "From May 2025 to April 2026 he was an Associate Fullstack Engineer at Brillar (Atenxion), on a remote team in Singapore. He built a Google ADK multi-agent workflow platform, the CRM integration service behind it (Zoho, SalesIQ, Chatwoot, Zendesk), and its RAG retrieval.",
+      "From May 2025 to April 2026 he was an Associate Fullstack Engineer at Brillar (Atenxion), on a remote team in Singapore. He built two multi-agent workflow platforms, one on Google ADK and one on the OpenAI Agents SDK, the CRM integration service behind it (Zoho, SalesIQ, Chatwoot, Zendesk), and its RAG retrieval.",
   },
   rangsit: {
     question: "His work at Rangsit University or Rangsit International College.",

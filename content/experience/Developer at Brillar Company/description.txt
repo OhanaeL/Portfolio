@@ -2,7 +2,7 @@ At Brillar (Atenxion) I was an Associate Fullstack Engineer on a remote team in 
 
 ## My responsibilities
 
-- **A multi-agent workflow platform** on Google ADK: teams build their own workflows by connecting agent and tool nodes, in the style of n8n.
+- **Two multi-agent workflow platforms**, one on Google ADK and one on the OpenAI Agents SDK: teams build their own workflows by connecting agent and tool nodes, in the style of n8n.
 - **The CRM integration service**: one backend that connects the agents to Zoho CRM, Zoho SalesIQ, Chatwoot and Zendesk. Agents create support tickets and hand a conversation off to a human agent the user can keep messaging.
 - **RAG retrieval and the fetch layer behind it**: a Crawl4AI web crawler, and the service in the middle that prepares uploaded files for a hosted Docling OCR service.
 - **Document ingestion, with the team**: on the JavaScript ingestion pipeline I worked on parsing and text extraction, and helped choose and implemented semantic chunking.
