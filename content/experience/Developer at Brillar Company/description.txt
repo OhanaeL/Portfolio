@@ -17,4 +17,4 @@ Agents reach Tricentis, Jira and Airtable through MCP servers, and AI-driven UI 
 
 ## Operating it
 
-Docker changes cut container build and startup time by **30%**. I added OpenTelemetry and Grafana so every service reports latency and memory, and ran the pytest suites in pre-commit hooks.
+Docker changes sped up container builds and startup. I added OpenTelemetry and Grafana so every service reports latency and memory, and ran the pytest suites in pre-commit hooks.
