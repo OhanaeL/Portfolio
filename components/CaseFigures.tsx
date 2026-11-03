@@ -3,7 +3,6 @@
  * Same visual grammar as WorkDiagram: labelled boxes, thin arrows, accent for
  * what I built. The chart is a single series in one hue, directly labelled.
  */
-import SeenDemo from "./SeenDemo";
 
 function Box({ x, y, w, h, label, sub, accent, dashed }: { x: number; y: number; w: number; h: number; label: string; sub?: string; accent?: boolean; dashed?: boolean }) {
   const cls = ["dg-box", accent && "dg-box--accent", dashed && "dg-box--dashed"].filter(Boolean).join(" ");
@@ -149,59 +148,7 @@ function GpqaChart() {
   );
 }
 
-function PilotLoop() {
-  return (
-    <svg className="dg" viewBox="0 0 640 200" role="img" aria-label="One visitor message: the browser snapshots the opted-in elements, the Worker answers one round, the model replies with text or tool calls, and the browser runs the tools and sends the next round, at most 8 rounds per message.">
-      <Defs />
-      <text className="dg-caption" x="20" y="26">ONE MESSAGE · UP TO 8 ROUNDS</text>
-      <Box x={20} y={66} w={124} h={44} label="Snapshot" sub="keys + page context" />
-      <Arrow d="M144 88 H170" />
-      <Box x={172} y={66} w={124} h={44} label="Worker" sub="one round, stateless" accent />
-      <Arrow d="M296 88 H322" />
-      <Box x={324} y={66} w={124} h={44} label="Model" sub="words or tool calls" />
-      <Arrow d="M448 88 H474" />
-      <Box x={476} y={66} w={144} h={44} label="Browser runs tools" sub="point · open · search" accent />
-      <path className="dg-arrow" d="M548 110 C 548 156, 82 156, 82 112" markerEnd="url(#dg-head)" />
-      <text className="dg-sub" x="315" y="172" textAnchor="middle">tool results go back in the next round, until the model answers in words</text>
-    </svg>
-  );
-}
-
-function PilotRouter() {
-  return (
-    <svg className="dg" viewBox="0 0 640 200" role="img" aria-label="Each visitor message gets one Jev call that asks several questions at once. Off-topic messages get a short reply, a covered question gets its prepared answer, a single on-page action is done by the browser, and only the rest reaches the LLM.">
-      <Defs />
-      <text className="dg-caption" x="20" y="26">ONE MESSAGE · ONE JEV CALL · LLM ONLY IF NEEDED</text>
-      <Box x={20} y={92} w={88} h={40} label="Message" />
-      <Arrow d="M108 112 H140" />
-      <Box x={142} y={86} w={112} h={52} label="Jev" sub="every question at once" accent />
-      <Arrow d="M254 112 C 276 112, 276 57, 298 57" />
-      <Arrow d="M254 112 C 276 112, 276 97, 298 97" />
-      <Arrow d="M254 112 C 276 112, 276 137, 298 137" />
-      <Arrow d="M254 112 C 276 112, 276 177, 298 177" />
-      <Box x={300} y={40} w={170} h={34} label="Off topic" sub="a short, polite reply" />
-      <Box x={300} y={80} w={170} h={34} label="Already answered" sub="the prepared answer" />
-      <Box x={300} y={120} w={170} h={34} label="One action" sub="the browser does it" />
-      <Box x={300} y={160} w={170} h={34} label="Anything else" sub="goes to the LLM" dashed />
-      <Arrow d="M470 137 H500" />
-      <Box x={502} y={120} w={118} h={34} label="“Here it is.”" sub="no LLM call" />
-    </svg>
-  );
-}
-
 const FIGURES: Record<string, { el: React.ReactNode; caption: string }> = {
-  "seen-demo": {
-    el: <SeenDemo />,
-    caption: "The same outlines the eye button in the chat shows: solid for what is sent every message, dashed for what the model can ask for, red where it sees something you cannot.",
-  },
-  "sitepilot-loop": {
-    el: <PilotLoop />,
-    caption: "The loop lives in the page. The Worker never keeps state between rounds.",
-  },
-  "sitepilot-router": {
-    el: <PilotRouter />,
-    caption: "Each message gets one Jev call with every question asked at once, so the LLM only sees what Jev cannot settle.",
-  },
   bundle: {
     el: <Bundle />,
     caption: "What an agent owns, and what it only visits.",

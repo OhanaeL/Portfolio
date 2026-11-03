@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { str, list, type Entry } from "@/lib/content";
 import AutoScroll from "./AutoScroll";
-import WorkDiagram, { isDiagramKind } from "./WorkDiagram";
 
 function monogram(name: string) {
   const words = name.split(/[\s-]+/).filter((w) => /^[A-Za-z0-9]/.test(w));
@@ -20,16 +18,12 @@ function Card({ p }: { p: Entry }) {
   const github = str(p.meta, "github");
   const demo = str(p.meta, "demo") || str(p.meta, "website");
   const video = p.embeds[0] ? `${p.mediaBase}/embeds/${encodeURIComponent(p.embeds[0])}` : "";
-  const diagram = str(p.meta, "diagram");
-  const writeup = str(p.meta, "writeup") === "yes";
   return (
     <article className="proj spot">
-      <div className={src || !isDiagramKind(diagram) ? "proj-thumb" : "proj-thumb proj-thumb--diagram"}>
+      <div className="proj-thumb">
         {src ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={src} alt="" />
-        ) : isDiagramKind(diagram) ? (
-          <WorkDiagram kind={diagram} />
         ) : (
           <span className="proj-mono">{monogram(p.name)}</span>
         )}
@@ -47,13 +41,8 @@ function Card({ p }: { p: Entry }) {
               </span>
             ))}
         </div>
-        {(github || demo || video || writeup) && (
+        {(github || demo || video) && (
           <div className="proj-links">
-            {writeup && (
-              <Link className="proj-writeup" href={`/projects/${p.slug}/`}>
-                How it&apos;s made <span aria-hidden="true">→</span>
-              </Link>
-            )}
             {github && (
               <a href={github} target="_blank" rel="noopener noreferrer">
                 GitHub <span aria-hidden="true">↗</span>

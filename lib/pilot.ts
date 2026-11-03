@@ -22,7 +22,7 @@ export function buildCatalog(): CatalogEntry[] {
     tags: list(p.meta, "tags"),
     date: str(p.meta, "date"),
     key: `Project card: ${p.name}`,
-    href: str(p.meta, "writeup") === "yes" ? `/projects/${p.slug}/` : str(p.meta, "github") || str(p.meta, "demo") || undefined,
+    href: str(p.meta, "github") || str(p.meta, "demo") || undefined,
   }));
   const roles = getExperience();
   const experience = roles.map<CatalogEntry>((e) => {
@@ -89,11 +89,8 @@ export function buildPilotManifest(catalog: CatalogEntry[]): PilotManifest {
       { selector: ".proj", label: "Project card: {text:.proj-name}", tier: "item", read: true },
       { selector: ".about-body .prose", label: "About paragraph", read: true },
       { selector: ".facts", label: "About facts", read: true },
-      { selector: ".proj-writeup", label: "How it's made link: {attr:href}" },
-      { selector: ".case .back:not(.back--projects)", label: "All work link" },
-      { selector: ".case .back--projects", label: "All projects link" },
+      { selector: ".case .back", label: "All work link" },
       { selector: ".case h1", label: "Case study title", read: true },
-      { selector: ".case .prose h2", label: "Case study section: {text}" },
     ],
     areas: [
       { selector: ".hero", topic: "hero", description: `The top of ${site.name}'s portfolio: headline, intro and headline stats.` },
