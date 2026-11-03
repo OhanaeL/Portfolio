@@ -1,9 +1,12 @@
 /**
- * Illustrations for the two work cards, drawn as SVG so they follow the
+ * Illustrations for the work cards, drawn as SVG so they follow the
  * theme tokens. Both share one visual grammar: labelled boxes, thin arrows,
  * a filled accent node for the thing I built.
  */
-type Props = { kind: "runtime" | "pipeline" };
+export const DIAGRAM_KINDS = ["runtime", "pipeline", "sitepilot"] as const;
+export type DiagramKind = (typeof DIAGRAM_KINDS)[number];
+export const isDiagramKind = (k: string): k is DiagramKind => (DIAGRAM_KINDS as readonly string[]).includes(k);
+type Props = { kind: DiagramKind };
 
 function Box({ x, y, w, h, label, sub, accent }: { x: number; y: number; w: number; h: number; label: string; sub?: string; accent?: boolean }) {
   return (
@@ -94,6 +97,30 @@ function Pipeline() {
   );
 }
 
+function Sitepilot() {
+  return (
+    <svg className="dg" viewBox="0 0 560 250" role="img" aria-label="In the visitor's browser, the page opts elements in and the sitepilot loop turns them into a request and runs the tools that come back. A stateless Worker holds the keys and answers one round at a time, with Jev for the easy messages and the LLM for the rest.">
+      <Defs />
+      <text className="dg-caption" x="24" y="24">SEE · DECIDE · ACT</text>
+      <g className="dg-box dg-box--dashed">
+        <rect x={24} y={36} width={250} height={206} />
+        <text className="dg-caption" x={149} y={52} textAnchor="middle">THE VISITOR&apos;S BROWSER</text>
+      </g>
+      <Box x={40} y={66} w={98} h={44} label="The page" sub="opted-in elements" />
+      <Box x={40} y={176} w={98} h={44} label="Tools" sub="point · open · search" />
+      <Box x={162} y={121} w={98} h={44} label="sitepilot" sub="loop, ≤8 rounds" accent />
+      <Arrow d="M138 88 C 150 88, 150 143, 162 143" />
+      <Arrow d="M162 143 C 150 143, 150 198, 138 198" />
+      <Arrow d="M260 143 H302" both />
+      <Box x={304} y={121} w={98} h={44} label="Worker" sub="proxy · holds keys" accent />
+      <Arrow d="M402 143 C 422 143, 422 88, 440 88" />
+      <Arrow d="M402 143 C 422 143, 422 198, 440 198" />
+      <Box x={442} y={66} w={98} h={44} label="Jev" sub="the easy messages" />
+      <Box x={442} y={176} w={98} h={44} label="LLM" sub="everything else" />
+    </svg>
+  );
+}
+
 export default function WorkDiagram({ kind }: Props) {
-  return kind === "runtime" ? <Runtime /> : <Pipeline />;
+  return kind === "runtime" ? <Runtime /> : kind === "sitepilot" ? <Sitepilot /> : <Pipeline />;
 }

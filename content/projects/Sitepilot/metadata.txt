@@ -1,0 +1,14 @@
+description: An open-source library that gives a website an assistant which can see the page and act on it: point at things, open them, answer about them. It runs this site's assistant.
+date: 2026
+title: Author and maintainer
+tags: TypeScript, AI Agents, Tool Calling, React, LLM, Cloudflare Workers
+links:
+- sitepilot on GitHub|https://github.com/OhanaeL/sitepilot
+github: https://github.com/OhanaeL/sitepilot
+writeup: yes
+diagram: sitepilot
+diagram_caption: The page opts elements in, the loop in the browser builds each request and runs the tools that come back, and the Worker, the only backend, answers one round at a time: Jev for the easy messages, the LLM for the rest.
+stats:
+- 4|packages
+- ≤8|tool rounds per message, in the browser
+- 1|Jev call before any LLM

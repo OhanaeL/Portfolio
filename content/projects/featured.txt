@@ -1,5 +1,6 @@
 # Projects shown on the site, in order.
 # Anything not listed stays on disk but is not published. Add a line to bring it back.
+Sitepilot
 SPLASH Golf Club - AI Booking System
 RSU Jobfair System
 NextThai - AI Assisted Travel Planner
