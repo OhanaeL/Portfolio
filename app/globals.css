@@ -1,7 +1,7 @@
 /* ============================================================
-   Design tokens - neutral surfaces, one violet accent.
-   Light is the default; dark only with an explicit
-   data-theme="dark" on the html element.
+   Design tokens - palette #05040a #1a1423 #33273c #5e4765 #9c83a6.
+   Dark is the default (data-theme="dark" on the html element);
+   light keeps white surfaces with the same purple accent.
    ============================================================ */
 :root {
   --block-gap: 4rem;
@@ -9,36 +9,38 @@
   --surface: #ffffff;
   --surface-2: #f4f4f6;
   --border: #e5e5ea;
-  --text: #18181b;
-  --muted: #5f5f6a;
-  --faint: #8b8b96;
-  --accent: #2f5fd0;
-  --accent-soft: rgba(47, 95, 208, 0.08);
-  --accent-line: rgba(47, 95, 208, 0.22);
-  --shadow-sm: 0 1px 2px rgba(30, 40, 70, 0.06);
-  --shadow-md: 0 6px 20px rgba(30, 40, 70, 0.10);
+  --text: #1a1423;
+  --muted: #5f5866;
+  --faint: #8b8492;
+  --accent: #5e4765;
+  --accent-soft: rgba(94, 71, 101, 0.08);
+  --accent-line: rgba(94, 71, 101, 0.22);
+  --on-accent: #ffffff;
+  --shadow-sm: 0 1px 2px rgba(26, 20, 35, 0.06);
+  --shadow-md: 0 6px 20px rgba(26, 20, 35, 0.10);
   --radius: 4px;
   --maxw: 1240px;
-  --sb-thumb: rgba(24, 24, 27, 0.20);
-  --sb-thumb-hover: rgba(47, 95, 208, 0.45);
+  --sb-thumb: rgba(26, 20, 35, 0.20);
+  --sb-thumb-hover: rgba(94, 71, 101, 0.45);
 }
 
 
 :root[data-theme="dark"] {
-  --bg: #0b0b0d;
-  --surface: #141417;
-  --surface-2: #1b1b1f;
-  --border: #26262c;
-  --text: #f2f2f4;
-  --muted: #a5a5b0;
-  --faint: #74747f;
-  --accent: #5f8fe8;
-  --accent-soft: rgba(95, 143, 232, 0.10);
-  --accent-line: rgba(95, 143, 232, 0.28);
-  --shadow-sm: 0 1px 2px rgba(6, 10, 24, 0.5);
-  --shadow-md: 0 8px 28px rgba(6, 10, 24, 0.5);
-  --sb-thumb: rgba(255, 255, 255, 0.16);
-  --sb-thumb-hover: rgba(95, 143, 232, 0.5);
+  --bg: #05040a;
+  --surface: #1a1423;
+  --surface-2: #241c2f;
+  --border: #33273c;
+  --text: #f1edf4;
+  --muted: #b4a6bb;
+  --faint: #85718d;
+  --accent: #9c83a6;
+  --accent-soft: rgba(156, 131, 166, 0.12);
+  --accent-line: rgba(156, 131, 166, 0.32);
+  --on-accent: #05040a;
+  --shadow-sm: 0 1px 2px rgba(5, 4, 10, 0.6);
+  --shadow-md: 0 8px 28px rgba(5, 4, 10, 0.6);
+  --sb-thumb: rgba(156, 131, 166, 0.22);
+  --sb-thumb-hover: rgba(156, 131, 166, 0.55);
 }
 
 * { box-sizing: border-box; }
@@ -220,7 +222,7 @@ img { max-width: 100%; display: block; }
   transition: border-color 0.15s, background 0.15s, transform 0.15s;
 }
 .btn:hover { border-color: var(--accent-line); transform: translateY(-1px); }
-.btn-primary { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .btn-primary:hover { filter: brightness(1.06); }
 
 /* ---------- sections ---------- */
@@ -380,21 +382,21 @@ footer {
 /* no ambient glows: the page sits on a flat ground and the grain does the work */
 
 :root {
-  --glow-a: rgba(47, 95, 208, 0.22);
-  --glow-b: rgba(60, 110, 210, 0.11);
-  --glow-c: rgba(40, 80, 180, 0.08);
+  --glow-a: rgba(94, 71, 101, 0.22);
+  --glow-b: rgba(94, 71, 101, 0.11);
+  --glow-c: rgba(51, 39, 60, 0.08);
   --facet: rgba(255, 255, 255, 0.85);
-  --facet-edge: rgba(47, 95, 208, 0.28);
+  --facet-edge: rgba(94, 71, 101, 0.28);
   --grain: 0.6;
   --glass: 70%;
 }
 
 :root[data-theme="dark"] {
-  --glow-a: rgba(95, 143, 232, 0.34);
-  --glow-b: rgba(72, 118, 214, 0.16);
-  --glow-c: rgba(56, 96, 190, 0.12);
-  --facet: rgba(255, 255, 255, 0.16);
-  --facet-edge: rgba(95, 143, 232, 0.42);
+  --glow-a: rgba(156, 131, 166, 0.30);
+  --glow-b: rgba(94, 71, 101, 0.18);
+  --glow-c: rgba(51, 39, 60, 0.14);
+  --facet: rgba(255, 255, 255, 0.12);
+  --facet-edge: rgba(156, 131, 166, 0.42);
   --grain: 0.8;
   --glass: 58%;
 }
@@ -910,7 +912,7 @@ main, footer { position: relative; z-index: 1; }
   padding: 0.6rem 0.9rem;
   border-radius: var(--radius);
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
 }
 .skip:focus { top: 0.75rem; }
@@ -1169,8 +1171,8 @@ main > section.spot::after,
 .dg-box text { fill: var(--text); font-weight: 500; }
 .dg-box .dg-sub { fill: var(--muted); font-size: 9.5px; font-weight: 400; }
 .dg-box--accent rect { fill: var(--accent); stroke: var(--accent); }
-.dg-box--accent text { fill: #fff; }
-.dg-box--accent .dg-sub { fill: rgba(255, 255, 255, 0.78); }
+.dg-box--accent text { fill: var(--on-accent); }
+.dg-box--accent .dg-sub { fill: var(--on-accent); fill-opacity: 0.78; }
 .dg-box--dashed rect { stroke-dasharray: 3 3; fill: transparent; }
 .dg-box--dashed text { fill: var(--muted); font-size: 10.5px; }
 .dg-arrow { fill: none; stroke: var(--faint); stroke-width: 1.1; }

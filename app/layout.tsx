@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const catalog = site.pilot.enabled && site.pilot.url ? buildCatalog() : null;
   const pilot = catalog && { manifest: buildPilotManifest(catalog), catalog, url: site.pilot.url };
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" data-theme="dark" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body>
         {/* replay a saved theme choice before first paint so there is no flash */}
         <script
