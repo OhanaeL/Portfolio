@@ -60,6 +60,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="container footer-inner">
             <span>
               © {new Date().getFullYear()} {site.name}
+              <span className="footer-sep" aria-hidden="true"> · </span>
+              <a className="footer-legal" href={site.legal} target="_blank" rel="noopener noreferrer">
+                Terms
+              </a>
             </span>
             <nav className="footer-links" aria-label="Contact">
               <a href={`mailto:${site.email}`}>Email</a>

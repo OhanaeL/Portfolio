@@ -369,6 +369,7 @@ footer {
 }
 .footer-inner { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .footer-inner a:hover { color: var(--accent); }
+.footer-legal { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--border); }
 
 /* ============================================================
    Crystalline layer: prismatic ambient light, a fine film

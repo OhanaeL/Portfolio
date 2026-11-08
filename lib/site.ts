@@ -7,6 +7,7 @@ export const site = {
   email: "htinlinn.dev.03@gmail.com",
   github: "https://github.com/OhanaeL",
   linkedin: "https://www.linkedin.com/in/htin-linn-b599711a1/",
+  legal: "https://hl-terms.pages.dev",
   // GitHub Pages project site; the deploy workflow injects the /Portfolio base path.
   url: "https://ohanael.github.io/Portfolio",
 
