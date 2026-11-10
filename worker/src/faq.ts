@@ -12,7 +12,7 @@ export const FAQ: Record<string, { question: string; answer: string }> = {
   current_role: {
     question: "His current job, employer or role.",
     answer:
-      "Since April 2026 he has been a Software Engineer at General Magick Industries on MagickMind, where he owns the agent runtime: the agent supervisor, the AI inference service and agent memory.",
+      "Since April 2026 he has been a Software Engineer at General Magick Industries on MagickMind, where he builds the agent runtime: the agent supervisor, the AI inference service and agent memory.",
   },
   location: {
     question: "Where he is based or lives.",
@@ -34,7 +34,7 @@ export const FAQ: Record<string, { question: string; answer: string }> = {
   rangsit: {
     question: "His work at Rangsit University or Rangsit International College.",
     answer:
-      "From August 2024 to December 2025 he built internal systems at Rangsit International College: a QR attendance system, a job fair platform used by 300+ students and 100+ companies, and a course recommendation system used by about 100 students.",
+      "From August 2024 to December 2025 he built internal systems at Rangsit International College: a QR attendance system, a job fair platform used by 300+ students and 100+ companies, and a course recommendation system used by 100+ students.",
   },
   education: {
     question: "His education, degree, university or GPA.",

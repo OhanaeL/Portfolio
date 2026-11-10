@@ -28,8 +28,8 @@ export const site = {
   stats: [
     { figure: "40% faster", label: "Hot-path latency on a production AI service" },
     { figure: "4s → 2.5s", label: "Per-turn agent latency after caching the execution loop" },
-    { figure: "+34 pts", label: "GPQA accuracy from reasoning methods, same model as a direct call" },
-    { figure: "#1 contributor", label: "Across three production services" },
+    { figure: "61% → 100%", label: "Correct tool calls after moving agents to native tool calling" },
+    { figure: "110+ tickets", label: "Closed in the first seven months on a production AI platform" },
   ],
 
   resume: asset("/media/about/resume.pdf"),
@@ -54,7 +54,7 @@ export const work = [
     stats: [
       ["40%", "faster fast-path responses"],
       ["4s → 2.5s", "per agent turn"],
-      ["+22–34 pts", "GPQA accuracy from reasoning strategies"],
+      ["61% → 100%", "correct tool calls with native tool calling"],
     ],
     diagram: "runtime",
     caption: "The supervisor mints each agent's credentials and runs it as its own process. Agents receive workspace messages over pub/sub, reply the same way, and call the AI inference service and the AI memory service through the gateway. The agent decides when to escalate from the fast model to the frontier model.",
@@ -64,7 +64,7 @@ export const work = [
     eyebrow: "Associate Fullstack Engineer · Brillar (Atenxion)",
     title: "Multi-agent workflows and CRM integrations",
     blurb:
-      "A Google ADK multi-agent platform where teams build their own workflows from agent and tool nodes, the integration service that connects it to Zoho CRM, SalesIQ, Chatwoot and Zendesk, and its RAG retrieval.",
+      "Two multi-agent platforms, one on Google ADK and one on the OpenAI Agents SDK, where teams build their own workflows from agent and tool nodes, the integration service that connects them to Zoho CRM, SalesIQ, Chatwoot and Zendesk, and their RAG retrieval.",
     stats: [
       ["30%", "faster container build and startup"],
       ["4", "platforms behind one integration service"],

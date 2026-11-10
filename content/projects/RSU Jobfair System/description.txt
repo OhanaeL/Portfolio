@@ -25,5 +25,5 @@ The platform provides real-time updates on event status, company availability, a
 
 ## Project Impact
 
-The system successfully supported a live job fair event with ~300 users, demonstrating its scalability and reliability. The platform was designed for reuse, making it a sustainable solution for future university job fair events.
+The system successfully supported a live job fair event with 300+ students and 100+ companies, demonstrating its scalability and reliability. The platform was designed for reuse, making it a sustainable solution for future university job fair events.
 

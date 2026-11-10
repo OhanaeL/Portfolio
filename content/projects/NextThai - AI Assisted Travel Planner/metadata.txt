@@ -1,4 +1,4 @@
-description: AI travel assistant that generates personalized Thailand itineraries using LLM-based recommendations with downloadable PDF travel plans. Part of Hack the Zodiac Hackathon 2024 (2nd Runner-Up team)
+description: AI travel assistant that generates personalized Thailand itineraries using LLM-based recommendations with downloadable PDF travel plans. Reached the finals at Hack the Zodiac Hackathon 2024
 date: April 2024
 tags: LLM, Streamlit, Python, AI
 

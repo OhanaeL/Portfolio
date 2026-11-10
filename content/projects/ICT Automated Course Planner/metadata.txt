@@ -1,6 +1,6 @@
 description: AI course recommendation system adopted by 100+ ICT students to support data-driven course selection. Built on the Gemini SDK first, then migrated to Google ADK
 date: December 2024
-tags: Backend, Python, Django, AI, Gemini, Google ADK
+tags: Backend, Python, Django, FastAPI, AI, Gemini, Google ADK
 team:
 - Htin Linn
 

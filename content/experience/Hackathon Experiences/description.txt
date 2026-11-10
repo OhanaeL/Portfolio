@@ -8,7 +8,7 @@ During this hackathon, I developed two projects:
 - [website_link:NextThai - AI Assisted Travel Planner] - An AI-powered travel planning application for Thailand
 - [website_link:EcoMart - AI Assisted Eco-friendly Shopping Advisor] - An AI-powered eco-friendly shopping advisor
 
-Both projects were selected as finalists, showcasing my ability to create innovative solutions that combine AI technology with practical applications.
+NextThai reached the finals, and EcoMart placed 3rd (2nd Runner-Up).
 
 ## CIMSO Hospitality ERP Hackathon 2025 - 1st Place
 

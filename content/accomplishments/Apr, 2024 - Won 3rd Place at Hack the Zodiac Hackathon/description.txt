@@ -1,5 +1,5 @@
 Achieved [image:third.jpg:3rd Place (2nd Runner Up)] at the Hack the Zodiac Hackathon at Rangsit University.
 
-Developed two AI-powered applications: a travel planning tool and an eco-friendly shopping advisor. Advanced to finalist stage, demonstrating rapid development, teamwork, and problem-solving under time constraints.
+Developed two AI-powered applications: EcoMart, an eco-friendly shopping advisor, placed 3rd, and NextThai, a travel planner, reached the finals.
 
 Check out the projects here: [website_link:NextThai - AI Assisted Travel Planner] and [website_link:EcoMart - AI Assisted Eco-friendly Shopping Advisor]

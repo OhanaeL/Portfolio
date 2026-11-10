@@ -1,13 +1,11 @@
-I served as a Teaching Assistant and Software Developer Intern at Rangsit International College, Rangsit University from August 2024 to December 2025. This role was a significant part of my academic and professional development journey.
+I worked as a software developer under the Teaching Assistant program at Rangsit International College, Rangsit University, from August 2024 to December 2025: full-time until May 2025, then part-time. The role was software development for the college's own systems.
 
-I received [image:teaching_assistant.png:recognition] for my outstanding contribution as a teaching assistant and software engineer. During this time, I worked for an additional 4 months as part of my Co-Op Education process for RIC.
+I received [image:teaching_assistant.png:recognition] for my contribution. During this time, I worked for an additional 4 months as part of my Co-Op Education process for RIC.
 
 ## Key Responsibilities
 
-- Built backend services for internal systems, including a QR-based attendance system, job fair platform, and an alumni website (demo phase)
-- Assisted in teaching and supporting students in computer science courses
+- Built internal systems for the college: a QR-based attendance system, a job fair platform, an AI course recommendation system, and an alumni website (React and Express, demo phase)
 - Collaborated with faculty and students on various software projects
-- Provided technical guidance and mentorship to fellow students
 
 ## Projects Developed
 
@@ -23,16 +21,16 @@ Developed a job fair system used by 300+ students and 100+ participating compani
 
 ### ICT Course Planner
 
-Built an AI course recommendation system adopted by ~100 students to support data-driven course selection, starting on the Gemini SDK and later migrating to Google ADK.
+Built an AI course recommendation system adopted by 100+ students to support data-driven course selection, starting on the Gemini SDK and later migrating to Google ADK.
 
 ## Technologies & Skills
 
 - Python (FastAPI, Django)
-- JavaScript (Node.js, Express, React)
+- JavaScript (Node.js, Express, React, Next.js)
 - REST APIs
 - AI: Gemini SDK, Google ADK
 - MongoDB, MySQL
 - Git
 
-This experience provided valuable insights into software development in an academic environment and strengthened my skills in both development and teaching.
+This experience provided valuable insights into software development in an academic environment and strengthened my skills in building software for real users.
 

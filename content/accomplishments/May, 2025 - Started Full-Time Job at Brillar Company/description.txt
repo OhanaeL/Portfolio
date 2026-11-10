@@ -1,3 +1,3 @@
 Started full-time as an Associate Fullstack Engineer on a remote team at Brillar (Atenxion), Singapore.
 
-Owned end-to-end development of AI-focused Python microservices, led backend development for the CRM integration service and built the document ingestion pipeline that feeds the company's LLM workflows.
+Owned two AI-focused Python (FastAPI) microservices end to end, built two multi-agent workflow platforms and the CRM integration service behind them, and worked with the team on the document ingestion pipeline.
