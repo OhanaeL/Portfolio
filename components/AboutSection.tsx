@@ -39,10 +39,18 @@ export default function AboutSection() {
         ))}
 
         <dl className="facts">
-          {site.facts.map(([k, v]) => (
+          {site.facts.map(([k, v, href]) => (
             <div className="fact spot" key={k}>
               <dt>{k}</dt>
-              <dd>{v}</dd>
+              <dd>
+                {href ? (
+                  <a className="fact-link" href={href} target="_blank" rel="noopener noreferrer">
+                    {v}
+                  </a>
+                ) : (
+                  v
+                )}
+              </dd>
             </div>
           ))}
         </dl>

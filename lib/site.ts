@@ -20,13 +20,13 @@ export const site = {
     ["Based in", "Bangkok, Thailand"],
     ["Education", "B.Sc. in ICT, Rangsit International College, Rangsit University"],
     ["Working in", "Rust, Go, Python, TypeScript"],
-    ["Open source", "Contributor to Mindroid, MagickMind's Rust agent runtime"],
+    ["Open source", "Contributor to Mindroid, MagickMind's Rust agent runtime", "https://github.com/General-Magick-Industries/mindroid"],
     ["Hackathons", "1st place, CIMSO Hospitality ERP 2025. 3rd place, Hack the Zodiac 2024"],
-  ] as [string, string][],
+  ] as [string, string, string?][],
 
   // headline numbers, kept product-agnostic: what changed, not whose system it was
   stats: [
-    { figure: "40% faster", label: "Hot-path latency on a production AI service" },
+    { figure: "40% faster", label: "End-to-end model turns after refactoring a production AI inference service" },
     { figure: "4s → 2.5s", label: "Per-turn agent latency after caching the execution loop" },
     { figure: "61% → 100%", label: "Correct tool calls after moving agents to native tool calling" },
     { figure: "110+ tickets", label: "Closed in the first seven months on a production AI platform" },
@@ -52,7 +52,7 @@ export const work = [
     blurb:
       "Turning agents from a service that answered on their behalf into participants with their own identity, personality, memory and process.",
     stats: [
-      ["40%", "faster fast-path responses"],
+      ["40%", "faster end-to-end model turns"],
       ["4s → 2.5s", "per agent turn"],
       ["61% → 100%", "correct tool calls with native tool calling"],
     ],

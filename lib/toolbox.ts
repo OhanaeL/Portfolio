@@ -52,7 +52,6 @@ export const toolbox: ToolGroup[] = [
     tools: [
       { name: "LLM APIs" },
       { name: "Google ADK" },
-      { name: "LangChain" },
       { name: "RAG" },
       { name: "MCP" },
       { name: "Vector search" },

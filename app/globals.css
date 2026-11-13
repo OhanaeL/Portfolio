@@ -1,46 +1,49 @@
 /* ============================================================
-   Design tokens - palette #05040a #1a1423 #33273c #5e4765 #9c83a6.
+   Design tokens - palette #010101 #e6ddd6 #918983 #5b3629
+   #682bd7 #a37cf0 #bd2e95.
    Dark is the default (data-theme="dark" on the html element);
-   light keeps white surfaces with the same purple accent.
+   light sits on Pearl Bush with Purple Heart as the accent.
    ============================================================ */
 :root {
   --block-gap: 4rem;
-  --bg: #fbfbfc;
-  --surface: #ffffff;
-  --surface-2: #f4f4f6;
-  --border: #e5e5ea;
-  --text: #1a1423;
-  --muted: #5f5866;
-  --faint: #8b8492;
-  --accent: #5e4765;
-  --accent-soft: rgba(94, 71, 101, 0.08);
-  --accent-line: rgba(94, 71, 101, 0.22);
+  --bg: #f3eee9;
+  --surface: #fbf8f5;
+  --surface-2: #e6ddd6;
+  --border: #d8cdc4;
+  --text: #140d0b;
+  --muted: #5e5550;
+  --faint: #857c76;
+  --accent: #682bd7;
+  --accent-2: #bd2e95;
+  --accent-soft: rgba(104, 43, 215, 0.08);
+  --accent-line: rgba(104, 43, 215, 0.24);
   --on-accent: #ffffff;
-  --shadow-sm: 0 1px 2px rgba(26, 20, 35, 0.06);
-  --shadow-md: 0 6px 20px rgba(26, 20, 35, 0.10);
+  --shadow-sm: 0 1px 2px rgba(91, 54, 41, 0.08);
+  --shadow-md: 0 6px 20px rgba(91, 54, 41, 0.12);
   --radius: 4px;
   --maxw: 1240px;
-  --sb-thumb: rgba(26, 20, 35, 0.20);
-  --sb-thumb-hover: rgba(94, 71, 101, 0.45);
+  --sb-thumb: rgba(91, 54, 41, 0.22);
+  --sb-thumb-hover: rgba(104, 43, 215, 0.45);
 }
 
 
 :root[data-theme="dark"] {
-  --bg: #05040a;
-  --surface: #1a1423;
-  --surface-2: #241c2f;
-  --border: #33273c;
-  --text: #f1edf4;
-  --muted: #b4a6bb;
-  --faint: #85718d;
-  --accent: #9c83a6;
-  --accent-soft: rgba(156, 131, 166, 0.12);
-  --accent-line: rgba(156, 131, 166, 0.32);
-  --on-accent: #05040a;
-  --shadow-sm: 0 1px 2px rgba(5, 4, 10, 0.6);
-  --shadow-md: 0 8px 28px rgba(5, 4, 10, 0.6);
-  --sb-thumb: rgba(156, 131, 166, 0.22);
-  --sb-thumb-hover: rgba(156, 131, 166, 0.55);
+  --bg: #010101;
+  --surface: #110d0c;
+  --surface-2: #1b1513;
+  --border: #33261f;
+  --text: #e6ddd6;
+  --muted: #b3aaa4;
+  --faint: #918983;
+  --accent: #a37cf0;
+  --accent-2: #bd2e95;
+  --accent-soft: rgba(163, 124, 240, 0.12);
+  --accent-line: rgba(163, 124, 240, 0.32);
+  --on-accent: #010101;
+  --shadow-sm: 0 1px 2px rgba(1, 1, 1, 0.6);
+  --shadow-md: 0 8px 28px rgba(1, 1, 1, 0.6);
+  --sb-thumb: rgba(145, 137, 131, 0.25);
+  --sb-thumb-hover: rgba(163, 124, 240, 0.55);
 }
 
 * { box-sizing: border-box; }
@@ -382,21 +385,21 @@ footer {
 /* no ambient glows: the page sits on a flat ground and the grain does the work */
 
 :root {
-  --glow-a: rgba(94, 71, 101, 0.22);
-  --glow-b: rgba(94, 71, 101, 0.11);
-  --glow-c: rgba(51, 39, 60, 0.08);
+  --glow-a: rgba(104, 43, 215, 0.18);
+  --glow-b: rgba(189, 46, 149, 0.10);
+  --glow-c: rgba(91, 54, 41, 0.08);
   --facet: rgba(255, 255, 255, 0.85);
-  --facet-edge: rgba(94, 71, 101, 0.28);
+  --facet-edge: rgba(104, 43, 215, 0.24);
   --grain: 0.6;
   --glass: 70%;
 }
 
 :root[data-theme="dark"] {
-  --glow-a: rgba(156, 131, 166, 0.30);
-  --glow-b: rgba(94, 71, 101, 0.18);
-  --glow-c: rgba(51, 39, 60, 0.14);
-  --facet: rgba(255, 255, 255, 0.12);
-  --facet-edge: rgba(156, 131, 166, 0.42);
+  --glow-a: rgba(163, 124, 240, 0.28);
+  --glow-b: rgba(189, 46, 149, 0.16);
+  --glow-c: rgba(91, 54, 41, 0.18);
+  --facet: rgba(230, 221, 214, 0.10);
+  --facet-edge: rgba(163, 124, 240, 0.40);
   --grain: 0.8;
   --glass: 58%;
 }
@@ -918,6 +921,9 @@ main, footer { position: relative; z-index: 1; }
 .skip:focus { top: 0.75rem; }
 
 .footer-links { display: flex; gap: 1.25rem; }
+body:has(.sp-launch) .footer-inner { padding-right: 5rem; }
+.fact-link { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--accent-line); }
+.fact-link:hover { color: var(--accent); }
 
 /* scroll-entry: hidden only once JS has taken over, so no-JS renders fully */
 :root[data-js] .reveal {
@@ -1134,7 +1140,7 @@ main > section.spot::after,
     radial-gradient(
       var(--spot-r) circle at var(--x, -9999px) var(--y, -9999px),
       var(--accent) 0%,
-      color-mix(in srgb, var(--accent) 55%, transparent) 35%,
+      color-mix(in srgb, var(--accent-2) 55%, transparent) 35%,
       transparent 100%
     ),
     var(--border);

@@ -66,7 +66,7 @@ function Runtime() {
 
 function Pipeline() {
   return (
-    <svg className="dg" viewBox="0 0 560 250" role="img" aria-label="Zoho CRM, SalesIQ, Chatwoot and Zendesk connect through one integration service; documents and crawled pages are prepared for Docling OCR and feed the ADK agents' retrieval, with Grafana and OpenTelemetry watching every service.">
+    <svg className="dg" viewBox="0 0 560 250" role="img" aria-label="Zoho CRM, SalesIQ, Chatwoot and Zendesk connect through one integration service; documents and crawled pages are prepared for Docling OCR and feed retrieval for the two agent-workflow platforms, one on Google ADK and one on the OpenAI Agents SDK, with Grafana and OpenTelemetry watching every service.">
       <Defs />
       <text className="dg-caption" x="24" y="30">CONNECT · RETRIEVE · OBSERVE</text>
       <Box x={24} y={44} w={88} h={34} label="Zoho CRM" />
@@ -83,7 +83,7 @@ function Pipeline() {
       <Box x={170} y={201} w={104} h={44} label="File prep" sub="→ Docling OCR" accent />
       <Arrow d="M274 121 C 306 121, 306 172, 338 172" />
       <Arrow d="M274 223 C 306 223, 306 172, 338 172" />
-      <Box x={340} y={150} w={104} h={44} label="ADK agents" sub="workflows" />
+      <Box x={340} y={150} w={104} h={44} label="Agent workflows" sub="ADK · Agents SDK" />
       <Arrow d="M444 172 H486" />
       <Box x={488} y={150} w={52} h={44} label="Apps" />
       <g className="dg-box dg-box--dashed">
