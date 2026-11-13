@@ -2,7 +2,8 @@
    Design tokens - palette #010101 #e6ddd6 #918983 #5b3629
    #682bd7 #a37cf0 #bd2e95.
    Dark is the default (data-theme="dark" on the html element);
-   light sits on Pearl Bush with Purple Heart as the accent.
+   Accents are the palette's purples muted toward Schooner (dark) and
+   Quincy (light); light sits on Pearl Bush.
    ============================================================ */
 :root {
   --block-gap: 4rem;
@@ -13,17 +14,17 @@
   --text: #140d0b;
   --muted: #5e5550;
   --faint: #857c76;
-  --accent: #682bd7;
+  --accent: #643a9e;
   --accent-2: #bd2e95;
-  --accent-soft: rgba(104, 43, 215, 0.08);
-  --accent-line: rgba(104, 43, 215, 0.24);
+  --accent-soft: rgba(100, 58, 158, 0.08);
+  --accent-line: rgba(100, 58, 158, 0.24);
   --on-accent: #ffffff;
   --shadow-sm: 0 1px 2px rgba(91, 54, 41, 0.08);
   --shadow-md: 0 6px 20px rgba(91, 54, 41, 0.12);
   --radius: 4px;
   --maxw: 1240px;
   --sb-thumb: rgba(91, 54, 41, 0.22);
-  --sb-thumb-hover: rgba(104, 43, 215, 0.45);
+  --sb-thumb-hover: rgba(100, 58, 158, 0.45);
 }
 
 
@@ -35,15 +36,15 @@
   --text: #e6ddd6;
   --muted: #b3aaa4;
   --faint: #918983;
-  --accent: #a37cf0;
+  --accent: #9d86c4;
   --accent-2: #bd2e95;
-  --accent-soft: rgba(163, 124, 240, 0.12);
-  --accent-line: rgba(163, 124, 240, 0.32);
+  --accent-soft: rgba(157, 134, 196, 0.12);
+  --accent-line: rgba(157, 134, 196, 0.32);
   --on-accent: #010101;
   --shadow-sm: 0 1px 2px rgba(1, 1, 1, 0.6);
   --shadow-md: 0 8px 28px rgba(1, 1, 1, 0.6);
   --sb-thumb: rgba(145, 137, 131, 0.25);
-  --sb-thumb-hover: rgba(163, 124, 240, 0.55);
+  --sb-thumb-hover: rgba(157, 134, 196, 0.55);
 }
 
 * { box-sizing: border-box; }
@@ -389,7 +390,7 @@ footer {
   --glow-b: rgba(189, 46, 149, 0.10);
   --glow-c: rgba(91, 54, 41, 0.08);
   --facet: rgba(255, 255, 255, 0.85);
-  --facet-edge: rgba(104, 43, 215, 0.24);
+  --facet-edge: rgba(100, 58, 158, 0.24);
   --grain: 0.6;
   --glass: 70%;
 }
@@ -399,7 +400,7 @@ footer {
   --glow-b: rgba(189, 46, 149, 0.16);
   --glow-c: rgba(91, 54, 41, 0.18);
   --facet: rgba(230, 221, 214, 0.10);
-  --facet-edge: rgba(163, 124, 240, 0.40);
+  --facet-edge: rgba(157, 134, 196, 0.40);
   --grain: 0.8;
   --glass: 58%;
 }
