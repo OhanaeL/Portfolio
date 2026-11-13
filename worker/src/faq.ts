@@ -51,7 +51,7 @@ export const FAQ: Record<string, { question: string; answer: string }> = {
   results: {
     question: "His biggest results, impact or numbers.",
     answer:
-      "He cut end-to-end model turn time 40% on a production AI service and per-turn agent latency from 6s to 2.5s, and his native tool calling raised correct tool calls from 61% to 100%. Each agent he runs uses about 5 MB of memory.",
+      "He cut end-to-end model turn time 40% on a production AI service and per-turn agent latency from 11s to 3.8s, and his native tool calling raised correct tool calls from 61% to 100%. Each agent he runs uses about 5 MB of memory.",
   },
   this_chat: {
     question: "How this chat or assistant works, or what powers it.",

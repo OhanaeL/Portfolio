@@ -27,7 +27,7 @@ export const site = {
   // headline numbers, kept product-agnostic: what changed, not whose system it was
   stats: [
     { figure: "40% faster", label: "End-to-end model turns after refactoring a production AI inference service" },
-    { figure: "6s → 2.5s", label: "Per-turn agent latency after caching the execution loop" },
+    { figure: "11s → 3.8s", label: "Per agent turn after I reworked how agents run a turn" },
     { figure: "61% → 100%", label: "Correct tool calls after I replaced text-parsed tool calls with native ones" },
     { figure: "110+ tickets", label: "Closed in the first seven months on a production AI platform" },
   ],
@@ -53,7 +53,7 @@ export const work = [
       "Turning agents from a service that answered on their behalf into participants with their own identity, personality, memory and process.",
     stats: [
       ["40%", "faster end-to-end model turns"],
-      ["6s → 2.5s", "per agent turn"],
+      ["11s → 3.8s", "per agent turn"],
       ["61% → 100%", "correct tool calls after I moved agents to native tool calling"],
     ],
     diagram: "runtime",
