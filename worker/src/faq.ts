@@ -7,7 +7,7 @@ export const FAQ: Record<string, { question: string; answer: string }> = {
   about: {
     question: "Who Lynn is or what he does in general, such as 'who is he', 'tell me about him', 'what does he do' or 'introduce him'.",
     answer:
-      "Lynn (Htin Linn) is a software engineer at General Magick Industries, on its MagickMind platform. He builds the runtime AI agents run on: the supervisor that launches each agent as an isolated process, the AI inference service behind it, and agent memory, in Rust, Go and Python.",
+      "Lynn (Htin Linn) is a software engineer at General Magick Industries, on its MagickMind platform. He optimizes AI agents and the services behind them, from model latency to tool-call reliability: the supervisor that runs each agent, the AI inference service behind it, and agent memory, in Rust, Go and Python.",
   },
   current_role: {
     question: "His current job, employer or role.",

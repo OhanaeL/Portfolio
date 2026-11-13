@@ -11,9 +11,9 @@ export const site = {
   // GitHub Pages project site; the deploy workflow injects the /Portfolio base path.
   url: "https://ohanael.github.io/Portfolio",
 
-  headline: "I build the systems AI agents run on.",
+  headline: "I make AI systems faster and more reliable.",
   description:
-    "Software engineer working on agent runtimes and the backend services behind them, in Rust, Go and Python.",
+    "Software engineer who optimizes AI agents and the services behind them, from model latency to tool-call reliability, in Rust, Go and Python.",
 
   // the About block: a two-sentence intro (content/about/introduction.txt) plus these facts
   facts: [
@@ -29,7 +29,7 @@ export const site = {
     { figure: "40% faster", label: "End-to-end model turns after refactoring a production AI inference service" },
     { figure: "11s → 3.8s", label: "Per agent turn after I reworked how agents run a turn" },
     { figure: "61% → 100%", label: "Correct tool calls after I replaced text-parsed tool calls with native ones" },
-    { figure: "110+ tickets", label: "Closed in the first seven months on a production AI platform" },
+    { figure: "~7s worst case", label: "Memory search, down from 30–60 s hangs when the embedding provider stalled" },
   ],
 
   resume: asset("/media/about/resume.pdf"),
@@ -48,9 +48,9 @@ export const work = [
   {
     slug: "software-engineer-at-general-magick-industries",
     eyebrow: "Software Engineer · General Magick Industries",
-    title: "Agents with an identity of their own",
+    title: "Cutting the wait on agent turns",
     blurb:
-      "Turning agents from a service that answered on their behalf into participants with their own identity, personality, memory and process.",
+      "Where the time in an agent's turn went and how I cut it: a fast model for easy questions, an async AI inference service, work moved off the critical path, a context cache, and a ceiling on slow memory lookups.",
     stats: [
       ["40%", "faster end-to-end model turns"],
       ["11s → 3.8s", "per agent turn"],

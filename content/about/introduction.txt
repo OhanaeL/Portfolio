@@ -1,1 +1,1 @@
-I'm a software engineer at General Magick Industries, on its MagickMind platform. I like working with AI agents and building the systems around them, and I focus on isolation and agent memory. Outside of engineering, I also do digital art on the side.
+I'm a software engineer at General Magick Industries, on its MagickMind platform. I like working with AI agents and the systems around them, and I focus on making them faster and more reliable. Outside of engineering, I also do digital art on the side.

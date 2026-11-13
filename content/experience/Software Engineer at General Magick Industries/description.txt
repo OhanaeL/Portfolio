@@ -1,55 +1,62 @@
-MagickMind is General Magick Industries' platform for AI agents. A product built on it can give its users agents that take part in shared chat rooms, remember past conversations, and act on what they are told. When I joined, agents were served by one shared backend: it answered on behalf of every agent, and an agent's only context was the memory of the person it was talking to. This case study is about turning that into something closer to a mind: an agent with its own identity, its own personality, its own memory and its own running process.
+MagickMind is General Magick Industries' platform for AI agents. A product built on it can give its users agents that take part in shared chat rooms, remember past conversations, and act on what they are told. Each agent runs as its own process with its own identity, and joins a room the way a person's app does. Once agents worked that way, the question became how long people had to wait for them. This case study is about that wait: where the time in an agent's turn went, and what I did about it.
 
-## The problem
+## What a turn does
 
-- **One service answered for every agent.** It received each message, called the model, and posted the reply as "the assistant". A workspace could hold one agent, never several, and nothing an agent said could be traced to a specific agent.
-- **Agents remembered nothing of their own.** When an agent needed context, the platform looked up the *human's* memories and the model played a character on top of them. Talk to the same agent in two rooms and it had no idea it had met you before.
-- **The room owned the memories.** Memories were filed per workspace, and summaries described the room's history from no one's point of view.
+When a message arrives, the agent reads its context (the room's recent history, its personality and what it remembers about the people in the room), sends that to a model through the AI inference service, runs any tools the model asks for, and posts its reply. Every one of those steps can make a person wait.
 
-The principle I worked from: the basic unit should be the agent, not the room. An agent owns its memories, its personality and its history, and that bundle can walk into any workspace.
+## Where the time went
 
-[figure:bundle]
+- **Every question took the slow path.** An easy question went through the same heavyweight reasoning as a hard one, so a greeting could cost as much as a research question.
+- **The AI inference service queued requests.** It served requests on a fixed pool of ten threads. Under load, a request waited for a free thread before any work started.
+- **A turn did everything in order.** It fetched history, then the personality, then called the model, even though none of those steps needed the others' results.
+- **Tool calls were parsed out of model text.** Models drifted from the expected format, so calls were missed and raw tool syntax sometimes reached the chat as the agent's reply.
+- **Memory search sometimes hung.** When the embedding provider stalled, a search waited 30–60 seconds, and the agent either answered late or said its memory had failed.
 
-## Options
+## What I changed
 
-Where should an agent live? Three shapes were considered.
+### Answer easy turns with a fast model
 
-1. **In a library on the customer's side.** Agents could connect to any platform, but the reasoning and memory code would have to leave our servers.
-2. **Inside the existing service.** Nothing to deploy, but the one-agent, one-sender limits stay.
-3. **As a real participant.** Each agent gets its own connection and identity and calls the backend for thinking and remembering. This is what we built.
-
-Memory had its own ladder: first file an agent's memories under the agent's own name instead of "assistant"; then give each memory a point of view, so an agent's summary of a conversation is its own, not the room's; finally, an agent that runs on its own and does its own remembering. I took all three steps, the first two in the memory service and the last in the supervisor.
-
-## What I built
-
-### Identity and process
-
-The supervisor is the part of the platform that runs agents. Given an agent's definition, it issues that agent its own credentials, tied to one customer account, and starts it as a separate program built on Mindroid, the company's open-source Rust agent toolkit. The agent's identity is fixed at creation and cannot be changed by configuration. It joins a workspace the same way a person's app does, listening on the same channel and replying through the same endpoint. Every message it sends carries its own name. Several agents can share a room, and one that misbehaves can be stopped and restarted without disturbing the others.
-
-[figure:before-after]
-
-### Personality
-
-Each agent loads its personality from a system my teammates built: a versioned set of traits that evolves per person the agent meets. The supervisor loads it when the agent starts and keeps it for the life of the process, so personality belongs to the agent, not to whichever room it is in.
-
-### Memory
-
-I gave agents their own point of view. Each memory now records whose memory it is. An agent can look back through its own memories as well as the user's, and can ask what happened in a given period across every room it has been in. Every lookup is limited to one customer account, so an agent that serves several customers keeps their memories apart. Summaries of one-to-one conversations name who said what. When a turn starts, the agent remembers twice: what it knows about this person, and what it learned the last time it was here.
-
-### The turn
-
-With identity, personality and memory in place, each conversation turn is the agent's own loop. It can call tools directly instead of having tool requests fished out of model text. A cheap, fast model answers most turns and hands the same turn, with the same context, to a stronger model when it is not confident. The hand-off is a single yes/no field in one required tool call, so the small model has only one way to answer.
+A cheap, fast model takes every turn first. It either answers or hands the same turn, with the same context, to a stronger model. The hand-off is a single yes/no field in one required tool call, so the small model has only one way to answer. When it does hand off, it posts a short holding line in the agent's own voice first, so the room is never silent. In testing, a simple question came back in 2.6 seconds.
 
 [figure:escalation]
 
+### Move the AI inference service to async
+
+I migrated the AI inference service from a synchronous server on ten threads to an async one. Older blocking code still runs, but on a bounded pool of its own, off the main loop, with a cap on concurrent requests so the service pushes back instead of falling over. Under load, a request no longer waits for one of ten threads to free up.
+
+### Take work off the critical path
+
+Anything the model's answer does not depend on now runs at the same time as the model call. While the model writes its reply, the agent already re-reads the room's history for the next turn. On a turn with nothing cached, the personality and the history are fetched together, so the turn waits for the slower of the two instead of both. When the model asks for several tools in one step, they run at once, and their results still go back in the order the model asked for them. Messages that arrive while a turn is running are merged into one follow-up instead of queuing a turn each.
+
+### Cache the context
+
+Each room's prepared context is cached, so most turns start without fetching anything. The refresh that runs during the model call keeps the cache current, and the agent's own reply is added to it afterwards, because the refresh started before that reply existed. The same rework moved agents to the newer inference route, which skips a verification pass the old route ran before every answer. Together, these took a turn from 11 seconds to 3.8.
+
+### Replace text-parsed tool calls with native ones
+
+I moved tool calling to the model's native format across the gateway, the AI inference service and the agent runtime. In a benchmark, correct tool calls went from 61% to 100%, and the slowest turns dropped from 4.2 seconds to 3.2.
+
+### Put a ceiling on memory search
+
+Query embeddings now get their own client with a 2-second timeout and two retries, and search falls back to keyword matching when the vector side cannot answer in time. Against the development environment, 9 of 10 embeddings came back in 0.5–6.6 seconds and the tenth gave up at 7.4, instead of hanging for up to a minute. Separately, a short memory policy tells the agent to look things up for anything that depends on a shared past and to skip lookups for small talk. With that and parallel tool calls, over 44 live turns, the median answer to a memory question went from 11.8 seconds to 5.0.
+
+## Keeping the cache correct
+
+The hard part of the cache was keeping it right, not making it fast.
+
+- **The refresh is awaited, never left running in the background.** Otherwise it could land after the reply was added and overwrite it with history from before the reply existed.
+- **A stale refresh loses.** A message the agent stays silent on clears the room's entry. A refresh that started before that would put the old history back, so each entry carries a generation number, and a refresh whose generation has moved on is dropped.
+- **Replayed text is escaped exactly like fetched text.** A reply added to the cache goes back into the prompt as the agent's own words. If it skipped the escaping the normal path applies, the cache would become a way to inject instructions. A test checks the two paths produce identical text.
+- **The cache is bounded.** It keeps 64 rooms and evicts the one touched least recently.
+
 ## Results
 
-- Several agents can share a workspace, each with its own identity, and every message is attributed to the agent that sent it. Group rooms with people and several agents now make sense: an agent can answer a person, answer another agent, or stay quiet, and everyone in the room can see who said what.
-- An agent remembers the people it has met across rooms. Its own memory and the user's memory are looked up on the same system.
-- A turn takes 3.8 seconds instead of 11 after I reworked how agents run a turn. Refactoring the AI inference service cut end-to-end model turn time by 40%.
-- I added four reasoning strategies to the AI inference service (RLM, Lambda-RLM, a panel of judges and tree search) and benchmarked them on GPQA, LongCoT and LoCoMo.
-- Since joining I have closed 110+ tickets, and I contribute to Mindroid and the Python SDK.
+- A turn takes 3.8 seconds instead of 11.
+- Refactoring the AI inference service cut end-to-end model turn time by 40%.
+- Correct tool calls went from 61% to 100%, and the slowest turns from 4.2 seconds to 3.2.
+- Memory search has a worst case of about 7 seconds instead of 30–60-second hangs, and the median memory answer went from 11.8 seconds to 5.0.
+- Since joining I have closed 110+ tickets, and I contribute to Mindroid, the company's open-source Rust agent toolkit.
 
 ## Looking back
 
-The fix that mattered most was also the smallest, and I did it last. Every agent's messages were filed as "assistant" because of a single hard-coded sender. That was not carelessness; it is how the chat protocol every model provider uses works. A conversation has three roles, system, user and assistant, and every framework built on it files the model's reply under the third. Following the standard meant no agent could have a name of its own. Giving each agent its own user identity went against that default, and every other piece of this work depended on it: none of the memory changes could show a visible result until agents had names. It is done now, and it is what made mixed rooms of people and agents work at all: once an agent is a named participant, a conversation between two agents and a human is the same kind of conversation as one between three humans. If I were starting over I would make that change on day one and build the supervisor on top of it, instead of building the supervisor first and discovering the missing name underneath.
+I expected our own code to be the slow part. When I measured a turn, the model call was 98.7% of it, and fetching context took 19 milliseconds. Shaving our own calls still mattered for the turns that followed, but the biggest wins came from not asking the model for work it did not need to do: a fast model for easy questions, and no verification pass before every answer. If I started again, I would measure where a turn's time goes on day one, before deciding what to optimise.
