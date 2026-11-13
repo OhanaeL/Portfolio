@@ -28,7 +28,7 @@ export const site = {
   stats: [
     { figure: "40% faster", label: "End-to-end model turns after refactoring a production AI inference service" },
     { figure: "4s → 2.5s", label: "Per-turn agent latency after caching the execution loop" },
-    { figure: "61% → 100%", label: "Correct tool calls after moving agents to native tool calling" },
+    { figure: "61% → 100%", label: "Correct tool calls after I replaced text-parsed tool calls with native ones" },
     { figure: "110+ tickets", label: "Closed in the first seven months on a production AI platform" },
   ],
 
@@ -54,7 +54,7 @@ export const work = [
     stats: [
       ["40%", "faster end-to-end model turns"],
       ["4s → 2.5s", "per agent turn"],
-      ["61% → 100%", "correct tool calls with native tool calling"],
+      ["61% → 100%", "correct tool calls after I moved agents to native tool calling"],
     ],
     diagram: "runtime",
     caption: "The supervisor mints each agent's credentials and runs it as its own process. Agents receive workspace messages over pub/sub, reply the same way, and call the AI inference service and the AI memory service through the gateway. The agent decides when to escalate from the fast model to the frontier model.",
