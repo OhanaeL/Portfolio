@@ -20,9 +20,9 @@ export const site = {
     ["Based in", "Bangkok, Thailand"],
     ["Education", "B.Sc. in ICT, Rangsit International College, Rangsit University"],
     ["Working in", "Rust, Go, Python, TypeScript"],
-    ["Open source", "Contributor to Mindroid, MagickMind's Rust agent runtime", "https://github.com/General-Magick-Industries/mindroid"],
+    ["Open source", "Contributor to Mindroid, MagickMind's Rust agent runtime", ["Mindroid", "https://github.com/General-Magick-Industries/mindroid"]],
     ["Hackathons", "1st place, CIMSO Hospitality ERP 2025. 3rd place, Hack the Zodiac 2024"],
-  ] as [string, string, string?][],
+  ] as [string, string, [string, string]?][],
 
   // headline numbers, kept product-agnostic: what changed, not whose system it was
   stats: [
